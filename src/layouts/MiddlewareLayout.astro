@@ -1,0 +1,98 @@
+<div
+  class="hidden h-dvh grid-rows-[auto_min-content_min-content_min-content_auto] justify-items-stretch bg-rosewood pt-12"
+  id="is-adult"
+>
+  <h2 class="text-center text-sm uppercase text-anti-flash-white">
+    de cajón destilados
+  </h2>
+  <h1
+    class="mb-7 w-80 justify-self-center text-center text-4xl uppercase text-anti-flash-white"
+  >
+    ¿Eres mayor de edad?
+  </h1>
+  <div class="justify-self-center">
+    <input type="checkbox" />
+  </div>
+  <p class="mt-8 text-center text-base text-anti-flash-white" id="check-output">
+    No
+  </p>
+  <p
+    class="mt-3 w-80 justify-self-center text-center text-base text-anti-flash-white"
+  >
+    Acepto las condiciones y normas al ingresar a este servidor.
+  </p>
+</div>
+<main class="hidden" id="app">
+  <slot />
+</main>
+<style>
+  input[type='checkbox'] {
+    appearance: none;
+    background: #d9d9d9;
+    height: 154px;
+    width: 62px;
+    border-radius: 41px;
+    cursor: pointer;
+    position: relative;
+  }
+  input[type='checkbox']::before {
+    content: '';
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background: #6f0413;
+    rotate: 90deg;
+    background-image: url('/icons/angle-right.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    left: 50%;
+    transition: 0.5s ease-in-out;
+    transform: translate(10px, 50%);
+  }
+  input[type='checkbox']:checked::before {
+    transform: translate(94px, 50%);
+  }
+</style>
+<script>
+  const isAdult = window.localStorage.getItem('isAdult')
+  const mainIsAdultEl = document.querySelector('div#is-adult')
+  const mainEl = document.querySelector('main#app')
+  const checkOutput = document.querySelector('p#check-output')
+  const checkbox = document.querySelector('input[type=checkbox]')
+
+  if (!isAdult) {
+    mainIsAdultEl?.classList.remove('hidden')
+    mainIsAdultEl?.classList.add('grid')
+    mainEl?.classList.add('hidden')
+  }
+
+  if (isAdult) {
+    mainEl?.classList.remove('hidden')
+    mainEl?.classList.add('block')
+    mainIsAdultEl?.classList.add('hidden')
+    mainIsAdultEl?.remove()
+  }
+
+  const checkAsAdult = (checked: boolean) => {
+    window.localStorage.setItem('isAdult', JSON.stringify(checked))
+  }
+
+  checkbox?.addEventListener('change', (ev) => {
+    if (checkOutput) {
+      checkOutput.innerHTML = (ev.target as HTMLInputElement)?.checked
+        ? // TODO: require translate "Si" and "No"
+          'Si'
+        : 'No'
+    }
+    if ((ev.target as HTMLInputElement).checked) {
+      checkAsAdult((ev.target as HTMLInputElement).checked)
+      setTimeout(() => {
+        mainEl?.classList.remove('hidden')
+        mainEl?.classList.add('block')
+        mainIsAdultEl?.classList.add('hidden')
+        mainIsAdultEl?.remove()
+      }, 800)
+    }
+  })
+</script>

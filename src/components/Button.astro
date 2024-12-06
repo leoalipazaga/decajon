@@ -1,0 +1,34 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+
+type CommonProps = {
+  variant?: 'rounded' | 'fill' | 'outline'
+}
+type Props<T extends 'button' | 'a'> = HTMLAttributes<T> & {
+  as?: T
+} & CommonProps
+
+const { as: Element = 'button', variant = 'fill', ...attrs } = Astro.props
+const variantMap = new Map<CommonProps['variant'], string>([
+  ['fill', 'w-auto bg-rosewood text-zinc-1000 py-2 px-3 rounded-[1.25rem]'],
+  [
+    'outline',
+    'w-auto border border-rosewood text-rosewood py-2 px-3 rounded-[1.25rem]',
+  ],
+  [
+    'rounded',
+    'bg-rosewood rounded-full flex items-center justify-center w-[2.5rem] h-[2.5rem]',
+  ],
+])
+---
+
+<Element
+  class:list={[
+    ' text-center cursor-pointer text-base font-thabit',
+    variantMap.get(variant),
+    attrs.class,
+  ]}
+  {...attrs}
+>
+  <slot />
+</Element>

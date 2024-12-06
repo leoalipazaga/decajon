@@ -1,0 +1,19 @@
+---
+import { Image } from 'astro:assets'
+import Button from 'components/Button.astro'
+import AngleLeft from 'icons/angle-left.svg'
+---
+
+<div class="absolute left-14 top-28 z-10 md:hidden lg:block">
+  <Button variant="rounded" id="back-button">
+    <Image loading="eager" src={AngleLeft} alt="angle-left" />
+  </Button>
+</div>
+<slot />
+<script>
+  const backEl = document.querySelector('#back-button')
+
+  backEl?.addEventListener('click', () => {
+    window.history.back()
+  })
+</script>

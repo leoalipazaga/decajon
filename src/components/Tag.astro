@@ -1,0 +1,13 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+
+type Props = HTMLAttributes<'span'>
+const { class: className } = Astro.props
+---
+
+<span
+  class:list={[
+    'border border-rosewood rounded-[1.25rem] text-nowrap text-eerie-black px-[2.625rem] py-1.5',
+    className,
+  ]}><slot /></span
+>

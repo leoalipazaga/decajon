@@ -1,0 +1,433 @@
+---
+import type { InferGetStaticPropsType, ImageMetadata } from 'astro'
+import { Picture } from 'astro:assets'
+import BaseLayout from 'layouts/BaseLayout.astro'
+import Layout from 'layouts/Layout.astro'
+import SandLayout from 'layouts/SandLayout.astro'
+import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
+import BloodyMary from 'images/bloody-mary-coctel.jpeg'
+import MoscowMule from 'images/moscow-mule.jpeg'
+import Screwdiver from 'images/screwdiver.jpg'
+import SexOnTheBeach from 'images/sex-on-the-beach.jpg'
+import Cosmopolitan from 'images/cosmopolitan.jpeg'
+import ExpressoMartini from 'images/expresso-martini.jpeg'
+import AppleMartini from 'images/apple-martini.jpeg'
+import SmashPineapple from 'images/smash-pineaple.jpeg'
+import PinkGinTonic from 'images/pink-gin-tonic.jpeg'
+import Tag from 'components/Tag.astro'
+import SliderRecipes from 'components/SliderRecipes.astro'
+
+export const getStaticPaths = () => {
+  return [
+    {
+      params: { recipe: 'bloody-mary' },
+      props: {
+        img: { src: BloodyMary satisfies ImageMetadata, alt: 'bloody-mary' },
+        title: 'BLOODY MARY',
+        summary:
+          'Una refrescante mezcla con un toque picante, perfecta para darle un giro atrevido a cualquier ocasión. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        difficulty: 'Fácil',
+        ocassion: 'Tarde| Noche',
+        ingredients: [
+          '1/3 taza de De Cajón Vodka ',
+          '1 taza de jugo de tomate ',
+          '1 cucharadita de Salsa Inglesa Gourmet ',
+          '1 cucharadita de salsa Tabasco ',
+          '1 cucharada de jugo de limón Pimienta Negra Molida Gruesa Gourmet a gusto',
+          'Sal a gusto',
+          '4 cubos de hielo ',
+          '1 ramita de apio para decorar (opcional)',
+          'Rodajas de limón de pica para decorar (opcional)',
+        ],
+        steps: [
+          'En una coctelera, mezclar el jugo de tomate con la Salsa Inglesa Gourmet, salsa Tabasco y jugo de limón. Agitar hasta mezclar bien. Agregar el vodka, Pimienta Negra Molida Gruesa Gourmet, sal y hielo y volver a agitar nuevamente.',
+          'Servir en un vaso largo  y decorar con una ramita de apio y una rodaja de limón de pica.',
+        ],
+        info: [
+          'Tiempo de preparación: 5-8 minutos',
+          'Raciones: 1',
+          'Categoría: bebidas',
+          'Tipo de cocina: internacional',
+          'Calorías: 120 kcal por copa',
+        ],
+      },
+    },
+    {
+      params: { recipe: 'moscow-mule' },
+      props: {
+        img: { src: MoscowMule satisfies ImageMetadata, alt: 'moscow-mule' },
+        title: 'Moscow Mule',
+        summary:
+          'Un cóctel muy popular entre la élite de Hollywood. Se sirve en una atractiva taza de cobre para dejar tu paladar tan refrescante y a la vez, ácido con un sabor genuino hecho a base de vodka De Cajón.',
+        difficulty: 'Fácil',
+        ocassion: 'Tarde| Noche',
+        ingredients: [
+          '5 ml de vodka De Cajón',
+          '15 ml de zumo de un limón',
+          '1 cerveza de jengibre',
+          'Rodajas de limón',
+          'Hielo picado',
+          'Hierbabuena (opcional)',
+        ],
+        steps: [
+          'Llena el vaso tipo Mule (cobre) con hielo picado, una ¾ partes y añade el vodka De Cajón. Agrega el zumo de limón y remueves con una cuchara agitadora. Echa unas rodajas de limón y pon el resto de hielo hasta llenar el vaso. Por último, agrega la cerveza de jengibre. Decora tu cóctel con hierbabuena y una rodaja de limón. ¡Salud!',
+        ],
+        info: [
+          'Tiempo de preparación: 5-8 minutos',
+          'Raciones: 1',
+          'Categoría: bebidas',
+          'Tipo de cocina: internacional',
+          'Calorías: 120 kcal por copa',
+        ],
+      },
+    },
+    {
+      params: { recipe: 'screwdiver' },
+      props: {
+        img: { src: Screwdiver satisfies ImageMetadata, alt: 'screwdiver' },
+        title: 'Screwdiver',
+        summary:
+          'Un trago por excelencia tan refrescante como prohibido. Dice la leyenda que su nombre “destornillador” era una clave entre los soldados estadounidenses para engañar a los agentes federales durante la Segunda Guerra Mundial.',
+        difficulty: 'Fácil',
+        ocassion: 'Tarde| Noche',
+        ingredients: [
+          '50 ml de vodka De Cajón',
+          'Jugo de una naranja',
+          'Rodaja y corteza de naranja o limón',
+          'Hielo en cubos',
+          'Opcional: Cereza o guinda',
+        ],
+        steps: [
+          'Coloca los cubos de hielo directamente en el vaso.Luego agregas la cantidad de vodka De Cajón correspondiente. Por último, completas el vaso con el jugo de naranja y remueves el cóctel con la cuchara agitadora. Decoras con una rodaja y corteza al gusto de naranja o limón (opcional una guinda o cereza). ¡Salud!',
+        ],
+        info: [
+          'Tiempo de preparación: 5 minutos',
+          'Raciones: 1',
+          'Categoría: bebidas',
+          'Tipo de cocina: internacional',
+          'Calorías: 200 kcal por copa',
+        ],
+      },
+    },
+    {
+      params: { recipe: 'sex-on-the-beach' },
+      props: {
+        img: {
+          src: SexOnTheBeach satisfies ImageMetadata,
+          alt: 'sex-on-the-beach',
+        },
+        title: 'SEX ON THE BEACH',
+        summary:
+          'Una bebida refrescante que llega con los primeros días de sol, ¡dispuesta a endulzar y refrescar nuestro verano! ',
+        difficulty: 'Fácil',
+        ocassion: 'Tarde| Noche',
+        ingredients: [
+          '45 ml de De Cajón Vodka',
+          '15 ml de licor de melocotón',
+          '15 ml de zumo de arándanos o frutos rojos',
+          '15 ml de zumo de naranja natural',
+          'rodajas de naranja para decorar',
+          'hielo',
+        ],
+        steps: [
+          'Coloca los cubos de hielo directamente en el vaso.Luego agregas la cantidad de vodka De Cajón correspondiente.',
+          'Por último, completas el vaso con el jugo de naranja y remueves el cóctel con la cuchara agitadora',
+          'Decoras con una rodaja y corteza al gusto de naranja o limón (opcional una guinda o cereza).¡Salud,',
+        ],
+        info: [
+          'Tiempo de preparación: 5 minutos',
+          'Tiempo total: 5 minutos',
+          'Comensales: 1',
+          'Dificultad: Fácil',
+        ],
+      },
+    },
+    {
+      params: { recipe: 'sex-on-the-beach' },
+      props: {
+        img: {
+          src: SexOnTheBeach satisfies ImageMetadata,
+          alt: 'sex-on-the-beach',
+        },
+        title: 'SEX ON THE BEACH',
+        summary:
+          'Una bebida refrescante que llega con los primeros días de sol, ¡dispuesta a endulzar y refrescar nuestro verano! ',
+        difficulty: 'Fácil',
+        ocassion: 'Tarde| Noche',
+        ingredients: [
+          '45 ml de De Cajón Vodka',
+          '15 ml de licor de melocotón',
+          '15 ml de zumo de arándanos o frutos rojos',
+          '15 ml de zumo de naranja natural',
+          'rodajas de naranja para decorar',
+          'hielo',
+        ],
+        steps: [
+          'Coloca los cubos de hielo directamente en el vaso.Luego agregas la cantidad de vodka De Cajón correspondiente.',
+          'Por último, completas el vaso con el jugo de naranja y remueves el cóctel con la cuchara agitadora',
+          'Decoras con una rodaja y corteza al gusto de naranja o limón (opcional una guinda o cereza).¡Salud,',
+        ],
+        info: [
+          'Tiempo de preparación: 5 minutos',
+          'Tiempo total: 5 minutos',
+          'Comensales: 1',
+          'Dificultad: Fácil',
+        ],
+      },
+    },
+    {
+      params: { recipe: 'cosmopolitan' },
+      props: {
+        img: {
+          src: Cosmopolitan satisfies ImageMetadata,
+          alt: 'cosmopolitan',
+        },
+        title: 'COSMOPOLITAN',
+        summary:
+          'El Cosmopolitan es un cóctel clásico que se ha ganado la fama en todo el mundo gracias a su elegancia y a su refrescante sabor. Esta icónica bebida se ha convertido en un símbolo de sofisticación y glamour.',
+        difficulty: 'Fácil',
+        ocassion: 'Tarde| Noche',
+        ingredients: [
+          '1 ½ oz de De Cajón Vodka',
+          '¾ onzas de Cointreau',
+          '¾ oz de jugo de lima recién exprimido',
+          '½ oz de cóctel de jugo de arándano',
+          'rodajita de lima para decorar',
+        ],
+        steps: [
+          'Agregue el cóctel de vodka, Cointreau, jugo de lima y jugo de arándano al fondo de una coctelera.',
+          'Llénelo con hielo y agite hasta que esté bien frío.',
+          'Colar en una copa cupé fría.',
+          'Adorne con una rodajita de lima.',
+        ],
+        info: [
+          'Tiempo de preparación: 5 minutos',
+          'Tiempo total: 5 minutos',
+          'Raciones: 1',
+          'Categoría: cócteles',
+          'Tipo de cocina: estadounidense',
+          'Calorías por ración (kcal): 153',
+        ],
+      },
+    },
+    {
+      params: { recipe: 'expresso-martini' },
+      props: {
+        img: {
+          src: ExpressoMartini satisfies ImageMetadata,
+          alt: 'EXPRESSO MARTINI',
+        },
+        title: 'EXPRESSO MARTINI',
+        summary:
+          'El Espresso Martini es un ícono del mundo de los cócteles y ha cautivado a los aficionados con sus ricos sabores a café.',
+        difficulty: 'Fácil',
+        ocassion: 'Tarde| Noche',
+        ingredients: [
+          '2 onzas de De Cajón Vodka',
+          '½ oz de licor de café (nos gusta Mr. Black)',
+          'Chupito de expreso',
+          '¼ oz de jarabe de goma Demerara',
+          'cáscara de limón para decorar',
+        ],
+        steps: [
+          'Agregue el vodka, el licor de café, el espresso y el almíbar a una coctelera.',
+          'Agregue hielo generosamente y agite hasta que la lata esté helada.',
+          'Cuele dos veces (colador a través de un colador de espino estándar y un colador de malla fina) en un vaso cupé.',
+          '¡Exprime una cáscara de limón por encima y disfruta!',
+        ],
+        info: [
+          'Tiempo de preparación: 5 minutos',
+          'Tiempo total: 5 minutos',
+          'Raciones: 1',
+          'Categoría: bebidas',
+          'Tipo de coctelería: inglesa, internacional',
+          'Calorías: 123 kcal por copa',
+        ],
+      },
+    },
+    {
+      params: { recipe: 'apple-martini' },
+      props: {
+        img: {
+          src: AppleMartini satisfies ImageMetadata,
+          alt: 'APPLE MARTINI',
+        },
+        title: 'Apple Martini',
+        summary:
+          'Verde color de vida, serenidad y frescura, todo lo que adorna y acompaña a esta deliciosa combinación llamada Apple Martini, que lo contiene todo.',
+        difficulty: 'Fácil',
+        ocassion: 'Tarde| Noche',
+        ingredients: [
+          '60 ml de De Cajón Vodka.',
+          '30 ml de licor de manzana.',
+          '60 ml de zumo de manzana.',
+          '15 ml de zumo de limón.',
+          '8 ml de jarabe de azúcar.',
+          'Un triángulo de manzana verde.',
+          'Hielo en trozos.',
+        ],
+        steps: [
+          'En una coctelera agregue hielo en trozos hasta la mitad.',
+          'Añada el vodka, el licor de manzana, zumo de manzana junto al zumo de limón y el jarabe de azúcar.',
+          'Tape la coctelera y agite por unos 30 segundos, hasta que se mezclen todos los ingredientes y se enfríen.',
+          'Cuele y sirva en una copa tipo Martini, previamente enfriada.',
+          'Decore con una fina lonja de manzana o con un triángulo de la misma.',
+          'Listo para disfrutar y ser feliz.',
+        ],
+        info: [
+          'Tiempo de preparación: 5 minutos',
+          'Tiempo total: 5 minutos',
+          'Raciones: 1',
+          'Categoría: bebidas',
+          'Tipo de coctelería: inglesa, internacional',
+          'Calorías: 123 kcal por copa',
+        ],
+      },
+    },
+    {
+      params: { recipe: 'smash-pineapple' },
+      props: {
+        img: {
+          src: SmashPineapple satisfies ImageMetadata,
+          alt: 'SmashPineapple',
+        },
+        title: 'SMASH DE PIÑA',
+        summary:
+          'Deja que la piña cante en este smash a base de vodka. Con los aromas del romero y el amargo, este cóctel afrutado y alcohólico está listo para el verano.',
+        difficulty: 'Fácil',
+        ocassion: 'Tarde| Noche',
+        ingredients: [
+          '¾ oz de jarabe de goma de piña',
+          '1 ½ onzas de De Cajón Vodka',
+          '2 rodajas de limón',
+          '2 pizcas de amargo aromático',
+        ],
+        steps: [
+          'En una lata de julepe, tritura las rodajas de limón y el sirope de chicle de piña.',
+          'Agrega vodka, hielo picado y revuelve durante 15 segundos.',
+          'Rellenar con más hielo picado y decorar.',
+        ],
+        info: [
+          'Tiempo de preparación: 5 minutos',
+          'Tiempo total: 5 minutos',
+          'Raciones: 1',
+          'Categoría: bebidas',
+        ],
+      },
+    },
+    {
+      params: { recipe: 'pink-gin-tonic' },
+      props: {
+        img: {
+          src: PinkGinTonic satisfies ImageMetadata,
+          alt: 'PinkGinTonic',
+        },
+        title: 'PINK GIN TONIC',
+        summary:
+          'Verde color de vida, serenidad y frescura, todo lo que adorna y acompaña a esta deliciosa combinación llamada Apple Martini, que lo contiene todo.',
+        difficulty: 'Fácil',
+        ocassion: 'Tarde| Noche',
+        ingredients: [
+          '2oz De Cajón Gin 200ml Pink Soda Agua Tónica Slice toronja Ramita de tomillo Hielo de calidad',
+        ],
+        steps: [
+          'Coloca el hielo en una copa balón y dale vueltas para enfriarla.',
+          'Vierte el gin y luego, lentamente, la Pink Soda Mr Perkins para no romper las burbujas.',
+          'Añade el slice de toronja y la ramita de tomillo para aromatizar y decorar.',
+        ],
+        info: [
+          'Tiempo de preparación: 5 minutos',
+          'Tiempo total: 5 minutos',
+          'Raciones: 1',
+          'Categoría: bebidas',
+        ],
+      },
+    },
+  ]
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+
+const props = Astro.props
+---
+
+<Layout title="DeCajon">
+  <MiddlewareLayout>
+    <BaseLayout>
+      <SandLayout class="pb-28 pt-44">
+        <div class="m-auto w-[76%]">
+          <article class="grid lg:grid-cols-2 lg:gap-x-6">
+            <Picture
+              class="aspect-square object-cover"
+              loading="eager"
+              src={props.img.src}
+              alt={props.img.alt}
+              formats={['webp', 'avif', 'jpg']}
+            />
+            <div
+              class="grid lg:grid-cols-1 lg:grid-rows-[min-content_min-content_min-content_auto_min-content]"
+            >
+              <p class="mb-[0.625rem] lg:text-xl">Nuestros Cócteles</p>
+              <h1 class="mb-[0.625rem] lg:text-5xl">{props.title}</h1>
+              <p
+                class="mb-[2.375rem] md:line-clamp-5 lg:text-xl xl:line-clamp-[7]"
+              >
+                {props.summary}
+              </p>
+              <Tag class="place-self-start text-rosewood">De Cajón Vodka</Tag>
+              <footer
+                class="grid content-end lg:grid-cols-[min-content_min-content] lg:grid-rows-[auto_auto] lg:gap-x-6"
+              >
+                <span
+                  class="place-self-center text-center uppercase text-rosewood"
+                  >Dificultad</span
+                >
+                <span
+                  class="place-self-center text-center uppercase text-rosewood"
+                  >OCASIÓN</span
+                >
+                <Tag class="self-start justify-self-center"
+                  >{props.difficulty}</Tag
+                >
+                <Tag class="self-start justify-self-center"
+                  >{props.ocassion}</Tag
+                >
+              </footer>
+            </div>
+          </article>
+        </div>
+      </SandLayout>
+      <SandLayout class="pb-28">
+        <div class="m-auto w-[76%]">
+          <article
+            class="mb-16 grid gap-y-6 lg:grid-cols-2 lg:grid-rows-[min-content_min-content]"
+          >
+            <h2 class="col-start-1 row-start-1 font-thabit text-xl">
+              Ingredientes
+            </h2>
+            <ul class="col-start-1 row-start-2 list-disc text-xl">
+              {props.ingredients.map((ingredient) => <li>{ingredient}</li>)}
+            </ul>
+            <h2 class="col-start-2 row-start-1 font-thabit text-xl">
+              Procedimiento
+            </h2>
+            <ul class="col-start-2 row-start-2 list-disc text-xl">
+              {props.steps.map((step) => <li>{step}</li>)}
+            </ul>
+          </article>
+          <article class="border border-eerie-black px-7 py-3">
+            <h2 class="mb-6 font-thabit text-xl">Información de la Receta</h2>
+            <ul class="list-disc text-xl">
+              {props.info.map((detail) => <li>{detail}</li>)}
+            </ul>
+          </article>
+        </div>
+      </SandLayout>
+      <SandLayout class="py-[4.8125rem]">
+        <div class="m-auto w-[76%]">
+          <SliderRecipes />
+        </div>
+      </SandLayout>
+    </BaseLayout>
+  </MiddlewareLayout>
+</Layout>

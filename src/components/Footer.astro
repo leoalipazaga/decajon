@@ -1,0 +1,110 @@
+---
+import { Image, Picture } from 'astro:assets'
+import Instagram from 'icons/instagram.svg'
+import Facebook from 'icons/facebook.svg'
+import Linkedin from 'icons/linkedin.svg'
+import PlaceMarker from 'icons/place-marker.svg'
+import Phone from 'icons/phone.svg'
+import Mail from 'icons/mail.svg'
+import Button from './Button.astro'
+---
+
+<footer class="relative h-auto overflow-hidden bg-eerie-black py-9">
+  <div
+    class="m-auto grid w-[76%] grid-rows-[min-content_min-content_min-content] gap-y-10"
+  >
+    <h1
+      class="row-start-1 border-y border-crayola py-4 text-center uppercase text-crayola md:text-2xl lg:text-4xl"
+    >
+      DISFRUTA DE UN CONSUMO RESPONSABLE
+    </h1>
+    <div class="row-start-2 flex items-center justify-between">
+      <ul class="flex gap-2">
+        <li>
+          <Button
+            variant="rounded"
+            as="a"
+            href="https://www.instagram.com/decajondestilados/"
+          >
+            <Image src={Instagram} alt="instagram logo" />
+          </Button>
+        </li>
+        <li>
+          <Button
+            variant="rounded"
+            as="a"
+            href="https://www.facebook.com/decajonvodka/"
+          >
+            <Image src={Facebook} alt="facebook logo" />
+          </Button>
+        </li>
+        <li>
+          <Button variant="rounded" as="a" href="/linkedin">
+            <Image src={Linkedin} alt="linkedin logo" />
+          </Button>
+        </li>
+      </ul>
+      <ul class="flex gap-6 text-anti-flash-white">
+        <li>
+          <a class="md:text-xs xl:text-base" href="/products">Productos</a>
+        </li>
+        <li><a class="md:text-xs xl:text-base" href="/history">Historia</a></li>
+        <li>
+          <a class="md:text-xs xl:text-base" href="/cocteles">Cócteles</a>
+        </li>
+        <li>
+          <Button class="md:text-xs xl:text-base" as="a" href="/login"
+            >Iniciar Sesión</Button
+          >
+        </li>
+      </ul>
+    </div>
+    <ul class="grid md:grid-cols-2 md:gap-y-[1.875rem] xl:grid-cols-3">
+      <li class="flex items-center gap-3">
+        <span
+          class="flex size-[2.5rem] items-center justify-center rounded-full bg-rosewood"
+          ><Picture
+            src={Phone}
+            formats={['webp', 'avif', 'svg']}
+            alt="phone"
+          /></span
+        >
+        <a
+          class="text-anti-flash-white md:text-xs xl:text-base"
+          href="tel:+51917813968">+51 917 813 968</a
+        >
+      </li>
+      <li class="flex items-center gap-3">
+        <span
+          class="flex size-[2.5rem] items-center justify-center rounded-full bg-rosewood"
+          ><Picture
+            src={Mail}
+            formats={['webp', 'avif', 'svg']}
+            alt="mail"
+          /></span
+        >
+        <a
+          class="text-anti-flash-white md:text-xs xl:text-base"
+          href="mailto:gerentedeventas@decajon.pe">gerentedeventas@decajon.pe</a
+        >
+      </li>
+      <li class="flex items-center gap-3 md:col-span-2 xl:col-start-3">
+        <span
+          class="flex size-[2.5rem] flex-shrink-0 items-center justify-center rounded-full bg-rosewood"
+        >
+          <Picture
+            src={PlaceMarker}
+            formats={['webp', 'avif', 'svg']}
+            alt="mail"
+          />
+        </span>
+        <a
+          class="text-anti-flash-white md:text-xs xl:text-base"
+          href="https://www.google.com/maps/place/Decajon+Peru/@-12.2924002,-76.8456598,17z/data=!3m1!4b1!4m6!3m5!1s0x9105bd0b9f983975:0x88fb7e20d3c57fbe!8m2!3d-12.2924055!4d-76.8430849!16s%2Fg%2F11y71svykh?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D"
+          >Av. Los Eucaliptos Nº 371 Z.I. URB. Santa Genoveva (Km 40 de la
+          Panamericana Sur) Lima - Lurín - PERÚ</a
+        >
+      </li>
+    </ul>
+  </div>
+</footer>

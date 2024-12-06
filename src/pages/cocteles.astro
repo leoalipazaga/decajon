@@ -1,0 +1,278 @@
+---
+import { Image, Picture } from 'astro:assets'
+import BaseLayout from 'layouts/BaseLayout.astro'
+import Layout from 'layouts/Layout.astro'
+import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
+import SandLayout from 'layouts/SandLayout.astro'
+import BackButtonLayout from 'layouts/BackButtonLayout.astro'
+import CoctelesBanner from 'images/cocteles-banner.png'
+import BloodyMary from 'images/bloody-mary-coctel.jpeg'
+import MoscowMule from 'images/moscow-mule.jpeg'
+import ScrewDiver from 'images/screwdiver.jpg'
+import SexOnTheBeach from 'images/sex-on-the-beach.jpg'
+import Cosmopolitan from 'images/cosmopolitan.jpeg'
+import ExpressoMartini from 'images/expresso-martini.jpeg'
+import SmashPineaple from 'images/smash-pineaple.jpeg'
+import AppleMartini from 'images/apple-martini.jpeg'
+import PinkGinTonic from 'images/pink-gin-tonic.jpeg'
+import BottleVodka from 'images/bottle-vodka.png'
+import BottleSiembra from 'images/bottle-siembra.png'
+import BottleGin from 'images/bottle-gin.png'
+import LongLeftArrow from 'icons/long-left-arrow.svg'
+import Button from 'components/Button.astro'
+import Coctel from 'components/Coctel.astro'
+import Input from 'components/Input.astro'
+import Select from 'components/Select.astro'
+
+const cocteles = [
+  {
+    title: 'Bloody Mary',
+    img: { src: BloodyMary, alt: 'Bloody Mary' },
+  },
+  { title: 'Moscow Mule', img: { src: MoscowMule, alt: 'Moscow' } },
+  { title: 'SCREWDIVER', img: { src: ScrewDiver, alt: 'Screwdiver' } },
+  {
+    title: 'Sex on the beach',
+    img: { src: SexOnTheBeach, alt: 'SexOnTheBeach' },
+  },
+  { title: 'Cosmopolitan', img: { src: Cosmopolitan, alt: 'Cosmopolitan' } },
+  {
+    title: 'Expresso Martini',
+    img: { src: ExpressoMartini, alt: 'ExpressoMartin' },
+  },
+  { title: 'Apple Martini', img: { src: AppleMartini, alt: 'AppleMartini' } },
+  { title: 'Pink Gin Tonic', img: { src: PinkGinTonic, alt: 'PinkGinTonic' } },
+  {
+    title: 'Smash de Piña',
+    img: { src: SmashPineaple, alt: 'SmashPineapple' },
+  },
+]
+---
+
+<Layout title="Historia">
+  <MiddlewareLayout>
+    <BackButtonLayout>
+      <BaseLayout>
+        <SandLayout class="relative pl-28">
+          <div class="grid md:grid-cols-[50%_auto] lg:grid-cols-[35%_auto]">
+            <header class="col-start-1 space-y-7 self-center">
+              <p class="md:text-xs lg:text-xl">Nuestros Cócteles</p>
+              <h1 class="uppercase md:text-xl lg:text-5xl">
+                UN SABOR ÚNICO Y DE CAJÓN
+              </h1>
+              <p class="md:text-xs lg:text-xl">
+                Explora el mundo De Cajón al ritmo de una noche inolvidable.
+                Pasa un buen momento en pareja, solo, en familia o con amigos
+                disfrutando un vodka con historia, emoción y muy innovador. El
+                cóctel perfecto sí existe y aquí te decimos cómo hacerlo para
+                cualquier ocasión. Descubre tu receta De Cajón
+              </p>
+              <Button variant="rounded" id="scroll-to">
+                <Image class="-rotate-90" src={LongLeftArrow} alt="long left" />
+              </Button>
+            </header>
+            <div class="col-start-2 w-full justify-self-end">
+              <Picture
+                src={CoctelesBanner}
+                height={832}
+                class="w-full object-cover"
+                loading="lazy"
+                alt="products"
+                formats={['png', 'webp', 'avif', 'jpeg']}
+              />
+            </div>
+          </div>
+        </SandLayout>
+        <SandLayout class="py-[4.25rem]" id="recipes">
+          <div class="m-auto w-[76%]">
+            <div class="mb-10 grid gap-x-5 lg:grid-cols-2">
+              <Input
+                id="searchbox"
+                type="search"
+                autocomplete="off"
+                placeholder="Buscar Productos"
+                rounded
+              />
+              <Select rounded>
+                <option>De Cajón Vodka</option>
+                <option>De Cajón Gin</option>
+                <option>Siembra Vodka</option>
+              </Select>
+            </div>
+            <h2 class="mb-8 uppercase md:text-xl lg:text-2xl">
+              RECETAS DE CÓCKTELES (9)
+            </h2>
+            <div
+              class="grid grid-cols-3 grid-rows-3 gap-x-[1.25rem] md:gap-y-4 lg:gap-y-12"
+            >
+              <Coctel title="Bloody mary">
+                <Image
+                  src={BloodyMary}
+                  class="h-full w-full object-cover"
+                  alt="Bloody Mary"
+                  loading="lazy"
+                  height={284}
+                />
+              </Coctel>
+              <Coctel title="MOSCOW MULE">
+                <Image
+                  src={MoscowMule}
+                  class="col-span-2 row-start-1 h-full w-full object-cover object-[10%_80%]"
+                  loading="lazy"
+                  height={284}
+                  alt="BloodyMary"
+                />
+              </Coctel>
+              <Coctel title="SCREWDIVER">
+                <Image
+                  src={ScrewDiver}
+                  class="col-span-2 row-start-1 h-full w-full object-cover"
+                  loading="lazy"
+                  height={284}
+                  alt="BloodyMary"
+                />
+              </Coctel>
+              <Coctel title="Sex on the beach">
+                <Image
+                  src={SexOnTheBeach}
+                  class="col-span-2 row-start-1 h-full w-full object-cover"
+                  loading="lazy"
+                  height={284}
+                  alt="Sex on the Beach"
+                />
+              </Coctel>
+              <Coctel title="Cosmopolitan">
+                <Image
+                  src={Cosmopolitan}
+                  class="col-span-2 row-start-1 h-full w-full object-cover"
+                  loading="lazy"
+                  height={284}
+                  alt="Cosmopolitan"
+                />
+              </Coctel>
+              <Coctel title="Expresso Martini">
+                <Image
+                  src={ExpressoMartini}
+                  class="col-span-2 row-start-1 h-full w-full object-cover"
+                  loading="lazy"
+                  height={284}
+                  alt="Expresso Martini"
+                />
+              </Coctel>
+              <Coctel title="Apple Martini">
+                <Image
+                  src={AppleMartini}
+                  class="col-span-2 row-start-1 h-full w-full object-cover"
+                  loading="lazy"
+                  height={284}
+                  alt="Apple Martini"
+                />
+              </Coctel>
+              <Coctel title="Smash de Piña">
+                <Image
+                  src={SmashPineaple}
+                  class="col-span-2 row-start-1 h-full w-full object-cover"
+                  loading="lazy"
+                  height={284}
+                  alt="SmashPineaple"
+                />
+              </Coctel>
+              <Coctel title="PINK GIN TONIC">
+                <Image
+                  src={PinkGinTonic}
+                  class="col-span-2 row-start-1 h-full w-full object-cover"
+                  loading="lazy"
+                  height={284}
+                  alt="PINK GIN TONIC"
+                />
+              </Coctel>
+            </div>
+          </div>
+          <SandLayout class="py-[4.375rem]">
+            <div
+              class="m-auto grid w-[76%] grid-cols-3 grid-rows-[auto_auto] gap-x-6 gap-y-[0.875rem]"
+            >
+              <h1
+                class="col-span-3 col-start-1 row-start-1 border border-eerie-black py-[0.825rem] text-center text-4xl uppercase"
+              >
+                NUESTROS TOP DESTILADOS
+              </h1>
+              <article
+                class="flex flex-col items-center border border-eerie-black py-[1.125rem]"
+              >
+                <Picture
+                  alt="vodka"
+                  class="mb-4 h-[260px] object-cover"
+                  height={260}
+                  src={BottleVodka}
+                  loading="lazy"
+                  formats={['webp', 'avif', 'jpg']}
+                />
+                <h2 class="mb-3 text-center uppercase md:text-sm lg:text-2xl">
+                  DE CAJÓN VODKA
+                </h2>
+                <p class="mb-3 text-center md:text-xs lg:text-xl">
+                  Botella 750ml
+                </p>
+                <Button as="a" href="">Comprar Ahora</Button>
+              </article>
+              <article
+                class="flex flex-col items-center border border-eerie-black py-[1.125rem]"
+              >
+                <Picture
+                  alt="vodka"
+                  class="mb-4 object-cover"
+                  height={260}
+                  src={BottleGin}
+                  loading="lazy"
+                  formats={['webp', 'avif', 'jpg']}
+                />
+                <h2 class="mb-3 text-center uppercase md:text-sm lg:text-2xl">
+                  DE CAJÓN GIN
+                </h2>
+                <p class="mb-3 text-center md:text-xs lg:text-xl">
+                  Botella 750ml
+                </p>
+                <Button as="a" href="">Comprar Ahora</Button>
+              </article>
+              <article
+                class="flex flex-col items-center border border-eerie-black py-[1.125rem]"
+              >
+                <Picture
+                  alt="vodka"
+                  class="mb-4 h-[260px] object-cover"
+                  height={260}
+                  src={BottleSiembra}
+                  loading="lazy"
+                  formats={['webp', 'avif', 'jpg']}
+                />
+                <h2 class="mb-3 text-center uppercase md:text-sm lg:text-2xl">
+                  SIEMBRA VODKA
+                </h2>
+                <p class="mb-3 text-center md:text-xs lg:text-xl">
+                  Botella 750ml
+                </p>
+                <Button as="a" href="">Comprar Ahora</Button>
+              </article>
+            </div>
+          </SandLayout>
+        </SandLayout>
+      </BaseLayout>
+    </BackButtonLayout>
+    <script>
+      const scrollToEl = document.querySelector('#scroll-to')
+      const recipes = document.querySelector('#recipes')
+
+      scrollToEl?.addEventListener('click', () => {
+        recipes?.scrollIntoView({ behavior: 'smooth' })
+      })
+    </script>
+  </MiddlewareLayout>
+</Layout>
+<script>
+  const $ = document.querySelector.bind(document)
+  const searchbox = $('#searchbox')
+  searchbox?.addEventListener('input', (e) => {
+    console.log((e?.target as HTMLInputElement)?.value)
+  })
+</script>

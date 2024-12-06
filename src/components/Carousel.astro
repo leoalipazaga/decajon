@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets'
+import AngleLeft from 'icons/long-left-arrow.svg'
+import AngleRight from 'icons/long-right-arrow.svg'
+import Button from './Button.astro'
+---
+
+<div id="carousel-wrapper" class="flex gap-8 items-center">
+  <Button variant="rounded" id="prev-button">
+    <Image src={AngleLeft} alt="left icon" />
+  </Button>
+  <div
+    class="flex-shrink flex-grow basis-0 overflow-x-hidden"
+    id="caroulse-slider"
+  >
+    <div class="flex transition-transform ease-linear" id="carousel-content">
+      <slot />
+    </div>
+  </div>
+  <Button variant="rounded" id="next-button">
+    <Image src={AngleRight} alt="right icon" />
+  </Button>
+</div>
+<script>
+  const leftButton = document.querySelector('#prev-button')
+  const rightButton = document.querySelector('#next-button')
+  const carouselContentEl = document.querySelector('#carousel-content')
+  const itemsCount = carouselContentEl?.children.length ?? 0
+  let counter = 0
+  leftButton?.addEventListener('click', () => {
+    counter = !counter ? itemsCount - 1 : counter - 1
+    const translateWidth = -100 * counter
+    carouselContentEl?.setAttribute(
+      'style',
+      `transform: translateX(${translateWidth}%)`
+    )
+  })
+  rightButton?.addEventListener('click', () => {
+    counter = counter >= itemsCount - 1 ? 0 : counter + 1
+    const translateWidth = -100 * counter
+    carouselContentEl?.setAttribute(
+      'style',
+      `transform: translateX(${translateWidth}%)`
+    )
+  })
+</script>

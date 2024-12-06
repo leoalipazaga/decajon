@@ -1,0 +1,17 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import { Image } from 'astro:assets'
+import SandTextureImg from 'images/sand-texture.webp'
+
+type Props = HTMLAttributes<'section'>
+const { class: className, ...rest } = Astro.props
+---
+
+<section {...rest} class:list={[className, 'relative']}>
+  <Image
+    class="absolute left-0 top-0 -z-10 h-full bg-[#e8dfcf]"
+    src={SandTextureImg}
+    alt="Sand texture"
+  />
+  <slot />
+</section>
