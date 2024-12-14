@@ -4,29 +4,13 @@ import { Picture } from 'astro:assets'
 import Button from 'components/Button.astro'
 import Tag from 'components/Tag.astro'
 
-const getMoment = (moment: 'midday') => {
-  if (moment === 'midday') {
-    return 'Tarde | Noche'
-  }
-
-  return ''
-}
-
-const getDifficulty = (difficulty: 'easy') => {
-  if (difficulty === 'easy') {
-    return 'Fácil'
-  }
-
-  return ''
-}
-
 interface Props {
   title: string
   heading?: string
   description: string
   class?: string
   img: {
-    path: string | ImageMetadata
+    path: ImageMetadata
     alt: string
   }
   link: string
@@ -44,6 +28,23 @@ const {
   img,
   link,
 } = Astro.props
+
+const getMoment = (moment: 'midday') => {
+  if (moment === 'midday') {
+    return 'Tarde | Noche'
+  }
+
+  return ''
+}
+
+const getDifficulty = (difficulty: 'easy') => {
+  if (difficulty === 'easy') {
+    return 'Fácil'
+  }
+
+  return ''
+}
+
 const difficultyI18n = getDifficulty(difficulty ?? 'easy')
 const momentI18n = getMoment(moment ?? 'midday')
 ---

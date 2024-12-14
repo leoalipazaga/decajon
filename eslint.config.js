@@ -13,6 +13,9 @@ export default [
   ...eslintPluginAstro.configs.recommended,
   eslintPluginPrettier,
   {
+    ignores: ['**/dist/', 'src/env.d.ts'],
+  },
+  {
     rules: {
       'no-console': 'error',
       'newline-before-return': 'error',
