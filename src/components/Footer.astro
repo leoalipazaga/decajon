@@ -11,14 +11,16 @@ import Button from './Button.astro'
 
 <footer class="relative h-auto overflow-hidden bg-eerie-black py-9">
   <div
-    class="m-auto grid w-[76%] grid-rows-[min-content_min-content_min-content] gap-y-10"
+    class="m-auto grid w-[76%] max-w-screen-2xl grid-rows-[min-content_min-content_min-content] gap-y-10"
   >
     <h1
-      class="row-start-1 border-y border-crayola py-4 text-center uppercase text-crayola md:text-2xl lg:text-4xl"
+      class="row-start-1 border-y border-crayola py-4 text-center text-sm uppercase text-crayola md:text-2xl lg:text-4xl"
     >
       DISFRUTA DE UN CONSUMO RESPONSABLE
     </h1>
-    <div class="row-start-2 flex items-center justify-between">
+    <div
+      class="row-start-2 grid grid-cols-2 grid-rows-[auto_auto_auto] gap-y-[1.125rem] md:grid-cols-[auto_1fr_auto] md:grid-rows-[auto] md:items-center md:justify-items-end md:gap-x-6"
+    >
       <ul class="flex gap-2">
         <li>
           <Button
@@ -44,22 +46,25 @@ import Button from './Button.astro'
           </Button>
         </li>
       </ul>
-      <ul class="flex gap-6 text-anti-flash-white">
+      {/* ORDFENADRINA DICLOFENACO */}
+      <ul
+        class="order-3 col-span-2 flex gap-6 text-anti-flash-white md:order-2 md:col-span-1"
+      >
         <li>
-          <a class="md:text-xs xl:text-base" href="/products">Productos</a>
+          <a class="text-xs xl:text-base" href="/products">Productos</a>
         </li>
-        <li><a class="md:text-xs xl:text-base" href="/history">Historia</a></li>
+        <li><a class="text-xs xl:text-base" href="/history">Historia</a></li>
         <li>
-          <a class="md:text-xs xl:text-base" href="/cocteles">Cócteles</a>
-        </li>
-        <li>
-          <Button class="md:text-xs xl:text-base" as="a" href="/login"
-            >Iniciar Sesión</Button
-          >
+          <a class="text-xs xl:text-base" href="/experience">Experiencia</a>
         </li>
       </ul>
+      <Button
+        class="order-2 self-center justify-self-end md:order-3"
+        as="a"
+        href="/login">Iniciar Sesión</Button
+      >
     </div>
-    <ul class="grid md:grid-cols-2 md:gap-y-[1.875rem] xl:grid-cols-3">
+    <ul class="grid gap-y-2 md:grid-cols-2 md:gap-y-[1.875rem] xl:grid-cols-3">
       <li class="flex items-center gap-3">
         <span
           class="flex size-[2.5rem] items-center justify-center rounded-full bg-rosewood"
@@ -70,7 +75,7 @@ import Button from './Button.astro'
           /></span
         >
         <a
-          class="text-anti-flash-white md:text-xs xl:text-base"
+          class="text-xs text-anti-flash-white xl:text-base"
           href="tel:+51917813968">+51 917 813 968</a
         >
       </li>
@@ -84,7 +89,7 @@ import Button from './Button.astro'
           /></span
         >
         <a
-          class="text-anti-flash-white md:text-xs xl:text-base"
+          class="text-xs text-anti-flash-white xl:text-base"
           href="mailto:gerentedeventas@decajon.pe">gerentedeventas@decajon.pe</a
         >
       </li>
@@ -99,7 +104,7 @@ import Button from './Button.astro'
           />
         </span>
         <a
-          class="text-anti-flash-white md:text-xs xl:text-base"
+          class="text-xs text-anti-flash-white xl:text-base"
           href="https://www.google.com/maps/place/Decajon+Peru/@-12.2924002,-76.8456598,17z/data=!3m1!4b1!4m6!3m5!1s0x9105bd0b9f983975:0x88fb7e20d3c57fbe!8m2!3d-12.2924055!4d-76.8430849!16s%2Fg%2F11y71svykh?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D"
           >Av. Los Eucaliptos Nº 371 Z.I. URB. Santa Genoveva (Km 40 de la
           Panamericana Sur) Lima - Lurín - PERÚ</a

@@ -1,0 +1,38 @@
+---
+import { Picture } from 'astro:assets'
+import Button from 'components/Button.astro'
+import Input from 'components/Input.astro'
+import BaseLayout from 'layouts/BaseLayout.astro'
+import Layout from 'layouts/Layout.astro'
+import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
+import Master3 from 'images/master-3.jpg'
+---
+
+<Layout title="DeCajon">
+  <MiddlewareLayout>
+    <BaseLayout showNavbar={false}>
+      <div class="m-auto w-[76%] max-w-screen-2xl">
+        <div class="grid grid-cols-2 grid-rows-[auto_auto] pb-16 pt-28">
+          <article>
+            <h1 class="mb-10 text-4xl uppercase">¡Bienvenido NUEVAMENTE!</h1>
+            <label>Usuario</label>
+            <Input />
+            <label>Contraseña</label>
+            <Input type="password" />
+            <p>¿Olvidaste tu contraseña?</p>
+            <Button>Ingresar</Button>
+          </article>
+          <Picture
+            alt="maestro-3"
+            class="h-[306px] object-cover md:mb-3 lg:mb-[3.25rem]"
+            loading="lazy"
+            src={Master3}
+            formats={['webp', 'avif', 'jpeg']}
+          />
+          <p>¿No tienes una cuenta?</p>
+          <Button>Registrarme</Button>
+        </div>
+      </div>
+    </BaseLayout>
+  </MiddlewareLayout>
+</Layout>

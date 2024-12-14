@@ -1,0 +1,42 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import Button from './Button.astro'
+import Tag from './Tag.astro'
+
+type Props = HTMLAttributes<'span'>
+
+const props = Astro.props
+---
+
+<Tag class="flex min-w-36 items-center justify-between [&&]:p-1" {...props}>
+  <Button
+    class="h-7 w-7 font-bold text-anti-flash-white"
+    variant="rounded"
+    id="increase">+</Button
+  >
+  <span class="font-bold" id="counter">1</span>
+  <Button
+    class="h-7 w-7 font-bold text-anti-flash-white"
+    variant="rounded"
+    id="decrease">-</Button
+  >
+</Tag>
+<script>
+  const $ = document.querySelector.bind(document)
+  let current = 1
+  const $decrease = $('#decrease')
+  const $increase = $('#increase')
+  const $counter = $('#counter')
+  $increase?.addEventListener('click', () => {
+    current += 1
+    if ($counter) {
+      $counter.textContent = `${current}`
+    }
+  })
+  $decrease?.addEventListener('click', () => {
+    current = Math.max(1, current - 1)
+    if ($counter) {
+      $counter.textContent = `${current}`
+    }
+  })
+</script>

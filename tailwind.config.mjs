@@ -18,7 +18,16 @@ export default {
       cutive: ['CutiveMono', 'system-ui', 'sans-serif'],
       thabit: ['Thabit', 'system-ui', 'sans-serif'],
     },
-    extend: {},
+    extend: {
+      screens: {
+        xs: '576px',
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+      },
+    },
   },
   plugins: [],
 }

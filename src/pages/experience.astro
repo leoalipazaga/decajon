@@ -1,0 +1,233 @@
+---
+import { Image, Picture } from 'astro:assets'
+import BaseLayout from 'layouts/BaseLayout.astro'
+import Layout from 'layouts/Layout.astro'
+import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
+import SandLayout from 'layouts/SandLayout.astro'
+import CoctelesBanner from 'images/cocteles-banner.png'
+import BloodyMary from 'images/bloody-mary-coctel.jpeg'
+import MoscowMule from 'images/moscow-mule.jpeg'
+import ScrewDiver from 'images/screwdiver.jpg'
+import SexOnTheBeach from 'images/sex-on-the-beach.jpg'
+import Cosmopolitan from 'images/cosmopolitan.jpeg'
+import ExpressoMartini from 'images/expresso-martini.jpeg'
+import SmashPineaple from 'images/smash-pineaple.jpeg'
+import AppleMartini from 'images/apple-martini.jpeg'
+import PinkGinTonic from 'images/pink-gin-tonic.jpeg'
+import BottleVodka from 'images/bottle-vodka.png'
+import BottleSiembra from 'images/bottle-siembra.png'
+import BottleGin from 'images/bottle-gin.png'
+import LongLeftArrow from 'icons/long-left-arrow.svg'
+import Button from 'components/Button.astro'
+import Coctel from 'components/Coctel.astro'
+import Input from 'components/Input.astro'
+import Select from 'components/Select.astro'
+import Carousel from 'components/Carousel.astro'
+
+const cocteles = [
+  {
+    title: 'Bloody Mary',
+    img: { src: BloodyMary, alt: 'Bloody Mary' },
+  },
+  { title: 'Moscow Mule', img: { src: MoscowMule, alt: 'Moscow' } },
+  { title: 'SCREWDIVER', img: { src: ScrewDiver, alt: 'Screwdiver' } },
+  {
+    title: 'Sex on the beach',
+    img: { src: SexOnTheBeach, alt: 'SexOnTheBeach' },
+  },
+  { title: 'Cosmopolitan', img: { src: Cosmopolitan, alt: 'Cosmopolitan' } },
+  {
+    title: 'Expresso Martini',
+    img: { src: ExpressoMartini, alt: 'ExpressoMartin' },
+  },
+  { title: 'Apple Martini', img: { src: AppleMartini, alt: 'AppleMartini' } },
+  {
+    title: 'Smash de Piña',
+    img: { src: SmashPineaple, alt: 'SmashPineapple' },
+  },
+  { title: 'Pink Gin Tonic', img: { src: PinkGinTonic, alt: 'PinkGinTonic' } },
+]
+
+const bottles = [
+  {
+    title: 'DE CAJÓN VODKA',
+    img: { alt: 'De Cajon Vodka', src: BottleVodka },
+    link: '/products/vodka',
+    size: 'Botella 750ml',
+  },
+  {
+    title: 'DE CAJÓN GIN',
+    img: { alt: 'DE CAJÓN GIN', src: BottleGin },
+    link: '/products/vodka-gin',
+    size: 'Botella 750ml',
+  },
+  {
+    title: 'SIEMBRA VODKA',
+    img: { alt: 'SIEMBRA VODKA', src: BottleSiembra },
+    link: '/products/vodka-siembra',
+    size: 'Botella 750ml',
+  },
+]
+---
+
+<Layout title="Cocteles">
+  <MiddlewareLayout>
+    <BaseLayout>
+      <SandLayout class="relative pl-28">
+        <div
+          class="m-auto grid max-w-screen-2xl md:grid-cols-[50%_auto] lg:grid-cols-[35%_auto]"
+        >
+          <header class="col-start-1 space-y-7 self-center">
+            <p class="md:text-xs lg:text-xl">Nuestros Cócteles</p>
+            <h1 class="text-xl uppercase lg:text-5xl">
+              UN SABOR ÚNICO Y DE CAJÓN
+            </h1>
+            <p class="md:text-xs lg:text-xl">
+              Explora el mundo De Cajón al ritmo de una noche inolvidable. Pasa
+              un buen momento en pareja, solo, en familia o con amigos
+              disfrutando un vodka con historia, emoción y muy innovador. El
+              cóctel perfecto sí existe y aquí te decimos cómo hacerlo para
+              cualquier ocasión. Descubre tu receta De Cajón
+            </p>
+            <Button class="hidden md:flex" variant="rounded" id="scroll-to">
+              <Image class="-rotate-90" src={LongLeftArrow} alt="long left" />
+            </Button>
+          </header>
+          <div class="col-start-2 w-full justify-self-end">
+            <Picture
+              src={CoctelesBanner}
+              height={832}
+              class="w-full object-cover"
+              loading="lazy"
+              alt="products"
+              formats={['png', 'webp', 'avif', 'jpeg']}
+            />
+          </div>
+        </div>
+      </SandLayout>
+      <SandLayout class="py-[4.25rem]" id="recipes">
+        <div class="m-auto w-[76%] max-w-screen-2xl">
+          <div class="mb-10 grid gap-x-5 md:grid-cols-2">
+            <Input
+              id="searchbox"
+              type="search"
+              autocomplete="off"
+              placeholder="Buscar Productos"
+              rounded
+            />
+            <Select rounded>
+              <li role="option">De Cajón Vodka</li>
+              <li role="option">De Cajón Gin</li>
+              <li role="option">Siembra Vodka</li>
+            </Select>
+          </div>
+          <h2 class="mb-8 uppercase md:text-xl lg:text-2xl">
+            RECETAS DE CÓCKTELES (9)
+          </h2>
+          <div
+            class="grid grid-cols-1 gap-x-[1.25rem] gap-y-5 md:grid-cols-3 md:grid-rows-3 md:gap-y-4 lg:gap-y-12"
+            data-cocteles={cocteles}
+            id="cocteles"
+          >
+            {
+              cocteles.map((coctel) => (
+                <Coctel title={coctel.title}>
+                  <Image
+                    class="col-span-2 row-start-1 h-full w-full object-cover object-[10%_80%]"
+                    src={coctel.img.src}
+                    alt={coctel.img.alt}
+                    loading="lazy"
+                    height="284"
+                  />
+                </Coctel>
+              ))
+            }
+          </div>
+        </div>
+        <SandLayout class="py-[4.375rem]">
+          <div
+            class="m-auto grid w-[76%] max-w-screen-2xl grid-cols-1 grid-rows-[auto_auto] gap-x-6 gap-y-[0.875rem] md:grid-cols-3"
+          >
+            <h1
+              class="col-span-1 col-start-1 row-start-1 border border-eerie-black py-[0.825rem] text-center text-xl uppercase md:col-span-3 lg:text-4xl"
+            >
+              Productos similares
+            </h1>
+            <div class="block md:hidden">
+              <Carousel>
+                {
+                  bottles.map((bottle) => (
+                    <article class="flex w-full flex-shrink-0 flex-col items-center border border-eerie-black py-[1.125rem]">
+                      <Picture
+                        alt={bottle.img.alt}
+                        class="mb-4 h-[260px] object-cover"
+                        height={260}
+                        src={bottle.img.src}
+                        loading="lazy"
+                        formats={['webp', 'avif', 'jpg']}
+                      />
+                      <h2 class="mb-3 text-center uppercase md:text-sm lg:text-2xl">
+                        {bottle.title}
+                      </h2>
+                      <p class="mb-3 text-center md:text-xs lg:text-xl">
+                        {bottle.size}
+                      </p>
+                      <Button as="a" href={bottle.link}>
+                        Comprar Ahora
+                      </Button>
+                    </article>
+                  ))
+                }
+              </Carousel>
+            </div>
+            {
+              bottles.map((bottle) => (
+                <article class="hidden flex-col items-center border border-eerie-black py-[1.125rem] md:flex">
+                  <Picture
+                    alt={bottle.img.alt}
+                    class="mb-4 h-[260px] object-cover"
+                    height={260}
+                    src={bottle.img.src}
+                    loading="lazy"
+                    formats={['webp', 'avif', 'jpg']}
+                  />
+                  <h2 class="mb-3 text-center uppercase md:text-sm lg:text-2xl">
+                    {bottle.title}
+                  </h2>
+                  <p class="mb-3 text-center md:text-xs lg:text-xl">
+                    {bottle.size}
+                  </p>
+                  <Button as="a" href={bottle.link}>
+                    Comprar Ahora
+                  </Button>
+                </article>
+              ))
+            }
+          </div>
+        </SandLayout>
+      </SandLayout>
+    </BaseLayout>
+  </MiddlewareLayout>
+</Layout>
+<script>
+  const $ = document.querySelector.bind(document)
+  // const searchbox = $('#searchbox')
+  const scrollToEl = $('#scroll-to')
+  const recipes = $('#recipes')
+  // const $cocteles = $('#cocteles')
+
+  // const listCocteles = $cocteles.dataset.cocteles
+
+  scrollToEl?.addEventListener('click', () => {
+    recipes?.scrollIntoView({ behavior: 'smooth' })
+  })
+
+  // searchbox?.addEventListener('input', (e) => {
+  //   const term = (e?.target as HTMLInputElement)?.value.toLocaleLowerCase()
+  //   console.log(
+  //     [...listCocteles]
+  //       .map((c) => c.innerHTML.trim())
+  //       .filter((c) => c.toLocaleLowerCase().includes(term))
+  //   )
+  // })
+</script>

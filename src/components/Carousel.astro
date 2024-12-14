@@ -5,19 +5,30 @@ import AngleRight from 'icons/long-right-arrow.svg'
 import Button from './Button.astro'
 ---
 
-<div id="carousel-wrapper" class="flex gap-8 items-center">
-  <Button variant="rounded" id="prev-button">
+<div
+  id="carousel-wrapper"
+  class="grid grid-cols-2 grid-rows-[auto_auto] items-center gap-8 md:grid-cols-[auto_1fr_auto] md:grid-rows-[auto]"
+>
+  <Button
+    class="col-start-1 row-start-2 justify-self-end md:col-start-1 md:row-start-1"
+    variant="rounded"
+    id="prev-button"
+  >
     <Image src={AngleLeft} alt="left icon" />
   </Button>
   <div
-    class="flex-shrink flex-grow basis-0 overflow-x-hidden"
+    class="col-span-2 col-start-1 row-start-1 flex-shrink flex-grow basis-0 overflow-x-hidden md:col-span-1 md:col-start-2"
     id="caroulse-slider"
   >
     <div class="flex transition-transform ease-linear" id="carousel-content">
       <slot />
     </div>
   </div>
-  <Button variant="rounded" id="next-button">
+  <Button
+    class="col-start-2 row-start-2 md:col-start-3 md:row-start-1"
+    variant="rounded"
+    id="next-button"
+  >
     <Image src={AngleRight} alt="right icon" />
   </Button>
 </div>

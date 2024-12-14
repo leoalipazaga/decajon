@@ -1,0 +1,44 @@
+---
+import Button from 'components/Button.astro'
+import Tag from 'components/Tag.astro'
+import Counter from 'components/Counter.astro'
+
+interface Props {
+  title: string
+  info: string
+  price: string
+}
+
+const { title, info, price } = Astro.props
+---
+
+<article
+  class="grid grid-cols-[auto_auto] justify-items-center gap-x-4 md:grid-cols-[min-content_auto] md:grid-rows-[auto_auto_auto_auto_1fr] md:justify-items-start"
+>
+  <h3 class="col-span-2 row-start-1 mb-2 text-sm uppercase md:text-2xl">
+    {title}
+  </h3>
+  <p
+    class="hidden text-xs md:col-span-2 md:row-start-2 md:mb-[1.125rem] lg:block lg:text-base"
+  >
+    Producto en Stock
+  </p>
+  <p
+    class="col-span-2 row-start-2 mb-8 text-center text-xs md:row-start-3 md:mb-4 md:text-left lg:text-base"
+  >
+    {info}
+  </p>
+  <div
+    class="col-start-1 col-end-2 row-start-3 justify-self-end md:-col-end-1 md:row-start-4 md:justify-self-start"
+  >
+    <Counter />
+  </div>
+  <Tag
+    class="col-start-2 row-start-3 flex place-items-center justify-self-start md:col-span-1 md:col-start-2 md:row-start-5 md:self-end"
+    >{price}</Tag
+  >
+  <Button
+    class="col-span-2 row-start-4 mt-6 text-nowrap md:col-span-1 md:col-start-1 md:row-start-5 md:mt-0 md:self-end"
+    >Comprar Ahora</Button
+  >
+</article>

@@ -1,21 +1,30 @@
 ---
 import { Image } from 'astro:assets'
-import DeCajonLogo from 'public/decajon-logo.svg'
+import DeCajonLogo from 'images/decajon-logo.png'
 import Globe from 'icons/globe.svg'
 import Cart from 'icons/cart.svg'
 import Button from './Button.astro'
 ---
 
 <nav
-  class="py-[18px] px-14 w-full flex items-center justify-between absolute top-0 left-0 overflow-hidden z-10"
+  class="absolute left-0 top-0 z-10 flex w-full max-w-screen-2xl items-center justify-between overflow-hidden px-14 py-[18px] 2xl:left-1/2 2xl:-translate-x-1/2"
 >
   <a href="/">
     <Image src={DeCajonLogo} width={115} height={44} alt="DeCajonLogo" />
   </a>
-  <ul class="flex items-center gap-12">
-    <li><a class="font-cultive" href="/products">Productos</a></li>
-    <li><a class="font-cultive" href="/history">Historia</a></li>
-    <li><a class="font-cultive" href="/cocteles">Cócteles</a></li>
+  <ul class="hidden items-center gap-12 sm:flex">
+    <li>
+      <a class="font-cultive text-xs lg:text-base" href="/products">Productos</a
+      >
+    </li>
+    <li>
+      <a class="font-cultive text-xs lg:text-base" href="/history">Historia</a>
+    </li>
+    <li>
+      <a class="font-cultive text-xs lg:text-base" href="/experience"
+        >Experiencia</a
+      >
+    </li>
   </ul>
   <ul class="flex items-center gap-2">
     <li>

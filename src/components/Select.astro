@@ -1,5 +1,7 @@
 ---
 import type { HTMLAttributes } from 'astro/types'
+import { Image } from 'astro:assets'
+import AngleRight from 'icons/angle-right.svg'
 
 type CustomProps = {
   rounded?: boolean
@@ -10,12 +12,331 @@ type Props = HTMLAttributes<'select'> & CustomProps
 const { rounded, ...rest } = Astro.props
 ---
 
-<select
-  {...rest}
-  class:list={[
-    'bg-transparent border border-eerie-black px-2.5 py-1',
-    rounded && 'rounded-[1.25rem]',
-  ]}
->
-  <slot />
-</select>
+<div class="select-wrapper" style="display: none;">
+  <select
+    {...rest}
+    class:list={[
+      'border border-eerie-black bg-transparent px-2.5 py-1',
+      rounded && 'rounded-[1.25rem]',
+    ]}
+  >
+    <slot />
+  </select>
+  <span class="select-icon"></span>
+</div>
+<label class="hidden" for="select">Custom Select</label>
+<div class="container">
+  <!-- hidden -->
+  <button
+    role="combobox"
+    id="select"
+    value="Select"
+    aria-controls="listbox"
+    aria-haspopup="listbox"
+    tabindex="0"
+    aria-expanded="false"
+  >
+    Seleccionar una opción
+  </button>
+  <span
+    class="absolute right-[0.625rem] top-1/2 z-10 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-rosewood"
+  >
+    <Image
+      class="w-[0.625rem] rotate-90"
+      src={AngleRight}
+      alt="icon right"
+      loading="lazy"
+    />
+  </span>
+  <!-- <div id="announcement" aria-live="assertive" role="alert"></div> -->
+  <ul role="listbox" id="listbox">
+    <slot />
+  </ul>
+</div>
+<style>
+  .container {
+    position: relative;
+    #announcement {
+      opacity: 0;
+      pointer-events: none;
+    }
+    label {
+      @apply w-full;
+      @apply text-sm;
+      margin: 0 auto;
+      text-align: left;
+    }
+    select,
+    button,
+    ul {
+      display: block;
+      padding-left: 0.8rem;
+      padding-right: 0.8rem;
+      @apply py-2;
+      @apply w-full;
+      margin: 0 auto;
+      @apply text-left;
+      @apply bg-transparent;
+      @apply rounded-[1.25rem];
+      @apply text-base;
+      border: 1px solid #000;
+    }
+    button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+
+      &:focus-visible {
+        outline: 0;
+        /* outline-offset: -3px; */
+        /* box-shadow: 0 0 5px 2px rgba(251, 146, 60, 0.7) inset; */
+      }
+    }
+    ul {
+      color: #3f403b;
+      @apply bg-[#e8dfcf];
+      position: absolute;
+      left: 0;
+      right: 0;
+      @apply top-full;
+      max-height: 10rem;
+      overflow-y: auto;
+      list-style-type: none;
+      padding: 0;
+      margin-top: 0.1rem;
+      opacity: 0;
+      transform: scale(1, 0);
+      transform-origin: top left;
+      transition: all 0.3s ease-in;
+      pointer-events: none;
+      z-index: 2;
+      &.active {
+        opacity: 1;
+        transform: scale(1, 1);
+        pointer-events: auto;
+      }
+      li,
+      option {
+        padding: 0.6rem 0.5rem;
+        /* border-top: 1px solid #e6e6e6; */
+        @apply cursor-pointer;
+        transition: all 0.3s ease-in;
+        @apply relative;
+        &::before {
+          font-family: 'Font Awesome 5 Free';
+          content: '\f00c';
+          vertical-align: middle;
+          font-weight: 900;
+          position: absolute;
+          right: 0.8rem;
+          opacity: 0;
+          transition: opacity 0.3s ease-out;
+        }
+        &:hover,
+        &.current {
+          @apply text-anti-flash-white;
+          @apply bg-rosewood;
+        }
+        &.active {
+          /* border: 2px solid; */
+          /* box-shadow: 0 0 0 2px rgba(251, 146, 60, 0.7); */
+        }
+        &.active::before {
+          /* opacity: 1; */
+        }
+      }
+    }
+  }
+
+  .select-wrapper {
+    position: relative;
+  }
+
+  select {
+    width: 100%;
+  }
+
+  .select-icon {
+    position: absolute;
+    width: 1rem;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background: red;
+    pointer-events: none;
+    display: block;
+  }
+</style>
+<script>
+  const elements = {
+    button: document.querySelector('[role="combobox"]'),
+    dropdown: document.querySelector('[role="listbox"]'),
+    options: document.querySelectorAll('[role="option"]'),
+    announcement: document.getElementById('announcement'),
+  } as const
+
+  let isDropdownOpen = false
+  let currentOptionIndex = 0
+  let lastTypedChar = ''
+  let lastMatchingIndex = 0
+
+  const toggleDropdown = () => {
+    elements.dropdown?.classList.toggle('active')
+    isDropdownOpen = !isDropdownOpen
+    elements.button?.setAttribute('aria-expanded', isDropdownOpen.toString())
+
+    if (isDropdownOpen) {
+      focusCurrentOption()
+    } else {
+      ;(elements.button as HTMLButtonElement)?.focus()
+    }
+  }
+
+  const handleKeyPress = (event: KeyboardEvent) => {
+    event.preventDefault()
+    const { key } = event
+    const openKeys = ['ArrowDown', 'ArrowUp', 'Enter', ' ']
+
+    if (!isDropdownOpen && openKeys.includes(key)) {
+      toggleDropdown()
+    } else if (isDropdownOpen) {
+      switch (key) {
+        case 'Escape':
+          toggleDropdown()
+          break
+        case 'ArrowDown':
+          moveFocusDown()
+          break
+        case 'ArrowUp':
+          moveFocusUp()
+          break
+        case 'Enter':
+        case ' ':
+          selectCurrentOption()
+          break
+        default:
+          // Handle alphanumeric key presses for mini-search
+          handleAlphanumericKeyPress(key)
+          break
+      }
+    }
+  }
+
+  // @ts-expect-error:no check type
+  const handleDocumentInteraction = (event) => {
+    const isClickInsideButton = elements.button?.contains(event.target)
+    const isClickInsideDropdown = elements.dropdown?.contains(event.target)
+
+    if (isClickInsideButton || (!isClickInsideDropdown && isDropdownOpen)) {
+      toggleDropdown()
+    }
+
+    // Check if the click is on an option
+    const clickedOption = event.target.closest('[role="option"]')
+    if (clickedOption) {
+      selectOptionByElement(clickedOption)
+    }
+  }
+
+  const moveFocusDown = () => {
+    if (currentOptionIndex < elements.options.length - 1) {
+      currentOptionIndex++
+    } else {
+      currentOptionIndex = 0
+    }
+    focusCurrentOption()
+  }
+
+  const moveFocusUp = () => {
+    if (currentOptionIndex > 0) {
+      currentOptionIndex--
+    } else {
+      currentOptionIndex = elements.options.length - 1
+    }
+    focusCurrentOption()
+  }
+
+  const focusCurrentOption = () => {
+    const currentOption = elements.options[currentOptionIndex] as HTMLElement
+    const optionLabel = currentOption.textContent
+
+    currentOption.classList.add('current')
+    currentOption.focus()
+
+    // Scroll the current option into view
+    currentOption.scrollIntoView({
+      block: 'nearest',
+    })
+
+    elements.options.forEach((option) => {
+      if (option !== currentOption) {
+        option.classList.remove('current')
+      }
+    })
+    announceOption(`You're currently focused on ${optionLabel}`) // Announce the selected option within a delayed period
+  }
+
+  const selectCurrentOption = () => {
+    const selectedOption = elements.options[currentOptionIndex] as HTMLElement
+    selectOptionByElement(selectedOption)
+  }
+
+  const selectOptionByElement = (optionElement: HTMLElement) => {
+    const optionValue = optionElement.textContent
+    if (elements.button) {
+      elements.button.textContent = optionValue
+    }
+    elements.options.forEach((option) => {
+      option.classList.remove('active')
+      option.setAttribute('aria-selected', 'false')
+    })
+
+    optionElement.classList.add('active')
+    optionElement.setAttribute('aria-selected', 'true')
+
+    toggleDropdown()
+    announceOption(optionValue as string) // Announce the selected option
+  }
+
+  const handleAlphanumericKeyPress = (key: string) => {
+    const typedChar = key.toLowerCase()
+
+    if (lastTypedChar !== typedChar) {
+      lastMatchingIndex = 0
+    }
+
+    const matchingOptions = Array.from(elements.options).filter((option) =>
+      option.textContent?.toLowerCase().startsWith(typedChar)
+    )
+
+    if (matchingOptions.length) {
+      if (lastMatchingIndex === matchingOptions.length) {
+        lastMatchingIndex = 0
+      }
+      const value = matchingOptions[lastMatchingIndex]
+      const index = Array.from(elements.options).indexOf(value)
+      currentOptionIndex = index
+      focusCurrentOption()
+      lastMatchingIndex += 1
+    }
+    lastTypedChar = typedChar
+  }
+
+  const announceOption = (text: string) => {
+    if (elements.announcement) {
+      elements.announcement.textContent = text
+    }
+    elements.announcement?.setAttribute('aria-live', 'assertive')
+    setTimeout(() => {
+      if (elements.announcement) {
+        elements.announcement.textContent = ''
+      }
+      elements.announcement?.setAttribute('aria-live', 'off')
+    }, 1000) // Announce and clear after 1 second (adjust as needed)
+  }
+
+  // @ts-expect-error:no check
+  elements.button?.addEventListener('keydown', handleKeyPress)
+  document.addEventListener('click', handleDocumentInteraction)
+</script>

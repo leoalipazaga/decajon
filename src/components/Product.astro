@@ -1,0 +1,76 @@
+---
+import { Image } from 'astro:assets'
+import Button from './Button.astro'
+import Tag from './Tag.astro'
+import type { ImageMetadata } from 'astro'
+
+interface Props {
+  align?: 'left' | 'right'
+  title: string
+  description: string
+  img: { alt: string; src: ImageMetadata }
+  price: string
+  alias: string
+  link: string
+}
+
+const {
+  align = 'left',
+  description,
+  title,
+  img,
+  price,
+  alias,
+  link,
+} = Astro.props
+---
+
+<article
+  class="grid grid-cols-[auto_auto] grid-rows-[220px_auto_auto_auto_auto] justify-items-center gap-x-9 md:grid-cols-[auto_auto_auto_auto] md:grid-rows-[auto_auto_auto] md:justify-items-start md:gap-x-0"
+>
+  <Image
+    alt={img.alt}
+    class:list={[
+      'col-span-2 row-start-1 aspect-[1/2] h-full object-contain md:col-span-1 md:-row-end-1 md:h-auto md:object-cover',
+      align === 'left' ? 'col-start-1 md:pr-9' : 'col-start-1 md:pl-9',
+    ]}
+    src={img.src}
+    loading="lazy"
+  />
+  <h2
+    class:list={[
+      'col-span-2 row-start-2 mb-[0.625rem] text-left md:col-span-4 md:row-start-1 md:mb-4 md:self-end md:text-sm lg:mb-9 lg:text-2xl',
+      align === 'left' ? 'md:col-start-2' : 'md:col-start-1',
+    ]}
+  >
+    {title}
+  </h2>
+  <p
+    class:list={[
+      'col-span-2 row-start-3 mb-3 text-center text-xs md:col-span-4 md:row-start-2 md:text-left lg:text-sm xl:text-xl',
+      align === 'left' ? 'md:col-start-2' : 'md:col-start-1',
+    ]}
+  >
+    {description}
+  </p>
+  <Button
+    class:list={[
+      'col-span-2 row-start-5 mt-5 h-fit text-nowrap md:col-span-1 md:row-start-3 md:mr-4 md:mt-0',
+      align === 'left' ? 'md:col-start-2' : 'md:col-start-1',
+    ]}
+    as="a"
+    href={link}>Comprar Ahora</Button
+  >
+  <Tag
+    class:list={[
+      'col-span-1 row-start-4 h-fit md:row-start-3 md:mr-4',
+      align === 'left' ? 'md:col-start-3' : 'md:col-start-2',
+    ]}>{alias}</Tag
+  >
+  <Tag
+    class:list={[
+      'col-span-1 row-start-4 h-fit md:row-start-3',
+      align === 'left' ? 'md:col-start-4' : 'md:col-start-3',
+    ]}>{price}</Tag
+  >
+</article>

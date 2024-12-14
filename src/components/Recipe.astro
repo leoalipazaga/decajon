@@ -48,30 +48,42 @@ const difficultyI18n = getDifficulty(difficulty ?? 'easy')
 const momentI18n = getMoment(moment ?? 'midday')
 ---
 
-<div class:list={['grid grid-cols-[auto_65%] gap-[2.25rem]', className]}>
+<div
+  class:list={[
+    'grid grid-cols-1 gap-[2.25rem] md:grid-cols-[auto_65%] md:grid-rows-1',
+    className,
+  ]}
+>
   <Picture
     height="420"
-    class="aspect-[2/3] h-[420px] w-full object-cover object-center"
+    class="hidden aspect-[2/3] h-full w-full object-cover object-center md:block"
     formats={['webp', 'avif', 'jpeg']}
     src={img.path}
     alt={img.alt}
   />
-  <div class="grid grid-rows-[auto_1fr] gap-3.5">
+  <article class="grid grid-rows-[auto_1fr] gap-3.5">
     <h1
-      class="border border-eerie-black px-6 py-[0.75rem] text-left text-4xl uppercase text-eerie-black"
+      class="text-nowrap border border-eerie-black px-6 py-[0.75rem] text-left text-xl uppercase text-eerie-black lg:text-3xl xl:text-4xl"
     >
       {heading}
     </h1>
     <div
       class="grid grid-rows-[auto_1fr_auto] gap-y-3 border border-eerie-black px-6 py-[0.75rem]"
     >
+      <Picture
+        height="420"
+        class="block aspect-[3/2] h-full w-full object-cover object-center md:hidden"
+        formats={['webp', 'avif', 'jpeg']}
+        src={img.path}
+        alt={img.alt}
+      />
       <h2
-        class="row-start-1 justify-self-start text-left text-2xl uppercase text-rosewood"
+        class="row-start-2 justify-self-start text-left text-sm uppercase text-rosewood md:row-start-1 lg:text-2xl"
       >
         {title}
       </h2>
-      <div class="row-start-2">
-        <p class="mb-3 text-base text-eerie-black">{description}</p>
+      <div class="row-start-3 md:row-start-2">
+        <p class="mb-3 text-xs text-eerie-black lg:text-base">{description}</p>
         <div class="flex gap-4">
           <Button as="a" href={link}>Ver Receta</Button>
           <Button as="a" variant="outline" href="/history"
@@ -80,7 +92,7 @@ const momentI18n = getMoment(moment ?? 'midday')
         </div>
       </div>
       <div
-        class="row-start-3 grid grid-cols-[min-content_min-content] grid-rows-[auto_auto] gap-x-6 gap-y-2"
+        class="row-start-3 hidden grid-cols-[min-content_min-content] grid-rows-[auto_auto] gap-x-6 gap-y-2 lg:grid"
       >
         <h2 class="col-start-1 text-sm uppercase text-rosewood">Dificultad</h2>
         <h2 class="col-start-2 text-sm uppercase text-rosewood">Ocasión</h2>
@@ -88,5 +100,5 @@ const momentI18n = getMoment(moment ?? 'midday')
         <Tag class="row-start-2 justify-self-start">{momentI18n}</Tag>
       </div>
     </div>
-  </div>
+  </article>
 </div>

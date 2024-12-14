@@ -355,76 +355,97 @@ const props = Astro.props
   <MiddlewareLayout>
     <BaseLayout>
       <SandLayout class="pb-28 pt-44">
-        <div class="m-auto w-[76%]">
-          <article class="grid lg:grid-cols-2 lg:gap-x-6">
+        <div class="m-auto w-[76%] max-w-screen-2xl">
+          <article
+            class="grid justify-items-center md:grid-cols-2 md:grid-rows-[auto_auto_auto_auto_1fr] md:justify-items-start md:gap-x-5 lg:gap-x-6"
+          >
             <Picture
               class="aspect-square object-cover"
-              loading="eager"
+              pictureAttributes={{
+                class:
+                  'md:col-start-1 md:row-start-1 md:row-end-6 order-4 my-[0.625rem] md:my-0',
+              }}
+              loading="lazy"
               src={props.img.src}
               alt={props.img.alt}
               formats={['webp', 'avif', 'jpg']}
             />
-            <div
-              class="grid lg:grid-cols-1 lg:grid-rows-[min-content_min-content_min-content_auto_min-content]"
+            <p
+              class="order-1 col-start-1 row-start-1 mb-[0.625rem] text-xs md:col-start-2 md:row-start-1 lg:text-lg xl:text-xl"
             >
-              <p class="mb-[0.625rem] lg:text-xl">Nuestros Cócteles</p>
-              <h1 class="mb-[0.625rem] lg:text-5xl">{props.title}</h1>
-              <p
-                class="mb-[2.375rem] md:line-clamp-5 lg:text-xl xl:line-clamp-[7]"
+              Nuestros Cócteles
+            </p>
+            <h1
+              class="order-2 mb-[0.625rem] text-xl md:col-start-2 md:row-start-2 lg:text-3xl xl:text-5xl"
+            >
+              {props.title}
+            </h1>
+            <p
+              class="order-6 mb-[0.875rem] text-xs md:col-start-2 md:row-start-3 lg:line-clamp-[10] lg:text-base xl:mb-[2.375rem] xl:text-xl"
+            >
+              {props.summary}
+            </p>
+            <Tag
+              class="order-3 place-self-start justify-self-center text-rosewood md:justify-self-start lg:col-start-2 lg:row-start-4"
+              >De Cajón Vodka</Tag
+            >
+            <footer
+              class="order-5 my-[0.625rem] grid grid-cols-[auto_auto] content-end gap-x-5 md:col-start-2 md:row-start-5 md:my-0 md:grid-cols-[min-content_min-content] md:grid-rows-[auto_auto] lg:gap-x-6"
+            >
+              <span
+                class="hidden place-self-center text-center uppercase text-rosewood md:block"
+                >Dificultad</span
               >
-                {props.summary}
-              </p>
-              <Tag class="place-self-start text-rosewood">De Cajón Vodka</Tag>
-              <footer
-                class="grid content-end lg:grid-cols-[min-content_min-content] lg:grid-rows-[auto_auto] lg:gap-x-6"
+              <span
+                class="hidden place-self-center text-center uppercase text-rosewood md:block"
+                >OCASIÓN</span
               >
-                <span
-                  class="place-self-center text-center uppercase text-rosewood"
-                  >Dificultad</span
-                >
-                <span
-                  class="place-self-center text-center uppercase text-rosewood"
-                  >OCASIÓN</span
-                >
-                <Tag class="self-start justify-self-center"
-                  >{props.difficulty}</Tag
-                >
-                <Tag class="self-start justify-self-center"
-                  >{props.ocassion}</Tag
-                >
-              </footer>
-            </div>
+              <Tag class="self-start justify-self-center"
+                >{props.difficulty}</Tag
+              >
+              <Tag class="self-start justify-self-center">{props.ocassion}</Tag>
+            </footer>
           </article>
         </div>
       </SandLayout>
       <SandLayout class="pb-28">
-        <div class="m-auto w-[76%]">
+        <div class="m-auto w-[76%] max-w-screen-2xl">
           <article
             class="mb-16 grid gap-y-6 lg:grid-cols-2 lg:grid-rows-[min-content_min-content]"
           >
-            <h2 class="col-start-1 row-start-1 font-thabit text-xl">
+            <h2 class="col-start-1 row-start-1 font-thabit text-sm lg:text-xl">
               Ingredientes
             </h2>
-            <ul class="col-start-1 row-start-2 list-disc text-xl">
+            <ul
+              class="col-start-1 row-start-2 list-disc text-xs md:text-sm lg:text-xl"
+            >
               {props.ingredients.map((ingredient) => <li>{ingredient}</li>)}
             </ul>
-            <h2 class="col-start-2 row-start-1 font-thabit text-xl">
+            <h2
+              class="col-start-1 row-start-3 font-thabit text-sm lg:col-start-2 lg:row-start-1 lg:text-xl"
+            >
               Procedimiento
             </h2>
-            <ul class="col-start-2 row-start-2 list-disc text-xl">
+            <ul
+              class="col-start-1 row-start-4 list-disc text-xs md:text-sm lg:col-start-2 lg:row-start-2 lg:text-xl"
+            >
               {props.steps.map((step) => <li>{step}</li>)}
             </ul>
           </article>
           <article class="border border-eerie-black px-7 py-3">
-            <h2 class="mb-6 font-thabit text-xl">Información de la Receta</h2>
-            <ul class="list-disc text-xl">
+            <h2
+              class="mb-6 text-center font-thabit text-sm lg:text-left lg:text-xl"
+            >
+              Información de la Receta
+            </h2>
+            <ul class="list-disc text-xs lg:text-xl">
               {props.info.map((detail) => <li>{detail}</li>)}
             </ul>
           </article>
         </div>
       </SandLayout>
       <SandLayout class="py-[4.8125rem]">
-        <div class="m-auto w-[76%]">
+        <div class="m-auto w-[76%] max-w-screen-2xl">
           <SliderRecipes />
         </div>
       </SandLayout>
