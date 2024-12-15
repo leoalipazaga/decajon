@@ -1,3 +1,116 @@
 ---
-
+import { Image, Picture } from 'astro:assets'
+import ProductInfo from './_components/product-info.astro'
+import ProductDescription from './_components/product-description.astro'
+import ProductPhotos from './_components/product-photos.astro'
+import ProductLayout from './_components/product-layout.astro'
+import BlackBull from 'images/black-bull.png'
+import DeCajonGin from 'images/decajon-gin.png'
+import Button from 'components/Button.astro'
+import AngleLeft from 'icons/angle-left.svg'
+import AngleRight from 'icons/angle-right.svg'
+import LongLeftArrow from 'icons/long-left-arrow.svg'
+import DeCajonGin1 from 'images/decajon-gin-1.jpeg'
+import DeCajonGin2 from 'images/decajon-gin-2.jpeg'
+import DeCajonGin3 from 'images/decajon-gin-3.jpeg'
+import DeCajonGin4 from 'images/decajon-gin-4.jpeg'
+import DeCajonGinDescription from 'images/decajon-gin-description.jpeg'
 ---
+
+<ProductLayout>
+  <Fragment slot="default">
+    <div
+      class="ml-auto grid w-[88%] max-w-screen-2xl grid-cols-[1fr_2fr] gap-y-6 md:mr-auto md:grid-cols-[2fr_1fr_1.5fr] md:gap-y-[0.625rem] xl:grid-cols-[2fr_1fr_1fr] xl:gap-y-[1.875rem]"
+    >
+      <ul class="col-start-3 row-start-2 hidden gap-3 justify-self-end xl:flex">
+        <li>
+          <Button class="[&&]:bg-eerie-black" variant="rounded">
+            <Image src={AngleLeft} alt="angle-left" />
+          </Button>
+        </li>
+        <li>
+          <Button class="[&&]:bg-eerie-black" variant="rounded">
+            <Image src={AngleRight} alt="angle-right" />
+          </Button>
+        </li>
+      </ul>
+      <p
+        class="col-start-3 row-start-3 hidden text-right md:block lg:text-sm xl:text-base"
+      >
+        De Cajón Gin
+      </p>
+      <h1
+        class="col-start-1 -col-end-1 row-start-1 mr-[12%] text-center text-xl uppercase md:col-start-3 md:row-start-4 md:mr-0 md:text-right lg:text-2xl xl:text-4xl"
+      >
+        EL GIN CON EL QUE TODOS SOÑABAN
+      </h1>
+      <p
+        class="col-start-1 -col-end-1 row-start-2 mr-[12%] text-center text-xs md:col-start-3 md:row-start-5 md:mr-0 md:text-right lg:text-sm xl:text-base"
+      >
+        Combina 21 botánicos de origen peruano y europeo. La mezcla incluye
+        ingredientes como molle, limón rugoso, muña, cardamomo y cacao, entre
+        otros. Cada destilación preserva el alma de sus ingredientes, logrando
+        un gin equilibrado y lleno de aromas.
+      </p>
+      <Picture
+        src={BlackBull}
+        loading="lazy"
+        pictureAttributes={{
+          class:
+            'md:col-start-1 md:row-start-2 md:col-end-3 md:row-end-8 row-start-5 row-end-6 col-start-1 -col-end-1 justify-self-start',
+        }}
+        formats={['png', 'webp', 'avif']}
+        alt="BlackBull"
+      />
+      <Picture
+        src={DeCajonGin}
+        loading="lazy"
+        class="object-fill"
+        pictureAttributes={{
+          class:
+            'md:col-start-2 md:row-start-1 md:row-end-8 col-start-1 row-start-4 row-end-6 justify-self-end',
+        }}
+        formats={['png', 'webp', 'avif']}
+        alt="DeCajonGin"
+      />
+      <!--TODO: add link -->
+      <Button
+        as="a"
+        href="/"
+        class="col-start-1 -col-end-1 row-start-3 mr-[12%] justify-self-center md:col-start-3 md:row-start-6 md:mr-0 md:justify-self-end [&&]:bg-eerie-black"
+        >Descubre Más</Button
+      >
+    </div>
+    <div class="hidden items-center justify-center md:flex">
+      <Button class="[&&]:bg-eerie-black" variant="rounded" id="scroll-to">
+        <Image class="-rotate-90" src={LongLeftArrow} alt="angle-left" />
+      </Button>
+    </div>
+  </Fragment>
+  <Fragment slot="information">
+    <ProductPhotos
+      banner={{ alt: 'DeCajonGin1', src: DeCajonGin1 }}
+      bottom={[
+        { alt: 'DeCajonGin2', src: DeCajonGin2 },
+        { alt: 'DeCajonGin3', src: DeCajonGin3 },
+        { alt: 'DeCajonGin4', src: DeCajonGin4 },
+      ]}
+    />
+    <ProductInfo
+      title="DE CAJÓN VODKA"
+      info="De Cajón Gin es el gin que todos soñaban. Su compleja variedad aromática, debido a sus ingredientes de origen natural y representativos de la cultura altoandina, tan tradicionales como peruanos, le otorgan el equilibrio perfecto y una personalidad marcada. Esta bebida alcohólica es aromatizada con enebro y 20 ingredientes más, obtenida exclusivamente de la redestilación de alcohol etílico extraneutro y alcohol de papa."
+      price="s/. 99,00"
+    />
+  </Fragment>
+  <Fragment slot="description">
+    <ProductDescription
+      title="GIN PERUANO A BASE DE UNA PERFECTA FUSIÓN DE 21 BOTÁNICOS"
+      descriptions={[
+        'Alcohol: Posee una graduación de 43% a 20°C.',
+        'Origen: Sus ingredientes son una fusión de botánicos clásicos utilizados para los gin europeos y una lista de herbarios del Perú cuidadosamente elegidos, de origen natural y representativos de la cultura altoandina.',
+        'Ingredientes: Enebro, semillas de cilantro, molle, cardamomo, papa seca, semillas de cacao, maíz y panca ahumada, limón rugoso, naranja, muña, huamanripa, boldo, guayaba, semillas de hinojo, romero, jera (tipo de salvia de los Andes), kion, pasuchaca (raíz terrosa), canela, canela china, lima, panizada, anís estrella.',
+      ]}
+      img={{ alt: 'DeCajonDescription', src: DeCajonGinDescription }}
+    />
+  </Fragment>
+</ProductLayout>

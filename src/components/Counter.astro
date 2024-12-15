@@ -10,13 +10,13 @@ const props = Astro.props
 
 <Tag class="flex min-w-36 items-center justify-between [&&]:p-1" {...props}>
   <Button
-    class="h-7 w-7 font-bold text-anti-flash-white"
+    class="font-bold text-anti-flash-white [&&]:h-7 [&&]:w-7"
     variant="rounded"
     id="increase">+</Button
   >
   <span class="font-bold" id="counter">1</span>
   <Button
-    class="h-7 w-7 font-bold text-anti-flash-white"
+    class="font-bold text-anti-flash-white [&&]:h-7 [&&]:w-7"
     variant="rounded"
     id="decrease">-</Button
   >
