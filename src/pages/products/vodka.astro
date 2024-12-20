@@ -95,8 +95,15 @@ import ProductInfo from './_components/product-info.astro'
               'Origen: Las papas son procedentes de agricultores de la zona andina y costeña. Cada cosecha se inspecciona cuidadosamente antes de ser aceptada en la destilería.',
               'Premios Mundiales: Un destilado que ha ganado premios en concursos donde participaron más de 3500 marcas a nivel mundial. La medalla de Plata en los premios San Francisco World Spirits Competition 2022 y la Medalla de Oro en el prestigioso concurso New York World Wine & Spirits Competition 2022.',
             ]}
-            img={{ alt: 'VodkaDescription', src: VodkaDescription }}
-          />
+          >
+            <Picture
+              alt="VodkaDescription"
+              class="aspect-square md:aspect-auto md:h-full md:object-cover"
+              formats={['webp', 'avif', 'jpeg']}
+              loading="lazy"
+              src={VodkaDescription}
+            />
+          </ProductDescription>
         </div>
       </SandLayout>
       <SandLayout class="py-9 md:py-[4.725rem]">

@@ -10,7 +10,7 @@ import Siembra2 from 'images/siembra-2.jpeg'
 import Siembra3 from 'images/siembra-3.jpeg'
 import Siembra4 from 'images/siembra-4.jpeg'
 import SiembraBanner from 'images/siembra-banner.png'
-import DeCajonGinDescription from 'images/siembra-description.png'
+import SiembraDescrition from 'images/siembra-description.png'
 import Button from 'components/Button.astro'
 import AngleLeft from 'icons/angle-left.svg'
 import AngleRight from 'icons/angle-right.svg'
@@ -112,15 +112,13 @@ import LongLeftArrow from 'icons/long-left-arrow.svg'
         'Origen: Papas peruanas andinas cuidadosamente seleccionadas para su destilación, alcohol de caña rectificado.',
         'Presentación: Es envasado en una botella elegante, atrevida y cercana de 750ml cuya etiqueta combina ilustraciones y gráficos con colores vívidos que reflejan valores peruanos y tendencias universales.',
       ]}
-    >
-      <div class="siembra--banner">
+      ><div class="siembra--banner">
         <Picture
           class="aspect-square object-contain md:aspect-auto md:h-full"
           formats={['webp', 'avif', 'jpeg']}
-          pictureAttributes={{ class: 'md:row-start-1 md:-row-end-1' }}
           loading="lazy"
-          src={DeCajonGinDescription}
-          alt="DeCajonDescription"
+          alt="SiembraDescription"
+          src={SiembraDescrition}
         />
       </div>
     </ProductDescription>

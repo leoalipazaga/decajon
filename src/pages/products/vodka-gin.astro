@@ -110,7 +110,14 @@ import DeCajonGinDescription from 'images/decajon-gin-description.jpeg'
         'Origen: Sus ingredientes son una fusión de botánicos clásicos utilizados para los gin europeos y una lista de herbarios del Perú cuidadosamente elegidos, de origen natural y representativos de la cultura altoandina.',
         'Ingredientes: Enebro, semillas de cilantro, molle, cardamomo, papa seca, semillas de cacao, maíz y panca ahumada, limón rugoso, naranja, muña, huamanripa, boldo, guayaba, semillas de hinojo, romero, jera (tipo de salvia de los Andes), kion, pasuchaca (raíz terrosa), canela, canela china, lima, panizada, anís estrella.',
       ]}
-      img={{ alt: 'DeCajonDescription', src: DeCajonGinDescription }}
-    />
+    >
+      <Picture
+        alt="DeCajonGinDescription"
+        class="aspect-square md:aspect-auto md:h-full md:object-cover"
+        formats={['webp', 'avif', 'jpeg']}
+        loading="lazy"
+        src={DeCajonGinDescription}
+      />
+    </ProductDescription>
   </Fragment>
 </ProductLayout>
