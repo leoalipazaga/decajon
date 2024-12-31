@@ -4,6 +4,7 @@ import Button from 'components/Button.astro'
 import Input from 'components/Input.astro'
 import BaseLayout from 'layouts/BaseLayout.astro'
 import Layout from 'layouts/Layout.astro'
+import SandLayout from 'layouts/SandLayout.astro'
 import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
 import Master3 from 'images/master-3.jpg'
 ---
@@ -11,28 +12,50 @@ import Master3 from 'images/master-3.jpg'
 <Layout title="DeCajon">
   <MiddlewareLayout>
     <BaseLayout showNavbar={false}>
-      <div class="m-auto w-[76%] max-w-screen-2xl">
-        <div class="grid grid-cols-2 grid-rows-[auto_auto] pb-16 pt-28">
-          <article>
-            <h1 class="mb-10 text-4xl uppercase">¡Bienvenido NUEVAMENTE!</h1>
-            <label>Usuario</label>
-            <Input />
-            <label>Contraseña</label>
-            <Input type="password" />
-            <p>¿Olvidaste tu contraseña?</p>
-            <Button>Ingresar</Button>
-          </article>
-          <Picture
-            alt="maestro-3"
-            class="h-[306px] object-cover md:mb-3 lg:mb-[3.25rem]"
-            loading="lazy"
-            src={Master3}
-            formats={['webp', 'avif', 'jpeg']}
-          />
-          <p>¿No tienes una cuenta?</p>
-          <Button>Registrarme</Button>
+      <SandLayout>
+        <div class="m-auto w-[76%] max-w-screen-2xl">
+          <div
+            class="grid grid-cols-1 grid-rows-[auto_auto] gap-x-[5.25rem] pb-16 pt-28 md:grid-cols-2"
+          >
+            <article>
+              <h1
+                class="m-auto mb-10 w-3/4 text-center text-xl uppercase lg:text-4xl xl:w-1/2"
+              >
+                ¡Bienvenido NUEVAMENTE!
+              </h1>
+              <Input
+                autocomplete="off"
+                htmlFor="username"
+                class="mb-5"
+                label="Usuario"
+              />
+              <Input
+                autocomplete="off"
+                htmlFor="password"
+                label="Contraseña"
+                type="password"
+              />
+              <a class="block text-right text-xs text-rosewood" href="/"
+                >¿Olvidaste tu contraseña?</a
+              >
+              <Button class="mt-8 w-full">Ingresar</Button>
+              <p class="mt-8 text-center text-xs lg:text-base">
+                ¿No tienes una cuenta?<a class="text-rosewood" href="/signup"
+                  >&nbsp;Registrarme</a
+                >
+              </p>
+            </article>
+            <Picture
+              alt="maestro-3"
+              class="h-full rounded-[2.5rem] object-cover"
+              pictureAttributes={{ class: 'hidden md:block' }}
+              loading="lazy"
+              src={Master3}
+              formats={['webp', 'avif', 'jpeg']}
+            />
+          </div>
         </div>
-      </div>
+      </SandLayout>
     </BaseLayout>
   </MiddlewareLayout>
 </Layout>

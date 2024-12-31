@@ -26,12 +26,12 @@ const {
 ---
 
 <article
-  class="grid grid-cols-[auto_auto] grid-rows-[220px_auto_auto_auto_auto] justify-items-center gap-x-9 md:grid-cols-[auto_auto_auto_auto] md:grid-rows-[auto_auto_auto] md:justify-items-start md:gap-x-0"
+  class="grid grid-cols-[auto_auto] grid-rows-[220px_auto_auto_auto_auto] justify-items-center gap-x-4 md:grid-cols-[auto_auto_auto_auto] md:grid-rows-[auto_auto_auto] md:justify-items-start md:gap-x-0"
 >
   <Image
     alt={img.alt}
     class:list={[
-      'col-span-2 row-start-1 aspect-[1/2] h-full object-contain md:col-span-1 md:-row-end-1 md:h-auto md:object-cover',
+      'col-span-2 row-start-1 aspect-[1/2] h-full object-contain md:col-span-1 md:-row-end-1 md:h-auto md:object-contain',
       align === 'left' ? 'col-start-1 md:pr-9' : 'col-start-1 md:pl-9',
     ]}
     src={img.src}
@@ -39,7 +39,7 @@ const {
   />
   <h2
     class:list={[
-      'col-span-2 row-start-2 mb-[0.625rem] text-left md:col-span-4 md:row-start-1 md:mb-4 md:self-end md:text-sm lg:mb-9 lg:text-2xl',
+      'col-span-2 row-start-2 mb-[0.625rem] mt-4 text-left md:col-span-4 md:row-start-1 md:mb-4 md:mt-0 md:self-end md:text-sm lg:mb-9 lg:text-2xl',
       align === 'left' ? 'md:col-start-2' : 'md:col-start-1',
     ]}
   >
@@ -63,13 +63,13 @@ const {
   >
   <Tag
     class:list={[
-      'col-span-1 row-start-4 h-fit md:row-start-3 md:mr-4',
+      'col-span-1 row-start-4 h-fit min-w-32 justify-self-end text-center md:row-start-3 md:mr-4 md:min-w-min',
       align === 'left' ? 'md:col-start-3' : 'md:col-start-2',
     ]}>{alias}</Tag
   >
   <Tag
     class:list={[
-      'col-span-1 row-start-4 h-fit md:row-start-3',
+      'col-span-1 row-start-4 h-fit min-w-32 justify-self-start text-center md:row-start-3 md:min-w-min',
       align === 'left' ? 'md:col-start-4' : 'md:col-start-3',
     ]}>{price}</Tag
   >

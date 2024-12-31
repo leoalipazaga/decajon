@@ -1,0 +1,239 @@
+---
+import { Image, Picture } from 'astro:assets'
+import BaseLayout from 'layouts/BaseLayout.astro'
+import Layout from 'layouts/Layout.astro'
+import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
+import SandLayout from 'layouts/SandLayout.astro'
+import Trash from 'icons/trash.svg'
+import Gin1 from 'images/decajon-gin-1.jpeg'
+import Siembra1 from 'images/siembra-1.jpeg'
+import Vodka1 from 'images/vodka-1.jpeg'
+import Counter from 'components/Counter.astro'
+import Button from 'components/Button.astro'
+import BottleVodka from 'images/bottle-vodka-compressed.png'
+import BottleSiembra from 'images/bottle-siembra.png'
+import BottleGin from 'images/bottle-gin.png'
+import Tag from 'components/Tag.astro'
+import Carousel from 'components/Carousel.astro'
+
+const bottles = [
+  {
+    title: 'DE CAJÓN VODKA',
+    img: { alt: 'De Cajon Vodka', src: BottleVodka },
+    link: '/products/vodka',
+    size: 'Botella 750ml',
+  },
+  {
+    title: 'DE CAJÓN GIN',
+    img: { alt: 'DE CAJÓN GIN', src: BottleGin },
+    link: '/products/vodka-gin',
+    size: 'Botella 750ml',
+  },
+  {
+    title: 'SIEMBRA VODKA',
+    img: { alt: 'SIEMBRA VODKA', src: BottleSiembra },
+    link: '/products/vodka-siembra',
+    size: 'Botella 750ml',
+  },
+]
+
+const products = new Map([
+  [
+    'vodka',
+    {
+      img: Vodka1,
+      alt: 'Vodka',
+      price: 99,
+      title: 'De Cajón Vodka',
+      details: 'Botella 750ml',
+    } as const,
+  ],
+  [
+    'gin',
+    {
+      img: Gin1,
+      alt: 'Vodka Gin',
+      price: 99,
+      title: 'De Cajón Gin',
+      details: 'Botella 750ml',
+    },
+  ],
+  [
+    'siembra',
+    {
+      img: Siembra1,
+      alt: 'Vodka Siembra',
+      price: 99,
+      title: 'De Cajón Siembra',
+      details: 'Botella 750ml',
+    },
+  ],
+])
+
+const cart = [
+  { type: 'vodka', count: 2 },
+  { type: 'gin', count: 3 },
+  { type: 'siembra', count: 1 },
+] as const
+---
+
+<Layout title="Carrito de compras">
+  <MiddlewareLayout>
+    <BaseLayout>
+      <SandLayout class="pt-[5.625rem]">
+        <div class="m-auto w-[76%] max-w-screen-2xl">
+          <header
+            class="grid grid-rows-[auto_auto] sm:row-start-[auto] sm:grid-cols-[auto_auto_1fr]"
+          >
+            <h1
+              class="col-start-1 row-start-1 text-center text-xl uppercase sm:row-start-1 sm:text-left"
+            >
+              CARRITO DE COMPRAS
+            </h1>
+            <h1
+              class="col-start-1 text-center text-xl uppercase sm:col-start-2 sm:row-start-1 sm:text-left"
+            >
+              &nbsp;(1 producto)
+            </h1>
+            <p
+              class="hidden self-end justify-self-end text-rosewood sm:col-start-3 md:block"
+            >
+              Seguir comprado
+            </p>
+          </header>
+          {
+            cart.map((item) => (
+              <article class="grid grid-cols-2 grid-rows-[1fr_repeat(3,auto)] gap-x-4 border-b-eerie-black py-9 [border-bottom:1px_solid] sm:grid-cols-[minmax(107px,auto)_1fr_1fr] sm:grid-rows-[repeat(3,auto)] sm:py-1.5 md:grid-cols-[minmax(0,180px)_1fr_1fr]">
+                <Picture
+                  src={products.get(item.type)!.img}
+                  class="aspect-square object-cover"
+                  pictureAttributes={{
+                    class: 'row-start-1 col-start-1 -row-end-1',
+                  }}
+                  alt={products.get(item.type)!.alt}
+                  formats={['webp', 'jpeg']}
+                />
+                <h1 class="col-start-2 row-start-1 self-end text-xs sm:text-nowrap sm:text-left md:text-sm">
+                  {products.get(item.type)!.title}
+                </h1>
+                <p class="col-start-2 row-start-2 text-xs sm:self-center sm:text-nowrap sm:text-left md:text-sm">
+                  {products.get(item.type)!.details}
+                </p>
+                <p class="col-start-2 row-start-3 text-xs sm:text-nowrap sm:text-left md:text-sm">
+                  Precio:{' '}
+                  {Intl.NumberFormat('es-PE', {
+                    style: 'currency',
+                    currency: 'PEN',
+                  }).format(products.get(item.type)!.price)}
+                </p>
+                <footer class="col-start-2 row-start-4 mt-1.5 grid grid-cols-[auto_auto] items-center justify-start gap-x-[0.375rem] sm:col-start-3 sm:row-start-2 sm:mt-0 sm:grid-cols-[auto_auto_auto] sm:justify-end sm:gap-x-4">
+                  <Tag class="col-start-1 row-start-1 hidden py-1.5 md:block">
+                    S/. 104.00
+                  </Tag>
+                  <Counter class="col-start-1 row-start-1 min-w-min gap-1 py-0.5 sm:col-start-2 sm:gap-4 [&&]:px-2" />
+                  <Button
+                    class="col-start-2 row-start-1 justify-self-end sm:col-start-3 [&&]:h-7 [&&]:w-7"
+                    variant="rounded"
+                  >
+                    <Image src={Trash} alt="trash" />
+                  </Button>
+                </footer>
+              </article>
+            ))
+          }
+          <article
+            class="grid grid-cols-[auto_1fr] grid-rows-[repeat(5,auto)] gap-y-4 border-b border-b-eerie-black py-9 sm:ml-auto sm:w-1/2"
+          >
+            <p class="col-start-1 -col-end-1 row-start-1">Aplicar Cúpon</p>
+            <span class="col-start-1 row-start-2">Subtotal:</span>
+            <span class="col-start-2 row-start-2 justify-self-end">
+              {
+                Intl.NumberFormat('es-PE', {
+                  style: 'currency',
+                  currency: 'PEN',
+                }).format(99)
+              }</span
+            >
+            <span
+              class="col-start-1 -col-end-1 row-start-3 h-0.5 bg-eerie-black"
+            ></span>
+            <span class="col-start-1 row-start-4">Total:</span>
+            <span class="col-start-2 row-start-4 justify-self-end"
+              >{
+                Intl.NumberFormat('es-PE', {
+                  style: 'currency',
+                  currency: 'PEN',
+                }).format(99)
+              }</span
+            >
+
+            <Button class="col-start-1 -col-end-1 row-start-5 mt-4"
+              >Continuar Pago</Button
+            >
+          </article>
+        </div>
+      </SandLayout>
+      <SandLayout class="py-[4.375rem]">
+        <div
+          class="m-auto grid w-[76%] max-w-screen-2xl grid-cols-1 grid-rows-[auto_auto] gap-x-6 gap-y-[0.875rem] md:grid-cols-3"
+        >
+          <h1
+            class="col-span-1 col-start-1 row-start-1 border border-eerie-black py-[0.825rem] text-center text-xl uppercase md:col-span-3 lg:text-4xl"
+          >
+            Productos similares
+          </h1>
+          <div class="block md:hidden">
+            <Carousel>
+              {
+                bottles.map((bottle) => (
+                  <article class="flex w-full flex-shrink-0 flex-col items-center border border-eerie-black py-[1.125rem]">
+                    <Picture
+                      alt={bottle.img.alt}
+                      class="mb-4 h-[260px] object-cover"
+                      height={260}
+                      src={bottle.img.src}
+                      loading="lazy"
+                      formats={['webp', 'avif', 'jpg']}
+                    />
+                    <h2 class="mb-3 text-center uppercase md:text-sm lg:text-2xl">
+                      {bottle.title}
+                    </h2>
+                    <p class="mb-3 text-center md:text-xs lg:text-xl">
+                      {bottle.size}
+                    </p>
+                    <Button as="a" href={bottle.link}>
+                      Comprar Ahora
+                    </Button>
+                  </article>
+                ))
+              }
+            </Carousel>
+          </div>
+          {
+            bottles.map((bottle) => (
+              <article class="hidden flex-col items-center border border-eerie-black py-[1.125rem] md:flex">
+                <Picture
+                  alt={bottle.img.alt}
+                  class="mb-4 h-[260px] object-cover"
+                  height={260}
+                  src={bottle.img.src}
+                  loading="lazy"
+                  formats={['webp', 'avif', 'jpg']}
+                />
+                <h2 class="mb-3 text-center uppercase md:text-sm lg:text-2xl">
+                  {bottle.title}
+                </h2>
+                <p class="mb-3 text-center md:text-xs lg:text-xl">
+                  {bottle.size}
+                </p>
+                <Button as="a" href={bottle.link}>
+                  Comprar Ahora
+                </Button>
+              </article>
+            ))
+          }
+        </div>
+      </SandLayout>
+    </BaseLayout>
+  </MiddlewareLayout>
+</Layout>

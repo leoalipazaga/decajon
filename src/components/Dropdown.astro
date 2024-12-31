@@ -1,0 +1,26 @@
+---
+
+---
+
+<span class="dropdown">
+  <slot name="trigger" />
+  <ul
+    id="menu"
+    role="menu"
+    class="absolute hidden h-0 rounded-2xl bg-[#E4DDD2] p-[0.625rem] transition-all"
+  >
+    <slot name="content" />
+  </ul>
+</span>
+<script>
+  const $dropdowns = document.querySelectorAll('.dropdown')
+  $dropdowns.forEach(($dropdown) => {
+    const $menu = $dropdown.querySelector('ul#menu')
+    $dropdown
+      ?.querySelector(':first-of-type')
+      ?.addEventListener('click', () => {
+        $menu?.classList.toggle('hidden')
+        $menu?.classList.toggle('h-0')
+      })
+  })
+</script>

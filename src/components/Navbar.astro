@@ -4,10 +4,11 @@ import DeCajonLogo from 'images/decajon-logo.png'
 import Globe from 'icons/globe.svg'
 import Cart from 'icons/cart.svg'
 import Button from './Button.astro'
+import Dropdown from './Dropdown.astro'
 ---
 
 <nav
-  class="absolute left-0 top-0 z-10 flex w-full max-w-screen-2xl items-center justify-between overflow-hidden px-14 py-[18px] 2xl:left-1/2 2xl:-translate-x-1/2"
+  class="absolute left-0 top-0 z-10 flex w-full max-w-screen-2xl items-center justify-between px-14 py-[18px] 2xl:left-1/2 2xl:-translate-x-1/2"
 >
   <a href="/">
     <Image src={DeCajonLogo} width={115} height={44} alt="DeCajonLogo" />
@@ -26,16 +27,27 @@ import Button from './Button.astro'
       >
     </li>
   </ul>
-  <ul class="flex items-center gap-2">
+  <span
+    class="relative block h-1 w-9 rounded-xl bg-eerie-black before:absolute before:top-2 before:block before:h-1 before:w-full before:rounded-xl before:bg-eerie-black before:content-[''] after:absolute after:bottom-2 after:block after:h-1 after:w-full after:rounded-xl after:bg-eerie-black after:content-[''] hover:cursor-pointer sm:hidden"
+  ></span>
+  <ul class="hidden items-center gap-2 sm:flex">
     <li>
-      <Button as="a" href="https://www.google.com" variant="rounded">
+      <Button as="a" href="/cart/" variant="rounded">
         <Image src={Cart} alt="cart" />
       </Button>
     </li>
     <li>
-      <Button as="a" href="https://www.google.com" variant="rounded">
-        <Image src={Globe} alt="globe" />
-      </Button>
+      <Dropdown>
+        <Fragment slot="trigger">
+          <Button variant="rounded">
+            <Image src={Globe} alt="globe" />
+          </Button>
+        </Fragment>
+        <Fragment slot="content">
+          <a href="/">Español</a>
+          <a href="/en/">Ingles</a>
+        </Fragment>
+      </Dropdown>
     </li>
   </ul>
 </nav>

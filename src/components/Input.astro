@@ -3,21 +3,29 @@ import type { HTMLAttributes } from 'astro/types'
 
 type CustomProps = {
   label?: string
+  htmlFor?: string
   rounded?: boolean
 }
 
 type Props = HTMLAttributes<'input'> & CustomProps
 
-const { label, rounded, ...rest } = Astro.props
+const { htmlFor, label, rounded, ...rest } = Astro.props
 ---
 
-{!!label && <label>{label}</label>}
+{
+  !!label && (
+    <label for={htmlFor} class="block text-xs">
+      {label}
+    </label>
+  )
+}
 <input
+  id={htmlFor}
   class:list={[
-    'border border-eerie-black bg-transparent px-2.5 py-1',
+    'w-full border border-eerie-black bg-transparent px-2.5 py-1',
     rounded && 'rounded-[1.25rem]',
     rest.type === 'search' && 'placeholder:text-center',
+    rest.class,
   ]}
-  type="text"
   {...rest}
 />

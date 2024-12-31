@@ -5,38 +5,48 @@ import Tag from './Tag.astro'
 
 type Props = HTMLAttributes<'span'>
 
-const props = Astro.props
+const { class: className, ...rest } = Astro.props
 ---
 
-<Tag class="flex min-w-36 items-center justify-between [&&]:p-1" {...props}>
+<Tag
+  id="counter"
+  {...rest}
+  class:list={[
+    'flex min-w-36 flex-row items-center justify-between [&&]:p-1',
+    className,
+  ]}
+>
   <Button
     class="font-bold text-anti-flash-white [&&]:h-7 [&&]:w-7"
     variant="rounded"
-    id="increase">+</Button
+    id="counter__next">+</Button
   >
-  <span class="font-bold" id="counter">1</span>
+  <span class="w-4 text-center font-bold" id="counter__value">1</span>
   <Button
     class="font-bold text-anti-flash-white [&&]:h-7 [&&]:w-7"
     variant="rounded"
-    id="decrease">-</Button
+    id="counter__prev">-</Button
   >
 </Tag>
 <script>
-  const $ = document.querySelector.bind(document)
-  let current = 1
-  const $decrease = $('#decrease')
-  const $increase = $('#increase')
-  const $counter = $('#counter')
-  $increase?.addEventListener('click', () => {
-    current += 1
-    if ($counter) {
-      $counter.textContent = `${current}`
-    }
-  })
-  $decrease?.addEventListener('click', () => {
-    current = Math.max(1, current - 1)
-    if ($counter) {
-      $counter.textContent = `${current}`
-    }
+  const $$ = document.querySelectorAll.bind(document)
+  const $counters = $$('#counter')
+  $counters.forEach(($counter) => {
+    let current = 1
+    const $next = $counter.querySelector('#counter__next')
+    const $prev = $counter.querySelector('#counter__prev')
+    const $counterValue = $counter.querySelector('#counter__value')
+    $next?.addEventListener('click', () => {
+      current += 1
+      if ($counterValue) {
+        $counterValue.textContent = `${current}`
+      }
+    })
+    $prev?.addEventListener('click', () => {
+      current = Math.max(1, current - 1)
+      if ($counterValue) {
+        $counterValue.textContent = `${current}`
+      }
+    })
   })
 </script>

@@ -5,11 +5,10 @@ import Counter from 'components/Counter.astro'
 
 interface Props {
   title: string
-  info: string
   price: string
 }
 
-const { title, info, price } = Astro.props
+const { title, price } = Astro.props
 ---
 
 <article
@@ -26,7 +25,7 @@ const { title, info, price } = Astro.props
   <p
     class="col-span-2 row-start-2 mb-8 text-center text-xs md:row-start-3 md:mb-4 md:text-left lg:text-base"
   >
-    {info}
+    <slot />
   </p>
   <div
     class="col-start-1 col-end-2 row-start-3 justify-self-end md:-col-end-1 md:row-start-4 md:justify-self-start"
@@ -39,6 +38,18 @@ const { title, info, price } = Astro.props
   >
   <Button
     class="col-span-2 row-start-4 mt-6 text-nowrap md:col-span-1 md:col-start-1 md:row-start-5 md:mt-0 md:self-end"
-    >Comprar Ahora</Button
+    id="shop"
+    as="a"
+    href="/cart/">Comprar Ahora</Button
   >
 </article>
+<script>
+  import { Storage } from 'adapters/storage'
+  const $$ = document.querySelectorAll.bind(document)
+  const $shop = $$('#shop')
+  $shop.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      Storage.session.setValue('DECAJON_STORAGE', { cart: [] })
+    })
+  })
+</script>

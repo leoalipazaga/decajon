@@ -1,15 +1,13 @@
 ---
-import { Image, Picture } from 'astro:assets'
+import { Picture } from 'astro:assets'
 import BaseLayout from 'layouts/BaseLayout.astro'
 import Layout from 'layouts/Layout.astro'
 import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
 import SandLayout from 'layouts/SandLayout.astro'
 import ProductsBanner from 'images/products-banner.png'
-import BottleVodka from 'images/bottle-vodka.png'
+import BottleVodka from 'images/bottle-vodka-compressed.png'
 import BottleGin from 'images/bottle-gin.png'
 import BottleSiembra from 'images/bottle-siembra.png'
-import Button from 'components/Button.astro'
-import Tag from 'components/Tag.astro'
 import SliderRecipes from 'components/SliderRecipes.astro'
 import Product from 'components/Product.astro'
 ---
@@ -27,7 +25,7 @@ import Product from 'components/Product.astro'
           />
         </div>
       </SandLayout>
-      <SandLayout class="py-16">
+      <SandLayout class="py-9 lg:py-16">
         <div class="m-auto w-[76%] max-w-screen-2xl">
           <h1
             class="m-auto mb-5 text-center uppercase md:w-3/4 md:text-2xl lg:text-5xl xl:w-1/2"
@@ -44,7 +42,7 @@ import Product from 'components/Product.astro'
           />
         </div>
       </SandLayout>
-      <SandLayout class="py-16">
+      <SandLayout class="py-9 lg:py-16">
         <div class="m-auto w-[76%] max-w-screen-2xl">
           <Product
             align="right"
@@ -57,49 +55,17 @@ import Product from 'components/Product.astro'
           />
         </div>
       </SandLayout>
-      <SandLayout class="py-16">
+      <SandLayout class="py-9 lg:py-16">
         <div class="m-auto w-[76%] max-w-screen-2xl">
-          <article
-            class="grid grid-cols-[auto_auto] grid-rows-[220px_auto_auto_auto_auto] justify-items-center gap-x-9 md:grid-cols-[auto_auto_auto_auto] md:grid-rows-[auto_auto_auto] md:justify-items-start md:gap-x-0"
-          >
-            <Image
-              alt="SiembraVodka"
-              class="col-span-2 col-start-1 row-start-1 aspect-[1/2] h-full object-contain md:col-span-1 md:-row-end-1 md:h-auto md:object-cover md:pr-9"
-              src={BottleSiembra}
-              loading="lazy"
-            />
-            <h2
-              class="col-span-2 row-start-2 mb-[0.625rem] text-left md:col-span-4 md:col-start-2 md:row-start-1 md:mb-4 md:self-end md:text-sm lg:mb-9 lg:text-2xl"
-            >
-              SIEMBRA VODKA
-            </h2>
-            <p
-              class="col-span-2 row-start-3 mb-3 text-center text-xs md:col-span-4 md:col-start-2 md:row-start-2 md:text-left lg:text-sm xl:text-xl"
-            >
-              Siembra Vodka es más que un vodka: es un canal para sembrar
-              conexiones, expresarse libremente, celebrar la vida y cosechar
-              grandes momentos. Obtenido de la destilación de papas de la zona
-              andina del Perú y el mejor alcohol de caña rectificado de la costa
-              peruana, Siembra Vodka se elabora bajo estrictos estándares de
-              calidad en cada etapa. Su proceso combina técnica tradicional y
-              destilación moderna con tecnología de vanguardia, incluyendo
-              rectificación en torres de 20 platos de cobre, alcanzando así un
-              estándar mundial.
-            </p>
-            <Button
-              class="col-span-2 row-start-5 mt-5 h-fit text-nowrap md:col-span-1 md:col-start-2 md:row-start-3 md:mr-4 md:mt-0"
-              as="a"
-              href="/products/vodka-siembra">Comprar Ahora</Button
-            >
-            <Tag
-              class="col-span-1 row-start-4 h-fit md:col-start-3 md:row-start-3 md:mr-4"
-              >Vodka</Tag
-            >
-            <Tag
-              class="col-span-1 row-start-4 h-fit md:col-start-4 md:row-start-3"
-              >S/. 34,00</Tag
-            >
-          </article>
+          <Product
+            align="right"
+            alias="Gin"
+            img={{ alt: 'SiembraVodka', src: BottleSiembra }}
+            title="SIEMBRA VODKA"
+            description="Siembra Vodka es más que un vodka: es un canal para sembrar conexiones, expresarse libremente, celebrar la vida y cosechar grandes momentos. Obtenido de la destilación de papas de la zona andina del Perú y el mejor alcohol de caña rectificado de la costa peruana, Siembra Vodka se elabora bajo estrictos estándares de calidad en cada etapa. Su proceso combina técnica tradicional y destilación moderna con tecnología de vanguardia, incluyendo rectificación en torres de 20 platos de cobre, alcanzando así un estándar mundial."
+            link="/products/vodka-siembra"
+            price="S/. 34,00"
+          />
         </div>
       </SandLayout>
       <SandLayout class="py-14">

@@ -2,10 +2,11 @@
 import type { HTMLAttributes } from 'astro/types'
 
 type Props = HTMLAttributes<'span'>
-const { class: className } = Astro.props
+const { class: className, ...rest } = Astro.props
 ---
 
 <span
+  {...rest}
   class:list={[
     'text-nowrap rounded-[1.25rem] border border-rosewood px-7 py-1.5 text-xs text-eerie-black lg:px-[2.625rem] lg:text-base',
     className,
