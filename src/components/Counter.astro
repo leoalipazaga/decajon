@@ -3,7 +3,7 @@ import type { HTMLAttributes } from 'astro/types'
 import Button from './Button.astro'
 import Tag from './Tag.astro'
 
-type Props = HTMLAttributes<'span'>
+type Props = { count?: number } & HTMLAttributes<'span'>
 
 const { class: className, ...rest } = Astro.props
 ---
@@ -21,7 +21,9 @@ const { class: className, ...rest } = Astro.props
     variant="rounded"
     id="counter__next">+</Button
   >
-  <span class="w-4 text-center font-bold" id="counter__value">1</span>
+  <span class="w-4 text-center font-bold" id="counter__value"
+    >{rest.count || 1}</span
+  >
   <Button
     class="font-bold text-anti-flash-white [&&]:h-7 [&&]:w-7"
     variant="rounded"
@@ -32,10 +34,10 @@ const { class: className, ...rest } = Astro.props
   const $$ = document.querySelectorAll.bind(document)
   const $counters = $$('#counter')
   $counters.forEach(($counter) => {
-    let current = 1
     const $next = $counter.querySelector('#counter__next')
     const $prev = $counter.querySelector('#counter__prev')
     const $counterValue = $counter.querySelector('#counter__value')
+    let current = $counterValue ? Number($counterValue.textContent) : 1
     $next?.addEventListener('click', () => {
       current += 1
       if ($counterValue) {

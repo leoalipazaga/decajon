@@ -1,17 +1,23 @@
 ---
-import Button from 'components/Button.astro'
 import Tag from 'components/Tag.astro'
-import Counter from 'components/Counter.astro'
+import CounterPersist from './CounterPersist.svelte'
+import CounterButton from './CounterButton.svelte'
 
 interface Props {
+  id: number
   title: string
-  price: string
+  price: number
 }
 
-const { title, price } = Astro.props
+const { id, title, price } = Astro.props
+const formatter = new Intl.NumberFormat('es-PE', {
+  style: 'currency',
+  currency: 'PEN',
+})
 ---
 
 <article
+  id="product-item"
   class="grid grid-cols-[auto_auto] justify-items-center gap-x-4 md:grid-cols-[min-content_auto] md:grid-rows-[auto_auto_auto_auto_1fr] md:justify-items-start"
 >
   <h3 class="col-span-2 row-start-1 mb-2 text-sm uppercase md:text-2xl">
@@ -30,26 +36,11 @@ const { title, price } = Astro.props
   <div
     class="col-start-1 col-end-2 row-start-3 justify-self-end md:-col-end-1 md:row-start-4 md:justify-self-start"
   >
-    <Counter />
+    <CounterPersist client:only="svelte" id={id} />
   </div>
   <Tag
     class="col-start-2 row-start-3 flex place-items-center justify-self-start md:col-span-1 md:col-start-2 md:row-start-5 md:self-end"
-    >{price}</Tag
+    >{formatter.format(price)}</Tag
   >
-  <Button
-    class="col-span-2 row-start-4 mt-6 text-nowrap md:col-span-1 md:col-start-1 md:row-start-5 md:mt-0 md:self-end"
-    id="shop"
-    as="a"
-    href="/cart/">Comprar Ahora</Button
-  >
+  <CounterButton client:only="svelte" id={id} />
 </article>
-<script>
-  import { Storage } from 'adapters/storage'
-  const $$ = document.querySelectorAll.bind(document)
-  const $shop = $$('#shop')
-  $shop.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      Storage.session.setValue('DECAJON_STORAGE', { cart: [] })
-    })
-  })
-</script>

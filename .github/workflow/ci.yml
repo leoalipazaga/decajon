@@ -4,7 +4,7 @@ on:
     branches:
       - development
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
@@ -26,14 +26,33 @@ jobs:
       - name: Build
         run: pnpm build
 
+  production:
+    runs-on: ubuntu-20.04
+    needs: build
+    if: github.ref_name == 'main'
+    steps:
+      - name: Deploy to GoDaddy (Production)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftp.decajon.pe
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: "./dist/"
+          server-dir: "public_html/"
+
+  development:
+    runs-on: ubuntu-20.04
+    needs: build
+    if: github.ref_name == 'development'
+    steps:
       - name: Copy netlify directory
         run: cp -r .netlify dist/
 
-      - name: Deploy to Netlify
+      - name: Deploy to Netlify (Development)
         uses: nwtgck/actions-netlify@v3.0
         with:
           publish-dir: "./dist"
-          production-branch: main
+          production-branch: development
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

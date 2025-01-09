@@ -15,6 +15,9 @@
       "components/*": [
         "src/components/*"
       ],
+      "consts": [
+        "src/consts"
+      ],
       "layouts/*": [
         "src/layouts/*"
       ],
