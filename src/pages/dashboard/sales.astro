@@ -1,0 +1,55 @@
+---
+import { Picture } from 'astro:assets'
+import Layout from 'layouts/Layout.astro'
+import DashboardLayout from 'layouts/DashboardLayout.astro'
+import BaseLayout from 'layouts/BaseLayout.astro'
+import SandLayout from 'layouts/SandLayout.astro'
+import Counter from 'ui/Counter.svelte'
+import Button from 'components/Button.astro'
+import Tag from 'components/Tag.astro'
+import { currency } from 'utils'
+import DeCajonGin2 from 'images/decajon-gin-2.jpeg'
+// import Siembra2 from 'images/siembra-2.jpeg'
+// import Vodka2 from 'images/vodka-2.jpeg'
+---
+
+<Layout title="Dashboard">
+  <BaseLayout showNavbar={false}>
+    <SandLayout>
+      <DashboardLayout title="Ofertas">
+        <article class="grid grid-cols-[1fr_3fr] gap-x-4">
+          <Picture
+            pictureAttributes={{
+              class: 'col-start-1 col-end-2 row-start-1 row-end-6',
+            }}
+            class="aspect-square"
+            src={DeCajonGin2}
+            alt="DeCajon Gin"
+            formats={['webp', 'jpg']}
+          />
+          <h1 class="col-start-2 -col-end-1 row-start-1 text-2xl uppercase">
+            PROMOCIÓN NAVIDEÑA
+          </h1>
+          <p class="col-start-2 -col-end-1 row-start-2 text-xl">
+            Promoción válida hasta el 20-12-24
+          </p>
+          <p class="col-start-2 -col-end-1 text-xl">
+            Productos brindados en la promoción:
+          </p>
+          <ul class="col-start-2 -col-end-1">
+            <li>Botella De Cajón Gin + Botella De Cajón Vodka</li>
+          </ul>
+          <div class="col-start-2 col-end-3 flex items-end gap-4">
+            <div><Counter id={1} client:only="svelte" /></div>
+            <Tag
+              class="col-start-3 col-end-4 flex h-min place-items-center justify-self-start"
+            >
+              {currency(99)}
+            </Tag>
+            <Button class="h-min">Comprar Ahora</Button>
+          </div>
+        </article>
+      </DashboardLayout>
+    </SandLayout>
+  </BaseLayout>
+</Layout>

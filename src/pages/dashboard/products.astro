@@ -1,0 +1,119 @@
+---
+import Layout from 'layouts/Layout.astro'
+import DashboardLayout from 'layouts/DashboardLayout.astro'
+import BaseLayout from 'layouts/BaseLayout.astro'
+import SandLayout from 'layouts/SandLayout.astro'
+import Counter from 'ui/Counter.svelte'
+import Carousel from 'components/Carousel.astro'
+import Button from 'components/Button.astro'
+import ProductInfo from 'organism/product-info.astro'
+import ProductPhotos from 'organism/product-photos.astro'
+import Vodka1 from 'images/vodka-1.jpeg'
+import Vodka2 from 'images/vodka-2.jpeg'
+import Vodka3 from 'images/vodka-3.jpeg'
+import Vodka4 from 'images/vodka-4.jpeg'
+import DeCajonGin1 from 'images/decajon-gin-1.jpeg'
+import DeCajonGin2 from 'images/decajon-gin-2.jpeg'
+import DeCajonGin3 from 'images/decajon-gin-3.jpeg'
+import DeCajonGin4 from 'images/decajon-gin-4.jpeg'
+import Siembra1 from 'images/siembra-1.jpeg'
+import Siembra2 from 'images/siembra-2.jpeg'
+import Siembra3 from 'images/siembra-3.jpeg'
+import Siembra4 from 'images/siembra-4.jpeg'
+---
+
+<Layout title="Dashboard">
+  <BaseLayout showNavbar={false}>
+    <SandLayout>
+      <DashboardLayout title="PRODUCTOS">
+        <div class="mb-11">
+          <Carousel>
+            <article class="flex w-full flex-shrink-0 gap-4">
+              <ProductPhotos
+                banner={{ src: Vodka1, alt: 'Voka 1' }}
+                bottom={[
+                  { src: Vodka2, alt: 'Vodka2' },
+                  { src: Vodka3, alt: 'Vodka3' },
+                  { src: Vodka4, alt: 'Vodka4' },
+                ]}
+              />
+              <ProductInfo id={1} title="DE CAJÓN VODKA" price={99}>
+                <Fragment slot="default">
+                  Un vodka Premium elaborado con un proceso de alta calidad, que
+                  combina la destilación en alambique de cobre y una
+                  rectificación en torres de 20 platos de cobre, equivalente a
+                  22 destilaciones. Este proceso elimina el sulfuro, generando
+                  un sabor suave y refinado. De Cajón fusiona técnica
+                  tradicional y tecnología de vanguardia, seleccionando
+                  rigurosamente papas peruanas y fermentando almidones que crean
+                  una bebida con textura y suavidad excepcionales.
+                </Fragment>
+                <Fragment slot="counter">
+                  <Counter id={1} client:only="svelte" />
+                </Fragment>
+                <Fragment slot="action">
+                  <Button>Comprar Ahora</Button>
+                </Fragment>
+              </ProductInfo>
+            </article>
+            <article class="flex w-full flex-shrink-0 gap-4">
+              <ProductPhotos
+                banner={{ alt: 'DeCajonGin1', src: DeCajonGin1 }}
+                bottom={[
+                  { alt: 'DeCajonGin2', src: DeCajonGin2 },
+                  { alt: 'DeCajonGin3', src: DeCajonGin3 },
+                  { alt: 'DeCajonGin4', src: DeCajonGin4 },
+                ]}
+              />
+              <ProductInfo id={2} title="DE CAJÓN GIN" price={104}>
+                <Fragment slot="default">
+                  De Cajón Gin es el gin que todos soñaban. Su compleja variedad
+                  aromática, debido a sus ingredientes de origen natural y
+                  representativos de la cultura altoandina, tan tradicionales
+                  como peruanos, le otorgan el equilibrio perfecto y una
+                  personalidad marcada. Esta bebida alcohólica es aromatizada
+                  con enebro y 20 ingredientes más, obtenida exclusivamente de
+                  la redestilación de alcohol etílico extraneutro y alcohol de
+                  papa.
+                </Fragment>
+                <Fragment slot="counter">
+                  <Counter id={2} client:only="svelte" />
+                </Fragment>
+                <Fragment slot="action">
+                  <Button>Comprar Ahora</Button>
+                </Fragment>
+              </ProductInfo>
+            </article>
+            <article class="flex w-full flex-shrink-0 gap-4">
+              <ProductPhotos
+                banner={{ alt: 'Siembra1', src: Siembra1 }}
+                bottom={[
+                  { alt: 'Siembra2', src: Siembra2 },
+                  { alt: 'Siembra3', src: Siembra3 },
+                  { alt: 'Siembra4', src: Siembra4 },
+                ]}
+              />
+              <ProductInfo id={3} title="SIEMBRA VODKA" price={34}>
+                <Fragment slot="default">
+                  La elaboración se realiza con los más estrictos controles y
+                  estándares de calidad, desde la recepción de la materia prima
+                  hasta su comercialización. El proceso combina la técnica
+                  tradicional con la destilación moderna utilizando una
+                  tecnología de vanguardia, como la rectificación realizada en
+                  torres de 20 platos hechos de cobre de estándar mundial,
+                  haciendo de Siembra Vodka una bebida de estándar mundial.
+                </Fragment>
+                <Fragment slot="counter">
+                  <Counter id={3} client:only="svelte" />
+                </Fragment>
+                <Fragment slot="action">
+                  <Button>Comprar Ahora</Button>
+                </Fragment>
+              </ProductInfo>
+            </article>
+          </Carousel>
+        </div>
+      </DashboardLayout>
+    </SandLayout>
+  </BaseLayout>
+</Layout>

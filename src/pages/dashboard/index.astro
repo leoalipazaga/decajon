@@ -1,0 +1,88 @@
+---
+import { Picture } from 'astro:assets'
+import Layout from 'layouts/Layout.astro'
+import DashboardLayout from 'layouts/DashboardLayout.astro'
+import BaseLayout from 'layouts/BaseLayout.astro'
+import SandLayout from 'layouts/SandLayout.astro'
+import Button from 'components/Button.astro'
+import BottleVodka from 'images/bottle-vodka-compressed.png'
+import BottleSiembra from 'images/bottle-siembra.png'
+import BottleGin from 'images/bottle-gin.png'
+import { currency } from 'utils'
+
+const bottles = [
+  {
+    title: 'DE CAJÓN VODKA',
+    img: { alt: 'De Cajon Vodka', src: BottleVodka },
+    link: '/products/vodka',
+    size: 'Botella 750ml',
+  },
+  {
+    title: 'DE CAJÓN GIN',
+    img: { alt: 'DE CAJÓN GIN', src: BottleGin },
+    link: '/products/vodka-gin',
+    size: 'Botella 750ml',
+  },
+  {
+    title: 'SIEMBRA VODKA',
+    img: { alt: 'SIEMBRA VODKA', src: BottleSiembra },
+    link: '/products/vodka-siembra',
+    size: 'Botella 750ml',
+  },
+]
+---
+
+<Layout title="Dashboard">
+  <BaseLayout showNavbar={false}>
+    <SandLayout>
+      <DashboardLayout title="NUESTROS TOP DESTILADOS">
+        <div class="mb-11 grid grid-cols-3 gap-x-5">
+          {
+            bottles.map((bottle) => (
+              <article class="hidden flex-col items-center rounded-[1.25rem] bg-anti-flash-white py-[1.125rem] md:flex">
+                <Picture
+                  alt={bottle.img.alt}
+                  class="mb-4 h-[260px] object-cover"
+                  height={260}
+                  src={bottle.img.src}
+                  loading="lazy"
+                  formats={['webp', 'avif', 'jpg']}
+                />
+                <h2 class="mb-3 text-center uppercase md:text-sm lg:text-2xl">
+                  {bottle.title}
+                </h2>
+                <p class="mb-3 text-center md:text-xs lg:text-xl">
+                  {bottle.size}
+                </p>
+                <Button as="a" href={bottle.link}>
+                  Comprar Ahora
+                </Button>
+              </article>
+            ))
+          }
+        </div>
+        <h3 class="mb-1 text-2xl uppercase text-rosewood">
+          Historial de compras
+        </h3>
+        <div
+          class="grid grid-cols-[repeat(5,minmax(0,1fr))] justify-items-center border-y-2 border-y-rosewood *:text-sm"
+        >
+          <h4 class="justify-self-start">Fecha de la Transacción</h4>
+          <h4>ID del Pedido</h4>
+          <h4>Producto(s) Solicitado(s)</h4>
+          <h4>Cantidad</h4>
+          <h4>Precio Total</h4>
+        </div>
+        <div
+          class="grid grid-cols-[repeat(5,minmax(0,1fr))] justify-items-center *:text-sm"
+        >
+          <p class="justify-self-start">30-12-2025</p>
+          <p>000001</p>
+          <p>De Cajón Vodka</p>
+          <p>5 unidades</p>
+          <p>{currency(210)}</p>
+        </div>
+      </DashboardLayout>
+    </SandLayout>
+  </BaseLayout>
+</Layout>

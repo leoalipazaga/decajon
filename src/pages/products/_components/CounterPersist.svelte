@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getItemBy } from 'adapters/storage.ts'
   import type { CartProduct } from 'adapters/storage.types.ts'
-  import Counter from './Counter.svelte'
+  import Counter from 'ui/Counter.svelte'
   import { set } from './counter-store.svelte.ts'
 
   interface Props {

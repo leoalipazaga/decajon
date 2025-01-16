@@ -1,8 +1,8 @@
 ---
 import { Image, Picture } from 'astro:assets'
-import ProductInfo from './_components/product-info.astro'
+import ProductPhotos from 'organism/product-photos.astro'
+import ProductInfo from 'organism/product-info.astro'
 import ProductDescription from './_components/product-description.astro'
-import ProductPhotos from './_components/product-photos.astro'
 import ProductLayout from './_components/product-layout.astro'
 import BottleSiembra from 'images/bottle-siembra.png'
 import WorldSpiritBottle from 'images/world-spirit-bottle.png'
@@ -19,6 +19,8 @@ import Button from 'components/Button.astro'
 import AngleLeft from 'icons/angle-left.svg'
 import AngleRight from 'icons/angle-right.svg'
 import LongLeftArrow from 'icons/long-left-arrow.svg'
+import CounterButton from './_components/CounterButton.svelte'
+import CounterPersist from './_components/CounterPersist.svelte'
 ---
 
 <ProductLayout>
@@ -244,13 +246,22 @@ import LongLeftArrow from 'icons/long-left-arrow.svg'
       ]}
     />
     <ProductInfo id={3} title="SIEMBRA VODKA" price={34}>
-      La elaboración se realiza con los más estrictos controles y estándares de
-      calidad, desde la recepción de la materia prima hasta su comercialización.
-      El proceso combina la técnica tradicional con la destilación moderna
-      utilizando una tecnología de vanguardia, como la rectificación realizada
-      en torres de 20 platos hechos de cobre de estándar mundial, haciendo de
-      Siembra Vodka una bebida de estándar mundial.</ProductInfo
-    >
+      <Fragment slot="default">
+        La elaboración se realiza con los más estrictos controles y estándares
+        de calidad, desde la recepción de la materia prima hasta su
+        comercialización. El proceso combina la técnica tradicional con la
+        destilación moderna utilizando una tecnología de vanguardia, como la
+        rectificación realizada en torres de 20 platos hechos de cobre de
+        estándar mundial, haciendo de Siembra Vodka una bebida de estándar
+        mundial.
+      </Fragment>
+      <Fragment slot="counter">
+        <CounterPersist id={1} client:only="svelte" />
+      </Fragment>
+      <Fragment slot="action">
+        <CounterButton id={1} client:only="svelte" />
+      </Fragment>
+    </ProductInfo>
   </Fragment>
   <Fragment slot="description">
     <ProductDescription

@@ -12,6 +12,15 @@
       "icons/*": [
         "public/icons/*"
       ],
+      "utils": [
+        "src/utils"
+      ],
+      "ui/*": [
+        "src/ui/*"
+      ],
+      "organism/*": [
+        "src/organism/*"
+      ],
       "components/*": [
         "src/components/*"
       ],

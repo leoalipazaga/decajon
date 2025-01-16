@@ -19,9 +19,11 @@ import BottleSiembra from 'images/bottle-siembra.png'
 import Pucara from 'images/pucara.png'
 import AngleLeft from 'icons/angle-left.svg'
 import AngleRight from 'icons/angle-right.svg'
+import ProductPhotos from 'organism/product-photos.astro'
+import ProductInfo from 'organism/product-info.astro'
 import ProductDescription from './_components/product-description.astro'
-import ProductPhotos from './_components/product-photos.astro'
-import ProductInfo from './_components/product-info.astro'
+import CounterButton from './_components/CounterButton.svelte'
+import CounterPersist from './_components/CounterPersist.svelte'
 ---
 
 <Layout title="DeCajon">
@@ -249,14 +251,23 @@ import ProductInfo from './_components/product-info.astro'
             ]}
           />
           <ProductInfo id={1} title="DE CAJÓN VODKA" price={99}>
-            Un vodka Premium elaborado con un proceso de alta calidad, que
-            combina la destilación en alambique de cobre y una rectificación en
-            torres de 20 platos de cobre, equivalente a 22 destilaciones. Este
-            proceso elimina el sulfuro, generando un sabor suave y refinado. De
-            Cajón fusiona técnica tradicional y tecnología de vanguardia,
-            seleccionando rigurosamente papas peruanas y fermentando almidones
-            que crean una bebida con textura y suavidad excepcionales.</ProductInfo
-          >
+            <Fragment slot="default">
+              Un vodka Premium elaborado con un proceso de alta calidad, que
+              combina la destilación en alambique de cobre y una rectificación
+              en torres de 20 platos de cobre, equivalente a 22 destilaciones.
+              Este proceso elimina el sulfuro, generando un sabor suave y
+              refinado. De Cajón fusiona técnica tradicional y tecnología de
+              vanguardia, seleccionando rigurosamente papas peruanas y
+              fermentando almidones que crean una bebida con textura y suavidad
+              excepcionales.
+            </Fragment>
+            <Fragment slot="counter">
+              <CounterPersist id={1} client:only="svelte" />
+            </Fragment>
+            <Fragment slot="action">
+              <CounterButton id={1} client:only="svelte" />
+            </Fragment>
+          </ProductInfo>
         </div>
       </SandLayout>
       <SandLayout class="py-9">

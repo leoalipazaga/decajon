@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Snippet } from 'svelte'
+  import { currency } from 'utils'
 
   interface Props {
     id: number
@@ -39,10 +40,7 @@
   <p
     class="col-start-2 row-start-3 text-xs sm:text-nowrap sm:text-left md:text-sm"
   >
-    Precio: {Intl.NumberFormat('es-PE', {
-      style: 'currency',
-      currency: 'PEN',
-    }).format(price)}
+    Precio: {currency(price)}
   </p>
   <footer
     class="col-start-2 row-start-4 mt-1.5 grid grid-cols-[auto_auto] items-center justify-start gap-x-[0.375rem] sm:col-start-3 sm:row-start-2 sm:mt-0 sm:grid-cols-[auto_auto_auto] sm:justify-end sm:gap-x-4"
@@ -50,10 +48,7 @@
     <span
       class="col-start-1 row-start-1 block text-nowrap rounded-[1.25rem] border border-rosewood px-7 py-1.5 text-xs text-eerie-black lg:px-[2.625rem] lg:text-base"
     >
-      {Intl.NumberFormat('es-PE', {
-        style: 'currency',
-        currency: 'PEN',
-      }).format(total)}
+      {currency(total)}
     </span>
     <div class="">
       {@render counter?.()}

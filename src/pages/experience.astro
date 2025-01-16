@@ -211,23 +211,10 @@ const bottles = [
 </Layout>
 <script>
   const $ = document.querySelector.bind(document)
-  // const searchbox = $('#searchbox')
   const scrollToEl = $('#scroll-to')
   const recipes = $('#recipes')
-  // const $cocteles = $('#cocteles')
-
-  // const listCocteles = $cocteles.dataset.cocteles
 
   scrollToEl?.addEventListener('click', () => {
     recipes?.scrollIntoView({ behavior: 'smooth' })
   })
-
-  // searchbox?.addEventListener('input', (e) => {
-  //   const term = (e?.target as HTMLInputElement)?.value.toLocaleLowerCase()
-  //   console.log(
-  //     [...listCocteles]
-  //       .map((c) => c.innerHTML.trim())
-  //       .filter((c) => c.toLocaleLowerCase().includes(term))
-  //   )
-  // })
 </script>

@@ -1,0 +1,173 @@
+---
+import { Image, Picture } from 'astro:assets'
+import DeCajonLogo from 'images/decajon-logo.png'
+import Button from 'components/Button.astro'
+import TopMenu from 'icons/top-menu.svg'
+import Martini from 'icons/martini.svg'
+import HotSales from 'icons/hot-sales.svg'
+import Cart from 'icons/cart.svg'
+import Instagram from 'icons/instagram.svg'
+import Facebook from 'icons/facebook.svg'
+import Linkedin from 'icons/linkedin.svg'
+import User from 'icons/user.svg'
+import Notification from 'icons/notification.svg'
+import AngleRight from 'icons/angle-right.svg'
+import Dropdown from 'components/Dropdown.astro'
+
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+---
+
+<main class="grid grid-cols-[20rem_minmax(0,1fr)]">
+  <aside
+    class="col-start-1 grid grid-rows-[auto_minmax(0,1fr)_auto] bg-rosewood p-[1.625rem] md:grid-cols-[auto_minmax(0,1fr)] md:gap-x-[0.625rem]"
+  >
+    <Picture
+      pictureAttributes={{ class: 'row-start-1' }}
+      class="mb-[4.125rem]"
+      alt="Logo DeCajon"
+      src={DeCajonLogo}
+    />
+    <ul class="row-start-2 flex flex-col gap-12">
+      <li class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-[1.125rem]">
+        <Button
+          as="a"
+          href="/dashboard/"
+          class="[&&]:bg-anti-flash-white"
+          variant="rounded"><Image src={TopMenu} alt="top-menu" /></Button
+        >
+        <Button
+          as="a"
+          href="/dashboard/"
+          class="w-full justify-self-start text-left text-anti-flash-white hover:opacity-50 [&&]:text-left [&&]:font-cutive [&&]:text-xl"
+          >Inicio</Button
+        >
+      </li>
+      <li class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-[1.125rem]">
+        <Button
+          as="a"
+          href="/dashboard/cart/"
+          class="[&&]:bg-anti-flash-white"
+          variant="rounded"
+          ><Image
+            class="[filter:invert(26%)_sepia(97%)_saturate(6612%)_hue-rotate(344deg)_brightness(44%)_contrast(103%)]"
+            src={Cart}
+            alt=""
+          />
+        </Button>
+        <Button
+          class="w-full justify-self-start text-left text-anti-flash-white [&&]:text-left [&&]:font-cutive [&&]:text-xl"
+          href="/dashboard/cart/"
+          as="a">Orden</Button
+        >
+      </li>
+      <li class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-[1.125rem]">
+        <Button
+          as="a"
+          href="/dashboard/products/"
+          class="[&&]:bg-anti-flash-white"
+          variant="rounded"
+          ><Image class="text-crayola" src={Martini} alt="" />
+        </Button>
+        <Button
+          as="a"
+          href="/dashboard/products/"
+          class="w-full justify-self-start text-left text-anti-flash-white [&&]:text-left [&&]:font-cutive [&&]:text-xl"
+          >Productos</Button
+        >
+      </li>
+      <li class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-[1.125rem]">
+        <Button
+          as="a"
+          href="/dashboard/sales/"
+          class="[&&]:bg-anti-flash-white"
+          variant="rounded"
+          ><Image class="text-crayola" src={HotSales} alt="" />
+        </Button>
+        <Button
+          as="a"
+          href="/dashboard/sales/"
+          class="w-full justify-self-start text-anti-flash-white [&&]:text-left [&&]:font-cutive [&&]:text-xl"
+          >Ofertas</Button
+        >
+      </li>
+    </ul>
+    <ul class="row-start-3 flex justify-start gap-[0.625rem]">
+      <li>
+        <Button
+          as="a"
+          href="https://www.instagram.com/decajondestilados/"
+          class="[&&]:bg-anti-flash-white"
+          variant="rounded"
+          ><Image
+            class="[filter:invert(26%)_sepia(97%)_saturate(6612%)_hue-rotate(344deg)_brightness(44%)_contrast(103%)]"
+            src={Instagram}
+            alt=""
+          />
+        </Button>
+      </li>
+      <li>
+        <Button
+          as="a"
+          href="https://www.facebook.com/decajonvodka/"
+          class="[&&]:bg-anti-flash-white"
+          variant="rounded"
+          ><Image
+            class="[filter:invert(26%)_sepia(97%)_saturate(6612%)_hue-rotate(344deg)_brightness(44%)_contrast(103%)]"
+            src={Facebook}
+            alt=""
+          />
+        </Button>
+      </li>
+      <li>
+        <Button
+          as="a"
+          href="https://www.linkedin.com"
+          class="[&&]:bg-anti-flash-white"
+          variant="rounded"
+          ><Image
+            class="[filter:invert(26%)_sepia(97%)_saturate(6612%)_hue-rotate(344deg)_brightness(44%)_contrast(103%)]"
+            src={Linkedin}
+            alt=""
+          />
+        </Button>
+      </li>
+    </ul>
+  </aside>
+  <section class="col-start-2 py-[3.75rem] pl-11 pr-11">
+    <header class="mb-[1.375rem] flex items-center justify-between">
+      <h1 class="text-4xl">{title}</h1>
+      <ul class="flex gap-5">
+        <li>
+          <Button variant="rounded"
+            ><Image alt="notification" src={Notification} /></Button
+          >
+        </li>
+        <li class="flex gap-2" role="button">
+          <Dropdown>
+            <Fragment slot="trigger">
+              <div class="flex gap-2">
+                <Button variant="rounded"
+                  ><Image alt="notification" src={User} /></Button
+                >
+                <Image
+                  class="rotate-90 [filter:invert(26%)_sepia(97%)_saturate(6612%)_hue-rotate(344deg)_brightness(44%)_contrast(103%)]"
+                  alt="angle-right"
+                  src={AngleRight}
+                />
+              </div>
+            </Fragment>
+            <Fragment slot="content">
+              <a href="/">Perfil</a>
+              <a href="/en/">Cerrar Sesión</a>
+            </Fragment>
+          </Dropdown>
+        </li>
+      </ul>
+    </header>
+    <slot />
+  </section>
+</main>

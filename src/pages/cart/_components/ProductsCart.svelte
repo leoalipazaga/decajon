@@ -2,6 +2,7 @@
   import { onMount } from 'svelte'
   import { Storage, removeProduct, updateCount } from 'adapters/storage'
   import type { CartProduct } from 'adapters/storage.types.ts'
+  import { currency } from 'utils'
   import Gin from 'images/decajon-gin-1.jpeg'
   import Siembra from 'images/siembra-1.jpeg'
   import Vodka from 'images/vodka-1.jpeg'
@@ -111,24 +112,18 @@
     <p class="col-start-1 -col-end-1 row-start-1">Aplicar Cúpon</p>
     <span class="col-start-1 row-start-2">Subtotal:</span>
     <span class="col-start-2 row-start-2 justify-self-end">
-      {Intl.NumberFormat('es-PE', {
-        style: 'currency',
-        currency: 'PEN',
-      }).format(total)}</span
+      {currency(total)}</span
     >
     <span class="col-start-1 -col-end-1 row-start-3 h-0.5 bg-eerie-black"
     ></span>
     <span class="col-start-1 row-start-4">Total:</span>
     <span class="col-start-2 row-start-4 justify-self-end"
-      >{Intl.NumberFormat('es-PE', {
-        style: 'currency',
-        currency: 'PEN',
-      }).format(total)}</span
+      >{currency(total)}</span
     >
-
-    <button
-      class="w-auto bg-rosewood text-zinc-1000 py-2 px-3 rounded-[1.25rem] col-start-1 -col-end-1 row-start-5 mt-4"
-      >Continuar Pago</button
+    <a
+      href="/checkout"
+      class="w-auto text-center bg-rosewood text-zinc-1000 py-2 px-3 rounded-[1.25rem] col-start-1 -col-end-1 row-start-5 mt-4"
+      >Continuar Pago</a
     >
   </article>
 {/if}

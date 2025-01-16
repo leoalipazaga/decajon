@@ -1,16 +1,14 @@
 ---
 import { Image, Picture } from 'astro:assets'
-import ProductInfo from './_components/product-info.astro'
-import ProductDescription from './_components/product-description.astro'
-import ProductPhotos from './_components/product-photos.astro'
-import ProductLayout from './_components/product-layout.astro'
+import Button from 'components/Button.astro'
+import ProductPhotos from 'organism/product-photos.astro'
+import ProductInfo from 'organism/product-info.astro'
 import BlackBull from 'images/black-bull.png'
 import DeCajonGin from 'images/decajon-gin.png'
 import BottleSiembra from 'images/bottle-siembra.png'
 import SiembraBanner from 'images/siembra-banner.png'
 import WorldSpiritBottle from 'images/world-spirit-bottle.png'
 import Pucara from 'images/pucara.png'
-import Button from 'components/Button.astro'
 import AngleLeft from 'icons/angle-left.svg'
 import AngleRight from 'icons/angle-right.svg'
 import LongLeftArrow from 'icons/long-left-arrow.svg'
@@ -19,6 +17,10 @@ import DeCajonGin2 from 'images/decajon-gin-2.jpeg'
 import DeCajonGin3 from 'images/decajon-gin-3.jpeg'
 import DeCajonGin4 from 'images/decajon-gin-4.jpeg'
 import DeCajonGinDescription from 'images/decajon-gin-description.jpeg'
+import CounterButton from './_components/CounterButton.svelte'
+import CounterPersist from './_components/CounterPersist.svelte'
+import ProductDescription from './_components/product-description.astro'
+import ProductLayout from './_components/product-layout.astro'
 ---
 
 <ProductLayout>
@@ -245,14 +247,22 @@ import DeCajonGinDescription from 'images/decajon-gin-description.jpeg'
         { alt: 'DeCajonGin4', src: DeCajonGin4 },
       ]}
     />
-    <ProductInfo id={2} title="DE CAJÓN GIN" price={104}
-      >De Cajón Gin es el gin que todos soñaban. Su compleja variedad aromática,
-      debido a sus ingredientes de origen natural y representativos de la
-      cultura altoandina, tan tradicionales como peruanos, le otorgan el
-      equilibrio perfecto y una personalidad marcada. Esta bebida alcohólica es
-      aromatizada con enebro y 20 ingredientes más, obtenida exclusivamente de
-      la redestilación de alcohol etílico extraneutro y alcohol de papa.</ProductInfo
-    >
+    <ProductInfo id={2} title="DE CAJÓN GIN" price={104}>
+      <Fragment slot="default">
+        De Cajón Gin es el gin que todos soñaban. Su compleja variedad
+        aromática, debido a sus ingredientes de origen natural y representativos
+        de la cultura altoandina, tan tradicionales como peruanos, le otorgan el
+        equilibrio perfecto y una personalidad marcada. Esta bebida alcohólica
+        es aromatizada con enebro y 20 ingredientes más, obtenida exclusivamente
+        de la redestilación de alcohol etílico extraneutro y alcohol de papa.
+      </Fragment>
+      <Fragment slot="counter">
+        <CounterPersist id={1} client:only="svelte" />
+      </Fragment>
+      <Fragment slot="action">
+        <CounterButton id={1} client:only="svelte" />
+      </Fragment>
+    </ProductInfo>
   </Fragment>
   <Fragment slot="description">
     <ProductDescription

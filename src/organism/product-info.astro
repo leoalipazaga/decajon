@@ -1,7 +1,6 @@
 ---
 import Tag from 'components/Tag.astro'
-import CounterPersist from './CounterPersist.svelte'
-import CounterButton from './CounterButton.svelte'
+import { currency } from 'utils'
 
 interface Props {
   id: number
@@ -9,11 +8,7 @@ interface Props {
   price: number
 }
 
-const { id, title, price } = Astro.props
-const formatter = new Intl.NumberFormat('es-PE', {
-  style: 'currency',
-  currency: 'PEN',
-})
+const { title, price } = Astro.props
 ---
 
 <article
@@ -36,11 +31,13 @@ const formatter = new Intl.NumberFormat('es-PE', {
   <div
     class="col-start-1 col-end-2 row-start-3 justify-self-end md:-col-end-1 md:row-start-4 md:justify-self-start"
   >
-    <CounterPersist client:only="svelte" id={id} />
+    <!-- <CounterPersist client:only="svelte" id={id} /> -->
+    <slot name="counter" />
   </div>
   <Tag
     class="col-start-2 row-start-3 flex place-items-center justify-self-start md:col-span-1 md:col-start-2 md:row-start-5 md:self-end"
-    >{formatter.format(price)}</Tag
+    >{currency(price)}</Tag
   >
-  <CounterButton client:only="svelte" id={id} />
+  <slot name="action" />
+  <!-- <CounterButton client:only="svelte" id={id} /> -->
 </article>

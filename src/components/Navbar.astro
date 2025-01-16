@@ -8,28 +8,53 @@ import Dropdown from './Dropdown.astro'
 ---
 
 <nav
-  class="absolute left-0 top-0 z-10 flex w-full max-w-screen-2xl items-center justify-between px-14 py-[18px] 2xl:left-1/2 2xl:-translate-x-1/2"
+  class="absolute left-0 top-0 z-10 flex w-full max-w-screen-2xl items-center justify-between px-14 py-[18px] has-[input:checked]:fixed 2xl:left-1/2 2xl:-translate-x-1/2"
 >
-  <a href="/">
+  <a class="z-10" href="/">
     <Image src={DeCajonLogo} width={115} height={44} alt="DeCajonLogo" />
   </a>
-  <ul class="hidden items-center gap-12 sm:flex">
+  <ul
+    id="menu"
+    class="fixed left-0 top-0 h-dvh w-dvw -translate-x-full items-center gap-12 bg-[#e8dfcf] px-14 pt-20 transition-all *:mb-4 sm:static sm:flex sm:h-auto sm:w-auto sm:transform-none sm:bg-transparent sm:px-0 sm:pt-0 sm:*:mb-0"
+  >
     <li>
-      <a class="font-cultive text-xs lg:text-base" href="/products">Productos</a
+      <a class="font-cultive text-lg sm:text-xs lg:text-base" href="/products"
+        >Productos</a
       >
     </li>
     <li>
-      <a class="font-cultive text-xs lg:text-base" href="/history">Historia</a>
+      <a class="font-cultive text-lg sm:text-xs lg:text-base" href="/history"
+        >Historia</a
+      >
     </li>
     <li>
-      <a class="font-cultive text-xs lg:text-base" href="/experience"
+      <a class="font-cultive text-lg sm:text-xs lg:text-base" href="/experience"
         >Experiencia</a
       >
     </li>
+    <li>
+      <a
+        class="font-cultive text-lg sm:hidden sm:text-xs lg:text-base"
+        href="/cart">Carrito</a
+      >
+    </li>
+    <li class="block sm:hidden">
+      <a class="font-cultive text-lg sm:text-xs lg:text-base" href="/en"
+        >Ingles</a
+      >
+    </li>
+    <li class="block sm:hidden">
+      <a class="font-cultive text-lg sm:text-xs lg:text-base" href="/"
+        >Español</a
+      >
+    </li>
   </ul>
-  <span
-    class="relative block h-1 w-9 rounded-xl bg-eerie-black before:absolute before:top-2 before:block before:h-1 before:w-full before:rounded-xl before:bg-eerie-black before:content-[''] after:absolute after:bottom-2 after:block after:h-1 after:w-full after:rounded-xl after:bg-eerie-black after:content-[''] hover:cursor-pointer sm:hidden"
-  ></span>
+  <input
+    type="checkbox"
+    aria-pressed="false"
+    role="button"
+    class="relative block h-1 w-9 appearance-none rounded-xl bg-eerie-black transition-all before:absolute before:top-2 before:block before:h-1 before:w-full before:rounded-xl before:bg-eerie-black before:content-[''] after:absolute after:bottom-2 after:block after:h-1 after:w-full after:rounded-xl after:bg-eerie-black after:transition-all after:content-[''] checked:-rotate-45 checked:before:invisible checked:after:translate-y-2 checked:after:rotate-90 hover:cursor-pointer sm:hidden"
+  />
   <ul class="hidden items-center gap-2 sm:flex">
     <li>
       <Button as="a" href="/cart/" variant="rounded">
@@ -51,3 +76,8 @@ import Dropdown from './Dropdown.astro'
     </li>
   </ul>
 </nav>
+<style>
+  ul:has(+ input:checked) {
+    transform: translateX(0);
+  }
+</style>

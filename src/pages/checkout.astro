@@ -1,0 +1,29 @@
+---
+import BaseLayout from 'layouts/BaseLayout.astro'
+import Layout from 'layouts/Layout.astro'
+import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
+import SandLayout from 'layouts/SandLayout.astro'
+---
+
+<Layout title="Historia">
+  <MiddlewareLayout>
+    <BaseLayout>
+      <SandLayout class="py-[4.375rem]">
+        <div class="m-auto w-[76%] max-w-screen-2xl">
+          <div class="grid grid-cols-2">
+            <article class="">
+              <h1 class="text-2xl uppercase">FINALIZAR COMPRA (1 producto)</h1>
+              <h2 class="text-2xl uppercase">Detalles de Compra</h2>
+            </article>
+            <article class="border">
+              <a class="text-base text-rosewood" href="products/"
+                >Seguir Comprando</a
+              >
+              <h2>Tu Orden</h2>
+            </article>
+          </div>
+        </div>
+      </SandLayout>
+    </BaseLayout>
+  </MiddlewareLayout>
+</Layout>
