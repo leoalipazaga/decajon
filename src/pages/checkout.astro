@@ -1,25 +1,78 @@
 ---
+import Input from 'components/Input.astro'
 import BaseLayout from 'layouts/BaseLayout.astro'
 import Layout from 'layouts/Layout.astro'
 import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
 import SandLayout from 'layouts/SandLayout.astro'
+import { regions } from 'consts'
 ---
 
-<Layout title="Historia">
+<Layout title="Checkout">
   <MiddlewareLayout>
     <BaseLayout>
       <SandLayout class="py-[4.375rem]">
         <div class="m-auto w-[76%] max-w-screen-2xl">
-          <div class="grid grid-cols-2">
-            <article class="">
-              <h1 class="text-2xl uppercase">FINALIZAR COMPRA (1 producto)</h1>
-              <h2 class="text-2xl uppercase">Detalles de Compra</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2">
+            <article class="grid grid-cols-2">
+              <h1 class="col-span-2 text-center text-xl uppercase md:text-2xl">
+                FINALIZAR COMPRA
+              </h1>
+              <h3 class="col-span-2 text-center text-xl">(1 producto)</h3>
+              <h2 class="col-span-2 text-base md:text-xl">
+                Detalles de Compra
+              </h2>
+              <Input class="col-span-2 mb-4" label="Nombre" name="name" />
+              <Input
+                class="col-span-2 mb-4"
+                label="Apellidos"
+                name="lastaname"
+              />
+              <p class="mb-4">Pais/Region</p>
+              <p class="mb-4">Peru</p>
+              <Input class="col-span-2 mb-4" label="Direccion" name="address" />
+              <label class="col-span-2 text-xs">Region/Provincia</label>
+              <select
+                class="col-span-2 mb-4 border border-eerie-black bg-transparent px-2.5 py-1"
+                name="region"
+              >
+                {
+                  regions.map((region: any) => (
+                    <option value={region.id_ubigeo}>
+                      {region.nombre_ubigeo}
+                    </option>
+                  ))
+                }
+              </select>
+              <Input
+                class="col-span-2 mb-4"
+                type="tel"
+                label="Telefono"
+                name="phone"
+              />
+              <Input
+                class="col-span-2 mb-4"
+                type="email"
+                label="Correo Electrónico"
+                name="email"
+              />
+              <Input
+                class="col-span-2 mb-4"
+                type="password"
+                label="Crear Contraseña"
+                name="password"
+              />
+              <label class="col-span-2 text-xs">Notas (opcional)</label>
+              <textarea
+                class="col-span-2 min-h-40 border border-eerie-black bg-transparent px-2.5 py-1"
+                name="notes"></textarea>
             </article>
-            <article class="border">
-              <a class="text-base text-rosewood" href="products/"
+            <article class="hidden border">
+              <a class="mb-10 text-base text-rosewood" href="products/"
                 >Seguir Comprando</a
               >
-              <h2>Tu Orden</h2>
+              <div>
+                <h2>Tu Orden</h2>
+              </div>
             </article>
           </div>
         </div>
