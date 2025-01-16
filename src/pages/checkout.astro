@@ -4,34 +4,52 @@ import BaseLayout from 'layouts/BaseLayout.astro'
 import Layout from 'layouts/Layout.astro'
 import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
 import SandLayout from 'layouts/SandLayout.astro'
+import Button from 'components/Button.astro'
 import { regions } from 'consts'
+import { currency } from 'utils'
 ---
 
 <Layout title="Checkout">
   <MiddlewareLayout>
     <BaseLayout>
-      <SandLayout class="py-[4.375rem]">
+      <SandLayout class="py-24">
         <div class="m-auto w-[76%] max-w-screen-2xl">
-          <div class="grid grid-cols-1 md:grid-cols-2">
+          <div class="grid grid-cols-1 md:grid-cols-2 md:gap-x-24">
             <article class="grid grid-cols-2">
-              <h1 class="col-span-2 text-center text-xl uppercase md:text-2xl">
-                FINALIZAR COMPRA
-              </h1>
-              <h3 class="col-span-2 text-center text-xl">(1 producto)</h3>
-              <h2 class="col-span-2 text-base md:text-xl">
-                Detalles de Compra
-              </h2>
-              <Input class="col-span-2 mb-4" label="Nombre" name="name" />
+              <header class="col-span-2 mb-10 flex flex-col md:flex-row">
+                <h1
+                  class="col-span-2 text-center text-xl uppercase md:col-span-1 md:text-2xl"
+                >
+                  FINALIZAR COMPRA
+                </h1>
+                <h3 class="col-span-2 text-center text-xl md:col-span-1">
+                  (<span id="countProducts"></span> producto)
+                </h3>
+              </header>
+              <p class="col-span-2 text-base md:text-xl">Detalles de Compra</p>
               <Input
+                autocomplete="off"
+                class="col-span-2 mb-4"
+                label="Nombre"
+                name="name"
+              />
+              <Input
+                autocomplete="off"
                 class="col-span-2 mb-4"
                 label="Apellidos"
                 name="lastaname"
               />
               <p class="mb-4">Pais/Region</p>
               <p class="mb-4">Peru</p>
-              <Input class="col-span-2 mb-4" label="Direccion" name="address" />
-              <label class="col-span-2 text-xs">Region/Provincia</label>
+              <Input
+                autocomplete="off"
+                class="col-span-2 mb-4"
+                label="Direccion"
+                name="address"
+              />
+              <label class="col-span-2 text-xs">Departamento</label>
               <select
+                id="regions"
                 class="col-span-2 mb-4 border border-eerie-black bg-transparent px-2.5 py-1"
                 name="region"
               >
@@ -43,19 +61,36 @@ import { regions } from 'consts'
                   ))
                 }
               </select>
+              <label class="col-span-2 text-xs">Provincia</label>
+              <select
+                id="provinces"
+                class="col-span-2 mb-4 border border-eerie-black bg-transparent px-2.5 py-1"
+                name="provinces"
+              >
+              </select>
+              <label class="col-span-2 text-xs">Distrito</label>
+              <select
+                id="districts"
+                class="col-span-2 mb-4 border border-eerie-black bg-transparent px-2.5 py-1"
+                name="district"
+              >
+              </select>
               <Input
+                autocomplete="off"
                 class="col-span-2 mb-4"
                 type="tel"
                 label="Telefono"
                 name="phone"
               />
               <Input
+                autocomplete="off"
                 class="col-span-2 mb-4"
                 type="email"
                 label="Correo Electrónico"
                 name="email"
               />
               <Input
+                autocomplete="off"
                 class="col-span-2 mb-4"
                 type="password"
                 label="Crear Contraseña"
@@ -65,13 +100,56 @@ import { regions } from 'consts'
               <textarea
                 class="col-span-2 min-h-40 border border-eerie-black bg-transparent px-2.5 py-1"
                 name="notes"></textarea>
-            </article>
-            <article class="hidden border">
-              <a class="mb-10 text-base text-rosewood" href="products/"
-                >Seguir Comprando</a
+              <Button class="col-span-2 mt-10 block md:hidden"
+                >Finalizar Compra</Button
               >
-              <div>
-                <h2>Tu Orden</h2>
+            </article>
+            <article class="hidden md:block">
+              <a class="mb-10 block text-base text-rosewood" href="products/">
+                Seguir Comprando
+              </a>
+              <div class="grid grid-cols-2 border px-4 py-5">
+                <h2 class="col-span-2 mb-9 text-center font-thabit text-xl">
+                  Tu Orden
+                </h2>
+                <div class="col-span-2 grid grid-cols-2 px-[0.625rem] py-4">
+                  <h4 class="font-thabit text-base font-bold">Producto</h4>
+                  <h4 class="justify-self-end font-thabit text-base font-bold">
+                    Subtotal
+                  </h4>
+                </div>
+                <div
+                  class="px-[0.625rem]block col-span-2 grid grid-cols-2 border-b py-4"
+                >
+                  <p class="text-base">Voka Siembra</p>
+                  <span class="col-start-1 row-start-2 text-base">750ml</span>
+                  <p id="subtotal" class="justify-self-end text-base"></p>
+                </div>
+                <div class="col-span-2 flex border-b px-[0.625rem] py-4">
+                  <p class="text-base">Cantidad:</p>
+                  <p class="justify-self-end text-base">
+                    <span id="countProducts"></span> productos
+                  </p>
+                </div>
+                <div
+                  class="col-span-2 grid grid-cols-2 border-b px-[0.625rem] py-4"
+                >
+                  <p class="text-base">Subtotal:</p>
+                  <p id="subtotal" class="justify-self-end text-base"></p>
+                </div>
+                <div
+                  class="col-span-2 grid grid-cols-2 border-b px-[0.625rem] py-4"
+                >
+                  <p class="text-base">Envio:</p>
+                  <p class="justify-self-end text-base">{currency(10)}</p>
+                </div>
+                <div
+                  class="col-span-2 grid grid-cols-2 border-b px-[0.625rem] py-4"
+                >
+                  <p class="text-base">Total:</p>
+                  <p id="total" class="justify-self-end text-base"></p>
+                </div>
+                <Button class="col-span-2 mt-10 block">Finalizar Compra</Button>
               </div>
             </article>
           </div>
@@ -80,3 +158,60 @@ import { regions } from 'consts'
     </BaseLayout>
   </MiddlewareLayout>
 </Layout>
+<script>
+  import { getCountProducts, getTotal } from 'adapters/storage'
+  import { districts, provinces } from 'consts'
+  import { currency } from 'utils'
+  const $regions = document.querySelector('#regions')
+  const $provinces = document.querySelector('#provinces')
+  const $districts = document.querySelector('#districts')
+  const $countProducts = document.querySelectorAll('#countProducts')
+  const $$total = document.querySelectorAll('#total')
+  const $$subtotal = document.querySelectorAll('#subtotal')
+
+  $$subtotal?.forEach(($el) => {
+    $el?.insertAdjacentText('afterbegin', `${currency(getTotal())}`)
+  })
+
+  $$total?.forEach(($el) => {
+    $el?.insertAdjacentText('afterbegin', `${currency(getTotal() + 10)}`)
+  })
+
+  $countProducts?.forEach(($el) => {
+    $el?.insertAdjacentText('afterbegin', `${getCountProducts()}`)
+  })
+  const getProvinces = (ubigeo: keyof typeof provinces) => {
+    return provinces[ubigeo]
+  }
+
+  const getDistricts = (ubigeo: keyof typeof districts) => {
+    return districts[ubigeo]
+  }
+
+  $regions?.addEventListener('change', (e) => {
+    if ($provinces) {
+      $provinces.innerHTML = ''
+    }
+    getProvinces(
+      (e?.target as HTMLSelectElement).value as keyof typeof provinces
+    ).forEach((province) => {
+      $provinces?.insertAdjacentHTML(
+        'afterbegin',
+        `<option value=${province.id_ubigeo}>${province.nombre_ubigeo}</option>`
+      )
+    })
+  })
+  $provinces?.addEventListener('change', (e) => {
+    if ($districts) {
+      $districts.innerHTML = ''
+    }
+    getDistricts(
+      (e?.target as HTMLSelectElement).value as keyof typeof districts
+    ).forEach((district) => {
+      $districts?.insertAdjacentHTML(
+        'afterbegin',
+        `<option value=${district.id_ubigeo}>${district.nombre_ubigeo}</option>`
+      )
+    })
+  })
+</script>

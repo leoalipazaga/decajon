@@ -20,14 +20,30 @@ export const Storage = {
   },
 }
 
+export const getTotal = () => {
+  return getCart()?.reduce(
+    (total, product) => (total += product.price * product.count),
+    0
+  )
+}
+
+export const getCountProducts = () => {
+  return getCart()?.reduce((total, product) => (total += product.count), 0)
+}
+
+export const getCart = () => {
+  return (Storage.session.getValue('DECAJON_STORAGE')?.cart ||
+    []) as CartProduct[]
+}
+
 export const updateCart = (props: CartProduct) => {
   const currentCart = (Storage.session.getValue('DECAJON_STORAGE')?.cart ||
     []) as CartProduct[]
   const itemFound = currentCart?.find((item) => item.id === props.id)
   const cart = itemFound
     ? currentCart?.map((item) =>
-      item.id === props.id ? { ...item, count: props.count } : item
-    )
+        item.id === props.id ? { ...item, count: props.count } : item
+      )
     : currentCart.concat(props)
   Storage.session.setValue('DECAJON_STORAGE', { cart })
 
