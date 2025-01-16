@@ -1,5 +1,4 @@
 # Astro Starter Kit: Basics
-
 ```sh
 npm create astro@latest -- --template basics
 ```
@@ -49,6 +48,5 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## 🌈 UI
+[Open in Figma](https://www.figma.com/design/ne1yWLYfD1FwS9HME8REDH/De-Caj%C3%B3n-Destilados-%7C-Website?node-id=373-14588&t=NifxPhu01q9sK6ZJ-0)
