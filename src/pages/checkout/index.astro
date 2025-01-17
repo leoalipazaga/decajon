@@ -7,6 +7,7 @@ import SandLayout from 'layouts/SandLayout.astro'
 import Button from 'components/Button.astro'
 import { regions } from 'consts'
 import { currency } from 'utils'
+import ProductCheckout from './_components/product-checkout.svelte'
 ---
 
 <Layout title="Checkout">
@@ -112,31 +113,7 @@ import { currency } from 'utils'
                 <h2 class="col-span-2 mb-9 text-center font-thabit text-xl">
                   Tu Orden
                 </h2>
-                <div class="col-span-2 grid grid-cols-2 px-[0.625rem] py-4">
-                  <h4 class="font-thabit text-base font-bold">Producto</h4>
-                  <h4 class="justify-self-end font-thabit text-base font-bold">
-                    Subtotal
-                  </h4>
-                </div>
-                <div
-                  class="px-[0.625rem]block col-span-2 grid grid-cols-2 border-b py-4"
-                >
-                  <p class="text-base">Voka Siembra</p>
-                  <span class="col-start-1 row-start-2 text-base">750ml</span>
-                  <p id="subtotal" class="justify-self-end text-base"></p>
-                </div>
-                <div class="col-span-2 flex border-b px-[0.625rem] py-4">
-                  <p class="text-base">Cantidad:</p>
-                  <p class="justify-self-end text-base">
-                    <span id="countProducts"></span> productos
-                  </p>
-                </div>
-                <div
-                  class="col-span-2 grid grid-cols-2 border-b px-[0.625rem] py-4"
-                >
-                  <p class="text-base">Subtotal:</p>
-                  <p id="subtotal" class="justify-self-end text-base"></p>
-                </div>
+                <ProductCheckout client:only="svelte" />
                 <div
                   class="col-span-2 grid grid-cols-2 border-b px-[0.625rem] py-4"
                 >
@@ -167,11 +144,6 @@ import { currency } from 'utils'
   const $districts = document.querySelector('#districts')
   const $countProducts = document.querySelectorAll('#countProducts')
   const $$total = document.querySelectorAll('#total')
-  const $$subtotal = document.querySelectorAll('#subtotal')
-
-  $$subtotal?.forEach(($el) => {
-    $el?.insertAdjacentText('afterbegin', `${currency(getTotal())}`)
-  })
 
   $$total?.forEach(($el) => {
     $el?.insertAdjacentText('afterbegin', `${currency(getTotal() + 10)}`)
