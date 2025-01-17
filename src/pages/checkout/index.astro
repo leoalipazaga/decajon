@@ -29,12 +29,14 @@ import ProductCheckout from './_components/product-checkout.svelte'
               </header>
               <p class="col-span-2 text-base md:text-xl">Detalles de Compra</p>
               <Input
+                required
                 autocomplete="off"
                 class="col-span-2 mb-4"
                 label="Nombre"
                 name="name"
               />
               <Input
+                required
                 autocomplete="off"
                 class="col-span-2 mb-4"
                 label="Apellidos"
@@ -43,6 +45,7 @@ import ProductCheckout from './_components/product-checkout.svelte'
               <p class="mb-4">Pais/Region</p>
               <p class="mb-4">Peru</p>
               <Input
+                required
                 autocomplete="off"
                 class="col-span-2 mb-4"
                 label="Direccion"
@@ -50,20 +53,24 @@ import ProductCheckout from './_components/product-checkout.svelte'
               />
               <label class="col-span-2 text-xs">Departamento</label>
               <select
+                required
                 id="regions"
                 class="col-span-2 mb-4 border border-eerie-black bg-transparent px-2.5 py-1"
                 name="region"
               >
                 {
-                  regions.map((region: any) => (
-                    <option value={region.id_ubigeo}>
-                      {region.nombre_ubigeo}
-                    </option>
-                  ))
+                  [<option selected hidden disabled />].concat(
+                    regions.map((region: any) => (
+                      <option value={region.id_ubigeo}>
+                        {region.nombre_ubigeo}
+                      </option>
+                    ))
+                  )
                 }
               </select>
               <label class="col-span-2 text-xs">Provincia</label>
               <select
+                required
                 id="provinces"
                 class="col-span-2 mb-4 border border-eerie-black bg-transparent px-2.5 py-1"
                 name="provinces"
@@ -71,12 +78,14 @@ import ProductCheckout from './_components/product-checkout.svelte'
               </select>
               <label class="col-span-2 text-xs">Distrito</label>
               <select
+                required
                 id="districts"
                 class="col-span-2 mb-4 border border-eerie-black bg-transparent px-2.5 py-1"
                 name="district"
               >
               </select>
               <Input
+                required
                 autocomplete="off"
                 class="col-span-2 mb-4"
                 type="tel"
@@ -84,6 +93,7 @@ import ProductCheckout from './_components/product-checkout.svelte'
                 name="phone"
               />
               <Input
+                required
                 autocomplete="off"
                 class="col-span-2 mb-4"
                 type="email"
@@ -91,6 +101,7 @@ import ProductCheckout from './_components/product-checkout.svelte'
                 name="email"
               />
               <Input
+                required
                 autocomplete="off"
                 class="col-span-2 mb-4"
                 type="password"
@@ -99,6 +110,7 @@ import ProductCheckout from './_components/product-checkout.svelte'
               />
               <label class="col-span-2 text-xs">Notas (opcional)</label>
               <textarea
+                required
                 class="col-span-2 min-h-40 border border-eerie-black bg-transparent px-2.5 py-1"
                 name="notes"></textarea>
               <Button class="col-span-2 mt-10 block md:hidden"
