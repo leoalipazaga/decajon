@@ -138,7 +138,9 @@ import ProductCheckout from './_components/product-checkout.svelte'
                   <p class="text-base">Total:</p>
                   <p id="total" class="justify-self-end text-base"></p>
                 </div>
-                <Button class="col-span-2 mt-10 block">Finalizar Compra</Button>
+                <Button id="buttonCheckout" class="col-span-2 mt-10 block"
+                  >Finalizar Compra</Button
+                >
               </div>
             </article>
           </div>
@@ -147,6 +149,7 @@ import ProductCheckout from './_components/product-checkout.svelte'
     </BaseLayout>
   </MiddlewareLayout>
 </Layout>
+<script is:inline src="https://js.culqi.com/checkout-js"></script>
 <script>
   import { getCountProducts, getTotal } from 'adapters/storage'
   import { districts, provinces } from 'consts'
@@ -155,6 +158,7 @@ import ProductCheckout from './_components/product-checkout.svelte'
   const $provinces = document.querySelector('#provinces')
   const $districts = document.querySelector('#districts')
   const $countProducts = document.querySelectorAll('#countProducts')
+  const $buttonCheckout = document.querySelector('#buttonCheckout')
   const $$total = document.querySelectorAll('#total')
 
   $$total?.forEach(($el) => {
@@ -197,5 +201,61 @@ import ProductCheckout from './_components/product-checkout.svelte'
         `<option value=${district.id_ubigeo}>${district.nombre_ubigeo}</option>`
       )
     })
+  })
+  const settings = {
+    title: 'DeCajon Store',
+    currency: 'PEN', // Este parámetro es requerido para realizar pagos yape
+    amount: (getTotal() + 10) * 100, // Este parámetro es requerido para realizar pagos yape(80.00)
+    //  order: 'ord_live_d1P0Tu1n7Od4nZdp', // Este parámetro es requerido para realizar pagos con pagoEfectivo, billeteras y Cuotéalo
+    // xculqirsaid: 'Inserta aquí el id de tu llave pública RSA',
+    rsapublickey: 'pk_test_001032e48811feb5',
+  }
+  const client = { email: 'leo-nik@hotmail.com' }
+  const paymentMethods = {
+    // las opciones se ordenan según se configuren
+    tarjeta: true,
+    yape: true,
+    // billetera: true,
+    // bancaMovil: true,
+    // agente: true,
+    // cuotealo: true,
+  }
+
+  const options = {
+    lang: 'auto',
+    installments: true, // Habilitar o deshabilitar el campo de cuotas
+    modal: true,
+    // container: "#culqi-container", // Opcional - Div donde quieres cargar el checkout
+    paymentMethods: paymentMethods,
+    paymentMethodsSort: Object.keys(paymentMethods), // las opciones se ordenan según se configuren en paymentMethods
+  }
+  const config = {
+    settings,
+    client,
+    options,
+  }
+  const publicKey = 'pk_test_001032e48811feb5'
+  const Culqi = new (window as any).CulqiCheckout(publicKey, config)
+  const handleCulqiAction = () => {
+    if (Culqi.token) {
+      const token = Culqi.token.id
+      Culqi.close()
+      console.log('Se ha creado un Token: ', token)
+      //En esta linea de codigo debemos enviar el "Culqi.token.id"
+      //hacia tu servidor con Ajax
+    } else if (Culqi.order) {
+      // ¡Objeto Order creado exitosamente!
+      Culqi.close()
+      const order = Culqi.order
+      console.log('Se ha creado el objeto Order: ', order)
+    } else {
+      // Mostramos JSON de objeto error en consola
+      console.log('Error : ', Culqi.error)
+    }
+  }
+
+  Culqi.culqi = handleCulqiAction
+  $buttonCheckout?.addEventListener('click', () => {
+    Culqi.open()
   })
 </script>
