@@ -30,6 +30,7 @@ import AngleRight from 'icons/angle-right.svg'
               class="ml-auto grid w-full flex-shrink-0 grid-cols-[minmax(0,3fr)_minmax(0,1fr)] grid-rows-[auto_auto] items-center pb-[2.125rem] pl-[12%] pt-[6.375rem] md:grid-cols-[2fr_0.5fr_1fr_2fr_2.5fr] lg:md:grid-cols-[2fr_0.5fr_1fr_3fr_1fr_2.5fr] lg:grid-rows-[min-content_auto]"
             >
               <Image
+                fetchpriority="high"
                 class="col-start-1 row-start-2 -row-end-1 h-full object-contain object-center md:col-start-2 md:col-end-5 md:row-start-1 lg:col-end-6 lg:object-top"
                 src={WorldSpiritBottle}
                 alt="World Spirit Man"
@@ -74,10 +75,12 @@ import AngleRight from 'icons/angle-right.svg'
               <Picture
                 src={Pucara}
                 class="h-full object-contain"
+                fetchpriority="high"
                 pictureAttributes={{
                   class:
                     'md:col-start-4 self-start translate-x-1/4 md:translate-x-0 -translate-y-1/4 md:translate-y-0  -col-end-1 -z-10 row-start-2 lg:row-start-1 md:-row-end-1 col-start-1',
                 }}
+                loading="eager"
                 formats={['webp', 'avif', 'png']}
                 alt="World Spirit Man"
               />
@@ -128,22 +131,24 @@ import AngleRight from 'icons/angle-right.svg'
               <Picture
                 src={BlackBull}
                 loading="lazy"
+                fetchpriority="low"
                 pictureAttributes={{
                   class:
                     'md:col-start-1 md:row-start-2 md:col-end-3 md:row-end-8 row-start-5 row-end-6 col-start-1 -col-end-1 justify-self-start',
                 }}
-                formats={['png', 'webp', 'avif']}
+                formats={['webp', 'png', 'avif']}
                 alt="BlackBull"
               />
               <Picture
                 src={DeCajonGin}
                 loading="lazy"
+                fetchpriority="low"
                 class="object-fill"
                 pictureAttributes={{
                   class:
                     'md:col-start-2 md:row-start-1 md:row-end-8 col-start-1 row-start-4 row-end-6 justify-self-end',
                 }}
-                formats={['png', 'webp', 'avif']}
+                formats={['webp', 'png', 'avif']}
                 alt="DeCajonGin"
               />
               <!--TODO: add link -->
@@ -200,22 +205,24 @@ import AngleRight from 'icons/angle-right.svg'
               <Picture
                 src={SiembraBanner}
                 loading="lazy"
+                fetchpriority="low"
                 pictureAttributes={{
                   class:
                     'md:col-start-3 md:row-start-5 md:col-end-5 md:row-end-9 row-start-5 row-end-6 col-start-1 -col-end-1 justify-self-start',
                 }}
-                formats={['png', 'webp', 'avif']}
+                formats={['webp', 'png', 'avif']}
                 alt="SiembraBanner"
               />
               <Picture
                 src={BottleSiembra}
                 loading="lazy"
+                fetchpriority="low"
                 class="object-fill"
                 pictureAttributes={{
                   class:
                     'md:col-start-2 md:row-start-1 md:col-end-4 md:row-end-8 col-start-2 row-start-4 row-end-7 justify-self-end',
                 }}
-                formats={['png', 'webp', 'avif']}
+                formats={['webp', 'png', 'avif']}
                 alt="BottleSiembra"
               />
               <!--TODO: add link -->
@@ -291,6 +298,7 @@ import AngleRight from 'icons/angle-right.svg'
           </div>
           <Image
             alt="woman-celebrating"
+            fetchpriority="low"
             src={WomanCelebrating}
             loading="eager"
             class="aspect-square flex-grow -scale-x-100 sm:w-1/2 md:w-2/5 lg:aspect-auto lg:w-2/5"
