@@ -4,7 +4,7 @@ import BaseLayout from 'layouts/BaseLayout.astro'
 import Layout from 'layouts/Layout.astro'
 import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
 import SandLayout from 'layouts/SandLayout.astro'
-import CoctelesBanner from 'images/cocteles-banner.png'
+import CoctelesBanner from 'images/coctelesbanner.png'
 import BloodyMary from 'images/bloody-mary-coctel.jpeg'
 import MoscowMule from 'images/moscow-mule.jpeg'
 import ScrewDiver from 'images/screwdiver.jpg'
@@ -75,7 +75,7 @@ const bottles = [
     <BaseLayout>
       <SandLayout class="relative pl-28">
         <div
-          class="m-auto grid max-w-screen-2xl md:grid-cols-[50%_auto] lg:grid-cols-[35%_auto]"
+          class="m-auto grid max-w-screen-2xl justify-between md:grid-cols-[50%_auto] lg:grid-cols-[35%_50%]"
         >
           <header class="col-start-1 space-y-7 self-center">
             <p class="md:text-xs lg:text-xl">Nuestros Cócteles</p>
@@ -93,16 +93,14 @@ const bottles = [
               <Image class="-rotate-90" src={LongLeftArrow} alt="long left" />
             </Button>
           </header>
-          <div class="col-start-2 w-full justify-self-end">
-            <Picture
-              src={CoctelesBanner}
-              height={832}
-              class="w-full object-cover"
-              loading="lazy"
-              alt="products"
-              formats={['png', 'webp', 'avif', 'jpeg']}
-            />
-          </div>
+          <Picture
+            src={CoctelesBanner}
+            pictureAttributes={{ class: 'col-start-2 w-full justify-self-end' }}
+            height={832}
+            class="aspect-[2/3] w-full"
+            alt="cocteles-banner"
+            formats={['webp', 'png', 'avif', 'jpeg']}
+          />
         </div>
       </SandLayout>
       <SandLayout class="py-[4.25rem]" id="recipes">
