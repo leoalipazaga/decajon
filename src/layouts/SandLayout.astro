@@ -12,6 +12,8 @@ const { class: className, ...rest } = Astro.props
     class="absolute left-0 top-0 -z-10 h-full bg-[#e8dfcf]"
     src={SandTextureImg}
     alt="Sand texture"
+    quality={'low'}
+    densities={[1.5, 2]}
   />
   <slot />
 </section>

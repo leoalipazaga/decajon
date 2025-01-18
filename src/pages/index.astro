@@ -72,16 +72,13 @@ import AngleRight from 'icons/angle-right.svg'
                   class="w-max self-center md:self-start">Descubre Más</Button
                 >
               </header>
-              <Picture
+              <Image
                 src={Pucara}
-                class="h-full object-contain"
+                class="-z-10 col-start-1 -col-end-1 row-start-2 h-full -translate-y-1/4 translate-x-1/4 self-start object-contain md:col-start-4 md:-row-end-1 md:translate-x-0 md:translate-y-0 lg:row-start-1"
                 fetchpriority="high"
-                pictureAttributes={{
-                  class:
-                    'md:col-start-4 self-start translate-x-1/4 md:translate-x-0 -translate-y-1/4 md:translate-y-0  -col-end-1 -z-10 row-start-2 lg:row-start-1 md:-row-end-1 col-start-1',
-                }}
+                quality={'low'}
+                densities={[1.5, 2]}
                 loading="eager"
-                formats={['webp', 'avif', 'png']}
                 alt="World Spirit Man"
               />
             </div>
@@ -301,6 +298,8 @@ import AngleRight from 'icons/angle-right.svg'
             fetchpriority="low"
             src={WomanCelebrating}
             loading="eager"
+            densities={[1.5, 2]}
+            quality={'low'}
             class="aspect-square flex-grow -scale-x-100 sm:w-1/2 md:w-2/5 lg:aspect-auto lg:w-2/5"
           />
         </div>
