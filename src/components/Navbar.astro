@@ -3,8 +3,12 @@ import { Image } from 'astro:assets'
 import DeCajonLogo from 'images/decajon-logo.png'
 import Globe from 'icons/globe.svg'
 import Cart from 'icons/cart.svg'
+import { getLangFromUrl, useTranslations } from 'i18n/utils'
 import Button from './Button.astro'
 import Dropdown from './Dropdown.astro'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 ---
 
 <nav
@@ -19,33 +23,33 @@ import Dropdown from './Dropdown.astro'
   >
     <li>
       <a class="font-cultive text-lg sm:text-xs lg:text-base" href="/products"
-        >Productos</a
+        >{t('nav.products')}</a
       >
     </li>
     <li>
       <a class="font-cultive text-lg sm:text-xs lg:text-base" href="/history"
-        >Historia</a
+        >{t('nav.history')}</a
       >
     </li>
     <li>
       <a class="font-cultive text-lg sm:text-xs lg:text-base" href="/experience"
-        >Experiencia</a
+        >{t('nav.experience')}</a
       >
     </li>
     <li>
       <a
         class="font-cultive text-lg sm:hidden sm:text-xs lg:text-base"
-        href="/cart">Carrito</a
+        href="/cart">{t('nav.cart')}</a
       >
     </li>
     <li class="block sm:hidden">
       <a class="font-cultive text-lg sm:text-xs lg:text-base" href="/en"
-        >Ingles</a
+        >{t('nav.en')}</a
       >
     </li>
     <li class="block sm:hidden">
       <a class="font-cultive text-lg sm:text-xs lg:text-base" href="/"
-        >Español</a
+        >{t('nav.es')}</a
       >
     </li>
   </ul>
@@ -69,8 +73,8 @@ import Dropdown from './Dropdown.astro'
           </Button>
         </Fragment>
         <Fragment slot="content">
-          <a href="/">Español</a>
-          <a href="/en/">Ingles</a>
+          <a href="/">{t('nav.es')}</a>
+          <a href="/en/">{t('nav.en')}</a>
         </Fragment>
       </Dropdown>
     </li>

@@ -1,5 +1,6 @@
 ---
 import Tag from 'components/Tag.astro'
+import { getLangFromUrl, useTranslations } from 'i18n/utils'
 import { currency } from 'utils'
 
 interface Props {
@@ -9,6 +10,8 @@ interface Props {
 }
 
 const { title, price } = Astro.props
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 ---
 
 <article
@@ -21,7 +24,7 @@ const { title, price } = Astro.props
   <p
     class="hidden text-xs md:col-span-2 md:row-start-2 md:mb-[1.125rem] lg:block lg:text-base"
   >
-    Producto en Stock
+    {t('product.available')}
   </p>
   <p
     class="col-span-2 row-start-2 mb-8 text-center text-xs md:row-start-3 md:mb-4 md:text-left lg:text-base"
@@ -31,7 +34,6 @@ const { title, price } = Astro.props
   <div
     class="col-start-1 col-end-2 row-start-3 justify-self-end md:-col-end-1 md:row-start-4 md:justify-self-start"
   >
-    <!-- <CounterPersist client:only="svelte" id={id} /> -->
     <slot name="counter" />
   </div>
   <Tag
@@ -39,5 +41,4 @@ const { title, price } = Astro.props
     >{currency(price)}</Tag
   >
   <slot name="action" />
-  <!-- <CounterButton client:only="svelte" id={id} /> -->
 </article>

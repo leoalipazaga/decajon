@@ -1,16 +1,18 @@
 ---
 import { join } from 'node:path'
 import { AstroFont } from 'astro-font'
+import { getLangFromUrl } from 'i18n/utils'
 
 interface Props {
   title: string
 }
 
 const { title } = Astro.props
+const lang = getLangFromUrl(Astro.url)
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -19,7 +21,6 @@ const { title } = Astro.props
     />
     <meta name="viewport" content="width=device-width" />
     <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
-    <title>DeCajon</title>
     <meta
       name="description"
       content="Nace del amor por la tradición peruana y el arte de la destilación. Con insumos autóctonos y un enfoque eco-amigable, crea productos de alta gama que llevan al mundo el sabor de los Andes, elaborados con métodos artesanales y tecnología de punta."

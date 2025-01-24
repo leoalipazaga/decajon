@@ -4,8 +4,16 @@ import tailwind from '@astrojs/tailwind'
 import svelte from '@astrojs/svelte'
 import compressor from 'astro-compressor'
 
+export const defaultLocale = 'es'
+
+export const locales = ['es', 'en']
+
 // https://astro.build/config
 export default defineConfig({
+  i18n: {
+    locales,
+    defaultLocale,
+  },
   integrations: [
     tailwind(),
     svelte(),
@@ -17,4 +25,3 @@ export default defineConfig({
     '/recipes': '/recipes/bloody-mary',
   },
 })
-

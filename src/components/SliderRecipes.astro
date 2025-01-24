@@ -10,6 +10,10 @@ import Cosmopolitan from 'images/cosmopolitan.jpeg'
 import ExpressoMartini from 'images/expresso-martini.jpeg'
 import AppleMartini from 'images/apple-martini.jpeg'
 import SmashPineapple from 'images/smash-pineaple.jpeg'
+import { getLangFromUrl, useTranslations } from 'i18n/utils'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 ---
 
 <Carousel>
@@ -17,63 +21,63 @@ import SmashPineapple from 'images/smash-pineaple.jpeg'
     class="w-full flex-shrink-0"
     img={{ path: BloodyMary, alt: 'Bloody Mary' }}
     title="Bloody Mary"
-    description="Una refrescante mezcla con un toque picante, perfecta para darle un giro atrevido a cualquier ocasión."
+    description={t('recipe.bloody')}
     link="/recipes/bloody-mary"
   />
   <Recipe
     class="w-full flex-shrink-0"
     img={{ path: MoscowMule, alt: 'Moscow Mule' }}
     title="Moscow Mule"
-    description="Un cóctel muy popular entre la élite de Hollywood. Se sirve en una atractiva taza de cobre para dejar tu paladar tan refrescante y a la vez, ácido con un sabor genuino hecho a base de vodka De Cajón."
+    description={t('recipe.moscowMule')}
     link="/recipes/moscow-mule"
   />
   <Recipe
     class="w-full flex-shrink-0"
     img={{ path: SexOnTheBeach, alt: 'Sex on the Beach' }}
     title="Sex on the beach"
-    description="Una bebida refrescante que llega con los primeros días de sol, ¡dispuesta a endulzar y refrescar nuestro verano."
+    description={t('recipe.sexOnTheBeach')}
     link="/recipes/sex-on-the-beach"
   />
   <Recipe
     class="w-full flex-shrink-0"
     img={{ path: PinkGinTonic, alt: 'Pink Gin Tonic' }}
     title="Pink Gin Tonic"
-    description="Verde color de vida, serenidad y frescura, todo lo que adorna y acompaña a esta deliciosa combinación llamada Apple Martini, que lo contiene todo."
+    description={t('recipe.pinkGinTonic')}
     link="/recipes/pink-gin-tonic"
   />
   <Recipe
     class="w-full flex-shrink-0"
     img={{ path: Screwdiver, alt: 'Screwdiver' }}
     title="Screwdriver"
-    description="Un trago por excelencia tan refrescante como prohibido. Dice la leyenda que su nombre “destornillador” era una clave entre los soldados estadounidenses para engañar a los agentes federales durante la Segunda Guerra Mundial."
+    description={t('recipe.screwdiver')}
     link="/recipes/screwdiver"
   />
   <Recipe
     class="w-full flex-shrink-0"
     img={{ path: Cosmopolitan, alt: 'Cosmopolitan' }}
     title="Cosmopolitan"
-    description="El Cosmopolitan es un cóctel clásico que se ha ganado la fama en todo el mundo gracias a su elegancia y a su refrescante sabor. Esta icónica bebida se ha convertido en un símbolo de sofisticación y glamour."
+    description={t('recipe.cosmopolitan')}
     link="/recipes/cosmopolitan"
   />
   <Recipe
     class="w-full flex-shrink-0"
     img={{ path: ExpressoMartini, alt: 'ExpressoMartini' }}
     title="EXPRESSO MARTINI"
-    description="El Espresso Martini es un ícono del mundo de los cócteles y ha cautivado a los aficionados con sus ricos sabores a café."
+    description={t('recipe.expressoMartini')}
     link="/recipes/expresso-martini"
   />
   <Recipe
     class="w-full flex-shrink-0"
     img={{ path: AppleMartini, alt: 'AppleMartini' }}
     title="APPLE MARTINI"
-    description="Verde color de vida, serenidad y frescura, todo lo que adorna y acompaña a esta deliciosa combinación llamada Apple Martini, que lo contiene todo."
+    description={t('recipe.appleMartini')}
     link="/recipes/apple-martini"
   />
   <Recipe
     class="w-full flex-shrink-0"
     img={{ path: SmashPineapple, alt: 'SmashPineapple' }}
     title="SMASH DE PIÑA"
-    description="Deja que la piña cante en este smash a base de vodka. Con los aromas del romero y el amargo, este cóctel afrutado y alcohólico está listo para el verano."
+    description={t('recipe.smashPineapple')}
     link="/recipes/smash-pineapple"
   />
 </Carousel>

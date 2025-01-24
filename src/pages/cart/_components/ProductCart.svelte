@@ -23,9 +23,11 @@
   class="grid grid-cols-2 grid-rows-[1fr_repeat(3,auto)] gap-x-4 border-b-eerie-black py-9 [border-bottom:1px_solid] sm:grid-cols-[minmax(107px,auto)_1fr_1fr] sm:grid-rows-[repeat(3,auto)] sm:py-1.5 md:grid-cols-[minmax(0,180px)_1fr_1fr]"
 >
   <img
+    {alt}
     {src}
     class="aspect-square object-cover row-start-1 col-start-1 -row-end-1"
-    {alt}
+    width="180"
+    sizes="180px"
   />
   <h1
     class="col-start-2 uppercase row-start-1 self-end text-xs sm:text-nowrap sm:text-left md:text-sm"

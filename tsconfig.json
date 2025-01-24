@@ -3,36 +3,17 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "public/*": [
-        "public/*"
-      ],
-      "images/*": [
-        "public/images/*"
-      ],
-      "icons/*": [
-        "public/icons/*"
-      ],
-      "utils": [
-        "src/utils"
-      ],
-      "ui/*": [
-        "src/ui/*"
-      ],
-      "organism/*": [
-        "src/organism/*"
-      ],
-      "components/*": [
-        "src/components/*"
-      ],
-      "consts": [
-        "src/consts"
-      ],
-      "layouts/*": [
-        "src/layouts/*"
-      ],
-      "adapters/*": [
-        "src/adapters/*"
-      ]
+      "public/*": ["public/*"],
+      "images/*": ["public/images/*"],
+      "icons/*": ["public/icons/*"],
+      "utils": ["src/utils"],
+      "ui/*": ["src/ui/*"],
+      "organism/*": ["src/organism/*"],
+      "components/*": ["src/components/*"],
+      "consts": ["src/consts"],
+      "layouts/*": ["src/layouts/*"],
+      "adapters/*": ["src/adapters/*"],
+      "i18n/*": ["src/i18n/*"]
     }
   }
 }

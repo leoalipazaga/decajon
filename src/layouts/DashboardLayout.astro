@@ -1,5 +1,6 @@
 ---
 import { Image, Picture } from 'astro:assets'
+import { getLangFromUrl, useTranslations } from 'i18n/utils'
 import DeCajonLogo from 'images/decajon-logo.png'
 import Button from 'components/Button.astro'
 import TopMenu from 'icons/top-menu.svg'
@@ -19,6 +20,8 @@ interface Props {
 }
 
 const { title } = Astro.props
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 ---
 
 <main class="grid grid-cols-[20rem_minmax(0,1fr)]">
@@ -43,7 +46,7 @@ const { title } = Astro.props
           as="a"
           href="/dashboard/"
           class="w-full justify-self-start text-left text-anti-flash-white hover:opacity-50 [&&]:text-left [&&]:font-cutive [&&]:text-xl"
-          >Inicio</Button
+          >{t('dashboard.start')}</Button
         >
       </li>
       <li class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-[1.125rem]">
@@ -61,7 +64,7 @@ const { title } = Astro.props
         <Button
           class="w-full justify-self-start text-left text-anti-flash-white [&&]:text-left [&&]:font-cutive [&&]:text-xl"
           href="/dashboard/cart/"
-          as="a">Orden</Button
+          as="a">{t('dashboard.checkout')}</Button
         >
       </li>
       <li class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-[1.125rem]">
@@ -76,7 +79,7 @@ const { title } = Astro.props
           as="a"
           href="/dashboard/products/"
           class="w-full justify-self-start text-left text-anti-flash-white [&&]:text-left [&&]:font-cutive [&&]:text-xl"
-          >Productos</Button
+          >{t('dashboard.products')}</Button
         >
       </li>
       <li class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-[1.125rem]">
@@ -91,7 +94,7 @@ const { title } = Astro.props
           as="a"
           href="/dashboard/sales/"
           class="w-full justify-self-start text-anti-flash-white [&&]:text-left [&&]:font-cutive [&&]:text-xl"
-          >Ofertas</Button
+          >{t('dashboard.hotsales')}</Button
         >
       </li>
     </ul>
@@ -161,8 +164,8 @@ const { title } = Astro.props
               </div>
             </Fragment>
             <Fragment slot="content">
-              <a href="/">Perfil</a>
-              <a href="/en/">Cerrar Sesión</a>
+              <a href="/">{t('dashboard.profile')}</a>
+              <a href="/en/">{t('dashboard.logout')}</a>
             </Fragment>
           </Dropdown>
         </li>

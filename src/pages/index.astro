@@ -15,6 +15,10 @@ import BlackBull from 'images/black-bull.png'
 import DeCajonGin from 'images/decajon-gin.png'
 import AngleLeft from 'icons/angle-left.svg'
 import AngleRight from 'icons/angle-right.svg'
+import { getLangFromUrl, useTranslations } from 'i18n/utils'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 ---
 
 <Layout title="DeCajon">
@@ -31,6 +35,7 @@ import AngleRight from 'icons/angle-right.svg'
             >
               <Image
                 fetchpriority="high"
+                loading="eager"
                 class="col-start-1 row-start-2 -row-end-1 h-full object-contain object-center md:col-start-2 md:col-end-5 md:row-start-1 lg:col-end-6 lg:object-top"
                 src={WorldSpiritBottle}
                 alt="World Spirit Man"
@@ -69,7 +74,8 @@ import AngleRight from 'icons/angle-right.svg'
                 <Button
                   as="a"
                   href="/products/vodka"
-                  class="w-max self-center md:self-start">Descubre Más</Button
+                  class="w-max self-center md:self-start"
+                  >{t('common.showMore')}</Button
                 >
               </header>
               <Image
@@ -148,12 +154,11 @@ import AngleRight from 'icons/angle-right.svg'
                 formats={['webp', 'png', 'avif']}
                 alt="DeCajonGin"
               />
-              <!--TODO: add link -->
               <Button
                 as="a"
                 href="/products/vodka-gin"
                 class="col-start-1 -col-end-1 row-start-3 mr-[12%] self-start justify-self-center md:col-start-3 md:row-start-6 md:mr-0 md:justify-self-end [&&]:bg-eerie-black"
-                >Descubre Más</Button
+                >{t('common.showMore')}</Button
               >
             </div>
             <div
@@ -222,12 +227,11 @@ import AngleRight from 'icons/angle-right.svg'
                 formats={['webp', 'png', 'avif']}
                 alt="BottleSiembra"
               />
-              <!-- TODO: add link -->
               <Button
                 as="a"
                 href="/products/vodka-siembra"
                 class="col-start-1 -col-end-1 row-start-3 ml-[12%] justify-self-center md:col-start-1 md:col-end-2 md:row-start-6 md:ml-0 md:justify-self-start [&&]:bg-gentian-blue"
-                >Descubre Más</Button
+                >{t('common.showMore')}</Button
               >
             </div>
           </div>
@@ -289,7 +293,7 @@ import AngleRight from 'icons/angle-right.svg'
               <Button
                 class="justify-self-start sm:justify-self-center md:text-xs"
                 as="a"
-                href="/history">Descubre Más</Button
+                href="/history">{t('common.showMore')}</Button
               >
             </div>
           </div>

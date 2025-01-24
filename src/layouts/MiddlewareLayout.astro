@@ -1,25 +1,32 @@
+---
+import { getLangFromUrl, useTranslations } from 'i18n/utils'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+---
+
 <div
   class="hidden h-dvh grid-rows-[auto_min-content_min-content_min-content_auto] justify-items-stretch bg-rosewood pt-12"
   id="is-adult"
 >
   <h2 class="text-center text-sm uppercase text-anti-flash-white">
-    de cajón destilados
+    {t('middleware.title')}
   </h2>
   <h1
     class="mb-7 w-80 justify-self-center text-center text-4xl uppercase text-anti-flash-white"
   >
-    ¿Eres mayor de edad?
+    {t('middleware.subtitle')}
   </h1>
   <div class="justify-self-center">
     <input type="checkbox" />
   </div>
   <p class="mt-8 text-center text-base text-anti-flash-white" id="check-output">
-    No
+    {t('middleware.no')}
   </p>
   <p
     class="mt-3 w-80 justify-self-center text-center text-base text-anti-flash-white"
   >
-    Acepto las condiciones y normas al ingresar a este servidor.
+    {t('middleware.terms')}
   </p>
 </div>
 <main class="hidden" id="app">
@@ -55,6 +62,13 @@
   }
 </style>
 <script>
+  import { getLangFromUrl, useTranslations } from 'i18n/utils'
+
+  const lang = getLangFromUrl(
+    new URL(window.location.pathname, window.location.origin)
+  )
+  const t = useTranslations(lang)
+
   const isAdult = window.localStorage.getItem('isAdult')
   const mainIsAdultEl = document.querySelector('div#is-adult')
   const mainEl = document.querySelector('main#app')
@@ -81,9 +95,8 @@
   checkbox?.addEventListener('change', (ev) => {
     if (checkOutput) {
       checkOutput.innerHTML = (ev.target as HTMLInputElement)?.checked
-        ? // TODO: require translate "Si" and "No"
-          'Si'
-        : 'No'
+        ? t('middleware.yes')
+        : t('middleware.no')
     }
     if ((ev.target as HTMLInputElement).checked) {
       checkAsAdult((ev.target as HTMLInputElement).checked)

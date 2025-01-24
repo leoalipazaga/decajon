@@ -6,7 +6,11 @@ import Linkedin from 'icons/linkedin.svg'
 import PlaceMarker from 'icons/place-marker.svg'
 import Phone from 'icons/phone.svg'
 import Mail from 'icons/mail.svg'
+import { getLangFromUrl, useTranslations } from 'i18n/utils'
 import Button from './Button.astro'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 ---
 
 <footer class="relative h-auto overflow-hidden bg-eerie-black py-9">
@@ -16,7 +20,7 @@ import Button from './Button.astro'
     <h1
       class="row-start-1 border-y border-crayola py-4 text-center text-sm uppercase text-crayola md:text-2xl lg:text-4xl"
     >
-      DISFRUTA DE UN CONSUMO RESPONSABLE
+      {t('footer.title')}
     </h1>
     <div
       class="row-start-2 grid grid-cols-2 grid-rows-[auto_auto_auto] gap-y-[1.125rem] md:grid-cols-[auto_1fr_auto] md:grid-rows-[auto] md:items-center md:justify-items-end md:gap-x-6"
@@ -46,22 +50,27 @@ import Button from './Button.astro'
           </Button>
         </li>
       </ul>
-      {/* ORDFENADRINA DICLOFENACO */}
       <ul
         class="order-3 col-span-2 flex gap-6 text-anti-flash-white md:order-2 md:col-span-1"
       >
         <li>
-          <a class="text-xs xl:text-base" href="/products">Productos</a>
+          <a class="text-xs xl:text-base" href="/products"
+            >{t('nav.products')}</a
+          >
         </li>
-        <li><a class="text-xs xl:text-base" href="/history">Historia</a></li>
         <li>
-          <a class="text-xs xl:text-base" href="/experience">Experiencia</a>
+          <a class="text-xs xl:text-base" href="/history">{t('nav.history')}</a>
+        </li>
+        <li>
+          <a class="text-xs xl:text-base" href="/experience"
+            >{t('nav.experience')}</a
+          >
         </li>
       </ul>
       <Button
         class="order-2 self-center justify-self-end md:order-3"
         as="a"
-        href="/login">Iniciar Sesión</Button
+        href="/login">{t('footer.login')}</Button
       >
     </div>
     <ul class="grid gap-y-2 md:grid-cols-2 md:gap-y-[1.875rem] xl:grid-cols-3">
@@ -75,6 +84,7 @@ import Button from './Button.astro'
           /></span
         >
         <a
+          translate="no"
           class="text-xs text-anti-flash-white xl:text-base"
           href="tel:+51917813968">+51 917 813 968</a
         >
@@ -89,6 +99,7 @@ import Button from './Button.astro'
           /></span
         >
         <a
+          translate="no"
           class="text-xs text-anti-flash-white xl:text-base"
           href="mailto:gerentedeventas@decajon.pe">gerentedeventas@decajon.pe</a
         >
@@ -104,6 +115,7 @@ import Button from './Button.astro'
           />
         </span>
         <a
+          translate="no"
           class="text-xs text-anti-flash-white xl:text-base"
           href="https://www.google.com/maps/place/Decajon+Peru/@-12.2924002,-76.8456598,17z/data=!3m1!4b1!4m6!3m5!1s0x9105bd0b9f983975:0x88fb7e20d3c57fbe!8m2!3d-12.2924055!4d-76.8430849!16s%2Fg%2F11y71svykh?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D"
           >Av. Los Eucaliptos Nº 371 Z.I. URB. Santa Genoveva (Km 40 de la
@@ -114,12 +126,12 @@ import Button from './Button.astro'
     <ul class="flex justify-center gap-4">
       <li>
         <a class="text-xs text-anti-flash-white" href="/terms-and-conditions"
-          >Terminos y condiciones</a
+          >{t('footer.terms')}</a
         >
       </li>
       <li>
         <a class="text-xs text-anti-flash-white" href="/returns-and-exchange"
-          >Politica de devoluciones</a
+          >{t('footer.politics')}</a
         >
       </li>
     </ul>
