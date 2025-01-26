@@ -57,19 +57,18 @@ const t = useTranslations(lang)
               <header
                 class="col-start-1 -col-end-1 row-start-1 mr-[12%] flex flex-col items-center justify-start gap-[0.875rem] self-start md:col-end-3 md:row-start-2 md:mr-0 md:items-start lg:col-end-4"
               >
-                <p class="text-center text-base sm:text-left">De Cajón Vodka</p>
+                <p translate="no" class="text-center text-base sm:text-left">
+                  De Cajón Vodka
+                </p>
                 <h1
                   class="text-center text-xl sm:text-left md:w-4/5 lg:text-2xl xl:text-4xl"
                 >
-                  EL VODKA QUE NO PODÍA FALTAR
+                  {t('vodka.banner')}
                 </h1>
                 <p
                   class="text-center text-xs md:text-left lg:text-sm xl:text-base"
                 >
-                  Primer sorbo de la línea, elaborado con papas peruanas
-                  seleccionadas que aportan matices únicos, desde grano tostado
-                  hasta notas florales y cítricas. Vodka de cuerpo robusto y
-                  entrada cálida, ideal para paladares exigentes.
+                  {t('vodka.description')}
                 </p>
                 <Button
                   as="a"
@@ -114,6 +113,7 @@ const t = useTranslations(lang)
                 </li>
               </ul>
               <p
+                translate="no"
                 class="col-start-3 row-start-3 hidden text-right md:block lg:text-sm xl:text-base"
               >
                 De Cajón Gin
@@ -121,15 +121,12 @@ const t = useTranslations(lang)
               <h1
                 class="col-start-1 -col-end-1 row-start-1 mr-[12%] text-center text-xl uppercase md:col-start-3 md:row-start-4 md:mr-0 md:text-right lg:text-2xl xl:text-4xl"
               >
-                EL GIN CON EL QUE TODOS SOÑABAN
+                {t('gin.banner')}
               </h1>
               <p
                 class="col-start-1 -col-end-1 row-start-2 mr-[12%] text-center text-xs md:col-start-3 md:row-start-5 md:mr-0 md:text-right lg:text-sm xl:text-base"
               >
-                Combina 21 botánicos de origen peruano y europeo. La mezcla
-                incluye ingredientes como molle, limón rugoso, muña, cardamomo y
-                cacao, entre otros. Cada destilación preserva el alma de sus
-                ingredientes, logrando un gin equilibrado y lleno de aromas.
+                {t('gin.description')}
               </p>
               <Picture
                 src={BlackBull}
@@ -187,6 +184,7 @@ const t = useTranslations(lang)
                 </li>
               </ul>
               <p
+                translate="no"
                 class="col-start-1 row-start-3 hidden text-left md:block lg:text-sm xl:text-base"
               >
                 Siembra Vodka
@@ -194,15 +192,12 @@ const t = useTranslations(lang)
               <h1
                 class="col-start-1 -col-end-1 row-start-1 ml-[12%] text-center text-xl uppercase md:col-start-1 md:col-end-2 md:row-start-4 md:ml-0 md:text-left lg:text-2xl xl:text-4xl"
               >
-                EL VODKA QUE SE HACÍA ESPERAR
+                {t('siembra.banner')}
               </h1>
               <p
                 class="col-start-1 -col-end-1 row-start-2 ml-[12%] text-center text-xs md:col-start-1 md:col-end-2 md:row-start-5 md:ml-0 md:text-left lg:text-sm xl:text-base"
               >
-                Es la versión urbana de los vodkas de De Cajón. Compuesto por
-                alcoholes de papa de las regiones de Costa y Sierra, su perfil
-                combina fuerza y suavidad, con un toque casi neutro en aroma y
-                una entrada en boca delicada.
+                {t('siembra.description')}
               </p>
               <Picture
                 src={SiembraBanner}
@@ -244,10 +239,11 @@ const t = useTranslations(lang)
           <Button
             class="order-1 w-auto sm:order-[0] sm:justify-self-end"
             as="a"
-            href="/history">Nuestra Historia</Button
+            href="/history">{t('home.ourHistory')}</Button
           >
           <div class="m-auto sm:w-3/4">
             <p
+              translate="no"
               class="text-center text-xs text-anti-flash-white sm:text-left lg:text-base"
             >
               De Cajón Destilados
@@ -255,15 +251,12 @@ const t = useTranslations(lang)
             <h1
               class="my-4 text-center text-2xl uppercase text-crayola sm:px-12 md:mb-9 md:mt-[1.25rem] md:text-5xl xl:text-[4rem]"
             >
-              Espíritus peruanos DESDE LA PACHAMAMA
+              {t('home.pachamama')}
             </h1>
             <p
               class="text-center text-xs text-anti-flash-white md:text-right md:text-base"
             >
-              Nace del amor por la tradición peruana y el arte de la
-              destilación. Con insumos autóctonos y un enfoque eco-amigable,
-              crea productos de alta gama que llevan al mundo el sabor de los
-              Andes, elaborados con métodos artesanales y tecnología de punta.
+              {t('home.historyDescription')}
             </p>
           </div>
         </div>
@@ -279,16 +272,12 @@ const t = useTranslations(lang)
               <h1
                 class="text-left text-xl uppercase text-eerie-black sm:text-center lg:text-2xl xl:text-4xl"
               >
-                Nuestra experiencia
+                {t('home.ourExperience')}
               </h1>
               <p
                 class="text-left text-xs sm:text-center lg:text-sm xl:text-base"
               >
-                De Cajón Destilados ofrece una experiencia de autenticidad y
-                sofisticación, invitando a descubrir la esencia de los Andes
-                peruanos en destilados premium. Cada sorbo conecta con sabores y
-                tradiciones peruanas, creando momentos memorables en un ambiente
-                exclusivo y detallista.
+                {t('home.ourExperience')}
               </p>
               <Button
                 class="justify-self-start sm:justify-self-center md:text-xs"

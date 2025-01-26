@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { getLangFromUrl, useTranslations } from 'i18n/utils'
   import type { Snippet } from 'svelte'
   import { currency } from 'utils'
 
@@ -14,6 +15,8 @@
     action: Snippet
   }
 
+  const lang = getLangFromUrl(new URL(location.pathname, location.origin))
+  const t = useTranslations(lang)
   const { alt, src, title, volumen, price, count, action, counter }: Props =
     $props()
   let total = $derived(count * price)
@@ -37,12 +40,13 @@
   <p
     class="col-start-2 row-start-2 text-xs sm:self-center sm:text-nowrap sm:text-left md:text-sm"
   >
-    Botella {volumen}ml
+    {t('common.bottle')}
+    {volumen}ml
   </p>
   <p
     class="col-start-2 row-start-3 text-xs sm:text-nowrap sm:text-left md:text-sm"
   >
-    Precio: {currency(price)}
+    {t('common.price')}: {currency(price)}
   </p>
   <footer
     class="col-start-2 row-start-4 mt-1.5 grid grid-cols-[auto_auto] items-center justify-start gap-x-[0.375rem] sm:col-start-3 sm:row-start-2 sm:mt-0 sm:grid-cols-[auto_auto_auto] sm:justify-end sm:gap-x-4"

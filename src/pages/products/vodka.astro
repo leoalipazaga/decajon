@@ -21,9 +21,13 @@ import AngleLeft from 'icons/angle-left.svg'
 import AngleRight from 'icons/angle-right.svg'
 import ProductPhotos from 'organism/product-photos.astro'
 import ProductInfo from 'organism/product-info.astro'
+import { getLangFromUrl, useTranslations } from 'i18n/utils'
 import ProductDescription from './_components/product-description.astro'
 import CounterButton from './_components/CounterButton.svelte'
 import CounterPersist from './_components/CounterPersist.svelte'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 ---
 
 <Layout title="DeCajon">
@@ -60,24 +64,24 @@ import CounterPersist from './_components/CounterPersist.svelte'
               <header
                 class="col-start-1 -col-end-1 row-start-1 mr-[12%] flex flex-col items-center justify-start gap-[0.875rem] self-start md:col-end-3 md:row-start-2 md:mr-0 md:items-start lg:col-end-4"
               >
-                <p class="text-center text-base sm:text-left">De Cajón Vodka</p>
+                <p translate="no" class="text-center text-base sm:text-left">
+                  De Cajón Vodka
+                </p>
                 <h1
                   class="text-center text-xl sm:text-left md:w-4/5 lg:text-2xl xl:text-4xl"
                 >
-                  EL VODKA QUE NO PODÍA FALTAR
+                  {t('vodka.banner')}
                 </h1>
                 <p
                   class="text-center text-xs md:text-left lg:text-sm xl:text-base"
                 >
-                  Primer sorbo de la línea, elaborado con papas peruanas
-                  seleccionadas que aportan matices únicos, desde grano tostado
-                  hasta notas florales y cítricas. Vodka de cuerpo robusto y
-                  entrada cálida, ideal para paladares exigentes.
+                  {t('vodka.description')}
                 </p>
                 <Button
                   as="a"
                   href="/products/vodka"
-                  class="w-max self-center md:self-start">Descubre Más</Button
+                  class="w-max self-center md:self-start"
+                  >{t('common.showMore')}</Button
                 >
               </header>
               <Picture
@@ -117,6 +121,7 @@ import CounterPersist from './_components/CounterPersist.svelte'
                 </li>
               </ul>
               <p
+                translate="no"
                 class="col-start-3 row-start-3 hidden text-right md:block lg:text-sm xl:text-base"
               >
                 De Cajón Gin
@@ -124,15 +129,12 @@ import CounterPersist from './_components/CounterPersist.svelte'
               <h1
                 class="col-start-1 -col-end-1 row-start-1 mr-[12%] text-center text-xl uppercase md:col-start-3 md:row-start-4 md:mr-0 md:text-right lg:text-2xl xl:text-4xl"
               >
-                EL GIN CON EL QUE TODOS SOÑABAN
+                {t('gin.banner')}
               </h1>
               <p
                 class="col-start-1 -col-end-1 row-start-2 mr-[12%] text-center text-xs md:col-start-3 md:row-start-5 md:mr-0 md:text-right lg:text-sm xl:text-base"
               >
-                Combina 21 botánicos de origen peruano y europeo. La mezcla
-                incluye ingredientes como molle, limón rugoso, muña, cardamomo y
-                cacao, entre otros. Cada destilación preserva el alma de sus
-                ingredientes, logrando un gin equilibrado y lleno de aromas.
+                {t('gin.description')}
               </p>
               <Picture
                 src={BlackBull}
@@ -155,12 +157,11 @@ import CounterPersist from './_components/CounterPersist.svelte'
                 formats={['png', 'webp', 'avif']}
                 alt="DeCajonGin"
               />
-              <!--TODO: add link -->
               <Button
                 as="a"
                 href="/products/vodka-gin"
                 class="col-start-1 -col-end-1 row-start-3 mr-[12%] self-start justify-self-center md:col-start-3 md:row-start-6 md:mr-0 md:justify-self-end [&&]:bg-eerie-black"
-                >Descubre Más</Button
+                >{t('common.showMore')}</Button
               >
             </div>
             <div
@@ -196,15 +197,12 @@ import CounterPersist from './_components/CounterPersist.svelte'
               <h1
                 class="col-start-1 -col-end-1 row-start-1 ml-[12%] text-center text-xl uppercase md:col-start-1 md:col-end-2 md:row-start-4 md:ml-0 md:text-left lg:text-2xl xl:text-4xl"
               >
-                EL VODKA QUE SE HACÍA ESPERAR
+                {t('siembra.banner')}
               </h1>
               <p
                 class="col-start-1 -col-end-1 row-start-2 ml-[12%] text-center text-xs md:col-start-1 md:col-end-2 md:row-start-5 md:ml-0 md:text-left lg:text-sm xl:text-base"
               >
-                Es la versión urbana de los vodkas de De Cajón. Compuesto por
-                alcoholes de papa de las regiones de Costa y Sierra, su perfil
-                combina fuerza y suavidad, con un toque casi neutro en aroma y
-                una entrada en boca delicada.
+                {t('siembra.description')}
               </p>
               <Picture
                 src={SiembraBanner}
@@ -227,12 +225,11 @@ import CounterPersist from './_components/CounterPersist.svelte'
                 formats={['png', 'webp', 'avif']}
                 alt="BottleSiembra"
               />
-              <!--TODO: add link -->
               <Button
                 as="a"
                 href="/products/vodka-siembra"
                 class="col-start-1 -col-end-1 row-start-3 ml-[12%] justify-self-center md:col-start-1 md:col-end-2 md:row-start-6 md:ml-0 md:justify-self-start [&&]:bg-gentian-blue"
-                >Descubre Más</Button
+                >{t('common.showMore')}</Button
               >
             </div>
           </div>
@@ -252,14 +249,7 @@ import CounterPersist from './_components/CounterPersist.svelte'
           />
           <ProductInfo id={1} title="DE CAJÓN VODKA" price={99}>
             <Fragment slot="default">
-              Un vodka Premium elaborado con un proceso de alta calidad, que
-              combina la destilación en alambique de cobre y una rectificación
-              en torres de 20 platos de cobre, equivalente a 22 destilaciones.
-              Este proceso elimina el sulfuro, generando un sabor suave y
-              refinado. De Cajón fusiona técnica tradicional y tecnología de
-              vanguardia, seleccionando rigurosamente papas peruanas y
-              fermentando almidones que crean una bebida con textura y suavidad
-              excepcionales.
+              {t('products.vodka')}
             </Fragment>
             <Fragment slot="counter">
               <CounterPersist id={1} client:only="svelte" />
@@ -273,11 +263,11 @@ import CounterPersist from './_components/CounterPersist.svelte'
       <SandLayout class="py-9">
         <div class="m-auto w-[76%] max-w-screen-2xl">
           <ProductDescription
-            title="DESTILADO DE PAPAS PERUANAS"
+            title={t('products.potatoDestillate')}
             descriptions={[
-              'Alcohol: Posee una graduación de 40 °ABV 80° PROOF.',
-              'Origen: Las papas son procedentes de agricultores de la zona andina y costeña. Cada cosecha se inspecciona cuidadosamente antes de ser aceptada en la destilería.',
-              'Premios Mundiales: Un destilado que ha ganado premios en concursos donde participaron más de 3500 marcas a nivel mundial. La medalla de Plata en los premios San Francisco World Spirits Competition 2022 y la Medalla de Oro en el prestigioso concurso New York World Wine & Spirits Competition 2022.',
+              `${t('products.alcohol')}: ${t('products.vodkaAlcohol')}`,
+              `${t('products.origin')}: ${t('products.vodkaOrigin')}`,
+              `${t('products.awards')}: ${t('products.vodkaAwards')}`,
             ]}
           >
             <Picture

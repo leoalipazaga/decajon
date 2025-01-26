@@ -3,6 +3,10 @@ import BaseLayout from 'layouts/BaseLayout.astro'
 import Layout from 'layouts/Layout.astro'
 import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
 import SandLayout from 'layouts/SandLayout.astro'
+import { getLangFromUrl, useTranslations } from 'i18n/utils'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 ---
 
 <Layout title="Historia">
@@ -10,37 +14,9 @@ import SandLayout from 'layouts/SandLayout.astro'
     <BaseLayout>
       <SandLayout class="py-[4.375rem]">
         <div class="m-auto w-[76%] max-w-screen-2xl">
-          <h1 class="my-4 text-2xl uppercase">Términos y Condiciones</h1>
+          <h1 class="my-4 text-2xl uppercase">{t('returns.title')}</h1>
           <p>
-            El usuario será responsable de mantener la confidencialidad de los
-            datos e información aportados, y de restringir el acceso a su
-            computadora o dispositivo y a sus claves de acceso, para evitar
-            posibles usos no autorizados. El usuario asume totalmente la
-            responsabilidad por el mantenimiento de la confidencialidad de su
-            clave secreta registrada en este sitio web, la cual le permite
-            efectuar compras, solicitar servicios y obtener información. Dicha
-            clave es de uso personal, y su entrega a terceros no involucra
-            responsabilidad de DeCajon. En caso de que el usuario tenga motivos
-            para creer que sus datos han sido puestos en conocimiento de un
-            tercero, o si estos han sido utilizados de manera no autorizada, o
-            son susceptibles de serlo, deberá comunicar esta situación a DeCajon
-            de forma inmediata. El usuario deberá comprobar que sus datos son
-            correctos y completos e informar a DeCajon cuando haya alguna
-            variación y/o modificación en la información que haya facilitado en
-            el proceso de compra. DeCajon se reserva el derecho a denegar
-            cualquier intento de acceso este sitio web, a eliminar o modificar
-            contenidos, o a cancelar pedidos a su discreción. No está permitido
-            el uso de este sitio web con fines fraudulentos, o relacionados con
-            delitos penales o actividades ilícitas de ningún tipo. También se
-            prohíbe enviar, usar o reutilizar material ilegal, ofensivo,
-            abusivo, indecente, difamatorio, obsceno o amenazante de ningún
-            tipo, o que suponga una violación de derechos de autor, marcas
-            registradas o confidencialidad, privacidad o cualquier otro derecho,
-            o sea de otro modo injurioso o censurable para terceras partes, o
-            cuyo contenido contenga virus informáticos, propaganda política,
-            contenido publicitario, correos en cadena, envío masivo de correos o
-            cualquier otro tipo de spam y, en general, cualquier tipo de
-            molestia o inconveniente innecesario.
+            {t('returns.content')}
           </p>
         </div>
       </SandLayout>

@@ -7,7 +7,11 @@ import SandLayout from 'layouts/SandLayout.astro'
 import Button from 'components/Button.astro'
 import { regions } from 'consts'
 import { currency } from 'utils'
+import { getLangFromUrl, useTranslations } from 'i18n/utils'
 import ProductCheckout from './_components/product-checkout.svelte'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 ---
 
 <Layout title="Checkout">
@@ -21,13 +25,16 @@ import ProductCheckout from './_components/product-checkout.svelte'
                 <h1
                   class="col-span-2 text-center text-xl uppercase md:col-span-1 md:text-2xl"
                 >
-                  FINALIZAR COMPRA
+                  {t('checkout.finishShop')}
                 </h1>
                 <h3 class="col-span-2 text-center text-xl md:col-span-1">
-                  (<span id="countProducts"></span> producto)
+                  (<span id="countProducts"></span>
+                  {t('common.product')})
                 </h3>
               </header>
-              <p class="col-span-2 text-base md:text-xl">Detalles de Compra</p>
+              <p class="col-span-2 text-base md:text-xl">
+                {t('checkout.detailsShop')}
+              </p>
               <Input
                 required
                 autocomplete="off"
@@ -43,7 +50,7 @@ import ProductCheckout from './_components/product-checkout.svelte'
                 name="lastaname"
               />
               <p class="mb-4">Pais/Region</p>
-              <p class="mb-4">Peru</p>
+              <p translate="no" class="mb-4">Peru</p>
               <Input
                 required
                 autocomplete="off"
@@ -51,7 +58,7 @@ import ProductCheckout from './_components/product-checkout.svelte'
                 label="Direccion"
                 name="address"
               />
-              <label class="col-span-2 text-xs">Departamento</label>
+              <label class="col-span-2 text-xs">{t('checkout.region')}</label>
               <select
                 required
                 id="regions"
@@ -68,7 +75,7 @@ import ProductCheckout from './_components/product-checkout.svelte'
                   )
                 }
               </select>
-              <label class="col-span-2 text-xs">Provincia</label>
+              <label class="col-span-2 text-xs">{t('checkout.province')}</label>
               <select
                 required
                 id="provinces"
@@ -76,7 +83,7 @@ import ProductCheckout from './_components/product-checkout.svelte'
                 name="provinces"
               >
               </select>
-              <label class="col-span-2 text-xs">Distrito</label>
+              <label class="col-span-2 text-xs">{t('checkout.district')}</label>
               <select
                 required
                 id="districts"
@@ -89,7 +96,7 @@ import ProductCheckout from './_components/product-checkout.svelte'
                 autocomplete="off"
                 class="col-span-2 mb-4"
                 type="tel"
-                label="Telefono"
+                label={t('common.phone')}
                 name="phone"
               />
               <Input
@@ -97,49 +104,51 @@ import ProductCheckout from './_components/product-checkout.svelte'
                 autocomplete="off"
                 class="col-span-2 mb-4"
                 type="email"
-                label="Correo Electrónico"
+                label={t('common.email')}
                 name="email"
               />
-              <Input
-                required
-                autocomplete="off"
-                class="col-span-2 mb-4"
-                type="password"
-                label="Crear Contraseña"
-                name="password"
-              />
-              <label class="col-span-2 text-xs">Notas (opcional)</label>
+              <!-- <Input -->
+              <!--   required -->
+              <!--   autocomplete="off" -->
+              <!--   class="col-span-2 mb-4" -->
+              <!--   type="password" -->
+              <!--   label="Crear Contraseña" -->
+              <!--   name="password" -->
+              <!-- /> -->
+              <label class="col-span-2 text-xs">{t('checkout.notes')}</label>
               <textarea
                 required
                 class="col-span-2 min-h-40 border border-eerie-black bg-transparent px-2.5 py-1"
                 name="notes"></textarea>
-              <Button id="buttonCheckout" class="col-span-2 mt-10 block md:hidden"
-                >Finalizar Compra</Button
+              <Button
+                id="buttonCheckout"
+                class="col-span-2 mt-10 block md:hidden"
+                >{t('checkout.finishShop')}</Button
               >
             </article>
             <article class="hidden md:block">
               <a class="mb-10 block text-base text-rosewood" href="products/">
-                Seguir Comprando
+                {t('cart.continueShop')}
               </a>
               <div class="grid grid-cols-2 border px-4 py-5">
                 <h2 class="col-span-2 mb-9 text-center font-thabit text-xl">
-                  Tu Orden
+                  {t('checkout.yourOrder')}
                 </h2>
                 <ProductCheckout client:only="svelte" />
                 <div
                   class="col-span-2 grid grid-cols-2 border-b px-[0.625rem] py-4"
                 >
-                  <p class="text-base">Envio:</p>
+                  <p class="text-base">{t('checkout.delivery')}:</p>
                   <p class="justify-self-end text-base">{currency(10)}</p>
                 </div>
                 <div
                   class="col-span-2 grid grid-cols-2 border-b px-[0.625rem] py-4"
                 >
-                  <p class="text-base">Total:</p>
+                  <p class="text-base">{t('common.total')}:</p>
                   <p id="total" class="justify-self-end text-base"></p>
                 </div>
                 <Button id="buttonCheckout" class="col-span-2 mt-10 block"
-                  >Finalizar Compra</Button
+                  >{t('checkout.finishShop')}</Button
                 >
               </div>
             </article>

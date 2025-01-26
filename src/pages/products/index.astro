@@ -10,6 +10,10 @@ import BottleGin from 'images/bottle-gin.png'
 import BottleSiembra from 'images/bottle-siembra.png'
 import SliderRecipes from 'components/SliderRecipes.astro'
 import Product from 'components/Product.astro'
+import { getLangFromUrl, useTranslations } from 'i18n/utils'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 ---
 
 <Layout title="Historia">
@@ -30,13 +34,13 @@ import Product from 'components/Product.astro'
           <h1
             class="m-auto mb-5 text-center uppercase md:w-3/4 md:text-2xl lg:text-5xl xl:w-1/2"
           >
-            DESCUBRE NUESTROS PRODUCTOS PREMIUM
+            {t('products.heading')}
           </h1>
           <Product
             alias="Vodka"
             img={{ alt: 'BottleVodka', src: BottleVodka }}
             title="DE CAJÓN VODKA"
-            description="Un vodka Premium elaborado con un proceso de alta calidad, que combina la destilación en alambique de cobre y una rectificación en torres de 20 platos de cobre, equivalente a 22 destilaciones. Este proceso elimina el sulfuro, generando un sabor suave y refinado. De Cajón fusiona técnica tradicional y tecnología de vanguardia, seleccionando rigurosamente papas peruanas y fermentando almidones que crean una bebida con textura y suavidad excepcionales."
+            description={t('products.vodka')}
             link="/products/vodka"
             price="S/. 99,00"
           />
@@ -49,7 +53,7 @@ import Product from 'components/Product.astro'
             alias="Gin"
             img={{ alt: 'GinTonic', src: BottleGin }}
             title="DE CAJÓN GIN"
-            description="Un Gin Premium brillante, ligero y suave al paladar, fruto de una cuidadosa elaboración y maceración. En la primera fase, los ingredientes botánicos se maceran en alambiques de cobre, seguidos de la destilación con enebro y otros 20 botánicos que aportan su distintivo aroma. De Cajón Gin, hecho a partir de alcohol etílico extraneutro y alcohol de papa, es el gin soñado. Su compleja variedad aromática, con ingredientes naturales de la cultura altoandina peruana, le da equilibrio y una personalidad única."
+            description={t('products.gin')}
             link="/products/vodka-gin"
             price="s/. 104,00"
           />
@@ -62,7 +66,7 @@ import Product from 'components/Product.astro'
             alias="Gin"
             img={{ alt: 'SiembraVodka', src: BottleSiembra }}
             title="SIEMBRA VODKA"
-            description="Siembra Vodka es más que un vodka: es un canal para sembrar conexiones, expresarse libremente, celebrar la vida y cosechar grandes momentos. Obtenido de la destilación de papas de la zona andina del Perú y el mejor alcohol de caña rectificado de la costa peruana, Siembra Vodka se elabora bajo estrictos estándares de calidad en cada etapa. Su proceso combina técnica tradicional y destilación moderna con tecnología de vanguardia, incluyendo rectificación en torres de 20 platos de cobre, alcanzando así un estándar mundial."
+            description={t('products.siembra')}
             link="/products/vodka-siembra"
             price="S/. 34,00"
           />

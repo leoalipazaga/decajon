@@ -12,24 +12,24 @@ import Master1 from 'images/master-1.jpeg'
 import Master2 from 'images/master-2.jpg'
 import Master3 from 'images/master-3.jpg'
 import Carousel from 'components/Carousel.astro'
+import { getLangFromUrl, useTranslations } from 'i18n/utils'
 
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 const masters = [
   {
     img: { src: Master1, alt: 'Maestro 1' },
-    description:
-      'Nuestra obsesión por el detalle al elaborar vodka comienza por la técnica tradicional de preparación y aprovecha la tecnología de punta para garantizar la máxima calidad en todo su proceso. De Cajón apuesta por una minuciosa selección de la mejor papa peruana para ser molidas con el fin de extraer el almidón y convertirla en azúcares que puedan ser fermentados por la levadura y transformados en alcohol.',
+    description: 'history.master1',
   },
   {
     img: { src: Master2, alt: 'Maestro 2' },
-    description:
-      'Parte de la seducción es cuando la mezcla pasa por el tanque de fermentación, mientras se le proporciona a la levadura las condiciones ideales de temperatura, PH y nutrientes, lo que asegura el perfecto sabor de un vodka premium. Después de la fermentación ocurre la verdadera magia, cuando destilamos y rectificamos el producto en un alambique y torres de cobre de estándar mundial.',
+    description: 'history.master2',
   },
   {
     img: { src: Master3, alt: 'Maestro 3' },
-    description:
-      'Finalmente, para obtener un producto aún más puro filtrados lentamente, consiguiendo pulir el alcohol y eliminar los pocos sabores y olores no deseados que queda. Asimismo, este proceso otorga brillo, textura y transparencia hasta obtener un vodka de alta calidad.',
+    description: 'history.master3',
   },
-]
+] as const
 ---
 
 <Layout title="Historia">
@@ -39,15 +39,14 @@ const masters = [
         <header
           class="m-auto grid w-[57%] grid-rows-[auto_auto_auto_auto] gap-y-7"
         >
-          <p class="text-center md:text-xs lg:text-xl">Nuestra Historia</p>
+          <p class="text-center md:text-xs lg:text-xl">
+            {t('history.ourHistory')}
+          </p>
           <h1 class="text-center uppercase md:text-xl lg:text-5xl">
-            DESTILANDO UNA NUEVA TRADICIÓN
+            {t('history.newTradition')}
           </h1>
           <p class="text-pretty text-center md:text-xs lg:text-xl">
-            La historia de De Cajón comienza en el calor del hogar de la familia
-            Tovar Fajardo, celebrando la vida y la unión familiar. A pesar de
-            estar lejos de su tierra natal peruana, encontraron en el vodka una
-            conexión con sus raíces que querían compartir con el mundo.
+            {t('history.introduction')}
           </p>
           <Button class="justify-self-center" variant="rounded" id="scroll-to">
             <Image class="-rotate-90" src={LongLeftArrow} alt="angle-left" />
@@ -67,21 +66,12 @@ const masters = [
           <p
             class="col-span-1 row-start-2 text-center md:row-start-1 md:text-left md:text-xs lg:text-sm xl:text-xl"
           >
-            A lo lejos, los Tovar Fajardo mantenían vivos sus lazos con el Perú,
-            celebrando con su bebida favorita: el vodka. Surgió entonces una
-            idea: "¿Y si logramos que la esencia de la peruanidad se una a este
-            destilado global, para tenerla y compartirla en una sola botella en
-            cualquier lugar del mundo?"
+            {t('history.summary1')}
           </p>
           <p
             class="col-span-1 row-start-3 text-center md:row-start-2 md:text-left md:text-xs lg:text-sm xl:text-xl"
           >
-            Ese sueño empezó en 2016 y tomó forma en 2017 con la construcción de
-            la destilería, equipada con tecnología de punta y enfocada en la
-            calidad del destilado. Tras desafíos y pruebas constantes, y luego
-            de superar la crisis global de 2020, en 2021 el equipo de
-            especialistas finalmente alcanzó el perfil perfecto para De Cajón
-            vodka, un homenaje a la papa peruana y sus 2800 variedades.
+            {t('history.summary2')}
           </p>
           <Image
             alt="plant"
@@ -98,7 +88,7 @@ const masters = [
           <h1
             class="col-span-1 border border-eerie-black py-7 text-center uppercase md:col-span-3 md:text-xl lg:text-3xl xl:text-5xl"
           >
-            MAESTROS DEL ARTE DE CAJÓN
+            {t('history.mastersTitle')}
           </h1>
           <div class="md:hidden">
             <Carousel>
@@ -111,13 +101,7 @@ const masters = [
                   formats={['webp', 'avif', 'jpeg']}
                 />
                 <p class="md:text-xs lg:text-xl">
-                  Nuestra obsesión por el detalle al elaborar vodka comienza por
-                  la técnica tradicional de preparación y aprovecha la
-                  tecnología de punta para garantizar la máxima calidad en todo
-                  su proceso. De Cajón apuesta por una minuciosa selección de la
-                  mejor papa peruana para ser molidas con el fin de extraer el
-                  almidón y convertirla en azúcares que puedan ser fermentados
-                  por la levadura y transformados en alcohol.
+                  {t('history.step1')}
                 </p>
               </article>
               <article class="col-span-1 row-start-2 w-full flex-shrink-0">
@@ -128,15 +112,7 @@ const masters = [
                   src={Master2}
                   formats={['webp', 'avif', 'jpeg']}
                 />
-                <p class="md:text-xs lg:text-xl">
-                  Parte de la seducción es cuando la mezcla pasa por el tanque
-                  de fermentación, mientras se le proporciona a la levadura las
-                  condiciones ideales de temperatura, PH y nutrientes, lo que
-                  asegura el perfecto sabor de un vodka premium. Después de la
-                  fermentación ocurre la verdadera magia, cuando destilamos y
-                  rectificamos el producto en un alambique y torres de cobre de
-                  estándar mundial.
-                </p>
+                <p class="md:text-xs lg:text-xl">{t('history.step2')}</p>
               </article>
               <article class="col-span-1 row-start-2 w-full flex-shrink-0">
                 <Picture
@@ -146,13 +122,7 @@ const masters = [
                   src={Master3}
                   formats={['webp', 'avif', 'jpeg']}
                 />
-                <p class="md:text-xs lg:text-xl">
-                  Finalmente, para obtener un producto aún más puro filtrados
-                  lentamente, consiguiendo pulir el alcohol y eliminar los pocos
-                  sabores y olores no deseados que queda. Asimismo, este proceso
-                  otorga brillo, textura y transparencia hasta obtener un vodka
-                  de alta calidad.
-                </p>
+                <p class="md:text-xs lg:text-xl">{t('history.step3')}</p>
               </article>
             </Carousel>
           </div>
@@ -166,7 +136,7 @@ const masters = [
                   src={master.img.src}
                   formats={['webp', 'avif', 'jpeg']}
                 />
-                <p class="md:text-xs lg:text-xl">{master.description}</p>
+                <p class="md:text-xs lg:text-xl">{t(master.description)}</p>
               </article>
             ))
           }

@@ -19,8 +19,12 @@ import Button from 'components/Button.astro'
 import AngleLeft from 'icons/angle-left.svg'
 import AngleRight from 'icons/angle-right.svg'
 import LongLeftArrow from 'icons/long-left-arrow.svg'
+import { getLangFromUrl, useTranslations } from 'i18n/utils'
 import CounterButton from './_components/CounterButton.svelte'
 import CounterPersist from './_components/CounterPersist.svelte'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 ---
 
 <ProductLayout>
@@ -56,6 +60,7 @@ import CounterPersist from './_components/CounterPersist.svelte'
             </li>
           </ul>
           <p
+            translate="no"
             class="col-start-1 row-start-3 hidden text-left md:block lg:text-sm xl:text-base"
           >
             Siembra Vodka
@@ -63,15 +68,12 @@ import CounterPersist from './_components/CounterPersist.svelte'
           <h1
             class="col-start-1 -col-end-1 row-start-1 ml-[12%] text-center text-xl uppercase md:col-start-1 md:col-end-2 md:row-start-4 md:ml-0 md:text-left lg:text-2xl xl:text-4xl"
           >
-            EL VODKA QUE SE HACÍA ESPERAR
+            {t('siembra.banner')}
           </h1>
           <p
             class="col-start-1 -col-end-1 row-start-2 ml-[12%] text-center text-xs md:col-start-1 md:col-end-2 md:row-start-5 md:ml-0 md:text-left lg:text-sm xl:text-base"
           >
-            Es la versión urbana de los vodkas de De Cajón. Compuesto por
-            alcoholes de papa de las regiones de Costa y Sierra, su perfil
-            combina fuerza y suavidad, con un toque casi neutro en aroma y una
-            entrada en boca delicada.
+            {t('siembra.description')}
           </p>
           <Picture
             src={SiembraBanner}
@@ -94,12 +96,11 @@ import CounterPersist from './_components/CounterPersist.svelte'
             formats={['png', 'webp', 'avif']}
             alt="BottleSiembra"
           />
-          <!--TODO: add link -->
           <Button
             as="a"
             href="/products/vodka-siembra"
             class="col-start-1 -col-end-1 row-start-3 ml-[12%] justify-self-center md:col-start-1 md:col-end-2 md:row-start-6 md:ml-0 md:justify-self-start [&&]:bg-gentian-blue"
-            >Descubre Más</Button
+            >{t('common.showMore')}</Button
           >
         </div>
         <div
@@ -131,18 +132,16 @@ import CounterPersist from './_components/CounterPersist.svelte'
             <h1
               class="text-center text-xl sm:text-left md:w-4/5 lg:text-2xl xl:text-4xl"
             >
-              EL VODKA QUE NO PODÍA FALTAR
+              {t('vodka.banner')}
             </h1>
             <p class="text-center text-xs md:text-left lg:text-sm xl:text-base">
-              Primer sorbo de la línea, elaborado con papas peruanas
-              seleccionadas que aportan matices únicos, desde grano tostado
-              hasta notas florales y cítricas. Vodka de cuerpo robusto y entrada
-              cálida, ideal para paladares exigentes.
+              {t('vodka.description')}
             </p>
             <Button
               as="a"
               href="/products/vodka"
-              class="w-max self-center md:self-start">Descubre Más</Button
+              class="w-max self-center md:self-start"
+              >{t('common.showMore')}</Button
             >
           </header>
           <Picture
@@ -182,6 +181,7 @@ import CounterPersist from './_components/CounterPersist.svelte'
             </li>
           </ul>
           <p
+            translate="no"
             class="col-start-3 row-start-3 hidden text-right md:block lg:text-sm xl:text-base"
           >
             De Cajón Gin
@@ -189,15 +189,12 @@ import CounterPersist from './_components/CounterPersist.svelte'
           <h1
             class="col-start-1 -col-end-1 row-start-1 mr-[12%] text-center text-xl uppercase md:col-start-3 md:row-start-4 md:mr-0 md:text-right lg:text-2xl xl:text-4xl"
           >
-            EL GIN CON EL QUE TODOS SOÑABAN
+            {t('gin.banner')}
           </h1>
           <p
             class="col-start-1 -col-end-1 row-start-2 mr-[12%] text-center text-xs md:col-start-3 md:row-start-5 md:mr-0 md:text-right lg:text-sm xl:text-base"
           >
-            Combina 21 botánicos de origen peruano y europeo. La mezcla incluye
-            ingredientes como molle, limón rugoso, muña, cardamomo y cacao,
-            entre otros. Cada destilación preserva el alma de sus ingredientes,
-            logrando un gin equilibrado y lleno de aromas.
+            {t('gin.description')}
           </p>
           <Picture
             src={BlackBull}
@@ -220,12 +217,11 @@ import CounterPersist from './_components/CounterPersist.svelte'
             formats={['png', 'webp', 'avif']}
             alt="DeCajonGin"
           />
-          <!--TODO: add link -->
           <Button
             as="a"
             href="/products/vodka-gin"
             class="col-start-1 -col-end-1 row-start-3 mr-[12%] self-start justify-self-center md:col-start-3 md:row-start-6 md:mr-0 md:justify-self-end [&&]:bg-eerie-black"
-            >Descubre Más</Button
+            >{t('common.showMore')}</Button
           >
         </div>
       </div>
@@ -247,13 +243,7 @@ import CounterPersist from './_components/CounterPersist.svelte'
     />
     <ProductInfo id={3} title="SIEMBRA VODKA" price={34}>
       <Fragment slot="default">
-        La elaboración se realiza con los más estrictos controles y estándares
-        de calidad, desde la recepción de la materia prima hasta su
-        comercialización. El proceso combina la técnica tradicional con la
-        destilación moderna utilizando una tecnología de vanguardia, como la
-        rectificación realizada en torres de 20 platos hechos de cobre de
-        estándar mundial, haciendo de Siembra Vodka una bebida de estándar
-        mundial.
+        {t('products.siembraSummary')}
       </Fragment>
       <Fragment slot="counter">
         <CounterPersist id={3} client:only="svelte" />
@@ -265,11 +255,11 @@ import CounterPersist from './_components/CounterPersist.svelte'
   </Fragment>
   <Fragment slot="description">
     <ProductDescription
-      title="DESTILADO DE PAPAS PERUANAS"
+      title={t('products.potatoDestillate')}
       descriptions={[
-        'Alcohol: Posee una graduación de 40% a 20°C.',
-        'Origen: Papas peruanas andinas cuidadosamente seleccionadas para su destilación, alcohol de caña rectificado.',
-        'Presentación: Es envasado en una botella elegante, atrevida y cercana de 750ml cuya etiqueta combina ilustraciones y gráficos con colores vívidos que reflejan valores peruanos y tendencias universales.',
+        `${t('products.alcohol')}: ${t('products.siembraAlcohol')}`,
+        `${t('products.origin')}: ${t('products.siembraOrigin')}`,
+        `${t('products.presentation')}: ${t('products.siembraPresentation')}`,
       ]}
       ><div class="siembra--banner">
         <Picture

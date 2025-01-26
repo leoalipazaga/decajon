@@ -8,9 +8,12 @@
   import Vodka from 'images/vodka-1.jpeg'
   import Trash from 'icons/trash.svg'
   import { products } from 'consts'
+  import { getLangFromUrl, useTranslations } from 'i18n/utils'
   import Counter from './Counter.svelte'
   import ProductCart from './ProductCart.svelte'
 
+  const lang = getLangFromUrl(new URL(location.pathname, location.origin))
+  const t = useTranslations(lang)
   let cart = $state([] as CartProduct[])
 
   let total = $derived(
@@ -58,25 +61,25 @@
   <h1
     class="col-start-1 row-start-1 text-center text-xl uppercase sm:row-start-1 sm:text-left"
   >
-    CARRITO DE COMPRAS
+    {t('cart.cartCheckout')}
   </h1>
   {#if cart?.length}
     <h1
       class="col-start-1 text-center text-xl uppercase sm:col-start-2 sm:row-start-1 sm:text-left"
     >
       &nbsp;({cart?.length}
-      {cart?.length === 1 ? 'producto' : 'productos'})
+      {cart?.length === 1 ? t('common.product') : t('common.produtcs')})
     </h1>
   {/if}
   <p
     class="hidden self-end justify-self-end text-rosewood sm:col-start-3 md:block"
   >
-    Seguir comprado
+    {t('cart.continueShop')}
   </p>
 </header>
 {#if !cart?.length}
   <h2 class="uppercase text-sm py-6 border-y text-center border-y-eerie-black">
-    TU CARRITO DE COMPRAS SE ENCUENTRA VACÍO.
+    {t('cart.empty')}
   </h2>
 {/if}
 {#each cart as item (item.id)}
@@ -109,8 +112,8 @@
   <article
     class="grid grid-cols-[auto_1fr] grid-rows-[repeat(5,auto)] gap-y-4 border-b border-b-eerie-black py-9 sm:ml-auto sm:w-1/2"
   >
-    <p class="col-start-1 -col-end-1 row-start-1">Aplicar Cúpon</p>
-    <span class="col-start-1 row-start-2">Subtotal:</span>
+    <p class="col-start-1 -col-end-1 row-start-1">{t('cart.applyCoupon')}</p>
+    <span class="col-start-1 row-start-2">{t('common.subtotal')}</span>
     <span class="col-start-2 row-start-2 justify-self-end">
       {currency(total)}</span
     >
@@ -123,7 +126,7 @@
     <a
       href="/checkout"
       class="w-auto text-center bg-rosewood text-zinc-1000 py-2 px-3 rounded-[1.25rem] col-start-1 -col-end-1 row-start-5 mt-4"
-      >Continuar Pago</a
+      >{t('cart.continuePayment')}</a
     >
   </article>
 {/if}

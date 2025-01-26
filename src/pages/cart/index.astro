@@ -9,7 +9,11 @@ import BottleVodka from 'images/bottle-vodka-compressed.png'
 import BottleSiembra from 'images/bottle-siembra.png'
 import BottleGin from 'images/bottle-gin.png'
 import Carousel from 'components/Carousel.astro'
+import { getLangFromUrl, useTranslations } from 'i18n/utils'
 import ProductsCart from './_components/ProductsCart.svelte'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 
 const bottles = [
   {
@@ -48,7 +52,7 @@ const bottles = [
           <h1
             class="col-span-1 col-start-1 row-start-1 border border-eerie-black py-[0.825rem] text-center text-xl uppercase md:col-span-3 lg:text-4xl"
           >
-            Productos similares
+            {t('cart.similarProducts')}
           </h1>
           <div class="block md:hidden">
             <Carousel>
@@ -70,7 +74,7 @@ const bottles = [
                       {bottle.size}
                     </p>
                     <Button as="a" href={bottle.link}>
-                      Comprar Ahora
+                      {t('common.buyNow')}
                     </Button>
                   </article>
                 ))
@@ -97,7 +101,7 @@ const bottles = [
                   {bottle.size}
                 </p>
                 <Button as="a" href={bottle.link}>
-                  Comprar Ahora
+                  {t('common.buyNow')}
                 </Button>
               </article>
             ))

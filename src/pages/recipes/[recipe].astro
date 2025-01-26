@@ -16,6 +16,10 @@ import SmashPineapple from 'images/smash-pineaple.jpeg'
 import PinkGinTonic from 'images/pink-gin-tonic.jpeg'
 import Tag from 'components/Tag.astro'
 import SliderRecipes from 'components/SliderRecipes.astro'
+import { getLangFromUrl, useTranslations } from 'i18n/utils'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 
 export const getStaticPaths = () => {
   return [
@@ -24,31 +28,35 @@ export const getStaticPaths = () => {
       props: {
         img: { src: BloodyMary satisfies ImageMetadata, alt: 'bloody-mary' },
         title: 'BLOODY MARY',
-        summary:
-          'Una refrescante mezcla con un toque picante, perfecta para darle un giro atrevido a cualquier ocasión. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        difficulty: 'Fácil',
-        ocassion: 'Tarde| Noche',
+        summary: (translate: typeof t) => translate('bloodyMary.summary'),
+        difficulty: (translate: typeof t) => translate('recipe.easy'),
+        ocassion: (translate: typeof t) => translate('recipe.midday'),
         ingredients: [
-          '1/3 taza de De Cajón Vodka ',
-          '1 taza de jugo de tomate ',
-          '1 cucharadita de Salsa Inglesa Gourmet ',
-          '1 cucharadita de salsa Tabasco ',
-          '1 cucharada de jugo de limón Pimienta Negra Molida Gruesa Gourmet a gusto',
-          'Sal a gusto',
-          '4 cubos de hielo ',
-          '1 ramita de apio para decorar (opcional)',
-          'Rodajas de limón de pica para decorar (opcional)',
+          (translate: typeof t) => translate('bloodyMary.ingredient1'),
+          (translate: typeof t) => translate('bloodyMary.ingredient2'),
+          (translate: typeof t) => translate('bloodyMary.ingredient3'),
+          (translate: typeof t) => translate('bloodyMary.ingredient4'),
+          (translate: typeof t) => translate('bloodyMary.ingredient5'),
+          (translate: typeof t) => translate('bloodyMary.ingredient6'),
+          (translate: typeof t) => translate('bloodyMary.ingredient7'),
+          (translate: typeof t) => translate('bloodyMary.ingredient8'),
+          (translate: typeof t) => translate('bloodyMary.ingredient9'),
         ],
         steps: [
-          'En una coctelera, mezclar el jugo de tomate con la Salsa Inglesa Gourmet, salsa Tabasco y jugo de limón. Agitar hasta mezclar bien. Agregar el vodka, Pimienta Negra Molida Gruesa Gourmet, sal y hielo y volver a agitar nuevamente.',
-          'Servir en un vaso largo  y decorar con una ramita de apio y una rodaja de limón de pica.',
+          (translate: typeof t) => translate('bloodyMary.step1'),
+          (translate: typeof t) => translate('bloodyMary.step2'),
         ],
         info: [
-          'Tiempo de preparación: 5-8 minutos',
-          'Raciones: 1',
-          'Categoría: bebidas',
-          'Tipo de cocina: internacional',
-          'Calorías: 120 kcal por copa',
+          (translate: typeof t) =>
+            `${translate('recipe.time')}: ${translate('bloodyMary.info1')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.portions')}: ${translate('bloodyMary.info2')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.category')}: ${translate('bloodyMary.info3')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.typeOfCooking')}: ${translate('bloodyMary.info4')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.calories')}: ${translate('bloodyMary.info5')}`,
         ],
       },
     },
@@ -57,27 +65,29 @@ export const getStaticPaths = () => {
       props: {
         img: { src: MoscowMule satisfies ImageMetadata, alt: 'moscow-mule' },
         title: 'Moscow Mule',
-        summary:
-          'Un cóctel muy popular entre la élite de Hollywood. Se sirve en una atractiva taza de cobre para dejar tu paladar tan refrescante y a la vez, ácido con un sabor genuino hecho a base de vodka De Cajón.',
-        difficulty: 'Fácil',
-        ocassion: 'Tarde| Noche',
+        summary: (translate: typeof t) => translate('moscowMule.summary'),
+        difficulty: (translate: typeof t) => translate('recipe.easy'),
+        ocassion: (translate: typeof t) => translate('recipe.midday'),
         ingredients: [
-          '5 ml de vodka De Cajón',
-          '15 ml de zumo de un limón',
-          '1 cerveza de jengibre',
-          'Rodajas de limón',
-          'Hielo picado',
-          'Hierbabuena (opcional)',
+          (translate: typeof t) => translate('moscowMule.ingredient1'),
+          (translate: typeof t) => translate('moscowMule.ingredient2'),
+          (translate: typeof t) => translate('moscowMule.ingredient3'),
+          (translate: typeof t) => translate('moscowMule.ingredient4'),
+          (translate: typeof t) => translate('moscowMule.ingredient5'),
+          (translate: typeof t) => translate('moscowMule.ingredient6'),
         ],
-        steps: [
-          'Llena el vaso tipo Mule (cobre) con hielo picado, una ¾ partes y añade el vodka De Cajón. Agrega el zumo de limón y remueves con una cuchara agitadora. Echa unas rodajas de limón y pon el resto de hielo hasta llenar el vaso. Por último, agrega la cerveza de jengibre. Decora tu cóctel con hierbabuena y una rodaja de limón. ¡Salud!',
-        ],
+        steps: [(translate: typeof t) => translate('moscowMule.step1')],
         info: [
-          'Tiempo de preparación: 5-8 minutos',
-          'Raciones: 1',
-          'Categoría: bebidas',
-          'Tipo de cocina: internacional',
-          'Calorías: 120 kcal por copa',
+          (translate: typeof t) =>
+            `${translate('recipe.time')}: ${translate('moscowMule.info1')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.portions')}: ${translate('moscowMule.info2')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.category')}: ${translate('moscowMule.info3')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.typeOfCooking')}: ${translate('moscowMule.info4')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.category')}: ${translate('moscowMule.info5')}`,
         ],
       },
     },
@@ -86,26 +96,28 @@ export const getStaticPaths = () => {
       props: {
         img: { src: Screwdiver satisfies ImageMetadata, alt: 'screwdiver' },
         title: 'Screwdriver',
-        summary:
-          'Un trago por excelencia tan refrescante como prohibido. Dice la leyenda que su nombre “destornillador” era una clave entre los soldados estadounidenses para engañar a los agentes federales durante la Segunda Guerra Mundial.',
-        difficulty: 'Fácil',
-        ocassion: 'Tarde| Noche',
+        summary: (translate: typeof t) => translate('screwdiver.summary'),
+        difficulty: (translate: typeof t) => translate('recipe.easy'),
+        ocassion: (translate: typeof t) => translate('recipe.midday'),
         ingredients: [
-          '50 ml de vodka De Cajón',
-          'Jugo de una naranja',
-          'Rodaja y corteza de naranja o limón',
-          'Hielo en cubos',
-          'Opcional: Cereza o guinda',
+          (translate: typeof t) => translate('screwdiver.ingredient1'),
+          (translate: typeof t) => translate('screwdiver.ingredient2'),
+          (translate: typeof t) => translate('screwdiver.ingredient3'),
+          (translate: typeof t) => translate('screwdiver.ingredient4'),
+          (translate: typeof t) => translate('screwdiver.ingredient5'),
         ],
-        steps: [
-          'Coloca los cubos de hielo directamente en el vaso.Luego agregas la cantidad de vodka De Cajón correspondiente. Por último, completas el vaso con el jugo de naranja y remueves el cóctel con la cuchara agitadora. Decoras con una rodaja y corteza al gusto de naranja o limón (opcional una guinda o cereza). ¡Salud!',
-        ],
+        steps: [(translate: typeof t) => translate('screwdiver.step1')],
         info: [
-          'Tiempo de preparación: 5 minutos',
-          'Raciones: 1',
-          'Categoría: bebidas',
-          'Tipo de cocina: internacional',
-          'Calorías: 200 kcal por copa',
+          (translate: typeof t) =>
+            `${translate('recipe.time')}: ${translate('screwdiver.info1')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.portions')}: ${translate('screwdiver.info2')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.category')}: ${translate('screwdiver.info3')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.typeOfCooking')}: ${translate('screwdiver.info4')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.category')}: ${translate('screwdiver.info5')}`,
         ],
       },
     },
@@ -117,61 +129,27 @@ export const getStaticPaths = () => {
           alt: 'sex-on-the-beach',
         },
         title: 'SEX ON THE BEACH',
-        summary:
-          'Una bebida refrescante que llega con los primeros días de sol, ¡dispuesta a endulzar y refrescar nuestro verano! ',
-        difficulty: 'Fácil',
-        ocassion: 'Tarde| Noche',
+        summary: (translate: typeof t) => translate('sexOnTheBeach.summary'),
+        difficulty: (translate: typeof t) => translate('recipe.easy'),
+        ocassion: (translate: typeof t) => translate('recipe.midday'),
         ingredients: [
-          '45 ml de De Cajón Vodka',
-          '15 ml de licor de melocotón',
-          '15 ml de zumo de arándanos o frutos rojos',
-          '15 ml de zumo de naranja natural',
-          'rodajas de naranja para decorar',
-          'hielo',
+          (translate: typeof t) => translate('sexOnTheBeach.ingredient1'),
+          (translate: typeof t) => translate('sexOnTheBeach.ingredient2'),
+          (translate: typeof t) => translate('sexOnTheBeach.ingredient3'),
+          (translate: typeof t) => translate('sexOnTheBeach.ingredient4'),
+          (translate: typeof t) => translate('sexOnTheBeach.ingredient5'),
+          (translate: typeof t) => translate('sexOnTheBeach.ingredient6'),
         ],
         steps: [
-          'Coloca los cubos de hielo directamente en el vaso.Luego agregas la cantidad de vodka De Cajón correspondiente.',
-          'Por último, completas el vaso con el jugo de naranja y remueves el cóctel con la cuchara agitadora',
-          'Decoras con una rodaja y corteza al gusto de naranja o limón (opcional una guinda o cereza).¡Salud,',
+          (translate: typeof t) => translate('sexOnTheBeach.step1'),
+          (translate: typeof t) => translate('sexOnTheBeach.step2'),
+          (translate: typeof t) => translate('sexOnTheBeach.step3'),
         ],
         info: [
-          'Tiempo de preparación: 5 minutos',
-          'Tiempo total: 5 minutos',
-          'Comensales: 1',
-          'Dificultad: Fácil',
-        ],
-      },
-    },
-    {
-      params: { recipe: 'sex-on-the-beach' },
-      props: {
-        img: {
-          src: SexOnTheBeach satisfies ImageMetadata,
-          alt: 'sex-on-the-beach',
-        },
-        title: 'SEX ON THE BEACH',
-        summary:
-          'Una bebida refrescante que llega con los primeros días de sol, ¡dispuesta a endulzar y refrescar nuestro verano! ',
-        difficulty: 'Fácil',
-        ocassion: 'Tarde| Noche',
-        ingredients: [
-          '45 ml de De Cajón Vodka',
-          '15 ml de licor de melocotón',
-          '15 ml de zumo de arándanos o frutos rojos',
-          '15 ml de zumo de naranja natural',
-          'rodajas de naranja para decorar',
-          'hielo',
-        ],
-        steps: [
-          'Coloca los cubos de hielo directamente en el vaso.Luego agregas la cantidad de vodka De Cajón correspondiente.',
-          'Por último, completas el vaso con el jugo de naranja y remueves el cóctel con la cuchara agitadora',
-          'Decoras con una rodaja y corteza al gusto de naranja o limón (opcional una guinda o cereza).¡Salud,',
-        ],
-        info: [
-          'Tiempo de preparación: 5 minutos',
-          'Tiempo total: 5 minutos',
-          'Comensales: 1',
-          'Dificultad: Fácil',
+          (translate: typeof t) =>
+            `${translate('recipe.time')}: ${translate('sexOnTheBeach.info1')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.portions')}: ${translate('sexOnTheBeach.info2')}`,
         ],
       },
     },
@@ -183,30 +161,32 @@ export const getStaticPaths = () => {
           alt: 'cosmopolitan',
         },
         title: 'COSMOPOLITAN',
-        summary:
-          'El Cosmopolitan es un cóctel clásico que se ha ganado la fama en todo el mundo gracias a su elegancia y a su refrescante sabor. Esta icónica bebida se ha convertido en un símbolo de sofisticación y glamour.',
-        difficulty: 'Fácil',
-        ocassion: 'Tarde| Noche',
+        summary: (translate: typeof t) => translate('cosmopolitan.summary'),
+        difficulty: (translate: typeof t) => translate('recipe.easy'),
+        ocassion: (translate: typeof t) => translate('recipe.midday'),
         ingredients: [
-          '1 ½ oz de De Cajón Vodka',
-          '¾ onzas de Cointreau',
-          '¾ oz de jugo de lima recién exprimido',
-          '½ oz de cóctel de jugo de arándano',
-          'rodajita de lima para decorar',
+          (translate: typeof t) => translate('cosmopolitan.ingredient1'),
+          (translate: typeof t) => translate('cosmopolitan.ingredient2'),
+          (translate: typeof t) => translate('cosmopolitan.ingredient3'),
+          (translate: typeof t) => translate('cosmopolitan.ingredient4'),
         ],
         steps: [
-          'Agregue el cóctel de vodka, Cointreau, jugo de lima y jugo de arándano al fondo de una coctelera.',
-          'Llénelo con hielo y agite hasta que esté bien frío.',
-          'Colar en una copa cupé fría.',
-          'Adorne con una rodajita de lima.',
+          (translate: typeof t) => translate('cosmopolitan.step1'),
+          (translate: typeof t) => translate('cosmopolitan.step2'),
+          (translate: typeof t) => translate('cosmopolitan.step3'),
+          (translate: typeof t) => translate('cosmopolitan.step4'),
         ],
         info: [
-          'Tiempo de preparación: 5 minutos',
-          'Tiempo total: 5 minutos',
-          'Raciones: 1',
-          'Categoría: cócteles',
-          'Tipo de cocina: estadounidense',
-          'Calorías por ración (kcal): 153',
+          (translate: typeof t) =>
+            `${translate('recipe.time')}: ${translate('cosmopolitan.info1')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.portions')}: ${translate('cosmopolitan.info2')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.category')}: ${translate('cosmopolitan.info3')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.typeOfCooking')}: ${translate('cosmopolitan.info4')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.calories')}: ${translate('cosmopolitan.info5')}`,
         ],
       },
     },
@@ -218,30 +198,33 @@ export const getStaticPaths = () => {
           alt: 'EXPRESSO MARTINI',
         },
         title: 'EXPRESSO MARTINI',
-        summary:
-          'El Espresso Martini es un ícono del mundo de los cócteles y ha cautivado a los aficionados con sus ricos sabores a café.',
-        difficulty: 'Fácil',
-        ocassion: 'Tarde| Noche',
+        summary: (translate: typeof t) => translate('expressoMartini.summary'),
+        difficulty: (translate: typeof t) => translate('recipe.easy'),
+        ocassion: (translate: typeof t) => translate('recipe.midday'),
         ingredients: [
-          '2 onzas de De Cajón Vodka',
-          '½ oz de licor de café (nos gusta Mr. Black)',
-          'Chupito de expreso',
-          '¼ oz de jarabe de goma Demerara',
-          'cáscara de limón para decorar',
+          (translate: typeof t) => translate('expressoMartini.ingredient1'),
+          (translate: typeof t) => translate('expressoMartini.ingredient2'),
+          (translate: typeof t) => translate('expressoMartini.ingredient3'),
+          (translate: typeof t) => translate('expressoMartini.ingredient4'),
+          (translate: typeof t) => translate('expressoMartini.ingredient5'),
         ],
         steps: [
-          'Agregue el vodka, el licor de café, el espresso y el almíbar a una coctelera.',
-          'Agregue hielo generosamente y agite hasta que la lata esté helada.',
-          'Cuele dos veces (colador a través de un colador de espino estándar y un colador de malla fina) en un vaso cupé.',
-          '¡Exprime una cáscara de limón por encima y disfruta!',
+          (translate: typeof t) => translate('expressoMartini.step1'),
+          (translate: typeof t) => translate('expressoMartini.step2'),
+          (translate: typeof t) => translate('expressoMartini.step3'),
+          (translate: typeof t) => translate('expressoMartini.step4'),
         ],
         info: [
-          'Tiempo de preparación: 5 minutos',
-          'Tiempo total: 5 minutos',
-          'Raciones: 1',
-          'Categoría: bebidas',
-          'Tipo de coctelería: inglesa, internacional',
-          'Calorías: 123 kcal por copa',
+          (translate: typeof t) =>
+            `${translate('recipe.time')}: ${translate('expressoMartini.info1')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.portions')}: ${translate('expressoMartini.info2')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.category')}: ${translate('expressoMartini.info3')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.typeOfCooking')}: ${translate('expressoMartini.info4')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.calories')}: ${translate('expressoMartini.info5')}`,
         ],
       },
     },
@@ -253,34 +236,35 @@ export const getStaticPaths = () => {
           alt: 'APPLE MARTINI',
         },
         title: 'Apple Martini',
-        summary:
-          'Verde color de vida, serenidad y frescura, todo lo que adorna y acompaña a esta deliciosa combinación llamada Apple Martini, que lo contiene todo.',
-        difficulty: 'Fácil',
-        ocassion: 'Tarde| Noche',
+        summary: (translate: typeof t) => translate('appleMartini.summary'),
+        difficulty: (translate: typeof t) => translate('recipe.easy'),
+        ocassion: (translate: typeof t) => translate('recipe.midday'),
         ingredients: [
-          '60 ml de De Cajón Vodka.',
-          '30 ml de licor de manzana.',
-          '60 ml de zumo de manzana.',
-          '15 ml de zumo de limón.',
-          '8 ml de jarabe de azúcar.',
-          'Un triángulo de manzana verde.',
-          'Hielo en trozos.',
+          (translate: typeof t) => translate('appleMartini.ingredient1'),
+          (translate: typeof t) => translate('appleMartini.ingredient2'),
+          (translate: typeof t) => translate('appleMartini.ingredient3'),
+          (translate: typeof t) => translate('appleMartini.ingredient4'),
+          (translate: typeof t) => translate('appleMartini.ingredient5'),
+          (translate: typeof t) => translate('appleMartini.ingredient6'),
+          (translate: typeof t) => translate('appleMartini.ingredient7'),
         ],
         steps: [
-          'En una coctelera agregue hielo en trozos hasta la mitad.',
-          'Añada el vodka, el licor de manzana, zumo de manzana junto al zumo de limón y el jarabe de azúcar.',
-          'Tape la coctelera y agite por unos 30 segundos, hasta que se mezclen todos los ingredientes y se enfríen.',
-          'Cuele y sirva en una copa tipo Martini, previamente enfriada.',
-          'Decore con una fina lonja de manzana o con un triángulo de la misma.',
-          'Listo para disfrutar y ser feliz.',
+          (translate: typeof t) => translate('appleMartini.step1'),
+          (translate: typeof t) => translate('appleMartini.step2'),
+          (translate: typeof t) => translate('appleMartini.step3'),
+          (translate: typeof t) => translate('appleMartini.step4'),
         ],
         info: [
-          'Tiempo de preparación: 5 minutos',
-          'Tiempo total: 5 minutos',
-          'Raciones: 1',
-          'Categoría: bebidas',
-          'Tipo de coctelería: inglesa, internacional',
-          'Calorías: 123 kcal por copa',
+          (translate: typeof t) =>
+            `${translate('recipe.time')}: ${translate('appleMartini.info1')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.portions')}: ${translate('appleMartini.info2')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.category')}: ${translate('appleMartini.info3')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.typeOfCooking')}: ${translate('appleMartini.info4')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.calories')}: ${translate('appleMartini.info5')}`,
         ],
       },
     },
@@ -292,26 +276,27 @@ export const getStaticPaths = () => {
           alt: 'SmashPineapple',
         },
         title: 'SMASH DE PIÑA',
-        summary:
-          'Deja que la piña cante en este smash a base de vodka. Con los aromas del romero y el amargo, este cóctel afrutado y alcohólico está listo para el verano.',
-        difficulty: 'Fácil',
-        ocassion: 'Tarde| Noche',
+        summary: (translate: typeof t) => translate('smashPineApple.summary'),
+        difficulty: (translate: typeof t) => translate('recipe.easy'),
+        ocassion: (translate: typeof t) => translate('recipe.midday'),
         ingredients: [
-          '¾ oz de jarabe de goma de piña',
-          '1 ½ onzas de De Cajón Vodka',
-          '2 rodajas de limón',
-          '2 pizcas de amargo aromático',
+          (translate: typeof t) => translate('smashPineApple.ingredient1'),
+          (translate: typeof t) => translate('smashPineApple.ingredient2'),
+          (translate: typeof t) => translate('smashPineApple.ingredient3'),
+          (translate: typeof t) => translate('smashPineApple.ingredient4'),
         ],
         steps: [
-          'En una lata de julepe, tritura las rodajas de limón y el sirope de chicle de piña.',
-          'Agrega vodka, hielo picado y revuelve durante 15 segundos.',
-          'Rellenar con más hielo picado y decorar.',
+          (translate: typeof t) => translate('smashPineApple.step1'),
+          (translate: typeof t) => translate('smashPineApple.step2'),
+          (translate: typeof t) => translate('smashPineApple.step3'),
         ],
         info: [
-          'Tiempo de preparación: 5 minutos',
-          'Tiempo total: 5 minutos',
-          'Raciones: 1',
-          'Categoría: bebidas',
+          (translate: typeof t) =>
+            `${translate('recipe.time')}: ${translate('smashPineApple.info1')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.portions')}: ${translate('smashPineApple.info2')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.category')}: ${translate('smashPineApple.info3')}`,
         ],
       },
     },
@@ -323,23 +308,24 @@ export const getStaticPaths = () => {
           alt: 'PinkGinTonic',
         },
         title: 'PINK GIN TONIC',
-        summary:
-          'Verde color de vida, serenidad y frescura, todo lo que adorna y acompaña a esta deliciosa combinación llamada Apple Martini, que lo contiene todo.',
-        difficulty: 'Fácil',
-        ocassion: 'Tarde| Noche',
+        summary: (translate: typeof t) => translate('pinkGinTonic.summary'),
+        difficulty: (translate: typeof t) => translate('recipe.easy'),
+        ocassion: (translate: typeof t) => translate('recipe.midday'),
         ingredients: [
-          '2oz De Cajón Gin 200ml Pink Soda Agua Tónica Slice toronja Ramita de tomillo Hielo de calidad',
+          (translate: typeof t) => translate('pinkGinTonic.ingredient1'),
         ],
         steps: [
-          'Coloca el hielo en una copa balón y dale vueltas para enfriarla.',
-          'Vierte el gin y luego, lentamente, la Pink Soda Mr Perkins para no romper las burbujas.',
-          'Añade el slice de toronja y la ramita de tomillo para aromatizar y decorar.',
+          (translate: typeof t) => translate('pinkGinTonic.step1'),
+          (translate: typeof t) => translate('pinkGinTonic.step2'),
+          (translate: typeof t) => translate('pinkGinTonic.step3'),
         ],
         info: [
-          'Tiempo de preparación: 5 minutos',
-          'Tiempo total: 5 minutos',
-          'Raciones: 1',
-          'Categoría: bebidas',
+          (translate: typeof t) =>
+            `${translate('recipe.time')}: ${translate('pinkGinTonic.info1')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.portions')}: ${translate('pinkGinTonic.info2')}`,
+          (translate: typeof t) =>
+            `${translate('recipe.category')}: ${translate('pinkGinTonic.info3')}`,
         ],
       },
     },
@@ -373,7 +359,7 @@ const props = Astro.props
             <p
               class="order-1 col-start-1 row-start-1 mb-[0.625rem] text-xs md:col-start-2 md:row-start-1 lg:text-lg xl:text-xl"
             >
-              Nuestros Cócteles
+              {t('recipe.ourCocteles')}
             </p>
             <h1
               class="order-2 mb-[0.625rem] text-xl md:col-start-2 md:row-start-2 lg:text-3xl xl:text-5xl"
@@ -383,7 +369,7 @@ const props = Astro.props
             <p
               class="order-6 mb-[0.875rem] text-xs md:col-start-2 md:row-start-3 lg:line-clamp-[10] lg:text-base xl:mb-[2.375rem] xl:text-xl"
             >
-              {props.summary}
+              {props.summary(t)}
             </p>
             <Tag
               class="order-3 place-self-start justify-self-center text-rosewood md:justify-self-start lg:col-start-2 lg:row-start-4"
@@ -394,16 +380,18 @@ const props = Astro.props
             >
               <span
                 class="hidden place-self-center text-center uppercase text-rosewood md:block"
-                >Dificultad</span
+                >{t('recipe.dificulty')}</span
               >
               <span
                 class="hidden place-self-center text-center uppercase text-rosewood md:block"
-                >OCASIÓN</span
+                >{t('recipe.ocassion')}</span
               >
               <Tag class="self-start justify-self-center"
-                >{props.difficulty}</Tag
+                >{props.difficulty(t)}</Tag
               >
-              <Tag class="self-start justify-self-center">{props.ocassion}</Tag>
+              <Tag class="self-start justify-self-center"
+                >{props.ocassion(t)}</Tag
+              >
             </footer>
           </article>
         </div>
@@ -414,32 +402,32 @@ const props = Astro.props
             class="mb-16 grid gap-y-6 lg:grid-cols-2 lg:grid-rows-[min-content_min-content]"
           >
             <h2 class="col-start-1 row-start-1 font-thabit text-sm lg:text-xl">
-              Ingredientes
+              {t('recipe.ingredients')}
             </h2>
             <ul
               class="col-start-1 row-start-2 list-disc text-xs md:text-sm lg:text-xl"
             >
-              {props.ingredients.map((ingredient) => <li>{ingredient}</li>)}
+              {props.ingredients.map((ingredient) => <li>{ingredient(t)}</li>)}
             </ul>
             <h2
               class="col-start-1 row-start-3 font-thabit text-sm lg:col-start-2 lg:row-start-1 lg:text-xl"
             >
-              Procedimiento
+              {t('recipe.procedure')}
             </h2>
             <ul
               class="col-start-1 row-start-4 list-disc text-xs md:text-sm lg:col-start-2 lg:row-start-2 lg:text-xl"
             >
-              {props.steps.map((step) => <li>{step}</li>)}
+              {props.steps.map((step) => <li>{step(t)}</li>)}
             </ul>
           </article>
           <article class="border border-eerie-black px-7 py-3">
             <h2
               class="mb-6 text-center font-thabit text-sm lg:text-left lg:text-xl"
             >
-              Información de la Receta
+              {t('recipe.recipeInfo')}
             </h2>
             <ul class="list-disc text-xs lg:text-xl">
-              {props.info.map((detail) => <li>{detail}</li>)}
+              {props.info.map((detail) => <li>{detail(t)}</li>)}
             </ul>
           </article>
         </div>

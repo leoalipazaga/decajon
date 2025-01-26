@@ -3,6 +3,10 @@ import BaseLayout from 'layouts/BaseLayout.astro'
 import Layout from 'layouts/Layout.astro'
 import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
 import SandLayout from 'layouts/SandLayout.astro'
+import { getLangFromUrl, useTranslations } from 'i18n/utils'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 ---
 
 <Layout title="Historia">
@@ -11,35 +15,14 @@ import SandLayout from 'layouts/SandLayout.astro'
       <SandLayout class="py-[4.375rem]">
         <div class="m-auto w-[76%] max-w-screen-2xl">
           <h1 class="my-4 text-2xl uppercase">
-            Políticas de Cambios y Devoluciones
+            {t('exchanges.title')}
           </h1>
           <p>
-            Deseamos brindarle la mejor experiencia de compra a través de su
-            página www.decajon.com, por eso te informamos de nuestras políticas
-            de cambios y/o devoluciones. Para ejercer el derecho de devolución,
-            cambio de producto, deberá seguir con las siguientes condiciones
-            generales:
+            {t('exchanges.introduction')}
           </p>
-          <h3 class="my-4 text-xl uppercase">DEVOLUCIÓN Y CAMBIOS</h3>
+          <h3 class="my-4 text-xl uppercase">{t('exchanges.returns')}</h3>
           <p>
-            En caso de venta por la página web, si el cambio es por un error de
-            www.decajon.com.pe, se realizará el recojo en la dirección del
-            pedido original del cliente sin costo adicional para él, en caso de
-            no encontrarse la persona solicitante, indicar la persona autorizada
-            para el cambio y/o devolución. De no encontrarse el cliente durante
-            la fecha y hora pactada se procederá a tomar evidencia (foto y
-            llamada telefónica al cliente) lo cual lo realiza el auxiliar de
-            despacho, posterior a ello, se dará por anulado el cambio sin
-            derecho a posteriores reclamos por el mismo producto y compra. El
-            personal del transporte que recogerá el producto y entregará el
-            cambio no se encuentra autorizado bajo ninguna circunstancia a
-            revisar y/o manipular el producto, su única función será la de
-            recogerlo y entregar el cambio del producto. – En caso de venta por
-            la página web, el cliente podrá rechazar la entrega de cualquier
-            producto al momento del despacho si considera que no está en las
-            condiciones requeridas. El cliente debe revisar los productos
-            detalladamente en el momento de la entrega, luego de ello se asume
-            la responsabilidad del cliente.
+            {t('exchanges.content')}
           </p>
         </div>
       </SandLayout>
