@@ -7,10 +7,11 @@ import Layout from 'layouts/Layout.astro'
 import SandLayout from 'layouts/SandLayout.astro'
 import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
 import Master3 from 'images/master-3.jpg'
-import { getLangFromUrl, useTranslations } from 'i18n/utils'
+import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
 ---
 
 <Layout title="DeCajon">
@@ -39,15 +40,20 @@ const t = useTranslations(lang)
                 label="Contraseña"
                 type="password"
               />
-              <a class="block text-right text-xs text-rosewood" href="/"
-                >{t('login.forgetAccount')}</a
+              <a
+                class="block text-right text-xs text-rosewood"
+                href={translatePath('/')}>{t('login.forgetAccount')}</a
               >
-              <Button as="a" href="/dashboard" class="mt-8 block w-full">
+              <Button
+                as="a"
+                href={translatePath('/dashboard')}
+                class="mt-8 block w-full"
+              >
                 {t('login.signin')}
               </Button>
               <p class="mt-8 text-center text-xs lg:text-base">
                 {t('login.notAccount')}
-                <a class="text-rosewood" href="/signup"
+                <a class="text-rosewood" href={translatePath('/signup')}
                   >&nbsp;{t('login.signup')}</a
                 >
               </p>

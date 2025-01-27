@@ -3,18 +3,19 @@ import { Image } from 'astro:assets'
 import DeCajonLogo from 'images/decajon-logo.png'
 import Globe from 'icons/globe.svg'
 import Cart from 'icons/cart.svg'
-import { getLangFromUrl, useTranslations } from 'i18n/utils'
+import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
 import Button from './Button.astro'
 import Dropdown from './Dropdown.astro'
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
 ---
 
 <nav
   class="absolute left-0 top-0 z-10 flex w-full max-w-screen-2xl items-center justify-between px-14 py-[18px] has-[input:checked]:fixed 2xl:left-1/2 2xl:-translate-x-1/2"
 >
-  <a class="z-10" href="/">
+  <a class="z-10" href={translatePath('/')}>
     <Image src={DeCajonLogo} width={115} height={44} alt="DeCajonLogo" />
   </a>
   <ul
@@ -22,33 +23,36 @@ const t = useTranslations(lang)
     class="fixed left-0 top-0 h-dvh w-dvw -translate-x-full items-center gap-12 bg-[#e8dfcf] px-14 pt-20 transition-all *:mb-4 sm:static sm:flex sm:h-auto sm:w-auto sm:transform-none sm:bg-transparent sm:px-0 sm:pt-0 sm:*:mb-0"
   >
     <li>
-      <a class="font-cultive text-lg sm:text-xs lg:text-base" href="/products"
-        >{t('nav.products')}</a
+      <a
+        class="font-cultive text-lg sm:text-xs lg:text-base"
+        href={translatePath('/products')}>{t('nav.products')}</a
       >
     </li>
     <li>
-      <a class="font-cultive text-lg sm:text-xs lg:text-base" href="/history"
-        >{t('nav.history')}</a
+      <a
+        class="font-cultive text-lg sm:text-xs lg:text-base"
+        href={translatePath('/history')}>{t('nav.history')}</a
       >
     </li>
     <li>
-      <a class="font-cultive text-lg sm:text-xs lg:text-base" href="/experience"
-        >{t('nav.experience')}</a
+      <a
+        class="font-cultive text-lg sm:text-xs lg:text-base"
+        href={translatePath('/experience')}>{t('nav.experience')}</a
       >
     </li>
     <li>
       <a
         class="font-cultive text-lg sm:hidden sm:text-xs lg:text-base"
-        href="/cart">{t('nav.cart')}</a
+        href={translatePath('/cart')}>{t('nav.cart')}</a
       >
     </li>
     <li class="block sm:hidden">
-      <a class="font-cultive text-lg sm:text-xs lg:text-base" href="/en"
+      <a class="font-cultive text-lg sm:text-xs lg:text-base" href={'/en'}
         >{t('nav.en')}</a
       >
     </li>
     <li class="block sm:hidden">
-      <a class="font-cultive text-lg sm:text-xs lg:text-base" href="/"
+      <a class="font-cultive text-lg sm:text-xs lg:text-base" href={'/'}
         >{t('nav.es')}</a
       >
     </li>
@@ -61,7 +65,7 @@ const t = useTranslations(lang)
   />
   <ul class="hidden items-center gap-2 sm:flex">
     <li>
-      <Button as="a" href="/cart/" variant="rounded">
+      <Button as="a" href={translatePath('/cart/')} variant="rounded">
         <Image src={Cart} alt="cart" />
       </Button>
     </li>
@@ -73,8 +77,8 @@ const t = useTranslations(lang)
           </Button>
         </Fragment>
         <Fragment slot="content">
-          <a href="/">{t('nav.es')}</a>
-          <a href="/en/">{t('nav.en')}</a>
+          <a href={'/'}>{t('nav.es')}</a>
+          <a href={'/en/'}>{t('nav.en')}</a>
         </Fragment>
       </Dropdown>
     </li>

@@ -1,8 +1,9 @@
 ---
+import type { ImageMetadata } from 'astro'
 import { Image } from 'astro:assets'
+import { getLangFromUrl, useTranslatedPath } from 'i18n/utils'
 import Button from './Button.astro'
 import Tag from './Tag.astro'
-import type { ImageMetadata } from 'astro'
 
 interface Props {
   align?: 'left' | 'right'
@@ -23,6 +24,8 @@ const {
   alias,
   link,
 } = Astro.props
+const lang = getLangFromUrl(Astro.url)
+const translatePath = useTranslatedPath(lang)
 ---
 
 <article
@@ -59,7 +62,7 @@ const {
       align === 'left' ? 'md:col-start-2' : 'md:col-start-1',
     ]}
     as="a"
-    href={link}>Comprar Ahora</Button
+    href={translatePath(link)}>Comprar Ahora</Button
   >
   <Tag
     class:list={[

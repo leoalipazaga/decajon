@@ -15,10 +15,11 @@ import BlackBull from 'images/black-bull.png'
 import DeCajonGin from 'images/decajon-gin.png'
 import AngleLeft from 'icons/angle-left.svg'
 import AngleRight from 'icons/angle-right.svg'
-import { getLangFromUrl, useTranslations } from 'i18n/utils'
+import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
 ---
 
 <Layout title="DeCajon">
@@ -72,7 +73,7 @@ const t = useTranslations(lang)
                 </p>
                 <Button
                   as="a"
-                  href="/products/vodka"
+                  href={translatePath('/products/vodka')}
                   class="w-max self-center md:self-start"
                   >{t('common.showMore')}</Button
                 >
@@ -153,7 +154,7 @@ const t = useTranslations(lang)
               />
               <Button
                 as="a"
-                href="/products/vodka-gin"
+                href={translatePath('/products/vodka-gin')}
                 class="col-start-1 -col-end-1 row-start-3 mr-[12%] self-start justify-self-center md:col-start-3 md:row-start-6 md:mr-0 md:justify-self-end [&&]:bg-eerie-black"
                 >{t('common.showMore')}</Button
               >
@@ -224,7 +225,7 @@ const t = useTranslations(lang)
               />
               <Button
                 as="a"
-                href="/products/vodka-siembra"
+                href={translatePath('/products/vodka-siembra')}
                 class="col-start-1 -col-end-1 row-start-3 ml-[12%] justify-self-center md:col-start-1 md:col-end-2 md:row-start-6 md:ml-0 md:justify-self-start [&&]:bg-gentian-blue"
                 >{t('common.showMore')}</Button
               >
@@ -239,7 +240,7 @@ const t = useTranslations(lang)
           <Button
             class="order-1 w-auto sm:order-[0] sm:justify-self-end"
             as="a"
-            href="/history">{t('home.ourHistory')}</Button
+            href={translatePath('/history')}>{t('home.ourHistory')}</Button
           >
           <div class="m-auto sm:w-3/4">
             <p
@@ -277,12 +278,12 @@ const t = useTranslations(lang)
               <p
                 class="text-left text-xs sm:text-center lg:text-sm xl:text-base"
               >
-                {t('home.ourExperience')}
+                {t('home.experienceDescription')}
               </p>
               <Button
                 class="justify-self-start sm:justify-self-center md:text-xs"
                 as="a"
-                href="/history">{t('common.showMore')}</Button
+                href={translatePath('/history')}>{t('common.showMore')}</Button
               >
             </div>
           </div>

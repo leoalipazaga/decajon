@@ -8,14 +8,18 @@
   import Vodka from 'images/vodka-1.jpeg'
   import Trash from 'icons/trash.svg'
   import { products } from 'consts'
-  import { getLangFromUrl, useTranslations } from 'i18n/utils'
+  import {
+    getLangFromUrl,
+    useTranslatedPath,
+    useTranslations,
+  } from 'i18n/utils'
   import Counter from './Counter.svelte'
   import ProductCart from './ProductCart.svelte'
 
   const lang = getLangFromUrl(new URL(location.pathname, location.origin))
   const t = useTranslations(lang)
+  const translatePath = useTranslatedPath(lang)
   let cart = $state([] as CartProduct[])
-
   let total = $derived(
     cart.reduce((sum, item) => (sum += item.count * item.price), 0)
   )
@@ -124,7 +128,7 @@
       >{currency(total)}</span
     >
     <a
-      href="/checkout"
+      href={translatePath('/checkout')}
       class="w-auto text-center bg-rosewood text-zinc-1000 py-2 px-3 rounded-[1.25rem] col-start-1 -col-end-1 row-start-5 mt-4"
       >{t('cart.continuePayment')}</a
     >

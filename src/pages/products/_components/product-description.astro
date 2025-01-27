@@ -3,7 +3,7 @@ import { getLangFromUrl, useTranslations } from 'i18n/utils'
 
 type Props = { title: string; descriptions: string[] }
 
-const lang = getLangFromUrl(new URL(location.pathname, location.origin))
+const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 const { title, descriptions } = Astro.props
 ---

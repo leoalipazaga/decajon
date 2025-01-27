@@ -1,4 +1,7 @@
 import es from './es.json'
+import en from './en.json'
+
+export const showDefaultLang = false
 
 export const languages = {
   en: 'English',
@@ -9,9 +12,5 @@ export const defaultLang = 'es'
 
 export const ui = {
   es,
-  en: {
-    'nav.home': 'Home',
-    'nav.about': 'About',
-    'nav.twitter': 'Twitter',
-  },
+  en,
 } as const

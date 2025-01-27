@@ -4,6 +4,9 @@ dist/
 # generated types
 .astro/
 
+# en folder
+src/pages/en/**/*
+
 # dependencies
 node_modules/
 

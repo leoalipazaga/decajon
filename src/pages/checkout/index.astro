@@ -7,11 +7,12 @@ import SandLayout from 'layouts/SandLayout.astro'
 import Button from 'components/Button.astro'
 import { regions } from 'consts'
 import { currency } from 'utils'
-import { getLangFromUrl, useTranslations } from 'i18n/utils'
+import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
 import ProductCheckout from './_components/product-checkout.svelte'
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
 ---
 
 <Layout title="Checkout">
@@ -127,7 +128,10 @@ const t = useTranslations(lang)
               >
             </article>
             <article class="hidden md:block">
-              <a class="mb-10 block text-base text-rosewood" href="products/">
+              <a
+                class="mb-10 block text-base text-rosewood"
+                href={translatePath('/products')}
+              >
                 {t('cart.continueShop')}
               </a>
               <div class="grid grid-cols-2 border px-4 py-5">

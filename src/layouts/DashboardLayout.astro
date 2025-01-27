@@ -1,6 +1,6 @@
 ---
 import { Image, Picture } from 'astro:assets'
-import { getLangFromUrl, useTranslations } from 'i18n/utils'
+import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
 import DeCajonLogo from 'images/decajon-logo.png'
 import Button from 'components/Button.astro'
 import TopMenu from 'icons/top-menu.svg'
@@ -22,6 +22,7 @@ interface Props {
 const { title } = Astro.props
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
 ---
 
 <main class="grid grid-cols-[20rem_minmax(0,1fr)]">
@@ -38,13 +39,13 @@ const t = useTranslations(lang)
       <li class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-[1.125rem]">
         <Button
           as="a"
-          href="/dashboard/"
+          href={translatePath('/dashboard/')}
           class="[&&]:bg-anti-flash-white"
           variant="rounded"><Image src={TopMenu} alt="top-menu" /></Button
         >
         <Button
           as="a"
-          href="/dashboard/"
+          href={translatePath('/dashboard/')}
           class="w-full justify-self-start text-left text-anti-flash-white hover:opacity-50 [&&]:text-left [&&]:font-cutive [&&]:text-xl"
           >{t('dashboard.start')}</Button
         >
@@ -52,7 +53,7 @@ const t = useTranslations(lang)
       <li class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-[1.125rem]">
         <Button
           as="a"
-          href="/dashboard/cart/"
+          href={translatePath('/dashboard/cart/')}
           class="[&&]:bg-anti-flash-white"
           variant="rounded"
           ><Image
@@ -63,21 +64,21 @@ const t = useTranslations(lang)
         </Button>
         <Button
           class="w-full justify-self-start text-left text-anti-flash-white [&&]:text-left [&&]:font-cutive [&&]:text-xl"
-          href="/dashboard/cart/"
+          href={translatePath('/dashboard/cart/')}
           as="a">{t('dashboard.checkout')}</Button
         >
       </li>
       <li class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-[1.125rem]">
         <Button
           as="a"
-          href="/dashboard/products/"
+          href={translatePath('/dashboard/products/')}
           class="[&&]:bg-anti-flash-white"
           variant="rounded"
           ><Image class="text-crayola" src={Martini} alt="" />
         </Button>
         <Button
           as="a"
-          href="/dashboard/products/"
+          href={translatePath('/dashboard/products/')}
           class="w-full justify-self-start text-left text-anti-flash-white [&&]:text-left [&&]:font-cutive [&&]:text-xl"
           >{t('dashboard.products')}</Button
         >
@@ -85,14 +86,14 @@ const t = useTranslations(lang)
       <li class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-[1.125rem]">
         <Button
           as="a"
-          href="/dashboard/sales/"
+          href={translatePath('/dashboard/sales/')}
           class="[&&]:bg-anti-flash-white"
           variant="rounded"
           ><Image class="text-crayola" src={HotSales} alt="" />
         </Button>
         <Button
           as="a"
-          href="/dashboard/sales/"
+          href={translatePath('/dashboard/sales/')}
           class="w-full justify-self-start text-anti-flash-white [&&]:text-left [&&]:font-cutive [&&]:text-xl"
           >{t('dashboard.hotsales')}</Button
         >
@@ -164,8 +165,8 @@ const t = useTranslations(lang)
               </div>
             </Fragment>
             <Fragment slot="content">
-              <a href="/">{t('dashboard.profile')}</a>
-              <a href="/en/">{t('dashboard.logout')}</a>
+              <a href={translatePath('/')}>{t('dashboard.profile')}</a>
+              <a href={translatePath('/en/')}>{t('dashboard.logout')}</a>
             </Fragment>
           </Dropdown>
         </li>

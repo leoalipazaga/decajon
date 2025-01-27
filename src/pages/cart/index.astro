@@ -20,19 +20,19 @@ const bottles = [
     title: 'DE CAJÓN VODKA',
     img: { alt: 'De Cajon Vodka', src: BottleVodka },
     link: '/products/vodka',
-    size: 'Botella 750ml',
+    size: '750',
   },
   {
     title: 'DE CAJÓN GIN',
     img: { alt: 'DE CAJÓN GIN', src: BottleGin },
     link: '/products/vodka-gin',
-    size: 'Botella 750ml',
+    size: '750',
   },
   {
     title: 'SIEMBRA VODKA',
     img: { alt: 'SIEMBRA VODKA', src: BottleSiembra },
     link: '/products/vodka-siembra',
-    size: 'Botella 750ml',
+    size: '750',
   },
 ]
 ---
@@ -71,7 +71,7 @@ const bottles = [
                       {bottle.title}
                     </h2>
                     <p class="mb-3 text-center md:text-xs lg:text-xl">
-                      {bottle.size}
+                      {t('common.bottle')} {bottle.size}ml
                     </p>
                     <Button as="a" href={bottle.link}>
                       {t('common.buyNow')}
@@ -98,7 +98,7 @@ const bottles = [
                   {bottle.title}
                 </h2>
                 <p class="mb-3 text-center md:text-xs lg:text-xl">
-                  {bottle.size}
+                  {t('common.bottle')} {bottle.size}ml
                 </p>
                 <Button as="a" href={bottle.link}>
                   {t('common.buyNow')}

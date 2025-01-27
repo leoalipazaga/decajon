@@ -6,11 +6,12 @@ import Linkedin from 'icons/linkedin.svg'
 import PlaceMarker from 'icons/place-marker.svg'
 import Phone from 'icons/phone.svg'
 import Mail from 'icons/mail.svg'
-import { getLangFromUrl, useTranslations } from 'i18n/utils'
+import { getLangFromUrl, useTranslations, useTranslatedPath } from 'i18n/utils'
 import Button from './Button.astro'
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
 ---
 
 <footer class="relative h-auto overflow-hidden bg-eerie-black py-9">
@@ -45,7 +46,7 @@ const t = useTranslations(lang)
           </Button>
         </li>
         <li>
-          <Button variant="rounded" as="a" href="/linkedin">
+          <Button variant="rounded" as="a" href={translatePath('/linkedin')}>
             <Image src={Linkedin} alt="linkedin logo" />
           </Button>
         </li>
@@ -54,15 +55,17 @@ const t = useTranslations(lang)
         class="order-3 col-span-2 flex gap-6 text-anti-flash-white md:order-2 md:col-span-1"
       >
         <li>
-          <a class="text-xs xl:text-base" href="/products"
+          <a class="text-xs xl:text-base" href={translatePath('/products')}
             >{t('nav.products')}</a
           >
         </li>
         <li>
-          <a class="text-xs xl:text-base" href="/history">{t('nav.history')}</a>
+          <a class="text-xs xl:text-base" href={translatePath('/history')}
+            >{t('nav.history')}</a
+          >
         </li>
         <li>
-          <a class="text-xs xl:text-base" href="/experience"
+          <a class="text-xs xl:text-base" href={translatePath('/experience')}
             >{t('nav.experience')}</a
           >
         </li>
@@ -70,7 +73,7 @@ const t = useTranslations(lang)
       <Button
         class="order-2 self-center justify-self-end md:order-3"
         as="a"
-        href="/login">{t('footer.login')}</Button
+        href={translatePath('/login')}>{t('footer.login')}</Button
       >
     </div>
     <ul class="grid gap-y-2 md:grid-cols-2 md:gap-y-[1.875rem] xl:grid-cols-3">
@@ -125,12 +128,15 @@ const t = useTranslations(lang)
     </ul>
     <ul class="flex justify-center gap-4">
       <li>
-        <a class="text-xs text-anti-flash-white" href="/terms-and-conditions"
-          >{t('footer.terms')}</a
+        <a
+          class="text-xs text-anti-flash-white"
+          href={translatePath('/terms-and-conditions')}>{t('footer.terms')}</a
         >
       </li>
       <li>
-        <a class="text-xs text-anti-flash-white" href="/returns-and-exchange"
+        <a
+          class="text-xs text-anti-flash-white"
+          href={translatePath('/returns-and-exchange')}
           >{t('footer.politics')}</a
         >
       </li>
