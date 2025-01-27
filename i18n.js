@@ -1,5 +1,5 @@
 #!usr/bin/nodejs
-import { spawn } from 'node:child_process'
+import { spawnSync } from 'node:child_process'
 // import { readFileSync } from 'node:fs'
 // import es from './src/i18n/es.json'
 import { defaultLocale, locales } from './astro.config.mjs'
@@ -12,6 +12,5 @@ import { defaultLocale, locales } from './astro.config.mjs'
 const paths = locales
   .filter((locale) => locale !== defaultLocale)
   .map((locale) => `src/pages/${locale}`)
-
-spawn('rm', ['-fr', ...paths])
-spawn('cp', ['-r', 'src/pages', ...paths])
+spawnSync('rm', ['-fr', ...paths])
+spawnSync('cp', ['-r', 'src/pages/', ...paths])

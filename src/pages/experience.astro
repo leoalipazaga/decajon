@@ -23,7 +23,7 @@ import Coctel from 'components/Coctel.astro'
 import Input from 'components/Input.astro'
 import Select from 'components/Select.astro'
 import Carousel from 'components/Carousel.astro'
-import { getLangFromUrl, useTranslations } from 'i18n/utils'
+import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
 
 const cocteles = [
   {
@@ -72,6 +72,7 @@ const bottles = [
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
 ---
 
 <Layout title="Cocteles">
@@ -173,7 +174,7 @@ const t = useTranslations(lang)
                       <p class="mb-3 text-center md:text-xs lg:text-xl">
                         {t('common.bottle')} {bottle.size}ml
                       </p>
-                      <Button as="a" href={bottle.link}>
+                      <Button as="a" href={translatePath(bottle.link)}>
                         {t('common.buyNow')}
                       </Button>
                     </article>
@@ -204,7 +205,7 @@ const t = useTranslations(lang)
                   >
                     {t('common.bottle')} {bottle.size}ml
                   </p>
-                  <Button as="a" href={bottle.link}>
+                  <Button as="a" href={translatePath(bottle.link)}>
                     {t('common.buyNow')}
                   </Button>
                 </article>
