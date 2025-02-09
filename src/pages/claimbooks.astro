@@ -1,0 +1,140 @@
+---
+import BaseLayout from 'layouts/BaseLayout.astro'
+import Layout from 'layouts/Layout.astro'
+import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
+import SandLayout from 'layouts/SandLayout.astro'
+import { districts } from 'consts'
+import Button from 'components/Button.astro'
+import Input from 'components/Input.astro'
+import { getLangFromUrl, useTranslations } from 'i18n/utils'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const limaId = 3927
+const limaDistricts = districts[limaId]
+---
+
+<Layout title={t('claimbooks.title')}>
+  <MiddlewareLayout>
+    <BaseLayout>
+      <SandLayout class="py-[4.375rem]">
+        <div class="m-auto mt-5 w-[76%] max-w-screen-2xl">
+          <h1 class="text-xl uppercase">{t('claimbooks.title')}</h1>
+          <form
+            action="https://formsubmit.co/leonardoalipazagab@gmail.com"
+            method="post"
+            name="Reclamaciones"
+          >
+            <h2>{t('claimbooks.generalData')}</h2>
+            <input
+              type="hidden"
+              name="_subject"
+              value="Libro de Reclamaciones"
+            />
+            <div class="grid md:grid-cols-2 md:gap-x-4 lg:gap-x-8">
+              <Input
+                required
+                autocomplete="off"
+                class="mb-4"
+                label={t('claimbooks.name')}
+                name="name"
+              />
+              <Input
+                required
+                autocomplete="off"
+                class="mb-4"
+                label={t('claimbooks.lastname')}
+                name="lastname"
+              />
+              <div class="mb-4">
+                <label class="block text-xs"
+                  >{t('claimbooks.typeDocument')}</label
+                >
+                <select
+                  required
+                  id="typeDocument"
+                  class="h-[2.125rem] w-full border border-eerie-black bg-transparent px-2.5 py-1"
+                  name="typeDocument"
+                >
+                  <option value="dni">DNI</option>
+                  <option value="ce">C.E.</option>
+                </select>
+              </div>
+              <Input
+                required
+                autocomplete="off"
+                class="mb-4"
+                label={t('claimbooks.document')}
+                name="document"
+              />
+              <div class="mb-4">
+                <label class="block text-xs">{t('checkout.district')}</label>
+                <select
+                  required
+                  id="districts"
+                  class="h-[2.125rem] w-full border border-eerie-black bg-transparent px-2.5 py-1"
+                  name="district"
+                >
+                  {
+                    limaDistricts.map((district) => (
+                      <option
+                        id={district.id_ubigeo}
+                        value={district.id_ubigeo}
+                      >
+                        {district.nombre_ubigeo}
+                      </option>
+                    ))
+                  }
+                </select>
+              </div>
+              <Input
+                required
+                autocomplete="off"
+                class="mb-4"
+                label={t('claimbooks.address')}
+                name="address"
+              />
+              <Input
+                required
+                autocomplete="off"
+                class="mb-4"
+                type="tel"
+                label={t('common.phone')}
+                name="phone"
+              />
+              <Input
+                required
+                autocomplete="off"
+                class="mb-4"
+                type="email"
+                label={t('common.email')}
+                name="email"
+              />
+            </div>
+            <h2>{t('claimbooks.claimDetails')}</h2>
+            <label for="detail" class="w-full text-xs"
+              >{t('claimbooks.claimDescription')}</label
+            >
+            <textarea
+              required
+              autocomplete="off"
+              class="h-28 w-full border border-eerie-black bg-transparent px-2.5 py-1 [field-sizing:content]"
+              id="detail"
+              name="detail"></textarea>
+            <label for="requested" class="w-full text-xs"
+              >{t('claimbooks.claimRequest')}</label
+            >
+            <textarea
+              required
+              autocomplete="off"
+              class="h-28 w-full border border-eerie-black bg-transparent px-2.5 py-1 [field-sizing:content]"
+              id="requested"
+              name="requested"></textarea>
+            <Button class="w-full md:w-auto">{t('common.send')}</Button>
+          </form>
+        </div>
+      </SandLayout>
+    </BaseLayout>
+  </MiddlewareLayout>
+</Layout>
+<script></script>

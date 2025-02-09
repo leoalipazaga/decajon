@@ -11,7 +11,7 @@ export default {
       'anti-flash-white': '#F0F0F0',
       'eerie-black': '#1E1E1E',
       'gentian-blue': '#332897',
-      zinc: { ...colors.zinc, 1000: '#f0f0f0' },
+      zinc: { ...colors.zinc, 1000: '#f0f0f0', 1050: '#565656' },
     },
     fontFamily: {
       gilda: ['GildaDisplay', 'system-ui', 'sans-serif'],

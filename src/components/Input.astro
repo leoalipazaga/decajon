@@ -12,20 +12,21 @@ type Props = HTMLAttributes<'input'> & CustomProps
 const { htmlFor, label, rounded, ...rest } = Astro.props
 ---
 
-{
-  !!label && (
-    <label for={htmlFor} class="block text-xs">
-      {label}
-    </label>
-  )
-}
-<input
-  id={htmlFor}
-  class:list={[
-    'w-full border border-eerie-black bg-transparent px-2.5 py-1',
-    rounded && 'rounded-[1.25rem]',
-    rest.type === 'search' && 'placeholder:text-center',
-    rest.class,
-  ]}
-  {...rest}
-/>
+<div class:list={[rest.class]}>
+  {
+    !!label && (
+      <label for={htmlFor} class="block text-xs">
+        {label}
+      </label>
+    )
+  }
+  <input
+    id={htmlFor}
+    class:list={[
+      'w-full border border-eerie-black bg-transparent px-2.5 py-1',
+      rounded && 'rounded-[1.25rem]',
+      rest.type === 'search' && 'placeholder:text-center',
+    ]}
+    {...rest}
+  />
+</div>

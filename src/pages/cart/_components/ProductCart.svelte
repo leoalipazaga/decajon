@@ -56,7 +56,7 @@
     >
       {currency(total)}
     </span>
-    <div class="">
+    <div>
       {@render counter?.()}
     </div>
     <div class="col-start-2 row-start-1 justify-self-end sm:col-start-3">

@@ -5,7 +5,7 @@ import Layout from 'layouts/Layout.astro'
 import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
 import SandLayout from 'layouts/SandLayout.astro'
 import Button from 'components/Button.astro'
-import { regions } from 'consts'
+import { districts } from 'consts'
 import { currency } from 'utils'
 import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
 import ProductCheckout from './_components/product-checkout.svelte'
@@ -13,6 +13,10 @@ import ProductCheckout from './_components/product-checkout.svelte'
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
+
+const getDistricts = (ubigeo: keyof typeof districts) => {
+  return districts[ubigeo]
+}
 ---
 
 <Layout title="Checkout">
@@ -48,42 +52,10 @@ const translatePath = useTranslatedPath(lang)
                 autocomplete="off"
                 class="col-span-2 mb-4"
                 label="Apellidos"
-                name="lastaname"
+                name="lastname"
               />
-              <p class="mb-4">Pais/Region</p>
-              <p translate="no" class="mb-4">Peru</p>
-              <Input
-                required
-                autocomplete="off"
-                class="col-span-2 mb-4"
-                label="Direccion"
-                name="address"
-              />
-              <label class="col-span-2 text-xs">{t('checkout.region')}</label>
-              <select
-                required
-                id="regions"
-                class="col-span-2 mb-4 border border-eerie-black bg-transparent px-2.5 py-1"
-                name="region"
-              >
-                {
-                  [<option selected hidden disabled />].concat(
-                    regions.map((region: any) => (
-                      <option value={region.id_ubigeo}>
-                        {region.nombre_ubigeo}
-                      </option>
-                    ))
-                  )
-                }
-              </select>
-              <label class="col-span-2 text-xs">{t('checkout.province')}</label>
-              <select
-                required
-                id="provinces"
-                class="col-span-2 mb-4 border border-eerie-black bg-transparent px-2.5 py-1"
-                name="provinces"
-              >
-              </select>
+              <p translate="no" class="col-span-2 mb-4">Lima/Perú</p>
+              <!-- <p translate="no" class="mb-4">Peru</p> -->
               <label class="col-span-2 text-xs">{t('checkout.district')}</label>
               <select
                 required
@@ -92,6 +64,41 @@ const translatePath = useTranslatedPath(lang)
                 name="district"
               >
               </select>
+              <Input
+                required
+                autocomplete="off"
+                class="col-span-2 mb-4"
+                label="Direccion"
+                name="address"
+              />
+              <input id="regions" name="regions" hidden value="3926" />
+              <input id="provinces" name="provinces" hidden value="3927" />
+
+              <!-- <label class="col-span-2 text-xs">{t('checkout.region')}</label> -->
+              <!-- <select -->
+              <!--   required -->
+              <!--   id="regions" -->
+              <!--   class="col-span-2 mb-4 border border-eerie-black bg-transparent px-2.5 py-1" -->
+              <!--   name="region" -->
+              <!-- > -->
+              <!--   { -->
+              <!--     [<option selected hidden disabled />].concat( -->
+              <!--       regions.map((region: any) => ( -->
+              <!--         <option value={region.id_ubigeo}> -->
+              <!--           {region.nombre_ubigeo} -->
+              <!--         </option> -->
+              <!--       )) -->
+              <!--     ) -->
+              <!--   } -->
+              <!-- </select> -->
+              <!-- <label class="col-span-2 text-xs">{t('checkout.province')}</label> -->
+              <!-- <select -->
+              <!--   required -->
+              <!--   id="provinces" -->
+              <!--   class="col-span-2 mb-4 border border-eerie-black bg-transparent px-2.5 py-1" -->
+              <!--   name="provinces" -->
+              <!-- > -->
+              <!-- </select> -->
               <Input
                 required
                 autocomplete="off"
@@ -165,9 +172,9 @@ const translatePath = useTranslatedPath(lang)
 <script is:inline src="https://js.culqi.com/checkout-js"></script>
 <script>
   import { getCountProducts, getTotal } from 'adapters/storage'
-  import { districts, provinces } from 'consts'
+  import { districts } from 'consts'
   import { currency } from 'utils'
-  const $regions = document.querySelector('#regions')
+  // const $regions = document.querySelector('#regions')
   const $provinces = document.querySelector('#provinces')
   const $districts = document.querySelector('#districts')
   const $countProducts = document.querySelectorAll('#countProducts')
@@ -181,40 +188,41 @@ const translatePath = useTranslatedPath(lang)
   $countProducts?.forEach(($el) => {
     $el?.insertAdjacentText('afterbegin', `${getCountProducts()}`)
   })
-  const getProvinces = (ubigeo: keyof typeof provinces) => {
-    return provinces[ubigeo]
-  }
+  // const getProvinces = (ubigeo: keyof typeof provinces) => {
+  //   return provinces[ubigeo]
+  // }
 
   const getDistricts = (ubigeo: keyof typeof districts) => {
-    return districts[ubigeo]
+    return [...districts[ubigeo]].sort()
   }
 
-  $regions?.addEventListener('change', (e) => {
-    if ($provinces) {
-      $provinces.innerHTML = ''
-    }
-    getProvinces(
-      (e?.target as HTMLSelectElement).value as keyof typeof provinces
-    ).forEach((province) => {
-      $provinces?.insertAdjacentHTML(
-        'afterbegin',
-        `<option value=${province.id_ubigeo}>${province.nombre_ubigeo}</option>`
-      )
-    })
+  getDistricts(
+    ($provinces as HTMLInputElement)?.value as keyof typeof districts
+  ).forEach((district) => {
+    $districts?.insertAdjacentHTML(
+      'afterbegin',
+      `<option id=${district.id_ubigeo} value=${district.id_ubigeo}>${district.nombre_ubigeo}</option>`
+    )
   })
-  $provinces?.addEventListener('change', (e) => {
-    if ($districts) {
-      $districts.innerHTML = ''
-    }
-    getDistricts(
-      (e?.target as HTMLSelectElement).value as keyof typeof districts
-    ).forEach((district) => {
-      $districts?.insertAdjacentHTML(
-        'afterbegin',
-        `<option value=${district.id_ubigeo}>${district.nombre_ubigeo}</option>`
-      )
-    })
-  })
+
+  // $regions?.addEventListener('change', (e) => {
+  //   if ($provinces) {
+  //     $provinces.innerHTML = ''
+  //   }
+  //   getProvinces(
+  //     (e?.target as HTMLSelectElement).value as keyof typeof provinces
+  //   ).forEach((province) => {
+  //     $provinces?.insertAdjacentHTML(
+  //       'afterbegin',
+  //       `<option value=${province.id_ubigeo}>${province.nombre_ubigeo}</option>`
+  //     )
+  //   })
+  // })
+  // $provinces?.addEventListener('change', (e) => {
+  //   if ($districts) {
+  //     $districts.innerHTML = ''
+  //   }
+  // })
   const settings = {
     title: 'DeCajon Store',
     currency: 'PEN', // Este parámetro es requerido para realizar pagos yape

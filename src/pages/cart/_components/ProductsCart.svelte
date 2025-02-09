@@ -7,6 +7,7 @@
   import Siembra from 'images/siembra-1.jpeg'
   import Vodka from 'images/vodka-1.jpeg'
   import Trash from 'icons/trash.svg'
+  import Modal from 'ui/Modal.svelte'
   import { products } from 'consts'
   import {
     getLangFromUrl,
@@ -55,7 +56,6 @@
   onMount(() => {
     const store = Storage.session.getValue('DECAJON_STORAGE')
     cart = store?.cart
-    console.log('pathname', window?.location?.pathname)
     const lang = getLangFromUrl(
       new URL(window?.location?.pathname, window?.location?.origin)
     )
@@ -108,12 +108,35 @@
       />
     {/snippet}
     {#snippet action()}
-      <button
-        class=" [&&]:h-7 [&&]:w-7 bg-rosewood rounded-full flex items-center justify-center w-[2.5rem] h-[2.5rem]"
-        onclick={() => onRemoveProduct(item.id)}
-      >
-        <img src={Trash.src} alt="trash" />
-      </button>
+      <Modal title={t?.('cart.deleteArticle')}>
+        {#snippet trigger({ onOpen })}
+          <button
+            class="[&&]:h-7 [&&]:w-7 bg-rosewood rounded-full flex items-center justify-center w-[2.5rem] h-[2.5rem]"
+            onclick={onOpen}
+          >
+            <img src={Trash.src} alt="trash" />
+          </button>
+        {/snippet}
+        {#snippet content()}
+          <p class="text-center text-sm">
+            {t?.('cart.deleteArticleQuestion')}
+          </p>
+          <p class="text-center text-sm">{t?.('cart.deleteArticleNoRevert')}</p>
+        {/snippet}
+        {#snippet actions({ onClose })}
+          <button
+            class="w-auto text-zinc-1000 py-2 px-3 rounded-[1.25rem] bg-zinc-1050"
+            onclick={onClose}>{t?.('common.cancel')}</button
+          >
+          <button
+            class="w-auto bg-rosewood text-zinc-1000 py-2 px-3 rounded-[1.25rem]"
+            onclick={() => {
+              onRemoveProduct(item.id)
+              onClose()
+            }}>{t?.('common.delete')}</button
+          >
+        {/snippet}
+      </Modal>
     {/snippet}
   </ProductCart>
 {/each}

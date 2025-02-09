@@ -104,7 +104,7 @@ const translatePath = useTranslatedPath(lang)
         <a
           translate="no"
           class="text-xs text-anti-flash-white xl:text-base"
-          href="mailto:gerentedeventas@decajon.pe">gerentedeventas@decajon.pe</a
+          href="mailto:ventas@decajon.pe">ventas@decajon.pe</a
         >
       </li>
       <li class="flex items-center gap-3 md:col-span-2 xl:col-start-3">
@@ -126,7 +126,7 @@ const translatePath = useTranslatedPath(lang)
         >
       </li>
     </ul>
-    <ul class="flex justify-center gap-4">
+    <ul class="flex flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
       <li>
         <a
           class="text-xs text-anti-flash-white"
@@ -138,6 +138,12 @@ const translatePath = useTranslatedPath(lang)
           class="text-xs text-anti-flash-white"
           href={translatePath('/returns-and-exchange')}
           >{t('footer.politics')}</a
+        >
+      </li>
+      <li>
+        <a
+          class="text-xs text-anti-flash-white"
+          href={translatePath('/claimbooks')}>{t('claimbooks.title')}</a
         >
       </li>
     </ul>
