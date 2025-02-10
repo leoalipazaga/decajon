@@ -17,12 +17,35 @@ const t = useTranslations(lang)
           <h1 class="my-4 text-2xl uppercase">
             {t('exchanges.title')}
           </h1>
-          <p>
+          <p class="mb-4">
             {t('exchanges.introduction')}
           </p>
-          <h3 class="my-4 text-xl uppercase">{t('exchanges.returns')}</h3>
+          <h2 class="mb-2 text-xl font-bold">1. {t('exchanges.condition')}</h2>
+          <p class="mb-4">
+            {t('exchanges.conditionInfo')}
+          </p>
+          <h2 class="mb-2 text-xl font-bold">
+            2. {t('exchanges.damagedProduct')}
+          </h2>
+          <p class="mb-4">
+            {t('exchanges.damagedProductInfo')}
+          </p>
+          <h2 class="mb-2 text-xl font-bold">
+            3. {t('exchanges.cancelOrder')}
+          </h2>
+          <p class="mb-4">
+            {t('exchanges.cancelOrderInfo')}
+          </p>
+          <h2 class="mb-2 text-xl font-bold">4. {t('exchanges.refund')}</h2>
           <p>
-            {t('exchanges.content')}
+            {t('exchanges.refundInfo')}
+          </p>
+          <h2 class="mb-2 text-xl font-bold">5. {t('exchanges.exceptions')}</h2>
+          <p class="mb-4">
+            {t('exchanges.exceptionsInfo')}
+          </p>
+          <p class="mb-4">
+            {t('exchanges.contact')}
           </p>
         </div>
       </SandLayout>
