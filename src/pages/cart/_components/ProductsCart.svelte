@@ -77,14 +77,15 @@
       class="col-start-1 text-center text-xl uppercase sm:col-start-2 sm:row-start-1 sm:text-left"
     >
       &nbsp;({cart?.length}
-      {cart?.length === 1 ? t?.('common.product') : t?.('common.produtcs')})
+      {cart?.length === 1 ? t?.('common.product') : t?.('common.products')})
     </h1>
   {/if}
-  <p
+  <a
     class="hidden self-end justify-self-end text-rosewood sm:col-start-3 md:block"
+    href={translatePath?.('/products')}
   >
     {t?.('cart.continueShop')}
-  </p>
+  </a>
 </header>
 {#if !cart?.length}
   <h2 class="uppercase text-sm py-6 border-y text-center border-y-eerie-black">
@@ -108,7 +109,7 @@
       />
     {/snippet}
     {#snippet action()}
-      <Modal title={t?.('cart.deleteArticle')}>
+      <Modal title={t?.('cart.deleteArticle') as string}>
         {#snippet trigger({ onOpen })}
           <button
             class="[&&]:h-7 [&&]:w-7 bg-rosewood rounded-full flex items-center justify-center w-[2.5rem] h-[2.5rem]"

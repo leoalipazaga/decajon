@@ -19,7 +19,7 @@ export default [
   },
   {
     rules: {
-      'no-console': 'error',
+      'no-console': ['error', { allow: ['error'] }],
       'newline-before-return': 'error',
     },
   },
