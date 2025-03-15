@@ -1,7 +1,7 @@
 ---
 import { Image, Picture } from 'astro:assets'
 import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
-import DeCajonLogo from 'images/decajon-logo.png'
+import DeCajonWhiteMark from 'images/decajon-whitemark.png'
 import Button from 'components/Button.astro'
 import TopMenu from 'icons/top-menu.svg'
 import Martini from 'icons/martini.svg'
@@ -25,7 +25,7 @@ const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
 ---
 
-<main class="grid grid-cols-[20rem_minmax(0,1fr)]">
+<main id="dashboard" class="grid grid-cols-[20rem_minmax(0,1fr)]">
   <aside
     class="col-start-1 grid grid-rows-[auto_minmax(0,1fr)_auto] bg-rosewood p-[1.625rem] md:grid-cols-[auto_minmax(0,1fr)] md:gap-x-[0.625rem]"
   >
@@ -33,7 +33,7 @@ const translatePath = useTranslatedPath(lang)
       pictureAttributes={{ class: 'row-start-1' }}
       class="mb-[4.125rem]"
       alt="Logo DeCajon"
-      src={DeCajonLogo}
+      src={DeCajonWhiteMark}
     />
     <ul class="row-start-2 flex flex-col gap-12">
       <li class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-[1.125rem]">
@@ -166,7 +166,7 @@ const translatePath = useTranslatedPath(lang)
             </Fragment>
             <Fragment slot="content">
               <a href={translatePath('/')}>{t('dashboard.profile')}</a>
-              <a href={translatePath('/en/')}>{t('dashboard.logout')}</a>
+              <a href={translatePath('/')}>{t('dashboard.logout')}</a>
             </Fragment>
           </Dropdown>
         </li>

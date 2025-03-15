@@ -4,10 +4,12 @@ import { AstroFont } from 'astro-font'
 import { getLangFromUrl } from 'i18n/utils'
 
 interface Props {
+  id?: string
+  className?: string
   title: string
 }
 
-const { title } = Astro.props
+const { id, className, title } = Astro.props
 const lang = getLangFromUrl(Astro.url)
 ---
 
@@ -121,7 +123,7 @@ const lang = getLangFromUrl(Astro.url)
     />
     <title>{title}</title>
   </head>
-  <body>
+  <body id={id} class={className}>
     <slot />
   </body>
 </html>
