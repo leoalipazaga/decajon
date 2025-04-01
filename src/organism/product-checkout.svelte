@@ -1,12 +1,16 @@
 <script lang="ts">
-  import { UserCart } from 'adapters/cart'
+  import type { CartProduct } from 'adapters/storage.types'
+
   import { getLangFromUrl, useTranslations } from 'i18n/utils'
   import { currency } from 'utils'
 
+  interface Props {
+    cart: Array<CartProduct>
+  }
+  const { cart }: Props = $props()
   const lang = getLangFromUrl(new URL(location.pathname, location.origin))
   const t = useTranslations(lang)
-
-  const cart = UserCart.getCart()
+  console.log('product>>', cart)
   const getNameById = (id: number) => {
     if (id === 1) {
       return 'Vodka'
@@ -19,12 +23,6 @@
   }
 </script>
 
-<div class="col-span-2 grid grid-cols-2 px-[0.625rem] py-4">
-  <h4 class="font-thabit text-base font-bold">{t('checkout.product')}</h4>
-  <h4 class="justify-self-end font-thabit text-base font-bold">
-    {t('common.subtotal')}
-  </h4>
-</div>
 {#each cart as product (product.id)}
   <div class="px-[0.625rem] col-span-2 grid grid-cols-2 border-b py-4">
     <p class="text-base">{getNameById(product.id)}</p>

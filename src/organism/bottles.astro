@@ -1,0 +1,73 @@
+---
+import { Picture } from 'astro:assets'
+import Carousel from 'components/Carousel.astro'
+import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
+import Button from 'components/Button.astro'
+
+interface Props {
+  bottles: Array<{
+    title: string
+    img: { alt: string; src: ImageMetadata }
+    link: string
+    size: string
+  }>
+}
+
+const { bottles } = Astro.props
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+---
+
+<div class="block md:hidden">
+  <Carousel>
+    {
+      bottles.map((bottle) => (
+        <article class="flex w-full flex-shrink-0 flex-col items-center border border-eerie-black py-[1.125rem]">
+          <Picture
+            alt={bottle.img.alt}
+            class="mb-4 h-[260px] object-cover"
+            height={260}
+            src={bottle.img.src}
+            loading="lazy"
+            formats={['webp', 'avif', 'jpg']}
+          />
+          <h2 class="mb-3 text-center uppercase md:text-sm lg:text-2xl">
+            {bottle.title}
+          </h2>
+          <p class="mb-3 text-center md:text-xs lg:text-xl">
+            {t('common.bottle')} {bottle.size}ml
+          </p>
+          <Button as="a" href={translatePath(bottle.link)}>
+            {t('common.buyNow')}
+          </Button>
+        </article>
+      ))
+    }
+  </Carousel>
+</div>
+{
+  bottles.map((bottle) => (
+    <article class="hidden flex-col items-center border border-eerie-black py-[1.125rem] md:flex">
+      <Picture
+        alt={bottle.img.alt}
+        class="mb-4 h-[260px] object-cover"
+        height={260}
+        src={bottle.img.src}
+        widths={[176]}
+        sizes={`${176}px`}
+        loading="lazy"
+        formats={['webp', 'avif', 'jpg']}
+      />
+      <h2 class="mb-3 text-center uppercase md:text-sm lg:text-2xl">
+        {bottle.title}
+      </h2>
+      <p class="mb-3 text-center md:text-xs lg:text-xl">
+        {t('common.bottle')} {bottle.size}ml
+      </p>
+      <Button as="a" href={translatePath(bottle.link)}>
+        {t('common.buyNow')}
+      </Button>
+    </article>
+  ))
+}

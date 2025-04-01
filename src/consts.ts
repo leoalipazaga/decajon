@@ -1,5 +1,38 @@
 import type { Product } from 'adapters/storage.types'
 
+export const boxes = new Map([
+  [
+    1,
+    {
+      id: 1,
+      price: 780,
+      quantity: 12,
+      unitPrice: 65,
+      volumen: 750,
+    },
+  ],
+  [
+    2,
+    {
+      id: 2,
+      price: 900,
+      quantity: 12,
+      unitPrice: 75,
+      volumen: 750,
+    },
+  ],
+  [
+    3,
+    {
+      id: 3,
+      price: 300,
+      quantity: 12,
+      unitPrice: 25,
+      volumen: 750,
+    },
+  ],
+])
+
 export const products = new Map([
   [
     1,

@@ -1,20 +1,20 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { UserCart } from 'adapters/cart'
   import type { CartProduct } from 'adapters/storage.types.ts'
+  import { ProviderCart } from 'adapters/cart'
   import { currency } from 'utils'
   import Gin from 'images/decajon-gin-1.jpeg'
   import Siembra from 'images/siembra-1.jpeg'
   import Vodka from 'images/vodka-1.jpeg'
   import Trash from 'icons/trash.svg'
   import Modal from 'ui/Modal.svelte'
-  import { products } from 'consts'
+  import { boxes } from 'consts'
   import {
     getLangFromUrl,
     useTranslatedPath,
     useTranslations,
   } from 'i18n/utils'
-  import Counter from './Counter.svelte'
+  import Counter from 'ui/Counter.svelte'
   import ProductCart from './ProductCart.svelte'
 
   let cart = $state([] as CartProduct[])
@@ -46,15 +46,15 @@
   }
 
   const onRemoveProduct = (id: number) => {
-    cart = UserCart.removeProduct(id) ?? []
+    cart = ProviderCart.removeProduct(id) as CartProduct[]
   }
 
   const onChangeCount = (props: { id: number; count: number }) => {
-    cart = UserCart.updateCount(props)
+    cart = ProviderCart.updateCount(props)
   }
 
   onMount(() => {
-    cart = UserCart.getCart()
+    cart = ProviderCart.getCart()
     const lang = getLangFromUrl(
       new URL(window?.location?.pathname, window?.location?.origin)
     )
@@ -98,8 +98,8 @@
     src={getImgById(item.id).src}
     count={item.count}
     title={getTitleById(item.id)}
-    volumen={products.get(item.id)!.volumen}
-    price={products.get(item.id)!.price}
+    volumen={boxes.get(item.id)!.volumen}
+    price={boxes.get(item.id)!.price}
   >
     {#snippet counter()}
       <Counter
@@ -155,7 +155,7 @@
       >{currency(total)}</span
     >
     <a
-      href={translatePath?.('/checkout')}
+      href={translatePath?.('/dashboard/checkout')}
       class="w-auto text-center bg-rosewood text-zinc-1000 py-2 px-3 rounded-[1.25rem] col-start-1 -col-end-1 row-start-5 mt-4"
       >{t?.('cart.continuePayment')}</a
     >

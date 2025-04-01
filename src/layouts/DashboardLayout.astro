@@ -3,17 +3,19 @@ import { Image, Picture } from 'astro:assets'
 import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
 import DeCajonWhiteMark from 'images/decajon-whitemark.png'
 import Button from 'components/Button.astro'
-import TopMenu from 'icons/top-menu.svg'
+// import TopMenu from 'icons/top-menu.svg'
+// import Icon from 'components/Icon.astro'
 import Martini from 'icons/martini.svg'
 import HotSales from 'icons/hot-sales.svg'
 import Cart from 'icons/cart.svg'
-import Instagram from 'icons/instagram.svg'
-import Facebook from 'icons/facebook.svg'
-import Linkedin from 'icons/linkedin.svg'
+// import Instagram from 'icons/instagram.svg'
+// import Facebook from 'icons/facebook.svg'
+// import Linkedin from 'icons/linkedin.svg'
 import User from 'icons/user.svg'
 import Notification from 'icons/notification.svg'
 import AngleRight from 'icons/angle-right.svg'
 import Dropdown from 'components/Dropdown.astro'
+import Footer from 'components/Footer.astro'
 
 interface Props {
   title: string
@@ -25,121 +27,145 @@ const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
 ---
 
-<main id="dashboard" class="grid grid-cols-[20rem_minmax(0,1fr)]">
+<main id="dashboard" class="grid grid-cols-[18rem_minmax(0,1fr)]">
   <aside
-    class="col-start-1 grid grid-rows-[auto_minmax(0,1fr)_auto] bg-rosewood p-[1.625rem] md:grid-cols-[auto_minmax(0,1fr)] md:gap-x-[0.625rem]"
+    class="fixed col-start-1 grid h-dvh w-[18rem] grid-rows-[auto_minmax(0,1fr)_auto] bg-rosewood md:grid-cols-[minmax(0,1fr)] md:gap-x-[0.625rem]"
   >
-    <Picture
-      pictureAttributes={{ class: 'row-start-1' }}
-      class="mb-[4.125rem]"
-      alt="Logo DeCajon"
-      src={DeCajonWhiteMark}
-    />
-    <ul class="row-start-2 flex flex-col gap-12">
-      <li class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-[1.125rem]">
-        <Button
-          as="a"
+    <a href="/">
+      <Picture
+        pictureAttributes={{ class: 'row-start-1' }}
+        class="p-[1.625rem]"
+        alt="Logo DeCajon"
+        src={DeCajonWhiteMark}
+      />
+    </a>
+    <ul class="row-start-2 flex flex-col">
+      <li>
+        <a
+          class="group flex py-3 pl-6 pr-2 hover:bg-red-900"
           href={translatePath('/dashboard/')}
-          class="[&&]:bg-anti-flash-white"
-          variant="rounded"><Image src={TopMenu} alt="top-menu" /></Button
         >
-        <Button
-          as="a"
-          href={translatePath('/dashboard/')}
-          class="w-full justify-self-start text-left text-anti-flash-white hover:opacity-50 [&&]:text-left [&&]:font-cutive [&&]:text-xl"
-          >{t('dashboard.start')}</Button
-        >
+          <span
+            class="mr-2 flex size-7 items-center justify-center rounded-full bg-anti-flash-white"
+          >
+            <Image src={HotSales} alt="hot-sales" />
+          </span>
+          <span
+            class="text-anti-flash-white transition ease-linear group-hover:text-anti-flash-white group-hover:transition-colors"
+            >{t('dashboard.start')}</span
+          >
+        </a>
       </li>
-      <li class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-[1.125rem]">
-        <Button
-          as="a"
+      <li>
+        <a
+          class="group flex py-3 pl-6 pr-2 hover:bg-red-900"
           href={translatePath('/dashboard/cart/')}
-          class="[&&]:bg-anti-flash-white"
-          variant="rounded"
-          ><Image
-            class="[filter:invert(26%)_sepia(97%)_saturate(6612%)_hue-rotate(344deg)_brightness(44%)_contrast(103%)]"
-            src={Cart}
-            alt=""
-          />
-        </Button>
-        <Button
-          class="w-full justify-self-start text-left text-anti-flash-white [&&]:text-left [&&]:font-cutive [&&]:text-xl"
-          href={translatePath('/dashboard/cart/')}
-          as="a">{t('dashboard.checkout')}</Button
         >
+          <span
+            class="mr-2 flex size-7 items-center justify-center rounded-full bg-anti-flash-white"
+          >
+            <Image
+              class="[filter:invert(26%)_sepia(97%)_saturate(6612%)_hue-rotate(344deg)_brightness(44%)_contrast(103%)]"
+              src={Cart}
+              alt="cart"
+            />
+          </span>
+          <span
+            class="text-anti-flash-white transition ease-linear group-hover:text-anti-flash-white group-hover:transition-colors"
+            >{t('dashboard.checkout')}</span
+          >
+        </a>
+        <!-- <Button -->
+        <!--   as="a" -->
+        <!--   href={translatePath('/dashboard/cart/')} -->
+        <!--   class="[&&]:bg-anti-flash-white" -->
+        <!--   variant="rounded" -->
+        <!--   ><Image -->
+        <!--     class="[filter:invert(26%)_sepia(97%)_saturate(6612%)_hue-rotate(344deg)_brightness(44%)_contrast(103%)]" -->
+        <!--     src={Cart} -->
+        <!--     alt="" -->
+        <!--   /> -->
+        <!-- </Button> -->
+        <!-- <Button -->
+        <!--   class="w-full justify-self-start text-left text-anti-flash-white [&&]:text-left [&&]:font-cutive [&&]:text-sm" -->
+        <!--   href={translatePath('/dashboard/cart/')} -->
+        <!--   as="a">{t('dashboard.checkout')}</Button -->
+        <!-- > -->
       </li>
-      <li class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-[1.125rem]">
-        <Button
-          as="a"
+      <li>
+        <a
+          class="group flex py-3 pl-6 pr-2 hover:bg-red-900"
           href={translatePath('/dashboard/products/')}
-          class="[&&]:bg-anti-flash-white"
-          variant="rounded"
-          ><Image class="text-crayola" src={Martini} alt="" />
-        </Button>
-        <Button
-          as="a"
-          href={translatePath('/dashboard/products/')}
-          class="w-full justify-self-start text-left text-anti-flash-white [&&]:text-left [&&]:font-cutive [&&]:text-xl"
-          >{t('dashboard.products')}</Button
         >
+          <span
+            class="mr-2 flex size-7 items-center justify-center rounded-full bg-anti-flash-white"
+          >
+            <Image src={Martini} alt="hot-sales" />
+          </span>
+          <span
+            class="text-anti-flash-white transition ease-linear group-hover:text-anti-flash-white group-hover:transition-colors"
+            >{t('dashboard.products')}</span
+          >
+        </a>
       </li>
-      <li class="grid grid-cols-[auto_minmax(0,1fr)] gap-x-[1.125rem]">
-        <Button
-          as="a"
+      <li>
+        <a
+          class="group flex py-3 pl-6 pr-2 hover:bg-red-900"
           href={translatePath('/dashboard/sales/')}
-          class="[&&]:bg-anti-flash-white"
-          variant="rounded"
-          ><Image class="text-crayola" src={HotSales} alt="" />
-        </Button>
-        <Button
-          as="a"
-          href={translatePath('/dashboard/sales/')}
-          class="w-full justify-self-start text-anti-flash-white [&&]:text-left [&&]:font-cutive [&&]:text-xl"
-          >{t('dashboard.hotsales')}</Button
         >
+          <span
+            class="mr-2 flex size-7 items-center justify-center rounded-full bg-anti-flash-white"
+          >
+            <Image src={HotSales} alt="hot-sales" />
+          </span>
+          <span
+            class="text-anti-flash-white transition ease-linear group-hover:text-anti-flash-white group-hover:transition-colors"
+            >{t('dashboard.hotsales')}</span
+          >
+        </a>
       </li>
     </ul>
-    <ul class="row-start-3 flex justify-start gap-[0.625rem]">
-      <li>
-        <Button
-          as="a"
-          href="https://www.instagram.com/decajondestilados/"
-          class="[&&]:bg-anti-flash-white"
-          variant="rounded"
-          ><Image
-            class="[filter:invert(26%)_sepia(97%)_saturate(6612%)_hue-rotate(344deg)_brightness(44%)_contrast(103%)]"
-            src={Instagram}
-            alt=""
-          />
-        </Button>
-      </li>
-      <li>
-        <Button
-          as="a"
-          href="https://www.facebook.com/decajonvodka/"
-          class="[&&]:bg-anti-flash-white"
-          variant="rounded"
-          ><Image
-            class="[filter:invert(26%)_sepia(97%)_saturate(6612%)_hue-rotate(344deg)_brightness(44%)_contrast(103%)]"
-            src={Facebook}
-            alt=""
-          />
-        </Button>
-      </li>
-      <li>
-        <Button
-          as="a"
-          href="https://www.linkedin.com"
-          class="[&&]:bg-anti-flash-white"
-          variant="rounded"
-          ><Image
-            class="[filter:invert(26%)_sepia(97%)_saturate(6612%)_hue-rotate(344deg)_brightness(44%)_contrast(103%)]"
-            src={Linkedin}
-            alt=""
-          />
-        </Button>
-      </li>
-    </ul>
+    <!-- <ul class="row-start-3 flex justify-start gap-[0.625rem]"> -->
+    <!--   <li> -->
+    <!--     <Button -->
+    <!--       as="a" -->
+    <!--       href="https://www.instagram.com/decajondestilados/" -->
+    <!--       class="[&&]:bg-anti-flash-white" -->
+    <!--       variant="rounded" -->
+    <!--       ><Image -->
+    <!--         class="[filter:invert(26%)_sepia(97%)_saturate(6612%)_hue-rotate(344deg)_brightness(44%)_contrast(103%)]" -->
+    <!--         src={Instagram} -->
+    <!--         alt="" -->
+    <!--       /> -->
+    <!--     </Button> -->
+    <!--   </li> -->
+    <!--   <li> -->
+    <!--     <Button -->
+    <!--       as="a" -->
+    <!--       href="https://www.facebook.com/decajonvodka/" -->
+    <!--       class="[&&]:bg-anti-flash-white" -->
+    <!--       variant="rounded" -->
+    <!--       ><Image -->
+    <!--         class="[filter:invert(26%)_sepia(97%)_saturate(6612%)_hue-rotate(344deg)_brightness(44%)_contrast(103%)]" -->
+    <!--         src={Facebook} -->
+    <!--         alt="" -->
+    <!--       /> -->
+    <!--     </Button> -->
+    <!--   </li> -->
+    <!--   <li> -->
+    <!--     <Button -->
+    <!--       as="a" -->
+    <!--       href="https://www.linkedin.com" -->
+    <!--       class="[&&]:bg-anti-flash-white" -->
+    <!--       variant="rounded" -->
+    <!--       ><Image -->
+    <!--         class="[filter:invert(26%)_sepia(97%)_saturate(6612%)_hue-rotate(344deg)_brightness(44%)_contrast(103%)]" -->
+    <!--         src={Linkedin} -->
+    <!--         alt="" -->
+    <!--       /> -->
+    <!--     </Button> -->
+    <!--   </li> -->
+    <!-- </ul> -->
   </aside>
   <section class="col-start-2 py-[3.75rem] pl-11 pr-11">
     <header class="mb-[1.375rem] flex items-center justify-between">
@@ -173,5 +199,19 @@ const translatePath = useTranslatedPath(lang)
       </ul>
     </header>
     <slot />
+    <Footer />
   </section>
 </main>
+<script>
+  import { getLangFromUrl, useTranslatedPath } from 'i18n/utils'
+  import { getToken, hasExpiredToken } from 'adapters/jwt'
+
+  const lang = getLangFromUrl(
+    new URL(window?.location?.pathname, window?.location?.origin)
+  )
+
+  const translatePath = useTranslatedPath(lang)
+  if (hasExpiredToken(getToken() || '')) {
+    window.location.replace(translatePath('/login'))
+  }
+</script>

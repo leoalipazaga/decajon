@@ -11,6 +11,7 @@ export default {
       'anti-flash-white': '#F0F0F0',
       'eerie-black': '#1E1E1E',
       'gentian-blue': '#332897',
+      red: { ...colors.red, 1000: '#6F0413' },
       zinc: { ...colors.zinc, 1000: '#f0f0f0', 1050: '#565656' },
     },
     fontFamily: {

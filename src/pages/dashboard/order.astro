@@ -1,0 +1,178 @@
+---
+import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
+import Button from 'components/Button.astro'
+import Carousel from 'components/Carousel.astro'
+import DashboardLayout from 'layouts/DashboardLayout.astro'
+import Layout from 'layouts/Layout.astro'
+// import BaseLayout from 'layouts/BaseLayout.astro'
+import SandLayout from 'layouts/SandLayout.astro'
+import BottleVodka from 'images/bottle-vodka-compressed.png'
+import BottleSiembra from 'images/bottle-siembra.png'
+import BottleGin from 'images/bottle-gin.png'
+import { Picture } from 'astro:assets'
+// import ProductsCart from './_components/ProductsCart.svelte'
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+const translatePath = useTranslatedPath(lang)
+const bottles = [
+  {
+    title: 'DE CAJÓN VODKA',
+    img: { alt: 'De Cajon Vodka', src: BottleVodka },
+    link: '/dashboard/products',
+    size: '750',
+  },
+  {
+    title: 'DE CAJÓN GIN',
+    img: { alt: 'DE CAJÓN GIN', src: BottleGin },
+    link: '/dashboard/products',
+    size: '750',
+  },
+  {
+    title: 'SIEMBRA VODKA',
+    img: { alt: 'SIEMBRA VODKA', src: BottleSiembra },
+    link: '/dashboard/products',
+    size: '750',
+  },
+]
+---
+
+<Layout title="Dashboard">
+  <!-- <BaseLayout showNavbar={false}> -->
+  <SandLayout>
+    <DashboardLayout title="Orden">
+      <div
+        id="products"
+        class="grid grid-cols-[repeat(5,minmax(0,1fr))] justify-items-center border-y-2 border-y-rosewood py-1 *:text-sm"
+      >
+        <h4 class="justify-self-start">Id</h4>
+        <h4>Vodka</h4>
+        <h4>Cajas</h4>
+        <h4>Precio / unidad</h4>
+        <h4>Precio total</h4>
+      </div>
+      <div
+        class="m-auto grid grid-cols-1 grid-rows-[auto_auto] gap-x-6 gap-y-[0.875rem] md:grid-cols-3"
+      >
+        <h1
+          class="col-span-1 col-start-1 row-start-1 border border-eerie-black py-[0.825rem] text-center text-xl uppercase md:col-span-3 lg:text-4xl"
+        >
+          {t('cart.similarProducts')}
+        </h1>
+        <div class="block md:hidden">
+          <Carousel>
+            {
+              bottles.map((bottle) => (
+                <article class="flex w-full flex-shrink-0 flex-col items-center border border-eerie-black py-[1.125rem]">
+                  <Picture
+                    alt={bottle.img.alt}
+                    class="mb-4 h-[260px] object-cover"
+                    height={260}
+                    src={bottle.img.src}
+                    loading="lazy"
+                    formats={['webp', 'avif', 'jpg']}
+                  />
+                  <h2 class="mb-3 text-center uppercase md:text-sm lg:text-2xl">
+                    {bottle.title}
+                  </h2>
+                  <p class="mb-3 text-center md:text-xs lg:text-xl">
+                    {t('common.bottle')} {bottle.size}ml
+                  </p>
+                  <Button as="a" href={translatePath(bottle.link)}>
+                    {t('common.buyNow')}
+                  </Button>
+                </article>
+              ))
+            }
+          </Carousel>
+        </div>
+        {
+          bottles.map((bottle) => (
+            <article class="hidden flex-col items-center border border-eerie-black py-[1.125rem] md:flex">
+              <Picture
+                alt={bottle.img.alt}
+                class="mb-4 h-[260px] object-cover"
+                height={260}
+                src={bottle.img.src}
+                widths={[176]}
+                sizes={`${176}px`}
+                loading="lazy"
+                formats={['webp', 'avif', 'jpg']}
+              />
+              <h2 class="mb-3 text-center uppercase md:text-sm lg:text-2xl">
+                {bottle.title}
+              </h2>
+              <p class="mb-3 text-center md:text-xs lg:text-xl">
+                {t('common.bottle')} {bottle.size}ml
+              </p>
+              <Button as="a" href={translatePath(bottle.link)}>
+                {t('common.buyNow')}
+              </Button>
+            </article>
+          ))
+        }
+      </div>
+    </DashboardLayout>
+  </SandLayout>
+  <!-- </BaseLayout> -->
+</Layout>
+<script>
+  import { getToken } from 'adapters/jwt'
+  import { currency } from 'utils'
+
+  const $ = document.querySelector.bind(document)
+  const mapProductName = (id: number) => {
+    if (id === 1) {
+      return 'Siembra Vodka'
+    }
+
+    if (id === 2) {
+      return 'De Cajon Vodka'
+    }
+
+    return 'De Cajon Gin'
+  }
+  const url = new URL(location.href)
+  const orderId = url.searchParams.get('q') ?? ''
+  const token = getToken()
+  const query = new URLSearchParams({ order: orderId })
+  const fetchProducts = await fetch(
+    `${import.meta.env.PUBLIC_DECAJON_API}/products.php?${query}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+    }
+  )
+  const res = await fetchProducts.json()
+  if (fetchProducts.ok) {
+    const products = res.data as {
+      id: number
+      total: number
+      quantity: number
+      price: number
+      name: string
+      volumen: number
+    }[]
+    console.log('products', products)
+    products.forEach((product) => {
+      $('#products')?.insertAdjacentHTML(
+        'afterend',
+        `
+       <div
+          class="grid grid-cols-[repeat(5,minmax(0,1fr))] py-2 justify-items-center *:text-sm"
+        >
+          <p class="justify-self-start">${product.id}</p>
+          <p>${mapProductName(product.id)}</p>
+          <p>${product.quantity}</p>
+          <p>${currency(product.price)}</p>
+          <p>${currency(product.total)}</p>
+        </div>
+      `
+      )
+    })
+  } else {
+    console.error('orders invalid')
+  }
+</script>

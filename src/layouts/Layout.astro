@@ -165,13 +165,6 @@ const lang = getLangFromUrl(Astro.url)
   }
 </style>
 <script>
-  import { Storage } from 'adapters/storage'
-  const initialStorage = {
-    cart: [],
-    isOlder: false,
-  }
-  Storage.session.setValue(
-    'DECAJON_STORAGE',
-    Storage.session.getValue('DECAJON_STORAGE') ?? initialStorage
-  )
+  window.$ = document.querySelector.bind(document)
+  window.$$ = document.querySelectorAll.bind(document)
 </script>

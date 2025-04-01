@@ -85,6 +85,7 @@
   "login.forgetAccount": "Forgot your password?",
   "login.signin": "Sign In",
   "login.notAccount": "Don’t have an account?",
+  "login.invalidAuth": "Invalid username or password. Please try again.",
   "login.signup": "Sign Up",
   "experience.preheading": "Our Cocktails",
   "experience.title": "A UNIQUE FLAVOR FROM DE CAJÓN",

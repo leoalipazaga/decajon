@@ -30,207 +30,216 @@ const translatePath = useTranslatedPath(lang)
 
 <ProductLayout>
   <Fragment slot="default">
-    <div class="m-auto max-w-screen-2xl overflow-x-hidden">
+    <div
+      class="m-auto flex max-w-screen-2xl transition-transform ease-linear"
+      id="carousel-banner-content"
+    >
       <div
-        class="m-auto flex max-w-screen-2xl transition-transform ease-linear"
-        id="carousel-banner-content"
+        class="relative mr-auto hidden w-full max-w-screen-2xl grid-cols-[2fr_1.5fr] gap-y-6 pb-[2.125rem] pl-[12%] pt-[6.375rem] md:ml-auto md:grid md:flex-shrink-0 md:grid-cols-[2fr_1fr_1fr_3fr] md:gap-y-[0.625rem] xl:grid-cols-[2fr_1fr_1fr_3fr] xl:gap-y-[1.875rem]"
       >
-        <div
-          class="mr-auto hidden w-full max-w-screen-2xl grid-cols-[2fr_1.5fr] gap-y-6 pb-[2.125rem] pl-[12%] md:ml-auto md:grid md:flex-shrink-0 md:grid-cols-[2fr_1fr_1fr_3fr] md:gap-y-[0.625rem] xl:grid-cols-[2fr_1fr_1fr_3fr] xl:gap-y-[1.875rem]"
+        <ul
+          class="col-start-1 row-start-2 hidden gap-3 justify-self-start md:flex"
         >
-          <ul
-            class="col-start-1 row-start-2 hidden gap-3 justify-self-start md:flex"
-          >
-            <li>
-              <Button
-                class="[&&]:bg-gentian-blue"
-                id="prev-banner-button"
-                variant="rounded"
-              >
-                <Image src={AngleLeft} alt="angle-left" />
-              </Button>
-            </li>
-            <li>
-              <Button
-                class="[&&]:bg-gentian-blue"
-                id="next-banner-button"
-                variant="rounded"
-              >
-                <Image src={AngleRight} alt="angle-right" />
-              </Button>
-            </li>
-          </ul>
-          <p
-            translate="no"
-            class="col-start-1 row-start-3 hidden text-left md:block lg:text-sm xl:text-base"
-          >
-            Siembra Vodka
-          </p>
-          <h1
-            class="col-start-1 -col-end-1 row-start-1 ml-[12%] text-center text-xl uppercase md:col-start-1 md:col-end-2 md:row-start-4 md:ml-0 md:text-left lg:text-2xl xl:text-4xl"
-          >
-            {t('siembra.banner')}
-          </h1>
-          <p
-            class="col-start-1 -col-end-1 row-start-2 ml-[12%] text-center text-xs md:col-start-1 md:col-end-2 md:row-start-5 md:ml-0 md:text-left lg:text-sm xl:text-base"
-          >
-            {t('siembra.description')}
-          </p>
-          <Picture
-            src={SiembraBanner}
-            loading="lazy"
-            pictureAttributes={{
-              class:
-                'md:col-start-3 md:row-start-5 md:col-end-5 md:row-end-9 row-start-5 row-end-6 col-start-1 -col-end-1 justify-self-start',
-            }}
-            formats={['png', 'webp', 'avif']}
-            alt="SiembraBanner"
-          />
-          <Picture
-            src={BottleSiembra}
-            loading="lazy"
-            class="object-fill"
-            pictureAttributes={{
-              class:
-                'md:col-start-2 md:row-start-1 md:col-end-4 md:row-end-8 col-start-2 row-start-4 row-end-7 justify-self-end',
-            }}
-            formats={['png', 'webp', 'avif']}
-            alt="BottleSiembra"
-          />
-          <Button
-            as="a"
-            href={translatePath('/products/vodka-siembra')}
-            class="col-start-1 -col-end-1 row-start-3 ml-[12%] justify-self-center md:col-start-1 md:col-end-2 md:row-start-6 md:ml-0 md:justify-self-start [&&]:bg-gentian-blue"
-            >{t('common.showMore')}</Button
-          >
-        </div>
-        <div
-          class="ml-auto grid w-full flex-shrink-0 grid-cols-[minmax(0,3fr)_minmax(0,1fr)] grid-rows-[auto_auto] items-center pb-[2.125rem] pl-[12%] md:grid-cols-[2fr_0.5fr_1fr_2fr_2.5fr] lg:md:grid-cols-[2fr_0.5fr_1fr_3fr_1fr_2.5fr] lg:grid-rows-[min-content_auto]"
-        >
-          <Image
-            class="col-start-1 row-start-2 -row-end-1 h-full object-contain object-center md:col-start-2 md:col-end-5 md:row-start-1 lg:col-end-6 lg:object-top"
-            src={WorldSpiritBottle}
-            alt="World Spirit Man"
-          />
-          <ul
-            class="col-start-1 row-start-1 mb-4 hidden gap-2 self-end md:flex lg:mb-[2.125rem]"
-          >
-            <li>
-              <Button variant="rounded" id="prev-banner-button">
-                <Image src={AngleLeft} alt="angle-left" />
-              </Button>
-            </li>
-            <li>
-              <Button variant="rounded" id="next-banner-button">
-                <Image src={AngleRight} alt="angle-right" />
-              </Button>
-            </li>
-          </ul>
-          <header
-            class="col-start-1 -col-end-1 row-start-1 mr-[12%] flex flex-col items-center justify-start gap-[0.875rem] self-start md:col-end-3 md:row-start-2 md:mr-0 md:items-start lg:col-end-4"
-          >
-            <p class="text-center text-base sm:text-left">De Cajón Vodka</p>
-            <h1
-              class="text-center text-xl sm:text-left md:w-4/5 lg:text-2xl xl:text-4xl"
-            >
-              {t('vodka.banner')}
-            </h1>
-            <p class="text-center text-xs md:text-left lg:text-sm xl:text-base">
-              {t('vodka.description')}
-            </p>
+          <li>
             <Button
-              as="a"
-              href={translatePath('/products/vodka')}
-              class="w-max self-center md:self-start"
-              >{t('common.showMore')}</Button
+              class="[&&]:bg-gentian-blue"
+              id="prev-banner-button"
+              variant="rounded"
             >
-          </header>
-          <Picture
-            src={Pucara}
-            class="h-full object-contain"
-            pictureAttributes={{
-              class:
-                'md:col-start-4 self-start translate-x-1/4 md:translate-x-0 -translate-y-1/4 md:translate-y-0  -col-end-1 -z-10 row-start-2 lg:row-start-1 md:-row-end-1 col-start-1',
-            }}
-            formats={['webp', 'avif', 'png']}
-            alt="World Spirit Man"
-          />
-        </div>
-        <div
-          class="hidden w-full max-w-screen-2xl grid-cols-[1fr_2fr] gap-y-6 pb-[2.125rem] pr-[12%] md:grid md:flex-shrink-0 md:grid-cols-[2fr_1fr_1.5fr] md:gap-y-[0.625rem] xl:grid-cols-[2fr_1fr_1fr] xl:gap-y-[1.875rem]"
+              <Image src={AngleLeft} alt="angle-left" />
+            </Button>
+          </li>
+          <li>
+            <Button
+              class="[&&]:bg-gentian-blue"
+              id="next-banner-button"
+              variant="rounded"
+            >
+              <Image src={AngleRight} alt="angle-right" />
+            </Button>
+          </li>
+        </ul>
+        <p
+          class="col-start-1 row-start-3 hidden text-left md:block lg:text-sm xl:text-base"
         >
-          <ul
-            class="col-start-3 row-start-2 hidden gap-3 justify-self-end md:flex"
-          >
-            <li>
-              <Button
-                id="prev-banner-button"
-                class="[&&]:bg-eerie-black"
-                variant="rounded"
-              >
-                <Image src={AngleLeft} alt="angle-left" />
-              </Button>
-            </li>
-            <li>
-              <Button
-                id="next-banner-button"
-                class="[&&]:bg-eerie-black"
-                variant="rounded"
-              >
-                <Image src={AngleRight} alt="angle-right" />
-              </Button>
-            </li>
-          </ul>
-          <p
-            translate="no"
-            class="col-start-3 row-start-3 hidden text-right md:block lg:text-sm xl:text-base"
-          >
-            De Cajón Gin
-          </p>
-          <h1
-            class="col-start-1 -col-end-1 row-start-1 mr-[12%] text-center text-xl uppercase md:col-start-3 md:row-start-4 md:mr-0 md:text-right lg:text-2xl xl:text-4xl"
-          >
-            {t('gin.banner')}
-          </h1>
-          <p
-            class="col-start-1 -col-end-1 row-start-2 mr-[12%] text-center text-xs md:col-start-3 md:row-start-5 md:mr-0 md:text-right lg:text-sm xl:text-base"
-          >
-            {t('gin.description')}
-          </p>
-          <Picture
-            src={BlackBull}
-            loading="lazy"
-            pictureAttributes={{
-              class:
-                'md:col-start-1 md:row-start-2 md:col-end-3 md:row-end-8 row-start-5 row-end-6 col-start-1 -col-end-1 justify-self-start',
-            }}
-            formats={['png', 'webp', 'avif']}
-            alt="BlackBull"
-          />
-          <Picture
-            src={DeCajonGin}
-            loading="lazy"
-            class="object-fill"
-            pictureAttributes={{
-              class:
-                'md:col-start-2 md:row-start-1 md:row-end-8 col-start-1 row-start-4 row-end-6 justify-self-end',
-            }}
-            formats={['png', 'webp', 'avif']}
-            alt="DeCajonGin"
-          />
-          <Button
-            as="a"
-            href={translatePath('/products/vodka-gin')}
-            class="col-start-1 -col-end-1 row-start-3 mr-[12%] self-start justify-self-center md:col-start-3 md:row-start-6 md:mr-0 md:justify-self-end [&&]:bg-eerie-black"
-            >{t('common.showMore')}</Button
-          >
+          Siembra Vodka
+        </p>
+        <h1
+          class="col-start-1 -col-end-1 row-start-1 ml-[12%] text-center text-xl uppercase md:col-start-1 md:col-end-2 md:row-start-4 md:ml-0 md:text-left lg:text-2xl xl:text-4xl"
+        >
+          {t('siembra.banner')}
+        </h1>
+        <p
+          class="col-start-1 -col-end-1 row-start-2 ml-[12%] text-center text-xs md:col-start-1 md:col-end-2 md:row-start-5 md:ml-0 md:text-left lg:text-sm xl:text-base"
+        >
+          {t('siembra.description')}
+        </p>
+        <Picture
+          src={SiembraBanner}
+          loading="lazy"
+          pictureAttributes={{
+            class:
+              'md:col-start-3 md:row-start-5 md:col-end-5 md:row-end-9 row-start-5 row-end-6 col-start-1 -col-end-1 justify-self-start',
+          }}
+          formats={['png', 'webp', 'avif']}
+          alt="SiembraBanner"
+        />
+        <Picture
+          src={BottleSiembra}
+          loading="lazy"
+          class="object-fill"
+          pictureAttributes={{
+            class:
+              'md:col-start-2 md:row-start-1 md:col-end-4 md:row-end-8 col-start-2 row-start-4 row-end-7 justify-self-end',
+          }}
+          formats={['png', 'webp', 'avif']}
+          alt="BottleSiembra"
+        />
+        <Button
+          as="a"
+          href={translatePath('/products/vodka-siembra')}
+          class="col-start-1 -col-end-1 row-start-3 ml-[12%] justify-self-center md:col-start-1 md:col-end-2 md:row-start-6 md:ml-0 md:justify-self-start [&&]:bg-gentian-blue"
+          >{t('common.showMore')}</Button
+        >
+        <div class="absolute left-1/2 top-[83%] hidden animate-bounce md:block">
+          <Button class="[&&]:bg-gentian-blue" variant="rounded" id="scroll-to">
+            <Image class="-rotate-90" src={LongLeftArrow} alt="angle-left" />
+          </Button>
         </div>
       </div>
-    </div>
-    <div class="hidden items-center justify-center md:flex">
-      <Button class="[&&]:bg-eerie-black" variant="rounded" id="scroll-to">
-        <Image class="-rotate-90" src={LongLeftArrow} alt="angle-left" />
-      </Button>
+      <div
+        class="relative hidden w-full max-w-screen-2xl grid-cols-[1fr_2fr] gap-y-6 pb-[2.125rem] pr-[12%] pt-[6.375rem] md:grid md:flex-shrink-0 md:grid-cols-[2fr_1fr_1.5fr] md:gap-y-[0.625rem] xl:grid-cols-[2fr_1fr_1fr] xl:gap-y-[1.875rem]"
+      >
+        <ul
+          class="col-start-3 row-start-2 hidden gap-3 justify-self-end md:flex"
+        >
+          <li>
+            <Button
+              id="prev-banner-button"
+              class="[&&]:bg-eerie-black"
+              variant="rounded"
+            >
+              <Image src={AngleLeft} alt="angle-left" />
+            </Button>
+          </li>
+          <li>
+            <Button
+              id="next-banner-button"
+              class="[&&]:bg-eerie-black"
+              variant="rounded"
+            >
+              <Image src={AngleRight} alt="angle-right" />
+            </Button>
+          </li>
+        </ul>
+        <p
+          translate="no"
+          class="col-start-3 row-start-3 hidden text-right md:block lg:text-sm xl:text-base"
+        >
+          De Cajón Gin
+        </p>
+        <h1
+          class="col-start-1 -col-end-1 row-start-1 mr-[12%] text-center text-xl uppercase md:col-start-3 md:row-start-4 md:mr-0 md:text-right lg:text-2xl xl:text-4xl"
+        >
+          {t('gin.banner')}
+        </h1>
+        <p
+          class="col-start-1 -col-end-1 row-start-2 mr-[12%] text-center text-xs md:col-start-3 md:row-start-5 md:mr-0 md:text-right lg:text-sm xl:text-base"
+        >
+          {t('gin.description')}
+        </p>
+        <Picture
+          src={BlackBull}
+          loading="lazy"
+          pictureAttributes={{
+            class:
+              'md:col-start-1 md:row-start-2 md:col-end-3 md:row-end-8 row-start-5 row-end-6 col-start-1 -col-end-1 justify-self-start',
+          }}
+          formats={['png', 'webp', 'avif']}
+          alt="BlackBull"
+        />
+        <Picture
+          src={DeCajonGin}
+          loading="lazy"
+          class="object-fill"
+          pictureAttributes={{
+            class:
+              'md:col-start-2 md:row-start-1 md:row-end-8 col-start-1 row-start-4 row-end-6 justify-self-end',
+          }}
+          formats={['png', 'webp', 'avif']}
+          alt="DeCajonGin"
+        />
+        <Button
+          as="a"
+          href={translatePath('/products/vodka-gin')}
+          class="col-start-1 -col-end-1 row-start-3 mr-[12%] self-start justify-self-center md:col-start-3 md:row-start-6 md:mr-0 md:justify-self-end [&&]:bg-eerie-black"
+          >{t('common.showMore')}</Button
+        >
+        <div class="absolute left-1/2 top-[83%] hidden animate-bounce md:block">
+          <Button class="[&&]:bg-eerie-black" variant="rounded" id="scroll-to">
+            <Image class="-rotate-90" src={LongLeftArrow} alt="angle-left" />
+          </Button>
+        </div>
+      </div>
+      <div
+        class="relative ml-auto grid w-full flex-shrink-0 grid-cols-[minmax(0,3fr)_minmax(0,1fr)] grid-rows-[auto_auto] items-center pb-[2.125rem] pl-[12%] pt-[6.375rem] md:grid-cols-[2fr_0.5fr_1fr_2fr_2.5fr] lg:md:grid-cols-[2fr_0.5fr_1fr_3fr_1fr_2.5fr] lg:grid-rows-[min-content_auto]"
+      >
+        <Image
+          class="col-start-1 row-start-2 -row-end-1 h-full object-contain object-center md:col-start-2 md:col-end-5 md:row-start-1 lg:col-end-6 lg:object-top"
+          src={WorldSpiritBottle}
+          alt="World Spirit Man"
+        />
+        <ul
+          class="col-start-1 row-start-1 mb-4 hidden gap-2 self-end md:flex lg:mb-[2.125rem]"
+        >
+          <li>
+            <Button variant="rounded" id="prev-banner-button">
+              <Image src={AngleLeft} alt="angle-left" />
+            </Button>
+          </li>
+          <li>
+            <Button variant="rounded" id="next-banner-button">
+              <Image src={AngleRight} alt="angle-right" />
+            </Button>
+          </li>
+        </ul>
+        <header
+          class="col-start-1 -col-end-1 row-start-1 mr-[12%] flex flex-col items-center justify-start gap-[0.875rem] self-start md:col-end-3 md:row-start-2 md:mr-0 md:items-start lg:col-end-4"
+        >
+          <p translate="no" class="text-center text-base sm:text-left">
+            De Cajón Vodka
+          </p>
+          <h1
+            class="text-center text-xl sm:text-left md:w-4/5 lg:text-2xl xl:text-4xl"
+          >
+            {t('vodka.banner')}
+          </h1>
+          <p class="text-center text-xs md:text-left lg:text-sm xl:text-base">
+            {t('vodka.description')}
+          </p>
+          <Button
+            as="a"
+            href={translatePath('/products/vodka')}
+            class="w-max self-center md:self-start"
+            >{t('common.showMore')}</Button
+          >
+        </header>
+        <Picture
+          src={Pucara}
+          class="h-full object-contain"
+          pictureAttributes={{
+            class:
+              'md:col-start-4 self-start translate-x-1/4 md:translate-x-0 -translate-y-1/4 md:translate-y-0  -col-end-1 -z-10 row-start-2 lg:row-start-1 md:-row-end-1 col-start-1',
+          }}
+          formats={['webp', 'avif', 'png']}
+          alt="World Spirit Man"
+        />
+        <div class="absolute left-1/2 top-[83%] hidden animate-bounce md:block">
+          <Button class="[&&]:bg-rosewood" variant="rounded" id="scroll-to">
+            <Image class="-rotate-90" src={LongLeftArrow} alt="angle-left" />
+          </Button>
+        </div>
+      </div>
     </div>
   </Fragment>
   <Fragment slot="information">
@@ -264,7 +273,7 @@ const translatePath = useTranslatedPath(lang)
       ]}
       ><div class="siembra--banner">
         <Picture
-          class="aspect-square object-contain md:aspect-auto md:h-full"
+          class="aspect-square max-h-[33rem] object-contain md:aspect-auto md:h-full"
           formats={['webp', 'avif', 'jpeg']}
           loading="lazy"
           alt="SiembraDescription"
@@ -285,12 +294,15 @@ const translatePath = useTranslatedPath(lang)
   }
 </style>
 <script>
-  const leftButton = document.querySelectorAll('#prev-banner-button')
-  const rightButton = document.querySelectorAll('#next-banner-button')
-  const carouselContentEl = document.querySelector('#carousel-banner-content')
+  const $ = document.querySelector.bind(document)
+  const $$ = document.querySelectorAll.bind(document)
+  const $vodkaDescription = $('#vodka-description')
+  const $leftButton = $$('#prev-banner-button')
+  const $rightButton = $$('#next-banner-button')
+  const carouselContentEl = $('#carousel-banner-content')
   const itemsCount = carouselContentEl?.children.length ?? 0
   let counter = 0
-  Array.from(leftButton)?.forEach?.((btn) =>
+  Array.from($leftButton)?.forEach?.((btn) =>
     btn?.addEventListener('click', () => {
       counter = !counter ? itemsCount - 1 : counter - 1
       const translateWidth = -100 * counter
@@ -301,7 +313,7 @@ const translatePath = useTranslatedPath(lang)
     })
   )
 
-  Array.from(rightButton)?.forEach((btn) =>
+  Array.from($rightButton)?.forEach((btn) =>
     btn?.addEventListener('click', () => {
       counter = counter >= itemsCount - 1 ? 0 : counter + 1
       const translateWidth = -100 * counter
@@ -311,4 +323,11 @@ const translatePath = useTranslatedPath(lang)
       )
     })
   )
+
+  const $scrollsTo = $$('#scroll-to') as NodeListOf<HTMLDivElement>
+  $scrollsTo?.forEach(($scrollTo) => {
+    $scrollTo.addEventListener('click', () => {
+      $vodkaDescription?.scrollIntoView({ behavior: 'smooth' })
+    })
+  })
 </script>

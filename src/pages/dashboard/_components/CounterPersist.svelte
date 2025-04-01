@@ -2,7 +2,7 @@
   import type { CartProduct } from 'adapters/storage.types.ts'
   import Counter from 'ui/Counter.svelte'
   import { set } from './counter-store.svelte.ts'
-  import { UserCart } from 'adapters/cart.ts'
+  import { ProviderCart } from 'adapters/cart.ts'
 
   interface Props {
     id: number
@@ -12,7 +12,7 @@
   const onIncrease = set
   const onDecrease = set
   if (window && window.sessionStorage) {
-    item = UserCart.getItemBy(id)
+    item = ProviderCart.getItemBy(id)
   }
 </script>
 

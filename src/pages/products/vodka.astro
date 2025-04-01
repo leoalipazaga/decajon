@@ -22,6 +22,7 @@ import AngleRight from 'icons/angle-right.svg'
 import ProductPhotos from 'organism/product-photos.astro'
 import ProductInfo from 'organism/product-info.astro'
 import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
+import LongLeftArrow from 'icons/long-left-arrow.svg'
 import ProductDescription from './_components/product-description.astro'
 import CounterButton from './_components/CounterButton.svelte'
 import CounterPersist from './_components/CounterPersist.svelte'
@@ -41,7 +42,7 @@ const translatePath = useTranslatedPath(lang)
             id="carousel-banner-content"
           >
             <div
-              class="ml-auto grid w-full flex-shrink-0 grid-cols-[minmax(0,3fr)_minmax(0,1fr)] grid-rows-[auto_auto] items-center pb-[2.125rem] pl-[12%] pt-[6.375rem] md:grid-cols-[2fr_0.5fr_1fr_2fr_2.5fr] lg:md:grid-cols-[2fr_0.5fr_1fr_3fr_1fr_2.5fr] lg:grid-rows-[min-content_auto]"
+              class="relative ml-auto grid w-full flex-shrink-0 grid-cols-[minmax(0,3fr)_minmax(0,1fr)] grid-rows-[auto_auto] items-center pb-[2.125rem] pl-[12%] pt-[6.375rem] md:grid-cols-[2fr_0.5fr_1fr_2fr_2.5fr] lg:md:grid-cols-[2fr_0.5fr_1fr_3fr_1fr_2.5fr] lg:grid-rows-[min-content_auto]"
             >
               <Image
                 class="col-start-1 row-start-2 -row-end-1 h-full object-contain object-center md:col-start-2 md:col-end-5 md:row-start-1 lg:col-end-6 lg:object-top"
@@ -95,9 +96,24 @@ const translatePath = useTranslatedPath(lang)
                 formats={['webp', 'avif', 'png']}
                 alt="World Spirit Man"
               />
+              <div
+                class="absolute left-1/2 top-[83%] hidden animate-bounce md:block"
+              >
+                <Button
+                  class="[&&]:bg-rosewood"
+                  variant="rounded"
+                  id="scroll-to"
+                >
+                  <Image
+                    class="-rotate-90"
+                    src={LongLeftArrow}
+                    alt="angle-left"
+                  />
+                </Button>
+              </div>
             </div>
             <div
-              class="hidden w-full max-w-screen-2xl grid-cols-[1fr_2fr] gap-y-6 pb-[2.125rem] pr-[12%] pt-[6.375rem] md:grid md:flex-shrink-0 md:grid-cols-[2fr_1fr_1.5fr] md:gap-y-[0.625rem] xl:grid-cols-[2fr_1fr_1fr] xl:gap-y-[1.875rem]"
+              class="relative hidden w-full max-w-screen-2xl grid-cols-[1fr_2fr] gap-y-6 pb-[2.125rem] pr-[12%] pt-[6.375rem] md:grid md:flex-shrink-0 md:grid-cols-[2fr_1fr_1.5fr] md:gap-y-[0.625rem] xl:grid-cols-[2fr_1fr_1fr] xl:gap-y-[1.875rem]"
             >
               <ul
                 class="col-start-3 row-start-2 hidden gap-3 justify-self-end md:flex"
@@ -164,9 +180,24 @@ const translatePath = useTranslatedPath(lang)
                 class="col-start-1 -col-end-1 row-start-3 mr-[12%] self-start justify-self-center md:col-start-3 md:row-start-6 md:mr-0 md:justify-self-end [&&]:bg-eerie-black"
                 >{t('common.showMore')}</Button
               >
+              <div
+                class="absolute left-1/2 top-[83%] hidden animate-bounce md:block"
+              >
+                <Button
+                  class="[&&]:bg-eerie-black"
+                  variant="rounded"
+                  id="scroll-to"
+                >
+                  <Image
+                    class="-rotate-90"
+                    src={LongLeftArrow}
+                    alt="angle-left"
+                  />
+                </Button>
+              </div>
             </div>
             <div
-              class="mr-auto hidden w-full max-w-screen-2xl grid-cols-[2fr_1.5fr] gap-y-6 pb-[2.125rem] pl-[12%] pt-[6.375rem] md:ml-auto md:grid md:flex-shrink-0 md:grid-cols-[2fr_1fr_1fr_3fr] md:gap-y-[0.625rem] xl:grid-cols-[2fr_1fr_1fr_3fr] xl:gap-y-[1.875rem]"
+              class="relative mr-auto hidden w-full max-w-screen-2xl grid-cols-[2fr_1.5fr] gap-y-6 pb-[2.125rem] pl-[12%] pt-[6.375rem] md:ml-auto md:grid md:flex-shrink-0 md:grid-cols-[2fr_1fr_1fr_3fr] md:gap-y-[0.625rem] xl:grid-cols-[2fr_1fr_1fr_3fr] xl:gap-y-[1.875rem]"
             >
               <ul
                 class="col-start-1 row-start-2 hidden gap-3 justify-self-start md:flex"
@@ -232,11 +263,26 @@ const translatePath = useTranslatedPath(lang)
                 class="col-start-1 -col-end-1 row-start-3 ml-[12%] justify-self-center md:col-start-1 md:col-end-2 md:row-start-6 md:ml-0 md:justify-self-start [&&]:bg-gentian-blue"
                 >{t('common.showMore')}</Button
               >
+              <div
+                class="absolute left-1/2 top-[83%] hidden animate-bounce md:block"
+              >
+                <Button
+                  class="[&&]:bg-gentian-blue"
+                  variant="rounded"
+                  id="scroll-to"
+                >
+                  <Image
+                    class="-rotate-90"
+                    src={LongLeftArrow}
+                    alt="angle-left"
+                  />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </SandLayout>
-      <SandLayout class="py-9">
+      <SandLayout id="vodka-description" class="py-9">
         <div
           class="m-auto flex w-[76%] max-w-screen-2xl flex-col gap-7 md:flex-row md:gap-10"
         >
@@ -290,30 +336,40 @@ const translatePath = useTranslatedPath(lang)
   </MiddlewareLayout>
 </Layout>
 <script>
-  const leftButton = document.querySelectorAll('#prev-banner-button')
-  const rightButton = document.querySelectorAll('#next-banner-button')
-  const carouselContentEl = document.querySelector('#carousel-banner-content')
-  const itemsCount = carouselContentEl?.children.length ?? 0
+  const $ = document.querySelector.bind(document)
+  const $$ = document.querySelectorAll.bind(document)
+  const $vodkaDescription = $('#vodka-description')
+  const $leftButton = $$('#prev-banner-button')
+  const $rightButton = $$('#next-banner-button')
+  const $carouselContentEl = $('#carousel-banner-content')
+  const itemsCount = $carouselContentEl?.children.length ?? 0
   let counter = 0
-  Array.from(leftButton)?.forEach?.((btn) =>
-    btn?.addEventListener('click', () => {
+  Array.from($leftButton)?.forEach?.(($btn) =>
+    $btn?.addEventListener('click', () => {
       counter = !counter ? itemsCount - 1 : counter - 1
       const translateWidth = -100 * counter
-      carouselContentEl?.setAttribute(
+      $carouselContentEl?.setAttribute(
         'style',
         `transform: translateX(${translateWidth}%)`
       )
     })
   )
 
-  Array.from(rightButton)?.forEach((btn) =>
-    btn?.addEventListener('click', () => {
+  Array.from($rightButton)?.forEach(($btn) =>
+    $btn?.addEventListener('click', () => {
       counter = counter >= itemsCount - 1 ? 0 : counter + 1
       const translateWidth = -100 * counter
-      carouselContentEl?.setAttribute(
+      $carouselContentEl?.setAttribute(
         'style',
         `transform: translateX(${translateWidth}%)`
       )
     })
   )
+
+  const $scrollsTo = $$('#scroll-to') as NodeListOf<HTMLDivElement>
+  $scrollsTo?.forEach(($scrollTo) => {
+    $scrollTo.addEventListener('click', () => {
+      $vodkaDescription?.scrollIntoView({ behavior: 'smooth' })
+    })
+  })
 </script>

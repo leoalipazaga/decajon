@@ -28,29 +28,39 @@ const translatePath = useTranslatedPath(lang)
               >
                 {t('login.welcome')}
               </h1>
-              <Input
-                autocomplete="off"
-                htmlFor="username"
-                class="mb-5"
-                label="Usuario"
-              />
-              <Input
-                autocomplete="off"
-                htmlFor="password"
-                label="Contraseña"
-                type="password"
-              />
-              <a
-                class="block text-right text-xs text-rosewood"
-                href={translatePath('/')}>{t('login.forgetAccount')}</a
-              >
-              <Button
-                as="a"
-                href={translatePath('/dashboard')}
-                class="mt-8 block w-full"
-              >
-                {t('login.signin')}
-              </Button>
+              <form id="login">
+                <Input
+                  required
+                  autofocus="on"
+                  name="username"
+                  autocomplete="off"
+                  htmlFor="username"
+                  class="mb-5"
+                  label="Usuario"
+                />
+                <Input
+                  required
+                  class="outline-rosewood [&&]:border-rosewood"
+                  name="password"
+                  autocomplete="off"
+                  htmlFor="password"
+                  label="Contraseña"
+                  type="password"
+                />
+                <a
+                  class="block text-right text-xs text-rosewood"
+                  href={translatePath('/')}>{t('login.forgetAccount')}</a
+                >
+                <p
+                  id="invalid-user"
+                  class="invisible mb-0 mt-3 text-xs font-bold text-rosewood"
+                >
+                  {t('login.invalidAuth')}
+                </p>
+                <Button as="button" type="submit" class="mt-5 block w-full">
+                  {t('login.signin')}
+                </Button>
+              </form>
               <p class="mt-8 text-center text-xs lg:text-base">
                 {t('login.notAccount')}
                 <a class="text-rosewood" href={translatePath('/signup')}
@@ -72,3 +82,63 @@ const translatePath = useTranslatedPath(lang)
     </BaseLayout>
   </MiddlewareLayout>
 </Layout>
+<script>
+  import { setToken } from 'adapters/jwt'
+  import { getLangFromUrl, useTranslatedPath } from 'i18n/utils'
+
+  const $ = document.querySelector.bind(document)
+  const lang = getLangFromUrl(
+    new URL(window?.location?.pathname, window?.location?.origin)
+  )
+  const translatePath = useTranslatedPath(lang)
+  const $form = $('form#login') as HTMLFormElement
+  const $submit = $('form > button') as HTMLButtonElement
+  $form?.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    $submit.disabled = true
+    $submit.classList.toggle('opacity-75')
+    $submit.insertAdjacentHTML(
+      'afterbegin',
+      `
+      <div
+        class='border-current text-surface dark:text-white inline-block size-3 animate-spin rounded-full border-4 border-solid border-e-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]'
+        role='status'
+      >
+        <span class='!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]' >Loading...</span>
+      </div>
+      `
+    )
+    const formData = new FormData(e.target as HTMLFormElement)
+    const body = JSON.stringify(Object.fromEntries(formData.entries()))
+    try {
+      const fetching = await fetch(
+        `${import.meta.env.PUBLIC_DECAJON_API}/auth.php`,
+        {
+          method: 'POST',
+          body,
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+          },
+        }
+      )
+      if (!fetching.ok) {
+        throw new Error(`Fetch error: ${fetching.statusText}`)
+      }
+      const res = await fetching.json()
+      setToken(res.token)
+      Array.from($form.querySelectorAll('input')).forEach((input) => {
+        input?.classList.add('border-eerie-black')
+      })
+      window.location.replace(translatePath('/dashboard'))
+    } catch (e) {
+      $form.querySelector('#invalid-user')?.classList.remove('invisible')
+      Array.from($form.querySelectorAll('input')).forEach((input) => {
+        input?.classList.add('border-rosewood')
+      })
+    } finally {
+      $submit.removeAttribute('disabled')
+      $submit.classList.toggle('opacity-75')
+      $submit.querySelector('[role="status"]')?.remove()
+    }
+  })
+</script>

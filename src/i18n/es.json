@@ -85,6 +85,7 @@
   "login.forgetAccount": "¿Olvidaste tu contraseña?",
   "login.signin": "Ingresar",
   "login.notAccount": "¿No tienes una cuenta?",
+  "login.invalidAuth": "Usuario y/o password inválido. Por favor, intenta otra vez.",
   "login.signup": "Registrarme",
   "experience.preheading": "Nuestros cócteles",
   "experience.title": "UN SABOR ÚNICO Y DE CAJÓN",

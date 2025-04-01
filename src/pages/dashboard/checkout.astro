@@ -1,0 +1,58 @@
+---
+import DashboardLayout from 'layouts/DashboardLayout.astro'
+import Layout from 'layouts/Layout.astro'
+// import BaseLayout from 'layouts/BaseLayout.astro'
+import SandLayout from 'layouts/SandLayout.astro'
+import BottleVodka from 'images/bottle-vodka-compressed.png'
+import BottleSiembra from 'images/bottle-siembra.png'
+import BottleGin from 'images/bottle-gin.png'
+import FormCheckout from 'organism/form-checkout.astro'
+import Bottles from 'organism/bottles.astro'
+import ProviderCheckout from 'organism/provider-checkout.svelte'
+import { getLangFromUrl, useTranslatedPath } from 'i18n/utils'
+
+const lang = getLangFromUrl(Astro.url)
+const translatePath = useTranslatedPath(lang)
+const bottles = [
+  {
+    title: 'DE CAJÓN VODKA',
+    img: { alt: 'De Cajon Vodka', src: BottleVodka },
+    link: '/dashboard/products',
+    size: '750',
+  },
+  {
+    title: 'DE CAJÓN GIN',
+    img: { alt: 'DE CAJÓN GIN', src: BottleGin },
+    link: '/dashboard/products',
+    size: '750',
+  },
+  {
+    title: 'SIEMBRA VODKA',
+    img: { alt: 'SIEMBRA VODKA', src: BottleSiembra },
+    link: '/dashboard/products',
+    size: '750',
+  },
+]
+---
+
+<Layout title="Dashboard">
+  <!-- <BaseLayout showNavbar={false}> -->
+  <SandLayout>
+    <DashboardLayout title="Checkout">
+      <div class="m-auto max-w-screen-2xl">
+        <FormCheckout
+          continueShop={translatePath('/dashboard/products')}
+          type="PROVIDER"
+        >
+          <Fragment slot="cart">
+            <ProviderCheckout client:only="svelte" />
+          </Fragment>
+          <Fragment slot="default">
+            <Bottles {bottles} />
+          </Fragment>
+        </FormCheckout>
+      </div>
+    </DashboardLayout>
+  </SandLayout>
+  <!-- </BaseLayout> -->
+</Layout>

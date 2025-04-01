@@ -24,7 +24,7 @@ const variantMap = new Map<CommonProps['variant'], string>([
 
 <Element
   class:list={[
-    'cursor-pointer text-center font-thabit text-xs lg:text-base',
+    'cursor-pointer text-center font-thabit text-xs hover:opacity-75 lg:text-base',
     variantMap.get(variant),
     attrs.class,
   ]}
