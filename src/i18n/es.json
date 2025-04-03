@@ -313,7 +313,8 @@
   "returns.contact": "Si tiene alguna duda, puede contactarnos en ventas@decajon.pe.",
   "returns.title": "Términos y Condiciones",
   "claimbooks.title": "Libro de Reclamaciones",
-  "claimbooks.generalData": "Datos Generales",
+  "claimbooks.user": "IDENTIFICACIÓN DEL CONSUMIDOR RECLAMANTE",
+  "claimbooks.date": "Fecha",
   "claimbooks.name": "Nombre",
   "claimbooks.lastname": "Apellidos",
   "claimbooks.typeDocument": "Documento",
@@ -321,5 +322,10 @@
   "claimbooks.address": "Dirección",
   "claimbooks.claimDetails": "Detalle del Reclamo",
   "claimbooks.claimDescription": "Descripción del Reclamo",
-  "claimbooks.claimRequest": "Pedido del cliente"
+  "claimbooks.claim": "Reclamo",
+  "claimbooks.complaint": "Queja",
+  "claimbooks.claimExplanation": "Disconformidad relacionada a los productos o servicios",
+  "claimbooks.complaintExplanation": "Disconformidad no relacionada a los productos o servicios; o, malestar o descontento respecto a la atención al público.",
+  "claimbooks.claimRequest": "Pedido del cliente (¿Qué es lo que nos solicitas?)",
+  "claimbooks.typeClaim": "Tipo"
 }

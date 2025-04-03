@@ -313,7 +313,8 @@
   "returns.contact": "If you have any questions, you can contact us at ventas@decajon.pe.",
   "returns.title": "Terms and Conditions",
   "claimbooks.title": "Claims Book",
-  "claimbooks.generalData": "General Data",
+  "claimbooks.user": "IDENTIFICATION OF THE CLAIMING CONSUMER",
+  "claimbooks.date": "Date",
   "claimbooks.name": "Name",
   "claimbooks.lastname": "Last Name",
   "claimbooks.typeDocument": "Document Type",
@@ -321,5 +322,10 @@
   "claimbooks.address": "Address",
   "claimbooks.claimDetails": "Claim Details",
   "claimbooks.claimDescription": "Claim Description",
-  "claimbooks.claimRequest": "Customer Request"
+  "claimbooks.claim": "Claim",
+  "claimbooks.complaint": "Complaint",
+  "claimbooks.claimExplanation": "Dissatisfaction related to products or services",
+  "claimbooks.complaintExplanation": "Dissatisfaction not related to products or services; or, discomfort or discontent regarding customer service.",
+  "claimbooks.claimRequest": "Customer request (What are you asking from us?)",
+  "claimbooks.typeClaim": "Type"
 }
