@@ -303,6 +303,11 @@ const translatePath = useTranslatedPath(lang)
             </Fragment>
             <Fragment slot="action">
               <CounterButton id={1} client:only="svelte" />
+              <!-- <button -->
+              <!--   data-product-id="1" -->
+              <!--   class="col-span-2 row-start-4 mt-6 w-auto text-nowrap rounded-[1.25rem] bg-rosewood px-3 py-2 text-zinc-1000 md:col-span-1 md:col-start-1 md:row-start-5 md:mt-0 md:self-end" -->
+              <!--   >{t('common.buyNow')}</button -->
+              <!-- > -->
             </Fragment>
           </ProductInfo>
         </div>
@@ -336,14 +341,26 @@ const translatePath = useTranslatedPath(lang)
   </MiddlewareLayout>
 </Layout>
 <script>
+  import { Toast } from 'ui/Toast'
+  import { UserCart } from 'adapters/cart'
+  import type { Product } from 'adapters/storage.types'
+  import { products } from 'consts'
+  import { getLangFromUrl, useTranslations } from 'i18n/utils'
+
+  const id = 1
+  const lang = getLangFromUrl(new URL(location.pathname, location.origin))
+  const t = useTranslations(lang)
   const $ = document.querySelector.bind(document)
   const $$ = document.querySelectorAll.bind(document)
+  const $buyNow = $('[data-product-id]') as HTMLButtonElement
+  const item = products.get(id) as Product
   const $vodkaDescription = $('#vodka-description')
   const $leftButton = $$('#prev-banner-button')
   const $rightButton = $$('#next-banner-button')
   const $carouselContentEl = $('#carousel-banner-content')
   const itemsCount = $carouselContentEl?.children.length ?? 0
   let counter = 0
+
   Array.from($leftButton)?.forEach?.(($btn) =>
     $btn?.addEventListener('click', () => {
       counter = !counter ? itemsCount - 1 : counter - 1
@@ -365,6 +382,12 @@ const translatePath = useTranslatedPath(lang)
       )
     })
   )
+
+  $buyNow?.addEventListener('click', () => {
+    // TODO: must returns total counts
+    UserCart.updateCart({ ...item, count: 1 })
+    new Toast({ text: `${item.name} ${t('cart.productAddedToCart')}` })
+  })
 
   const $scrollsTo = $$('#scroll-to') as NodeListOf<HTMLDivElement>
   $scrollsTo?.forEach(($scrollTo) => {

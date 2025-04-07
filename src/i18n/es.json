@@ -99,6 +99,7 @@
   "cart.applyCoupon": "Aplicar Cúpon",
   "cart.continuePayment": "Continuar Pago",
   "cart.deleteArticle": "Eliminar artículo",
+  "cart.productAddedToCart": "ha sido añadido a su carrito!",
   "cart.deleteArticleQuestion": "¿Estás seguro de eliminar este artículo?",
   "cart.deleteArticleNoRevert": "Está acción no se puede revertir.",
   "checkout.finishShop": "Finalizar Compra",

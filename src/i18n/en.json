@@ -99,6 +99,7 @@
   "cart.applyCoupon": "Apply Coupon",
   "cart.continuePayment": "Continue Payment",
   "cart.deleteArticle": "Delete item",
+  "cart.productAddedToCart": "has been added to your cart!",
   "cart.deleteArticleQuestion": "Are you sure you want to delete this item?",
   "cart.deleteArticleNoRevert": "This action cannot be undone.",
   "checkout.finishShop": "Finish Purchase",
