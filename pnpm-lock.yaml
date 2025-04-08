@@ -17,6 +17,9 @@ importers:
       '@astrojs/tailwind':
         specifier: ^5.1.4
         version: 5.1.4(astro@5.1.2(@types/node@22.10.2)(jiti@2.4.1)(rollup@4.27.2)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.0))(tailwindcss@3.4.15)
+      '@mercadopago/sdk-js':
+        specifier: ^0.0.3
+        version: 0.0.3
       astro:
         specifier: ^5.1.2
         version: 5.1.2(@types/node@22.10.2)(jiti@2.4.1)(rollup@4.27.2)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.0)
@@ -874,6 +877,9 @@ packages:
 
   '@lhci/utils@0.14.0':
     resolution: {integrity: sha512-LyP1RbvYQ9xNl7uLnl5AO8fDRata9MG/KYfVFKFkYenlsVS6QJsNjLzWNEoMIaE4jOPdQQlSp4tO7dtnyDxzbQ==}
+
+  '@mercadopago/sdk-js@0.0.3':
+    resolution: {integrity: sha512-kO48DNLHdfFAp3on12nuKdqNlEmw1x3+nM6wLd04BdWOXoFcAhkNMQV3AyUIanXdO/bB/dENakdacLT29297EQ==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -5111,6 +5117,8 @@ snapshots:
       - encoding
       - supports-color
       - utf-8-validate
+
+  '@mercadopago/sdk-js@0.0.3': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:

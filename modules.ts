@@ -1,1 +1,1 @@
-declare module 'toastify-js'
+declare module 'MercadoPago'

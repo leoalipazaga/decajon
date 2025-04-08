@@ -8,6 +8,7 @@ interface ImportMetaEnv {
   readonly PUBLIC_NIUBIZ_ACCESS_TOKEN_URL: string
   readonly PUBLIC_NIUBIZ_SESSION_TOKEN_URL: string
   readonly PUBLIC_NIUBIZ_TRANSACTION_URL: string
+  readonly PUBLIC_MERCADO_PAGO_PUBLIC_KEY: string
 }
 
 interface ImportMeta {
