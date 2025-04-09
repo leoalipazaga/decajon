@@ -22,7 +22,6 @@ const lang = getLangFromUrl(Astro.url)
       content="Nace del amor por la tradición peruana y el arte de la destilación. Con insumos autóctonos y un enfoque eco-amigable, crea productos de alta gama que llevan al mundo el sabor de los Andes, elaborados con métodos artesanales y tecnología de punta."
     />
     <meta name="viewport" content="width=device-width" />
-    <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
     <meta
       name="description"
       content="Nace del amor por la tradición peruana y el arte de la destilación. Con insumos autóctonos y un enfoque eco-amigable, crea productos de alta gama que llevan al mundo el sabor de los Andes, elaborados con métodos artesanales y tecnología de punta."
@@ -52,13 +51,20 @@ const lang = getLangFromUrl(Astro.url)
       name="twitter:image"
       content="https://opengraph.b-cdn.net/production/images/a8bdbc4a-e350-4f17-82d9-68e63b77dbda.png?token=cveclZvGX7iCBouaIuJGjacwpMbutuQFcfPv9z85Jig&height=848&width=1200&expires=33273518196"
     />
+    <link rel="icon" type="image/svg+xml" href="icons/logo-decajon-black.svg" />
     <link
       rel="icon"
-      type="image/png"
-      href="/favicon/favicon-96x96.png"
-      sizes="96x96"
+      type="image/svg+xml"
+      href="icons/logo-decajon-gold.svg"
+      media="(prefers-color-scheme: dark)"
     />
-    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="icons/logo-decajon-black.svg"
+      media="(prefers-color-scheme: light)"
+    />
+
     <link rel="shortcut icon" href="/favicon/favicon.ico" />
     <link
       rel="apple-touch-icon"
@@ -164,7 +170,3 @@ const lang = getLangFromUrl(Astro.url)
       monospace;
   }
 </style>
-<script>
-  window.$ = document.querySelector.bind(document)
-  window.$$ = document.querySelectorAll.bind(document)
-</script>
