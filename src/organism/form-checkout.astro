@@ -193,21 +193,15 @@ const t = useTranslations(lang)
     $empty.classList.toggle('grid')
   }
 
-  $delivery.innerText = currency(
-    shippingCost.find((item) => item.id_ubigeo === $districts.value)
-      ?.shippingCost ?? 15
-  )
+  const getDelivery = (districtId: string) => {
+    const district = shippingCost.find((item) => item.id_ubigeo === districtId)
+    return district?.shippingCost
+  }
 
-  $formCheckout?.setAttribute(
-    'data-mercadopago-amount',
-    `${cart.getTotal() + 10}`
-  )
+  $delivery.innerText = currency(getDelivery('3970') ?? 15)
 
   $$total?.forEach(($el) => {
-    const district = shippingCost.find(
-      (item) => item.id_ubigeo === $districts.value
-    )
-    const delivery = district?.shippingCost ?? 15
+    const delivery = getDelivery('3970') ?? 15
 
     $el?.insertAdjacentText(
       'afterbegin',
@@ -238,10 +232,7 @@ const t = useTranslations(lang)
   })
 
   $districts.addEventListener('change', (e: any) => {
-    const district = shippingCost.find(
-      (item) => item.id_ubigeo === e.target?.value
-    )
-    const delivery = district?.shippingCost ?? 15
+    const delivery = getDelivery(e.target?.value) ?? 15
     $delivery.innerText = currency(delivery)
     $$total?.forEach(($el) => {
       if ($el) {
@@ -291,10 +282,12 @@ const t = useTranslations(lang)
     )
     const bricksBuilder = mp.bricks()
     const brickSettings = createBrickSettings({
-      amount: cart.getTotal() + 10,
+      amount: cart.getTotal() + (getDelivery($districts.value) ?? 15),
       email: $email.value ?? '',
       onSuccess: async (res: any) => {
-        console.log('res', res)
+        if (res.data.status === 'approved') {
+          cart.clearCart()
+        }
         const statusBrickSettings = createStatusBrick(res.data.id)
         ;(window as any).statusScreenBrickController =
           await bricksBuilder.create(
