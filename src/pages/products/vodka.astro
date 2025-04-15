@@ -23,6 +23,7 @@ import ProductPhotos from 'organism/product-photos.astro'
 import ProductInfo from 'organism/product-info.astro'
 import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
 import LongLeftArrow from 'icons/long-left-arrow.svg'
+import { products } from 'consts'
 import ProductDescription from './_components/product-description.astro'
 import CounterButton from './_components/CounterButton.svelte'
 import CounterPersist from './_components/CounterPersist.svelte'
@@ -294,7 +295,11 @@ const translatePath = useTranslatedPath(lang)
               { src: Vodka4, alt: 'Vodka4' },
             ]}
           />
-          <ProductInfo id={1} title="DE CAJÓN VODKA" price={99}>
+          <ProductInfo
+            id={1}
+            title="DE CAJÓN VODKA"
+            price={products.get(1)?.price ?? 0}
+          >
             <Fragment slot="default">
               {t('products.vodka')}
             </Fragment>

@@ -22,6 +22,7 @@ import CounterButton from './_components/CounterButton.svelte'
 import CounterPersist from './_components/CounterPersist.svelte'
 import ProductDescription from './_components/product-description.astro'
 import ProductLayout from './_components/product-layout.astro'
+import { products } from 'consts'
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
@@ -252,7 +253,11 @@ const translatePath = useTranslatedPath(lang)
         { alt: 'DeCajonGin4', src: DeCajonGin4 },
       ]}
     />
-    <ProductInfo id={2} title="DE CAJÓN GIN" price={104}>
+    <ProductInfo
+      id={2}
+      title="DE CAJÓN GIN"
+      price={products.get(1)?.price ?? 0}
+    >
       <Fragment slot="default">
         {t('products.ginSummary')}
       </Fragment>

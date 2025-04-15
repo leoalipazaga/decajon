@@ -1,0 +1,415 @@
+---
+interface Props {
+  id: string
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full'
+  class?: string
+}
+const { id, size = 'md', class: className } = Astro.props
+const sizeClasses = {
+  xs: 'ac-modal--xs',
+  sm: 'ac-modal--sm',
+  md: 'ac-modal--md',
+  lg: 'ac-modal--lg',
+  xl: 'ac-modal--xl',
+  '2xl': 'ac-modal--2xl',
+  '3xl': 'ac-modal--3xl',
+  '4xl': 'ac-modal--4xl',
+  full: 'ac-modal--full',
+}[size]
+---
+
+<dialog
+  data-modal
+  id={id}
+  class:list={[
+    'ac-modal ac-modal--close ac-modal--animated',
+    sizeClasses,
+    className,
+  ]}
+>
+  <button class="ac-modal-close" data-modal-close>&#935;</button>
+  <div id="ac-modal-body" class="overflow-y-scroll">
+    <slot />
+  </div>
+</dialog>
+<style>
+  :root {
+    /* Colors */
+    --ac-transparent: transparent;
+    --ac-current: currentColor;
+    --ac-white: 255, 255, 255;
+    --ac-primary: 64, 93, 255;
+    --ac-secondary: 98, 251, 213;
+    --ac-dark: 22, 22, 22;
+    --ac-gray-100: 232, 232, 232;
+    --ac-gray-200: 185, 185, 185;
+    --ac-gray-300: 139, 139, 139;
+    --ac-gray-400: 92, 92, 92;
+    --ac-gray-500: 45, 45, 45;
+    --ac-success: 0, 255, 0;
+    --ac-warning: 255, 255, 0;
+    --ac-danger: 255, 0, 0;
+
+    --ac-primary-hover: rgba(var(--ac-primary), 0.9);
+    --ac-secondary-hover: rgba(var(--ac-secondary), 0.9);
+    --ac-dark-hover: rgba(var(--ac-dark), 0.9);
+    --ac-white-hover: rgba(var(--ac-white), 0.9);
+
+    --ac-primary-active: rgb(var(--ac-primary));
+    --ac-secondary-active: rgb(var(--ac-secondary));
+    --ac-dark-active: rgb(var(--ac-dark));
+    --ac-white-active: rgb(var(--ac-white));
+
+    --ac-primary-focus: 0 0 0 2px rgba(var(--ac-primary), 0.4);
+    --ac-secondary-focus: 0 0 0 2px rgba(var(--ac-secondary), 0.4);
+    --ac-dark-focus: 0 0 0 2px rgba(var(--ac-dark), 0.4);
+    --ac-white-focus: 0 0 0 2px rgba(var(--ac-white), 0.4);
+
+    --ac-disabled-opacity: 0.4;
+
+    /* Outline */
+    --ac-outline-color: rgba(var(--ac-primary), 0.5);
+    --ac-outline-offset: var(--ac-spacing-0-5);
+    --ac-outline-style: solid;
+    --ac-outline-width: var(--ac-border-2);
+
+    /* Font family */
+    --ac-font-sans: ui-sans-serif, system-ui, sans-serif;
+
+    /* Font size */
+    --ac-text-xs: 0.75rem;
+    --ac-text-sm: 0.875rem;
+    --ac-text-md: 1rem;
+    --ac-text-lg: 1.125rem;
+    --ac-text-xl: 1.25rem;
+    --ac-text-2xl: 1.5rem;
+    --ac-text-3xl: 1.875rem;
+
+    /* Font weight */
+    --ac-font-light: 300;
+    --ac-font-normal: 400;
+    --ac-font-medium: 500;
+    --ac-font-bold: 700;
+
+    /* Line height */
+    --ac-leading-none: 1;
+    --ac-leading-normal: 1.5;
+
+    /* Spacing */
+    --ac-spacing-px: 1px;
+    --ac-spacing-0-5: 0.125rem;
+    --ac-spacing-1: 0.25rem;
+    --ac-spacing-1-5: 0.375rem;
+    --ac-spacing-2: 0.5rem;
+    --ac-spacing-2-5: 0.625rem;
+    --ac-spacing-3: 0.75rem;
+    --ac-spacing-3-5: 0.875rem;
+    --ac-spacing-4: 1rem;
+    --ac-spacing-5: 1.25rem;
+    --ac-spacing-6: 1.5rem;
+    --ac-spacing-7: 1.75rem;
+    --ac-spacing-8: 2rem;
+    --ac-spacing-9: 2.25rem;
+    --ac-spacing-10: 2.5rem;
+    --ac-spacing-12: 3rem;
+    --ac-spacing-16: 4rem;
+
+    /* Border width */
+    --ac-border-0: 0;
+    --ac-border: 1px;
+    --ac-border-2: 2px;
+
+    /* Border radius */
+    --ac-rounded-none: 0;
+    --ac-rounded-sm: 0.125rem;
+    --ac-rounded: 0.25rem;
+    --ac-rounded-md: 0.375rem;
+    --ac-rounded-lg: 0.5rem;
+    --ac-rounded-xl: 0.75rem;
+    --ac-rounded-2xl: 1rem;
+    --ac-rounded-3xl: 1.5rem;
+    --ac-rounded-4xl: 2rem;
+    --ac-rounded-full: 9999px;
+    --ac-modal-backdrop-color: rgba(var(--ac-color-700), 0.15);
+    --ac-modal-backdrop-filter: blur(var(--ac-spacing-3));
+    --ac-modal-background-color: rgb(var(--ac-color-100));
+    --ac-modal-border-radius: var(--ac-rounded-2xl);
+    --ac-modal-width-xs: calc(4rem * 5);
+    --ac-modal-width-sm: calc(4rem * 6);
+    --ac-modal-width-md: calc(4rem * 7);
+    --ac-modal-width-lg: calc(4rem * 8);
+    --ac-modal-width-xl: calc(4rem * 9);
+    --ac-modal-width-2xl: calc(4rem * 10);
+    --ac-modal-width-3xl: calc(4rem * 11);
+    --ac-modal-width-4xl: calc(4rem * 12);
+  }
+
+  .light,
+  :root,
+  [data-theme='light'] {
+    color-scheme: light;
+    --ac-color-100: var(--ac-white);
+    --ac-color-200: var(--ac-gray-100);
+    --ac-color-300: var(--ac-gray-200);
+    --ac-color-400: var(--ac-gray-300);
+    --ac-color-500: var(--ac-gray-400);
+    --ac-color-600: var(--ac-gray-500);
+    --ac-color-700: var(--ac-dark);
+  }
+
+  .dark,
+  [data-theme='dark'] {
+    color-scheme: dark;
+    --ac-color-100: var(--ac-dark);
+    --ac-color-200: var(--ac-gray-500);
+    --ac-color-300: var(--ac-gray-400);
+    --ac-color-400: var(--ac-gray-300);
+    --ac-color-500: var(--ac-gray-200);
+    --ac-color-600: var(--ac-gray-100);
+    --ac-color-700: var(--ac-white);
+  }
+
+  @keyframes slide-in-up {
+    0% {
+      transform: translateY(100%);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-out-down {
+    100% {
+      transform: translateY(100%);
+      display: none;
+    }
+  }
+
+  @keyframes fade-out {
+    0% {
+      opacity: 1;
+      display: flex;
+    }
+
+    100% {
+      opacity: 0;
+      display: none;
+    }
+  }
+
+  .ac-modal {
+    background-color: var(--ac-modal-background-color);
+    border-top-left-radius: var(--ac-modal-border-radius);
+    border-top-right-radius: var(--ac-modal-border-radius);
+    display: flex;
+    flex-direction: column;
+    font-family: var(--ac-font-sans);
+    inset-block-end: 0;
+    inset-block-start: auto;
+    max-height: calc(100% - var(--ac-spacing-16));
+    max-width: 100%;
+    overflow: hidden;
+    padding-bottom: 0;
+    padding-inline: 0;
+    padding-top: var(--ac-spacing-4);
+    position: fixed;
+    width: 100%;
+
+    &::backdrop {
+      -webkit-backdrop-filter: var(--ac-modal-backdrop-filter);
+      backdrop-filter: var(--ac-modal-backdrop-filter);
+      background-color: var(--ac-modal-backdrop-color);
+      cursor: pointer;
+    }
+
+    &:before {
+      background-color: rgba(var(--ac-color-300), 0.5);
+      border-radius: var(--ac-rounded-full);
+      content: '';
+      display: block;
+      height: var(--ac-spacing-1);
+      left: calc(50% - var(--ac-spacing-5));
+      position: absolute;
+      top: var(--ac-spacing-3);
+      width: var(--ac-spacing-10);
+    }
+
+    &.ac-modal--close {
+      display: none;
+    }
+
+    &.ac-modal--full {
+      border-radius: 0;
+      height: 100%;
+      width: 100%;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    &.ac-modal--animated {
+      animation: slide-out-down 0.2s forwards;
+
+      &[open] {
+        animation: slide-in-up 0.3s linear;
+      }
+    }
+  }
+
+  .ac-modal-close {
+    appearance: none;
+    background-color: var(--ac-transparent);
+    border-radius: var(--ac-rounded-full);
+    color: rgb(var(--ac-color-500));
+    cursor: pointer;
+    height: var(--ac-spacing-8);
+    padding: var(--ac-spacing-1);
+    position: absolute;
+    right: var(--ac-spacing-2);
+    top: var(--ac-spacing-2);
+    width: var(--ac-spacing-8);
+    z-index: 100;
+
+    &:hover {
+      background-color: rgb(var(--ac-color-200));
+      color: rgb(var(--ac-color-700));
+    }
+
+    & > svg {
+      height: var(--ac-spacing-6);
+      width: var(--ac-spacing-6);
+    }
+  }
+
+  @media (min-width: 640px) {
+    .ac-modal {
+      border-bottom-left-radius: var(--ac-modal-border-radius);
+      border-bottom-right-radius: var(--ac-modal-border-radius);
+      inset-block-start: 0;
+      max-width: calc(100% - var(--ac-spacing-16));
+      padding-top: 0;
+
+      &:before {
+        content: none;
+      }
+
+      &.ac-modal--xs {
+        width: var(--ac-modal-width-xs);
+      }
+
+      &.ac-modal--sm {
+        width: var(--ac-modal-width-sm);
+      }
+
+      &.ac-modal--md {
+        width: var(--ac-modal-width-md);
+      }
+
+      &.ac-modal--lg {
+        width: var(--ac-modal-width-lg);
+      }
+
+      &.ac-modal--xl {
+        width: var(--ac-modal-width-xl);
+      }
+
+      &.ac-modal--2xl {
+        width: var(--ac-modal-width-2xl);
+      }
+
+      &.ac-modal--3xl {
+        width: var(--ac-modal-width-3xl);
+      }
+
+      &.ac-modal--4xl {
+        width: var(--ac-modal-width-4xl);
+      }
+
+      &.ac-modal--animated {
+        animation: fade-out 0.2s forwards;
+
+        &[open] {
+          animation: fade-in 0.3s linear;
+        }
+      }
+    }
+  }
+</style>
+<script>
+  const $ = document.querySelector.bind(document)
+  const $$ = document.querySelectorAll.bind(document)
+
+  const $modal = $('.ac-modal') as HTMLDivElement
+  const forceRender = Boolean($modal.getAttribute('data-force-render'))
+  const $modalBody = $('#ac-modal-body')
+
+  if (forceRender) {
+    $modalBody?.childNodes.forEach((child) => {
+      child.remove()
+    })
+  }
+  // const isTouchDevice = () => {
+  //   return window.matchMedia('(pointer: coarse)').matches
+  // }
+  const closeModal = (modal: HTMLDialogElement) => {
+    const body = document.body
+    modal.close()
+    // if (isTouchDevice()) {
+    //   disableTouchControls(modal)
+    // }
+    setTimeout(() => {
+      modal.classList.add('ac-modal--close')
+      body.style.overflow = 'auto'
+    }, 200)
+  }
+
+  const openModal = (modal: HTMLDialogElement) => {
+    const body = document.body
+
+    body.style.overflow = 'hidden'
+    modal.classList.remove('ac-modal--close')
+    modal.showModal()
+    // if (forceRender) {
+    //   $modalBody?.append($children as HTMLElement)
+    // }
+    // if (isTouchDevice()) {
+    //   enableTouchControls(modal)
+    // }
+
+    modal.addEventListener(
+      'click',
+      (event) => {
+        if (event.target === modal) {
+          closeModal(modal)
+        }
+      },
+      { once: true }
+    )
+  }
+
+  const $modalTriggers = $$(
+    '[data-modal-trigger]'
+  ) as NodeListOf<HTMLButtonElement>
+  const $modalCloses = $$('[data-modal-close]') as NodeListOf<HTMLButtonElement>
+
+  $modalTriggers.forEach((trigger) => {
+    const modalId = trigger.dataset.modalTrigger
+    const $modal = $(`#${modalId}`) as HTMLDialogElement
+    trigger.addEventListener('click', () => openModal($modal))
+  })
+
+  $modalCloses.forEach((close) => {
+    const modal = close.closest('[data-modal]') as HTMLDialogElement
+    close.addEventListener('click', () => closeModal(modal))
+  })
+</script>

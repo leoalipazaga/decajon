@@ -11,6 +11,8 @@ import BottleSiembra from 'images/bottle-siembra.png'
 import SliderRecipes from 'components/SliderRecipes.astro'
 import Product from 'components/Product.astro'
 import { getLangFromUrl, useTranslations } from 'i18n/utils'
+import { currency } from 'utils'
+import { products } from 'consts'
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
@@ -42,7 +44,7 @@ const t = useTranslations(lang)
             title="DE CAJÓN VODKA"
             description={t('products.vodka')}
             link="/products/vodka"
-            price="S/. 99,00"
+            price={currency(products.get(1)?.price ?? 15)}
           />
         </div>
       </SandLayout>
@@ -55,7 +57,7 @@ const t = useTranslations(lang)
             title="DE CAJÓN GIN"
             description={t('products.gin')}
             link="/products/vodka-gin"
-            price="s/. 104,00"
+            price={currency(products.get(1)?.price ?? 15)}
           />
         </div>
       </SandLayout>
@@ -68,7 +70,7 @@ const t = useTranslations(lang)
             title="SIEMBRA VODKA"
             description={t('products.siembra')}
             link="/products/vodka-siembra"
-            price="S/. 34,00"
+            price={currency(products.get(3)?.price ?? 15)}
           />
         </div>
       </SandLayout>

@@ -2,7 +2,9 @@
 import { getLangFromUrl, useTranslations } from 'i18n/utils'
 import Input from 'components/Input.astro'
 import Button from 'components/Button.astro'
+import Modal from 'organism/Modal.astro'
 import { currency } from 'utils'
+import ModalBody from './ModalBody.astro'
 
 interface Props {
   type: 'PROVIDER' | 'USER'
@@ -94,13 +96,13 @@ const t = useTranslations(lang)
       name="notes"></textarea>
     <Button
       as="button"
+      data-modal-trigger="mp-form-card"
       id="buttonCheckout"
       class="col-span-2 mt-10 block md:hidden"
     >
       {t('checkout.finishShop')}
     </Button>
   </article>
-
   <article class="hidden md:block">
     <a class="mb-10 block text-base text-rosewood" href={continueShop}>
       {t('cart.continueShop')}
@@ -118,7 +120,7 @@ const t = useTranslations(lang)
       <slot name="cart" />
       <div class="col-span-2 grid grid-cols-2 border-b px-[0.625rem] py-4">
         <p class="text-base">{t('checkout.delivery')}:</p>
-        <p class="justify-self-end text-base">{currency(10)}</p>
+        <p id="delivery" class="justify-self-end text-base">{currency(10)}</p>
       </div>
       <div class="col-span-2 grid grid-cols-2 border-b px-[0.625rem] py-4">
         <p class="text-base">{t('common.total')}:</p>
@@ -126,6 +128,7 @@ const t = useTranslations(lang)
       </div>
       <Button
         type="submit"
+        data-modal-trigger="mp-form-card"
         id="buttonCheckout"
         class="relative col-span-2 mt-10 block"
       >
@@ -134,6 +137,16 @@ const t = useTranslations(lang)
     </div>
   </article>
 </form>
+<Modal id="mp-form-card">
+  <ModalBody id="checkout-mercado-pago-form">
+    <div class="p-0" id="cardPaymentBrick_container"></div>
+  </ModalBody>
+</Modal>
+<Modal id="mp-status-screen">
+  <ModalBody>
+    <div class="p-0" id="statusScreenBrick_container"></div>
+  </ModalBody>
+</Modal>
 <div
   id="empty"
   class="hidden grid-cols-1 gap-x-6 gap-y-[0.875rem] md:grid-cols-3"
@@ -145,46 +158,33 @@ const t = useTranslations(lang)
   </h2>
   <slot />
 </div>
-<script is:inline src={import.meta.env.PUBLIC_NIUBIZ_SCRIPT}></script>
+<script is:inline src={import.meta.env.PUBLIC_MERCADO_PAGO_SCRIPT}></script>
 <script>
-  import { districts, provinces, regions } from 'consts'
+  import { districts, shippingCost } from 'consts'
   import { currency } from 'utils'
-  import Notification from 'icons/notification.svg'
-  import {
-    getLangFromUrl,
-    useTranslatedPath,
-    useTranslations,
-  } from 'i18n/utils'
-  import DeCajonLogo from 'icons/logo-decajon-black.svg'
+  import { getLangFromUrl, useTranslations } from 'i18n/utils'
   import { ProviderCart, UserCart } from 'adapters/cart'
-  import { Modal } from './modal'
+  import { createBrickSettings, createStatusBrick } from 'adapters/mercadopago'
+  import { closeModal, openModal } from './modal'
 
+  const $ = document.querySelector.bind(document)
+  const $$ = document.querySelectorAll.bind(document)
   const lang = getLangFromUrl(
     new URL(window?.location?.pathname, window?.location?.origin)
   )
-  const translatePath = useTranslatedPath(lang)
-  const $provinces = document.querySelector('#provinces')
-  const $districts = document.querySelector('#districts') as HTMLSelectElement
-  const $countProducts = document.querySelectorAll('#countProducts')
-  const $$total = document.querySelectorAll('#total')
-  const $address = document.querySelector('#address') as HTMLInputElement
-  const $phone = document.querySelector('#phone') as HTMLInputElement
-  const $email = document.querySelector('#email') as HTMLInputElement
-  const $empty = document.querySelector('#empty') as HTMLDivElement
-  const $formCheckout = document.querySelector(
-    '#formCheckout'
-  ) as HTMLFormElement
-  const $buttonCheckout = document.querySelectorAll(
-    '#buttonCheckout'
-  ) as NodeListOf<HTMLButtonElement>
-  const merchantId = import.meta.env.PUBLIC_NIUBIZ_MERCHANT_ID
-  const purchaseNumber = Number.parseInt(`${Math.random() * 1000}`, 10)
-  const documentStyle = document.documentElement.style.cssText
-  const bodyStyle = document.body.style.cssText
+  const $delivery = $('#delivery') as HTMLParagraphElement
+  const $modalBricks = $('#mp-form-card') as HTMLDialogElement
+  const $modalStatus = $('#mp-status-screen') as HTMLDialogElement
+  const $provinces = $('#provinces')
+  const $districts = $('#districts') as HTMLSelectElement
+  const $countProducts = $$('#countProducts')
+  const $$total = $$('#total') as NodeListOf<HTMLParagraphElement>
+  const $email = $('#email') as HTMLInputElement
+  const $empty = $('#empty') as HTMLDivElement
+  const $formCheckout = $('#formCheckout') as HTMLFormElement
   const t = useTranslations(lang)
   const isUser = $formCheckout.dataset.type === 'USER'
   const cart = isUser ? UserCart : ProviderCart
-
   if (cart.getTotal()) {
     $formCheckout.classList.toggle('hidden')
     $formCheckout.classList.toggle('grid')
@@ -193,8 +193,20 @@ const t = useTranslations(lang)
     $empty.classList.toggle('grid')
   }
 
+  const getDelivery = (districtId: string) => {
+    const district = shippingCost.find((item) => item.id_ubigeo === districtId)
+    return district?.shippingCost
+  }
+
+  $delivery.innerText = currency(getDelivery('3970') ?? 15)
+
   $$total?.forEach(($el) => {
-    $el?.insertAdjacentText('afterbegin', `${currency(cart.getTotal() + 10)}`)
+    const delivery = getDelivery('3970') ?? 15
+
+    $el?.insertAdjacentText(
+      'afterbegin',
+      `${currency(cart.getTotal() + delivery)}`
+    )
   })
 
   $countProducts?.forEach(($el) => {
@@ -210,28 +222,6 @@ const t = useTranslations(lang)
     )
   }
 
-  const getRegionByUbigeo = (ubigeo: string) => {
-    return regions.find((region) => region.id_ubigeo === ubigeo)
-  }
-
-  const getProvinceByIbigeo = (values: {
-    regionUbigeo: keyof typeof provinces
-    provinceUbigeo: string
-  }) => {
-    return provinces[values.regionUbigeo].find(
-      (province) => province.id_ubigeo === values.provinceUbigeo
-    )
-  }
-
-  const getDistrictByUbigeo = (values: {
-    provinceUbigeo: keyof typeof districts
-    districtUbigeo: string
-  }) => {
-    return districts[values.provinceUbigeo].find(
-      (district) => district.id_ubigeo === values.districtUbigeo
-    )
-  }
-
   getDistricts(
     ($provinces as HTMLInputElement)?.value as keyof typeof districts
   ).forEach((district) => {
@@ -241,213 +231,78 @@ const t = useTranslations(lang)
     )
   })
 
-  declare const VisanetCheckout: {
-    Iframe: any
-    configuration: { complete: (...args: any) => void }
-    open(): any
-    configure(param: any): any
-  }
+  $districts.addEventListener('change', (e: any) => {
+    const delivery = getDelivery(e.target?.value) ?? 15
+    $delivery.innerText = currency(delivery)
+    $$total?.forEach(($el) => {
+      if ($el) {
+        $el.innerText = `${currency(cart.getTotal() + delivery)}`
+      }
+    })
+  })
+
+  $modalBricks
+    .querySelector('[data-modal-close]')
+    ?.addEventListener('click', () => {
+      ;(window as any).paymentBrickController?.unmount()
+    })
+
+  $modalBricks.addEventListener(
+    'click',
+    (event) => {
+      if (event.target === $modalBricks) {
+        closeModal($modalBricks)
+        ;(window as any).paymentBrickController?.unmount()
+      }
+    },
+    { once: true }
+  )
+
+  $modalStatus
+    .querySelector('[data-modal-close]')
+    ?.addEventListener('click', () => {
+      ;(window as any).statusScreenBrickController?.unmount()
+      ;(window as any).paymentBrickController?.unmount()
+    })
+
+  $modalStatus.addEventListener(
+    'click',
+    (event) => {
+      closeModal($modalStatus)
+      ;(window as any).statusScreenBrickController?.unmount()
+      ;(window as any).paymentBrickController?.unmount()
+    },
+    { once: true }
+  )
 
   $formCheckout.addEventListener('submit', async (e) => {
     e.preventDefault()
-    const form = new FormData(e.target as HTMLFormElement)
-    const user = Object.fromEntries(form.entries()) as {
-      address: string
-      email: string
-      district: string
-      name: string
-      lastname: string
-      notes: string
-      phone: string
-      provinces: string
-      regions: string
-    }
-    const district = getDistrictByUbigeo({
-      provinceUbigeo: user.provinces as keyof typeof districts,
-      districtUbigeo: user.district,
-    })
-
-    $buttonCheckout.forEach(($el) => {
-      $el.disabled = true
-      $el.classList.toggle('opacity-75')
-      $el.insertAdjacentHTML(
-        'afterbegin',
-        `
-      <div
-        class='border-current text-surface dark:text-white inline-block size-3 animate-spin rounded-full border-4 border-solid border-e-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]'
-        role='status'
-        >
-          <span class='!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]' >Loading...</span>
-      </div>
-      `
-      )
-    })
-    const fetchAccess = await fetch(
-      `${import.meta.env.PUBLIC_DECAJON_API}/checkout.php`
+    const mp = new (window as any).MercadoPago(
+      import.meta.env.PUBLIC_MERCADO_PAGO_PUBLIC_KEY
     )
-    const accessToken = await fetchAccess.text()
-    const fetchSession = await fetch(
-      `${import.meta.env.PUBLIC_NIUBIZ_SESSION_TOKEN_URL}/${merchantId}`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: accessToken,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          channel: 'web',
-          amount: cart.getTotal() + 10,
-          antifraud: {
-            clientIp: '24.252.107.29',
-            merchantDefineData: {
-              MDD4: user.email,
-              MDD32: user.email,
-              // Registered - Guest - Employee
-              MDD75: 'Guest',
-              MDD77: 458,
-            },
-          },
-          datamap: {
-            cardholderCity: 'Lima',
-            cardholderCountry: 'PE',
-            cardholderAddress: user.address,
-            cardholderPostalCode: '12345',
-            cardholderState: 'LIM',
-            cardholderPhoneNumber: user.phone,
-          },
-        }),
-      }
-    )
-    const session = await fetchSession.json()
-    VisanetCheckout.configure({
-      sessiontoken: session.sessionKey,
-      channel: 'web',
-      merchantid: merchantId,
-      purchasenumber: purchaseNumber,
-      amount: cart.getTotal() + 10,
-      expirationminutes: '5',
-      timeouturl: location.href,
-      merchantlogo: DeCajonLogo.src,
-      merchantname: 'DeCajon',
-      formbuttoncolor: '#000000',
-      action: '/',
-      cancel: function () {
-        $buttonCheckout.forEach(($el) => {
-          $el.removeAttribute('disabled')
-          $el.classList.toggle('opacity-75')
-          $el.querySelector('[role="status"]')?.remove()
-        })
+    const bricksBuilder = mp.bricks()
+    const brickSettings = createBrickSettings({
+      amount: cart.getTotal() + (getDelivery($districts.value) ?? 15),
+      email: $email.value ?? '',
+      onSuccess: async (res: any) => {
+        if (res.data.status === 'approved') {
+          cart.clearCart()
+        }
+        const statusBrickSettings = createStatusBrick(res.data.id)
+        ;(window as any).statusScreenBrickController =
+          await bricksBuilder.create(
+            'statusScreen',
+            'statusScreenBrick_container',
+            statusBrickSettings
+          )
+        openModal($modalStatus)
+        closeModal($modalBricks)
       },
     })
-    VisanetCheckout.open()
-    VisanetCheckout.configuration.complete = procesar
-    async function procesar(parametros: { channel: string; token: string }) {
-      try {
-        const res = await fetch(
-          `${import.meta.env.PUBLIC_NIUBIZ_TRANSACTION_URL}/${merchantId}`,
-          {
-            method: 'POST',
-            headers: {
-              Authorization: accessToken,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              channel: parametros.channel,
-              captureType: 'manual',
-              accountable: true,
-              countable: true,
-              order: {
-                tokenId: parametros.token,
-                purchaseNumber: purchaseNumber,
-                amount: cart.getTotal() + 10,
-                currency: 'PEN',
-              },
-              dataMap: {
-                urlAddress: '',
-                partnerIdCode: '',
-                serviceLocationCityName: district?.nombre_ubigeo,
-                serviceLocationCountrySubdivisionCode: '',
-                serviceLocationCountryCode: 'PER',
-                serviceLocationPostalCode: '',
-              },
-            }),
-          }
-        )
-        const transaction = await res.json()
-        const modal = Object.create(Modal)
-        $buttonCheckout.forEach(($el) => {
-          $el.removeAttribute('disabled')
-          $el.classList.toggle('opacity-75')
-          $el.querySelector('[role="status"]')?.remove()
-        })
-        document.documentElement.style.cssText = documentStyle
-        document.body.style.cssText = bodyStyle
-        document.querySelector('#visaNetWrapper')?.remove()
-        VisanetCheckout.Iframe.prototype.close.call({
-          iframe: { style: { display: 'block' } },
-          ...VisanetCheckout.Iframe,
-        })
-        const actionCode = (transaction.dataMap ?? transaction.data)
-          .ACTION_CODE as
-          | '000'
-          | '101'
-          | '102'
-          | '113'
-          | '116'
-          | '118'
-          | '129'
-          | '190'
-          | '191'
-          | '401'
-          | '476'
-          | '479'
-          | '666'
-          | '668'
-          | '670'
-          | '678'
-          | '754'
-        if (actionCode === '000') {
-          return modal.open({
-            title: t?.('checkout.successfull'),
-            icon: Notification.src,
-            ok: {
-              title: t?.('checkout.close'),
-              onClick: () => {
-                location.replace(translatePath?.('/products'))
-                cart.clearCart()
-              },
-            },
-            description: t?.(`checkout.${actionCode}`),
-          })
-        }
-        if (t?.(`checkout.${actionCode}`)) {
-          return modal.open({
-            title: t?.('checkout.invalid'),
-            icon: Notification.src,
-            ok: {
-              title: t?.('checkout.close'),
-              onClick: () => {
-                location.replace(translatePath?.('/checkout'))
-              },
-            },
-            description: t?.(`checkout.${actionCode}`),
-          })
-        }
-
-        return modal.open({
-          title: t?.('checkout.invalid'),
-          icon: Notification.src,
-          ok: {
-            title: t?.('checkout.close'),
-            onClick: () => {
-              location.replace(translatePath?.('/checkout'))
-            },
-          },
-          description: t?.(`checkout.paymentError`),
-        })
-      } catch (error) {
-        console.error('There was an error. Try again', error)
-      }
-    }
+    ;(window as any).paymentBrickController = await bricksBuilder.create(
+      'cardPayment',
+      'cardPaymentBrick_container',
+      brickSettings
+    )
   })
 </script>
