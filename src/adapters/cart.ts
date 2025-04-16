@@ -26,10 +26,7 @@ const createCart = <T extends ProductCart>(storage: StorageCart<T>) => {
     },
 
     getCountProducts() {
-      return this.getCart()?.reduce(
-        (total, product) => (total += product.count),
-        0
-      )
+      return this.getCart().length
     },
 
     updateCart(props: T) {
