@@ -10,7 +10,6 @@
   const { cart }: Props = $props()
   const lang = getLangFromUrl(new URL(location.pathname, location.origin))
   const t = useTranslations(lang)
-  console.log('product>>', cart)
   const getNameById = (id: number) => {
     if (id === 1) {
       return 'Vodka'

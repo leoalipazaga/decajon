@@ -40,10 +40,7 @@ const bottles = [
     <BaseLayout>
       <SandLayout class="py-24">
         <div class="m-auto w-[76%] max-w-screen-2xl">
-          <FormCheckout
-            continueShop={translatePath('/dashboard/products')}
-            type="USER"
-          >
+          <FormCheckout continueShop={translatePath('/products')} type="USER">
             <Fragment slot="cart">
               <UserCheckout client:only="svelte" />
             </Fragment>

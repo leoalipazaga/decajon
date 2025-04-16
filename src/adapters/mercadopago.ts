@@ -48,7 +48,6 @@ export const createBrickSettings = ({
     },
     onSubmit: (formData: CardBrickResponse) => {
       // callback llamado al hacer clic en el botón de envío de datos
-      console.log('formdata', formData)
       return new Promise((resolve, reject) => {
         fetch(`${import.meta.env.PUBLIC_DECAJON_API}/brick.php`, {
           method: 'POST',

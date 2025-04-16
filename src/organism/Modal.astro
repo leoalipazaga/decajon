@@ -1,10 +1,11 @@
 ---
 interface Props {
   id: string
+  canClose?: boolean
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | 'full'
   class?: string
 }
-const { id, size = 'md', class: className } = Astro.props
+const { id, size = 'md', class: className, canClose = true } = Astro.props
 const sizeClasses = {
   xs: 'ac-modal--xs',
   sm: 'ac-modal--sm',
@@ -27,7 +28,13 @@ const sizeClasses = {
     className,
   ]}
 >
-  <button class="ac-modal-close" data-modal-close>&#935;</button>
+  {
+    canClose && (
+      <button class="ac-modal-close" data-modal-close>
+        &#935;
+      </button>
+    )
+  }
   <div id="ac-modal-body" class="overflow-y-scroll">
     <slot />
   </div>
