@@ -79,6 +79,7 @@ const bottles = [
 <script>
   import { getToken, getPayload } from 'adapters/jwt'
   import { currency } from 'utils'
+
   const token = getToken() as string
   const id = getPayload(token)?.id
   const query = new URLSearchParams({
@@ -106,12 +107,12 @@ const bottles = [
         'afterend',
         `
        <div
-          class="grid grid-cols-[repeat(4,minmax(0,1fr))] py-2 justify-items-center *:text-sm"
+          class="grid grid-cols-[repeat(4,minmax(0,1fr))] items-center py-2 justify-items-center *:text-sm"
         >
           <p class="justify-self-start">${new Intl.DateTimeFormat('es-CL').format(new Date(order.created_at))}</p>
           <p>${order.id}</p>
           <p>${currency(order.total)}</p>
-          <a href="/dashboard/order/?q=${order.id}">Ver pedido</a>
+          <a class="w-auto bg-rosewood text-zinc-1000 py-2 px-3 rounded-[1.25rem]" href="/dashboard/order/?q=${order.id}">Ver pedido</a>
         </div>
       `
       )
