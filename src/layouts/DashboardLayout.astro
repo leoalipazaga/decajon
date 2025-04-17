@@ -211,7 +211,12 @@ const translatePath = useTranslatedPath(lang)
   )
 
   const translatePath = useTranslatedPath(lang)
-  if (hasExpiredToken(getToken() || '')) {
+  const currentToken = getToken() ?? ''
+  if (!currentToken) {
+    window.location.replace(translatePath('/login'))
+  }
+
+  if (hasExpiredToken(currentToken)) {
     window.location.replace(translatePath('/login'))
   }
 </script>
