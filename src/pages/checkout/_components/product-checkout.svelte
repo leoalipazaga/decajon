@@ -7,14 +7,14 @@
   const t = useTranslations(lang)
 
   const cart = UserCart.getCart()
+
   const getNameById = (id: number) => {
     if (id === 1) {
-      return 'Vodka'
+      return 'Vodka DeCajon'
     }
     if (id === 2) {
-      return 'Vodka Gin'
+      return 'Gin DeCajon'
     }
-
     return 'Vodka Siembra'
   }
 </script>

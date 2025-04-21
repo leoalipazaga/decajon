@@ -40,7 +40,19 @@ const translatePath = useTranslatedPath(lang)
       />
     </a>
     <ul class="row-start-2 flex flex-col">
-      <li>
+      <li
+        class="flex animate-pulse cursor-wait items-center gap-2 py-3 pl-6 pr-2"
+      >
+        <div
+          class="size-7 max-w-[360px] flex-shrink-0 rounded-full bg-[#7d7b7b] dark:bg-[#7d7b7b]"
+        >
+        </div>
+        <div
+          class="h-5 w-full max-w-[360px] rounded-full bg-[#7d7b7b] dark:bg-[#7d7b7b]"
+        >
+        </div>
+      </li>
+      <li class="bg-gradient-to-tr">
         <a
           class="group flex py-3 pl-6 pr-2 hover:bg-red-900"
           href={translatePath('/dashboard/')}

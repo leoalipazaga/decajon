@@ -42,6 +42,7 @@ const t = useTranslations(lang)
       autocomplete="off"
       class="col-span-2 mb-4"
       label="Nombre"
+      htmlFor="name"
       name="name"
       id="name"
     />
@@ -49,12 +50,15 @@ const t = useTranslations(lang)
       required
       autocomplete="off"
       class="col-span-2 mb-4"
+      htmlFor="lastname"
       label="Apellidos"
       name="lastname"
       id="lastname"
     />
     <p translate="no" class="col-span-2 mb-4">Lima/Perú</p>
-    <label class="col-span-2 text-xs">{t('checkout.district')}</label>
+    <label for="districts" class="col-span-2 text-xs"
+      >{t('checkout.district')}</label
+    >
     <select
       required
       id="districts"
@@ -66,6 +70,7 @@ const t = useTranslations(lang)
       required
       autocomplete="off"
       class="col-span-2 mb-4"
+      htmlFor="address"
       label="Direccion"
       name="address"
       id="address"
@@ -76,6 +81,7 @@ const t = useTranslations(lang)
       required
       autocomplete="off"
       class="col-span-2 mb-4"
+      htmlFor="phone"
       type="tel"
       label={t('common.phone')}
       id="phone"
@@ -85,20 +91,20 @@ const t = useTranslations(lang)
       required
       autocomplete="off"
       class="col-span-2 mb-4"
+      htmlFor="email"
       type="email"
       label={t('common.email')}
       id="email"
       name="email"
     />
-    <label class="col-span-2 text-xs">{t('checkout.notes')}</label>
+    <label for="notes" class="col-span-2 text-xs">{t('checkout.notes')}</label>
     <textarea
       class="col-span-2 min-h-40 border border-eerie-black bg-transparent px-2.5 py-1"
+      id="notes"
       name="notes"></textarea>
     <Button
       as="button"
-      data-modal-trigger="mp-form-card"
-      id="buttonCheckout"
-      class="col-span-2 mt-10 block md:hidden"
+      class="col-span-2 mt-10 block disabled:opacity-30 md:hidden"
     >
       {t('checkout.finishShop')}
     </Button>
@@ -126,12 +132,7 @@ const t = useTranslations(lang)
         <p class="text-base">{t('common.total')}:</p>
         <p id="total" class="justify-self-end text-base"></p>
       </div>
-      <Button
-        type="submit"
-        data-modal-trigger="mp-form-card"
-        id="buttonCheckout"
-        class="relative col-span-2 mt-10 block"
-      >
+      <Button as="button" type="submit" class="relative col-span-2 mt-10 block">
         {t('checkout.finishShop')}
       </Button>
     </div>
@@ -275,18 +276,59 @@ const t = useTranslations(lang)
     { once: true }
   )
 
+  const getNameById = (id: number) => {
+    if (id === 1) {
+      return 'Vodka DeCajon'
+    }
+    if (id === 2) {
+      return 'Gin DeCajon'
+    }
+    return 'Vodka Siembra'
+  }
+
   $formCheckout.addEventListener('submit', async (e) => {
     e.preventDefault()
+    openModal($modalBricks)
     const mp = new (window as any).MercadoPago(
       import.meta.env.PUBLIC_MERCADO_PAGO_PUBLIC_KEY
     )
+    const checkout = Object.fromEntries(new FormData(e.target as any))
     const bricksBuilder = mp.bricks()
     const brickSettings = createBrickSettings({
       amount: cart.getTotal() + (getDelivery($districts.value) ?? 15),
-      email: $email.value ?? '',
+      email: checkout.email as string,
       onSuccess: async (res: any) => {
         if (res.data.status === 'approved') {
-          cart.clearCart()
+          const items = cart.getCart().map((v) => ({
+            name: getNameById(v.id),
+            count: v.count,
+            price: v.price,
+          }))
+          const fetchDelivery = await fetch(
+            `${import.meta.env.PUBLIC_DECAJON_API}/delivery.php`,
+            {
+              method: 'POST',
+              body: JSON.stringify({
+                name: checkout.name,
+                lastname: checkout.lastname,
+                address: checkout.address,
+                email: checkout.email,
+                phone: checkout.phone,
+                district: getDistricts(checkout.provinces as '3927').find(
+                  (v) => v.id_ubigeo === checkout.district
+                )?.nombre_ubigeo,
+                department: 'Lima',
+                order: res.data.id,
+                reference: checkout.notes,
+                shippingCost: getDelivery($districts.value as string),
+                items,
+              }),
+            }
+          )
+          await fetchDelivery.json()
+          if (fetchDelivery.ok) {
+            cart.clearCart()
+          }
         }
         const statusBrickSettings = createStatusBrick(res.data.id)
         ;(window as any).statusScreenBrickController =

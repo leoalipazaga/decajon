@@ -37,10 +37,10 @@
 
   const getImgById = (id: number) => {
     if (id === 1) {
-      return { src: Vodka.src, alt: 'Vodka' }
+      return { src: Vodka.src, alt: 'Vodka DeCajon' }
     }
     if (id === 2) {
-      return { src: Gin.src, alt: 'Vodka Gin' }
+      return { src: Gin.src, alt: 'Gin DeCajon' }
     }
     return { src: Siembra.src, alt: 'Vodka Siembra' }
   }
