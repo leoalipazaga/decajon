@@ -5,15 +5,6 @@ import Layout from 'layouts/Layout.astro'
 import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
 import SandLayout from 'layouts/SandLayout.astro'
 import CoctelesBanner from 'images/coctelesbanner.png'
-import BloodyMary from 'images/bloody-mary-coctel.jpeg'
-import MoscowMule from 'images/moscow-mule.jpeg'
-import ScrewDiver from 'images/screwdiver.jpg'
-import SexOnTheBeach from 'images/sex-on-the-beach.jpg'
-import Cosmopolitan from 'images/cosmopolitan.jpeg'
-import ExpressoMartini from 'images/expresso-martini.jpeg'
-import SmashPineaple from 'images/smash-pineaple.jpeg'
-import AppleMartini from 'images/apple-martini.jpeg'
-import PinkGinTonic from 'images/pink-gin-tonic.jpeg'
 import BottleVodka from 'images/bottle-vodka-compressed.png'
 import BottleSiembra from 'images/bottle-siembra.png'
 import BottleGin from 'images/bottle-gin.png'
@@ -22,26 +13,9 @@ import Button from 'components/Button.astro'
 import Coctel from 'components/Coctel.astro'
 import Input from 'components/Input.astro'
 import Carousel from 'components/Carousel.astro'
-import { cocteles } from 'consts'
 import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
-
-type CocktailAliases = (typeof cocteles)[number]['alias']
-
-const getCocktailImg = (cocktail: CocktailAliases) => {
-  const cocktails = {
-    ['bloody-mary']: BloodyMary,
-    ['moscow-mule']: MoscowMule,
-    ['screwdiver']: ScrewDiver,
-    ['sex-on-the-beach']: SexOnTheBeach,
-    ['cosmopolitan']: Cosmopolitan,
-    ['expresso-martini']: ExpressoMartini,
-    ['smash-pineaple']: SmashPineaple,
-    ['apple-martini']: AppleMartini,
-    ['pink-gin-tonic']: PinkGinTonic,
-  } as Record<CocktailAliases, ImageMetadata>
-
-  return cocktails[cocktail]
-}
+import { getCocktailImg } from 'coctel/coctel.usecases'
+import { cocteles } from 'coctel/coctel.const'
 
 const bottles = [
   {
@@ -82,10 +56,10 @@ const translatePath = useTranslatedPath(lang)
             <p class="text-xs md:text-sm lg:text-xl">
               {t('experience.preheading')}
             </p>
-            <h1 class="text-xl uppercase lg:text-5xl">
+            <h1 class="text-xl uppercase lg:text-3xl xl:text-5xl">
               {t('experience.title')}
             </h1>
-            <p class="text-xs md:text-sm lg:text-xl">
+            <p class="text-xs md:text-sm lg:text-sm xl:text-xl">
               {t('experience.description')}
             </p>
             <Button class="hidden md:flex" variant="rounded" id="scroll-to">
@@ -226,24 +200,16 @@ const translatePath = useTranslatedPath(lang)
   </MiddlewareLayout>
 </Layout>
 <script>
-  import type { ImageMetadata } from 'astro'
-  import { cocteles } from 'consts'
-  import BloodyMary from 'images/bloody-mary-coctel.jpeg'
-  import MoscowMule from 'images/moscow-mule.jpeg'
-  import ScrewDiver from 'images/screwdiver.jpg'
-  import SexOnTheBeach from 'images/sex-on-the-beach.jpg'
-  import Cosmopolitan from 'images/cosmopolitan.jpeg'
-  import ExpressoMartini from 'images/expresso-martini.jpeg'
-  import SmashPineaple from 'images/smash-pineaple.jpeg'
-  import AppleMartini from 'images/apple-martini.jpeg'
-  import PinkGinTonic from 'images/pink-gin-tonic.jpeg'
   import { getLangFromUrl, useTranslations } from 'i18n/utils'
+  import { getCocktailImg } from 'coctel/coctel.usecases'
+  import type { Coctel } from 'coctel/coctel.domain'
+  import { cocteles } from 'coctel/coctel.const'
 
-  type CocktailAliases = (typeof cocteles)[number]['alias']
-
-  const lang = getLangFromUrl(
-    new URL(window?.location?.pathname, window?.location?.origin)
+  const currentUrl = new URL(
+    window?.location?.pathname,
+    window?.location?.origin
   )
+  const lang = getLangFromUrl(currentUrl)
   const $ = document.querySelector.bind(document)
   const t = useTranslations(lang)
   const scrollToEl = $('#scroll-to')
@@ -252,23 +218,7 @@ const translatePath = useTranslatedPath(lang)
   const $cocteles = $('#cocteles') as HTMLDivElement
   const $formFilter = $('#form-filter') as HTMLFormElement
 
-  const getCocktailImg = (cocktail: CocktailAliases) => {
-    const cocktails = {
-      ['bloody-mary']: BloodyMary,
-      ['moscow-mule']: MoscowMule,
-      ['screwdiver']: ScrewDiver,
-      ['sex-on-the-beach']: SexOnTheBeach,
-      ['cosmopolitan']: Cosmopolitan,
-      ['expresso-martini']: ExpressoMartini,
-      ['smash-pineaple']: SmashPineaple,
-      ['apple-martini']: AppleMartini,
-      ['pink-gin-tonic']: PinkGinTonic,
-    } as Record<CocktailAliases, ImageMetadata>
-
-    return cocktails[cocktail]
-  }
-
-  const createCocktail = (cocktail: (typeof cocteles)[number]) => {
+  const createCocktail = (cocktail: Coctel) => {
     const wrapper = document.createElement('article')
     wrapper.classList.add(
       'grid',

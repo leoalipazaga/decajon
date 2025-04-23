@@ -13,6 +13,7 @@
       "consts": ["src/consts"],
       "layouts/*": ["src/layouts/*"],
       "adapters/*": ["src/adapters/*"],
+      "coctel/*": ["src/coctel/*"],
       "i18n/*": ["src/i18n/*"]
     }
   }
