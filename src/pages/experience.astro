@@ -21,33 +21,27 @@ import LongLeftArrow from 'icons/long-left-arrow.svg'
 import Button from 'components/Button.astro'
 import Coctel from 'components/Coctel.astro'
 import Input from 'components/Input.astro'
-import Select from 'components/Select.astro'
 import Carousel from 'components/Carousel.astro'
+import { cocteles } from 'consts'
 import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
 
-const cocteles = [
-  {
-    title: 'Bloody Mary',
-    img: { src: BloodyMary, alt: 'Bloody Mary' },
-  },
-  { title: 'Moscow Mule', img: { src: MoscowMule, alt: 'Moscow' } },
-  { title: 'SCREWDIVER', img: { src: ScrewDiver, alt: 'Screwdiver' } },
-  {
-    title: 'Sex on the beach',
-    img: { src: SexOnTheBeach, alt: 'SexOnTheBeach' },
-  },
-  { title: 'Cosmopolitan', img: { src: Cosmopolitan, alt: 'Cosmopolitan' } },
-  {
-    title: 'Expresso Martini',
-    img: { src: ExpressoMartini, alt: 'ExpressoMartin' },
-  },
-  { title: 'Apple Martini', img: { src: AppleMartini, alt: 'AppleMartini' } },
-  {
-    title: 'Smash de Piña',
-    img: { src: SmashPineaple, alt: 'SmashPineapple' },
-  },
-  { title: 'Pink Gin Tonic', img: { src: PinkGinTonic, alt: 'PinkGinTonic' } },
-] as const
+type CocktailAliases = (typeof cocteles)[number]['alias']
+
+const getCocktailImg = (cocktail: CocktailAliases) => {
+  const cocktails = {
+    ['bloody-mary']: BloodyMary,
+    ['moscow-mule']: MoscowMule,
+    ['screwdiver']: ScrewDiver,
+    ['sex-on-the-beach']: SexOnTheBeach,
+    ['cosmopolitan']: Cosmopolitan,
+    ['expresso-martini']: ExpressoMartini,
+    ['smash-pineaple']: SmashPineaple,
+    ['apple-martini']: AppleMartini,
+    ['pink-gin-tonic']: PinkGinTonic,
+  } as Record<CocktailAliases, ImageMetadata>
+
+  return cocktails[cocktail]
+}
 
 const bottles = [
   {
@@ -78,16 +72,20 @@ const translatePath = useTranslatedPath(lang)
 <Layout title="Cocteles">
   <MiddlewareLayout>
     <BaseLayout>
-      <SandLayout class="relative pl-28">
+      <SandLayout class="relative pl-14 md:pl-28">
         <div
           class="m-auto grid max-w-screen-2xl justify-between md:grid-cols-[50%_auto] lg:grid-cols-[35%_50%]"
         >
-          <header class="col-start-1 space-y-7 self-center">
-            <p class="md:text-xs lg:text-xl">{t('experience.preheading')}</p>
+          <header
+            class="col-start-1 row-start-1 w-4/5 space-y-2 self-center md:w-full md:space-y-7"
+          >
+            <p class="text-xs md:text-sm lg:text-xl">
+              {t('experience.preheading')}
+            </p>
             <h1 class="text-xl uppercase lg:text-5xl">
               {t('experience.title')}
             </h1>
-            <p class="md:text-xs lg:text-xl">
+            <p class="text-xs md:text-sm lg:text-xl">
               {t('experience.description')}
             </p>
             <Button class="hidden md:flex" variant="rounded" id="scroll-to">
@@ -96,7 +94,10 @@ const translatePath = useTranslatedPath(lang)
           </header>
           <Picture
             src={CoctelesBanner}
-            pictureAttributes={{ class: 'col-start-2 w-full justify-self-end' }}
+            pictureAttributes={{
+              class:
+                'col-start-1 col-end-2 md:w-full w-[70%] md:col-start-2 md:col-end-3 row-start-1 opacity-30 md:opacity-100 w-full justify-self-end',
+            }}
             height={832}
             class="aspect-[2/3] w-full"
             alt="cocteles-banner"
@@ -106,35 +107,42 @@ const translatePath = useTranslatedPath(lang)
       </SandLayout>
       <SandLayout class="py-[4.25rem]" id="recipes">
         <div class="m-auto w-[76%] max-w-screen-2xl">
-          <div class="mb-10 grid gap-x-5 md:grid-cols-2">
+          <form
+            id="form-filter"
+            class="mb-10 grid gap-x-5 gap-y-4 md:grid-cols-2 md:gap-y-0"
+          >
             <Input
               id="searchbox"
+              name="searchbox"
               type="search"
               autocomplete="off"
-              placeholder="Buscar Productos"
+              placeholder={t('experience.searchProducts')}
               rounded
             />
-            <Select rounded>
-              <li translate="no" role="option">De Cajón Vodka</li>
-              <li translate="no" role="option">De Cajón Gin</li>
-              <li translate="no" role="option">Siembra Vodka</li>
-            </Select>
-          </div>
+            <select class="border bg-transparent py-2 pl-2" name="distillate">
+              <option value="">Todos</option>
+              <option value="De Cajón Vodka">De Cajón Vodka</option>
+              <option value="De Cajón Gin">De Cajón Gin</option>
+              <option value="Siembra Vodka">Siembra Vodka</option>
+            </select>
+          </form>
           <h2 class="mb-8 uppercase md:text-xl lg:text-2xl">
-            {t('experience.recipesTitle')};&nbsp({cocteles.length})
+            {t('experience.recipesTitle')}&nbsp(<span id="cocteles-count"
+              >{cocteles.length}</span
+            >
+            )
           </h2>
           <div
-            class="grid grid-cols-1 gap-x-[1.25rem] gap-y-5 md:grid-cols-3 md:grid-rows-3 md:gap-y-4 lg:gap-y-12"
-            data-cocteles={cocteles}
+            class="grid grid-cols-1 gap-x-[1.25rem] gap-y-5 md:grid-cols-3 md:gap-y-4 lg:gap-y-12"
             id="cocteles"
           >
             {
               cocteles.map((coctel) => (
-                <Coctel title={coctel.title}>
+                <Coctel tag={coctel.distillate} title={coctel.name}>
                   <Image
                     class="col-span-2 row-start-1 h-full w-full object-cover object-[10%_80%]"
-                    src={coctel.img.src}
-                    alt={coctel.img.alt}
+                    src={getCocktailImg(coctel.alias)}
+                    alt={coctel.alias}
                     loading="lazy"
                     height="284"
                   />
@@ -218,9 +226,110 @@ const translatePath = useTranslatedPath(lang)
   </MiddlewareLayout>
 </Layout>
 <script>
+  import type { ImageMetadata } from 'astro'
+  import { cocteles } from 'consts'
+  import BloodyMary from 'images/bloody-mary-coctel.jpeg'
+  import MoscowMule from 'images/moscow-mule.jpeg'
+  import ScrewDiver from 'images/screwdiver.jpg'
+  import SexOnTheBeach from 'images/sex-on-the-beach.jpg'
+  import Cosmopolitan from 'images/cosmopolitan.jpeg'
+  import ExpressoMartini from 'images/expresso-martini.jpeg'
+  import SmashPineaple from 'images/smash-pineaple.jpeg'
+  import AppleMartini from 'images/apple-martini.jpeg'
+  import PinkGinTonic from 'images/pink-gin-tonic.jpeg'
+  import { getLangFromUrl, useTranslations } from 'i18n/utils'
+
+  type CocktailAliases = (typeof cocteles)[number]['alias']
+
+  const lang = getLangFromUrl(
+    new URL(window?.location?.pathname, window?.location?.origin)
+  )
   const $ = document.querySelector.bind(document)
+  const t = useTranslations(lang)
   const scrollToEl = $('#scroll-to')
   const recipes = $('#recipes')
+  const $coctelesCount = $('#cocteles-count') as HTMLTitleElement
+  const $cocteles = $('#cocteles') as HTMLDivElement
+  const $formFilter = $('#form-filter') as HTMLFormElement
+
+  const getCocktailImg = (cocktail: CocktailAliases) => {
+    const cocktails = {
+      ['bloody-mary']: BloodyMary,
+      ['moscow-mule']: MoscowMule,
+      ['screwdiver']: ScrewDiver,
+      ['sex-on-the-beach']: SexOnTheBeach,
+      ['cosmopolitan']: Cosmopolitan,
+      ['expresso-martini']: ExpressoMartini,
+      ['smash-pineaple']: SmashPineaple,
+      ['apple-martini']: AppleMartini,
+      ['pink-gin-tonic']: PinkGinTonic,
+    } as Record<CocktailAliases, ImageMetadata>
+
+    return cocktails[cocktail]
+  }
+
+  const createCocktail = (cocktail: (typeof cocteles)[number]) => {
+    const wrapper = document.createElement('article')
+    wrapper.classList.add(
+      'grid',
+      'grid-cols-[auto_auto]',
+      'grid-rows-[284px_auto]',
+      'gap-y-[0.625rem]'
+    )
+    wrapper.insertAdjacentHTML(
+      'afterbegin',
+      `
+      <div class="col-span-2 row-start-1">
+        <image
+          class="col-span-2 row-start-1 h-full w-full object-cover object-[10%_80%]"
+          src=${getCocktailImg(cocktail.alias).src}
+          alt=${cocktail.alias}
+          loading="lazy"
+          height="284"
+        />
+      </div>
+      <h1
+        class="col-span-1 row-start-2 self-center justify-self-start hyphens-auto text-sm uppercase text-rosewood [overflow-wrap:anywhere] md:text-xs lg:text-sm"
+      >
+        ${cocktail.name.toUpperCase()}
+      </h1>
+      <span class="col-span-1 rounded-[1.25rem] border border-rosewood row-start-2 self-center justify-self-end px-[18px] py-[0.375rem] text-[0.625rem] font-bold text-rosewood md:px-1.5">
+        ${cocktail.distillate}
+      </span>
+      `
+    )
+
+    return wrapper
+  }
+
+  const createNotFound = document.createElement('h1')
+  createNotFound.innerText = t('common.resultsNotFound')
+  createNotFound.classList.add(
+    'text-center',
+    'font-bold',
+    'col-span-3',
+    'font-bold',
+    'text-sm'
+  )
+
+  $formFilter?.addEventListener('input', (e) => {
+    const form = new FormData(e.currentTarget as HTMLFormElement)
+    const productFilter = Object.fromEntries(form.entries())
+    const text = (productFilter.searchbox as string).trim()
+    const foundCocktails = cocteles
+      .filter(
+        (v) =>
+          v.name.toLowerCase().includes(text.toLowerCase()) &&
+          v.distillate.includes(productFilter.distillate.toString())
+      )
+      .map((cocktail) => createCocktail(cocktail))
+    foundCocktails.length
+      ? $cocteles.replaceChildren(...foundCocktails)
+      : $cocteles.replaceChildren(createNotFound)
+
+    const count = $cocteles.querySelectorAll('article').length
+    $coctelesCount.innerText = `${count}`
+  })
 
   scrollToEl?.addEventListener('click', () => {
     recipes?.scrollIntoView({ behavior: 'smooth' })
