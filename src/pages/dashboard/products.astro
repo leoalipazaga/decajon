@@ -21,13 +21,13 @@ import Siembra4 from 'images/siembra-4.jpeg'
 import { getLangFromUrl, useTranslations } from 'i18n/utils'
 import CounterButton from './_components/CounterButton.svelte'
 import CounterPersist from './_components/CounterPersist.svelte'
+import { boxes } from 'consts'
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 ---
 
 <Layout title="Dashboard">
-  <!-- <BaseLayout showNavbar={false}> -->
   <SandLayout>
     <DashboardLayout title="PRODUCTOS">
       <div class="mb-11">
@@ -41,7 +41,11 @@ const t = useTranslations(lang)
                 { src: Vodka4, alt: 'Vodka4' },
               ]}
             />
-            <ProductInfo id={1} title="DE CAJÓN VODKA" price={780}>
+            <ProductInfo
+              id={1}
+              title="DE CAJÓN VODKA"
+              price={boxes.get(1)?.price as number}
+            >
               <Fragment slot="default">
                 {t('products.vodka')}
               </Fragment>
@@ -62,7 +66,11 @@ const t = useTranslations(lang)
                 { alt: 'DeCajonGin4', src: DeCajonGin4 },
               ]}
             />
-            <ProductInfo id={2} title="DE CAJÓN GIN" price={900}>
+            <ProductInfo
+              id={2}
+              title="DE CAJÓN GIN"
+              price={boxes.get(2)?.price as number}
+            >
               <Fragment slot="default">
                 {t('products.ginSummary')}
               </Fragment>
@@ -83,7 +91,11 @@ const t = useTranslations(lang)
                 { alt: 'Siembra4', src: Siembra4 },
               ]}
             />
-            <ProductInfo id={3} title="SIEMBRA VODKA" price={300}>
+            <ProductInfo
+              id={3}
+              title="SIEMBRA VODKA"
+              price={boxes.get(3)?.price as number}
+            >
               <Fragment slot="default">
                 {t('products.siembraSummary')}
               </Fragment>
@@ -99,5 +111,4 @@ const t = useTranslations(lang)
       </div>
     </DashboardLayout>
   </SandLayout>
-  <!-- </BaseLayout> -->
 </Layout>

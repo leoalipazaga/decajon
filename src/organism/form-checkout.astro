@@ -41,7 +41,7 @@ const t = useTranslations(lang)
       required
       autocomplete="off"
       class="col-span-2 mb-4"
-      label="Nombre"
+      label={type === 'PROVIDER' ? 'Nombre Social' : 'Nombre'}
       htmlFor="name"
       name="name"
       id="name"
@@ -51,7 +51,7 @@ const t = useTranslations(lang)
       autocomplete="off"
       class="col-span-2 mb-4"
       htmlFor="lastname"
-      label="Apellidos"
+      label={type === 'PROVIDER' ? 'RUC' : 'Apellidos'}
       name="lastname"
       id="lastname"
     />
@@ -163,28 +163,50 @@ const t = useTranslations(lang)
 <script>
   import { districts, shippingCost } from 'consts'
   import { currency } from 'utils'
-  import { getLangFromUrl, useTranslations } from 'i18n/utils'
+  import {
+    getLangFromUrl,
+    useTranslatedPath,
+    useTranslations,
+  } from 'i18n/utils'
   import { ProviderCart, UserCart } from 'adapters/cart'
   import { createBrickSettings, createStatusBrick } from 'adapters/mercadopago'
   import { closeModal, openModal } from './modal'
+  import { getPayload, getToken } from 'adapters/jwt'
+  import { createDelivery } from 'src/services/delivery'
+  import { createOrder } from 'src/services/order'
 
   const $ = document.querySelector.bind(document)
   const $$ = document.querySelectorAll.bind(document)
   const lang = getLangFromUrl(
     new URL(window?.location?.pathname, window?.location?.origin)
   )
+  const translatePath = useTranslatedPath(lang)
   const $delivery = $('#delivery') as HTMLParagraphElement
   const $modalBricks = $('#mp-form-card') as HTMLDialogElement
   const $modalStatus = $('#mp-status-screen') as HTMLDialogElement
   const $provinces = $('#provinces')
   const $districts = $('#districts') as HTMLSelectElement
+  const $name = $('#name') as HTMLInputElement
+  const $lastname = $('#lastname') as HTMLInputElement
   const $countProducts = $$('#countProducts')
   const $$total = $$('#total') as NodeListOf<HTMLParagraphElement>
-  const $email = $('#email') as HTMLInputElement
   const $empty = $('#empty') as HTMLDivElement
   const $formCheckout = $('#formCheckout') as HTMLFormElement
   const t = useTranslations(lang)
   const isUser = $formCheckout.dataset.type === 'USER'
+  const token = getToken() as string
+  const distributorId = isUser ? '' : getPayload(token)?.id
+  const commercialName = isUser ? '' : getPayload(token)?.commercial_name
+  const ruc = isUser ? '' : getPayload(token)?.ruc
+
+  if (commercialName) {
+    $name.value = commercialName
+  }
+
+  if (ruc) {
+    $lastname.value = ruc
+  }
+
   const cart = isUser ? UserCart : ProviderCart
   if (cart.getTotal()) {
     $formCheckout.classList.toggle('hidden')
@@ -268,7 +290,7 @@ const t = useTranslations(lang)
 
   $modalStatus.addEventListener(
     'click',
-    (event) => {
+    () => {
       closeModal($modalStatus)
       ;(window as any).statusScreenBrickController?.unmount()
       ;(window as any).paymentBrickController?.unmount()
@@ -293,9 +315,10 @@ const t = useTranslations(lang)
       import.meta.env.PUBLIC_MERCADO_PAGO_PUBLIC_KEY
     )
     const checkout = Object.fromEntries(new FormData(e.target as any))
+    const totalAmount = cart.getTotal() + (getDelivery($districts.value) ?? 15)
     const bricksBuilder = mp.bricks()
     const brickSettings = createBrickSettings({
-      amount: cart.getTotal() + (getDelivery($districts.value) ?? 15),
+      amount: totalAmount,
       email: checkout.email as string,
       onSuccess: async (res: any) => {
         if (res.data.status === 'approved') {
@@ -304,33 +327,41 @@ const t = useTranslations(lang)
             count: v.count,
             price: v.price,
           }))
-          const fetchDelivery = await fetch(
-            `${import.meta.env.PUBLIC_DECAJON_API}/delivery.php`,
-            {
-              method: 'POST',
-              body: JSON.stringify({
-                name: checkout.name,
-                lastname: checkout.lastname,
-                address: checkout.address,
-                email: checkout.email,
-                phone: checkout.phone,
-                district: getDistricts(checkout.provinces as '3927').find(
-                  (v) => v.id_ubigeo === checkout.district
-                )?.nombre_ubigeo,
-                department: 'Lima',
-                order: res.data.id,
-                reference: checkout.notes,
-                shippingCost: getDelivery($districts.value as string),
-                items,
-              }),
-            }
-          )
-          await fetchDelivery.json()
-          if (fetchDelivery.ok) {
-            cart.clearCart()
+          const district = getDistricts(checkout.provinces as '3927').find(
+            (v) => v.id_ubigeo === checkout.district
+          )?.nombre_ubigeo as string
+          const shippingCost = getDelivery($districts.value as string) as number
+          await createDelivery({
+            items,
+            name: checkout.name,
+            lastname: checkout.lastname,
+            address: checkout.address,
+            email: checkout.email,
+            phone: checkout.phone,
+            district: district,
+            department: 'Lima',
+            order: res.data.id,
+            reference: checkout.notes,
+            shippingCost: shippingCost,
+          })
+          if (!isUser) {
+            await createOrder({
+              total: totalAmount,
+              distributorsId: distributorId,
+              items: cart
+                .getCart()
+                .map((v) => ({ products_id: v.id, quantity: v.count })),
+            })
           }
+          cart.clearCart()
         }
-        const statusBrickSettings = createStatusBrick(res.data.id)
+        const statusBrickSettings = createStatusBrick({
+          paymentId: res.data.id,
+          backUrls: {
+            return: isUser ? '/products' : '/dashboard/products',
+            error: isUser ? '/checkout' : '/dashboard/checkout',
+          },
+        })
         ;(window as any).statusScreenBrickController =
           await bricksBuilder.create(
             'statusScreen',

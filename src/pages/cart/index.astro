@@ -43,7 +43,10 @@ const bottles = [
     <BaseLayout>
       <SandLayout class="pt-[5.625rem]">
         <div class="m-auto w-[76%] max-w-screen-2xl">
-          <ProductsCart client:load />
+          <ProductsCart
+            redirectLink={translatePath?.('/products')}
+            client:load
+          />
         </div>
       </SandLayout>
       <SandLayout class="py-[4.375rem]">

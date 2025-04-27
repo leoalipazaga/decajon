@@ -45,16 +45,16 @@ const t = useTranslations(lang)
   <slot name="action" />
 </article>
 <script>
-  import { UserCart } from 'adapters/cart'
-  import { currency } from 'utils'
-
-  const $ = document.querySelector.bind(document)
-  const $total = $('#total') as HTMLSpanElement
-  const initialPrice = Number($total.dataset.total)
-  const item = UserCart.getItemBy(1)
-  if (item) {
-    $total.innerText = `${currency(item.price * item.count)}`
-  } else {
-    $total.innerText = currency(initialPrice ?? 0)
-  }
+  // import { UserCart } from 'adapters/cart'
+  // import { currency } from 'utils'
+  //
+  // const $ = document.querySelector.bind(document)
+  // const $total = $('#total') as HTMLSpanElement
+  // const initialPrice = Number($total.dataset.total)
+  // const item = UserCart.getItemBy(1)
+  // if (item) {
+  //   $total.innerText = `${currency(item.price * item.count)}`
+  // } else {
+  //   $total.innerText = currency(initialPrice ?? 0)
+  // }
 </script>

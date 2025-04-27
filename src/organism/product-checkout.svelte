@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { CartProduct } from 'adapters/storage.types'
-
   import { getLangFromUrl, useTranslations } from 'i18n/utils'
   import { currency } from 'utils'
 
   interface Props {
     cart: Array<CartProduct>
   }
+
   const { cart }: Props = $props()
   const lang = getLangFromUrl(new URL(location.pathname, location.origin))
   const t = useTranslations(lang)

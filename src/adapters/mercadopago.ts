@@ -1,3 +1,5 @@
+import { getLangFromUrl, useTranslatedPath } from 'i18n/utils'
+
 export interface CardBrickResponse {
   installments: number
   issuer_id: string
@@ -74,10 +76,13 @@ export const createBrickSettings = ({
   },
 })
 
-export const createStatusBrick = (paymentId: string) => {
+export const createStatusBrick = (brick: {
+  paymentId: string
+  backUrls: { error: string; return: string }
+}) => {
   return {
     initialization: {
-      paymentId, // id de pago para mostrar
+      paymentId: brick.paymentId, // id de pago para mostrar
     },
     callbacks: {
       onReady: () => {
@@ -95,10 +100,7 @@ export const createStatusBrick = (paymentId: string) => {
       visual: {
         showExternalReference: true,
       },
-      backUrls: {
-        error: `${window.location.origin}/checkout`,
-        return: `${window.location.origin}/products`,
-      },
+      backUrls: brick.backUrls,
     },
   }
 }

@@ -10,6 +10,10 @@ export const setToken = (token: string) => {
   return token
 }
 
+export const removeToken = () => {
+  setToken('')
+}
+
 export const hasExpiredToken = (token: string) => {
   const jwt = token.split('.')
   const res = JSON.parse(atob(jwt[1]))

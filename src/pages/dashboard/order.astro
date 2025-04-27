@@ -151,11 +151,10 @@ const bottles = [
       id: number
       total: number
       quantity: number
-      price: number
+      price_per_box: number
       name: string
       volumen: number
     }[]
-    console.log('products', products)
     products.forEach((product) => {
       $('#products')?.insertAdjacentHTML(
         'afterend',
@@ -166,8 +165,8 @@ const bottles = [
           <p class="justify-self-start">${product.id}</p>
           <p>${mapProductName(product.id)}</p>
           <p>${product.quantity}</p>
-          <p>${currency(product.price)}</p>
-          <p>${currency(product.total)}</p>
+          <p>${currency(product.price_per_box)}</p>
+          <p>${currency(product.total * 12)}</p>
         </div>
       `
       )

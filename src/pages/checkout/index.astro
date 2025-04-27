@@ -10,6 +10,7 @@ import BottleVodka from 'images/bottle-vodka-compressed.png'
 import BottleSiembra from 'images/bottle-siembra.png'
 import BottleGin from 'images/bottle-gin.png'
 import { getLangFromUrl, useTranslatedPath } from 'i18n/utils'
+import Input from 'components/Input.astro'
 
 const lang = getLangFromUrl(Astro.url)
 const translatePath = useTranslatedPath(lang)
@@ -41,6 +42,26 @@ const bottles = [
       <SandLayout class="py-24">
         <div class="m-auto w-[76%] max-w-screen-2xl">
           <FormCheckout continueShop={translatePath('/products')} type="USER">
+            <Fragment slot="information">
+              <Input
+                required
+                autocomplete="off"
+                class="col-span-2 mb-4"
+                label="Nombre"
+                htmlFor="name"
+                name="name"
+                id="name"
+              />
+              <Input
+                required
+                autocomplete="off"
+                class="col-span-2 mb-4"
+                htmlFor="lastname"
+                label="Apellidos"
+                name="lastname"
+                id="lastname"
+              />
+            </Fragment>
             <Fragment slot="cart">
               <UserCheckout client:only="svelte" />
             </Fragment>
