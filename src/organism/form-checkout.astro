@@ -358,8 +358,12 @@ const t = useTranslations(lang)
         const statusBrickSettings = createStatusBrick({
           paymentId: res.data.id,
           backUrls: {
-            return: isUser ? '/products' : '/dashboard/products',
-            error: isUser ? '/checkout' : '/dashboard/checkout',
+            return: isUser
+              ? `${window.location.origin}/products`
+              : `${window.location.origin}/dashboard/products`,
+            error: isUser
+              ? `${window.location.origin}/checkout`
+              : `${window.location.origin}/dashboard/checkout`,
           },
         })
         ;(window as any).statusScreenBrickController =

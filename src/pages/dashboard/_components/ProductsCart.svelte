@@ -81,7 +81,7 @@
   {/if}
   <a
     class="hidden self-end justify-self-end text-rosewood sm:col-start-3 md:block"
-    href={translatePath?.('/products')}
+    href={translatePath?.('/dashboard/products')}
   >
     {t?.('cart.continueShop')}
   </a>
