@@ -24,7 +24,7 @@ export const hasExpiredToken = (token: string) => {
 export const getPayload = (token: string) => {
   const jwt = token.split('.')
 
-  if (!jwt) {
+  if (!jwt || !token) {
     return null
   }
   const res = JSON.parse(atob(jwt[1]))

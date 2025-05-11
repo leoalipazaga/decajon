@@ -314,6 +314,8 @@ const t = useTranslations(lang)
     const mp = new (window as any).MercadoPago(
       import.meta.env.PUBLIC_MERCADO_PAGO_PUBLIC_KEY
     )
+    const singleLabel = isUser ? 'Unidad' : 'Caja'
+    const pluralLabel = isUser ? 'Unidades' : 'Cajas'
     const checkout = Object.fromEntries(new FormData(e.target as any))
     const totalAmount = cart.getTotal() + (getDelivery($districts.value) ?? 15)
     const bricksBuilder = mp.bricks()
@@ -326,6 +328,8 @@ const t = useTranslations(lang)
             name: getNameById(v.id),
             count: v.count,
             price: v.price,
+            total: v.count * v.price,
+            label: `${v.count} ${v.count === 1 ? singleLabel : pluralLabel}`,
           }))
           const district = getDistricts(checkout.provinces as '3927').find(
             (v) => v.id_ubigeo === checkout.district
@@ -334,7 +338,7 @@ const t = useTranslations(lang)
           await createDelivery({
             items,
             name: checkout.name,
-            lastname: checkout.lastname,
+            lastname: isUser ? checkout.lastname : `RUC (${checkout.lastname})`,
             address: checkout.address,
             email: checkout.email,
             phone: checkout.phone,

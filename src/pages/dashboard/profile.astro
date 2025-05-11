@@ -1,0 +1,129 @@
+---
+import { Picture } from 'astro:assets'
+import Layout from 'layouts/Layout.astro'
+import DashboardLayout from 'layouts/DashboardLayout.astro'
+import SandLayout from 'layouts/SandLayout.astro'
+import Button from 'components/Button.astro'
+import BottleVodka from 'images/bottle-vodka-compressed.png'
+import BottleSiembra from 'images/bottle-siembra.png'
+import BottleGin from 'images/bottle-gin.png'
+import Input from 'components/Input.astro'
+
+const bottles = [
+  {
+    title: 'DE CAJÓN VODKA',
+    img: { alt: 'De Cajon Vodka', src: BottleVodka },
+    link: '/dashboard/products/',
+    size: 'Botella 750ml',
+  },
+  {
+    title: 'DE CAJÓN GIN',
+    img: { alt: 'DE CAJÓN GIN', src: BottleGin },
+    link: '/dashboard/products/',
+    size: 'Botella 750ml',
+  },
+  {
+    title: 'SIEMBRA VODKA',
+    img: { alt: 'SIEMBRA VODKA', src: BottleSiembra },
+    link: '/dashboard/products/',
+    size: 'Botella 750ml',
+  },
+]
+---
+
+<Layout title="Dashboard">
+  <!-- <BaseLayout showNavbar={false}> -->
+  <SandLayout>
+    <DashboardLayout title="Perfil">
+      <div class="mb-4 flex flex-col gap-4">
+        <Input disabled label="RUC" name="ruc" htmlFor="ruc" id="ruc" />
+        <Input disabled label="Nombre" name="name" htmlFor="name" id="name" />
+        <Input
+          type="password"
+          label="Contraseña"
+          name="password"
+          htmlFor="password"
+          id="password"
+        />
+        <Input
+          type="password"
+          label="Nueva contraseña"
+          htmlFor="repeatPassword"
+          name="repeatPassword"
+          id="repeatPassword"
+        />
+      </div>
+      <div class="mb-11 grid grid-cols-3 gap-x-5">
+        {
+          bottles.map((bottle) => (
+            <article class="hidden flex-col items-center rounded-[1.25rem] bg-anti-flash-white py-[1.125rem] md:flex">
+              <Picture
+                alt={bottle.img.alt}
+                class="mb-4 h-[260px] object-cover"
+                height={260}
+                src={bottle.img.src}
+                loading="lazy"
+                formats={['webp', 'avif', 'jpg']}
+              />
+              <h2 class="mb-3 text-center uppercase md:text-sm lg:text-2xl">
+                {bottle.title}
+              </h2>
+              <p class="mb-3 text-center md:text-xs lg:text-xl">
+                {bottle.size}
+              </p>
+              <Button as="a" href={bottle.link}>
+                Comprar Ahora
+              </Button>
+            </article>
+          ))
+        }
+      </div>
+    </DashboardLayout>
+  </SandLayout>
+  <!-- </BaseLayout> -->
+</Layout>
+<script>
+  import { getToken, getPayload } from 'adapters/jwt'
+
+  const $ = document.querySelector.bind(document)
+  const $name = $('input#name') as HTMLInputElement
+  const $ruc = $('input#ruc') as HTMLInputElement
+  const token = getToken() as string
+  const payload = getPayload(token)
+  $name.value = payload.commercial_name
+  $ruc.value = payload.ruc
+  console.log('token', payload)
+  // const fetching = await fetch(
+  //   `${import.meta.env.PUBLIC_DECAJON_API}/profile.php?${id}`,
+  //   {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //       'Content-type': 'application/json;charset=UTF-8',
+  //     },
+  //   }
+  // )
+  // const res = await fetching.json()
+  // if (fetching.ok) {
+  //   const orders = res.data as {
+  //     id: string
+  //     created_at: string
+  //     total: number
+  //   }[]
+  //   const $ = document.querySelector.bind(document)
+  //   orders.forEach((order) => {
+  //     $('#orders')?.insertAdjacentHTML(
+  //       'afterend',
+  //       `
+  //      <div
+  //         class="grid grid-cols-[repeat(4,minmax(0,1fr))] items-center py-2 justify-items-center *:text-sm"
+  //       >
+  //         <p class="justify-self-start">${new Intl.DateTimeFormat('es-CL').format(new Date(order.created_at))}</p>
+  //         <p>${order.id}</p>
+  //         <p>${currency(order.total)}</p>
+  //         <a class="w-auto bg-rosewood text-zinc-1000 py-2 px-3 rounded-[1.25rem]" href="/dashboard/order/?q=${order.id}">Ver pedido</a>
+  //       </div>
+  //     `
+  //     )
+  //   })
+  // }
+</script>
