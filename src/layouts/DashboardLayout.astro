@@ -317,6 +317,9 @@ const translatePath = useTranslatedPath(lang)
   const $modalProfile = $('#modal-profile') as HTMLDialogElement
   const $formChangePassword = $('#form-change-password') as HTMLFormElement
   const $passwordError = $('#password-error') as HTMLParagraphElement
+  const $currentPassowrd = $('#password') as HTMLInputElement
+  const $newPassword = $('#newPassword') as HTMLInputElement
+  const $confirmPassword = $('#confirmPassword') as HTMLInputElement
   const $errorMessage = $passwordError.querySelector('span') as HTMLSpanElement
   const token = getToken() as string
   const payload = getPayload(token)
@@ -342,6 +345,7 @@ const translatePath = useTranslatedPath(lang)
 
   $formChangePassword.addEventListener('submit', async (e) => {
     e.preventDefault()
+    $passwordError.classList.add('hidden')
     const form = new FormData(e.currentTarget as HTMLFormElement)
     const credentials = Object.fromEntries(form)
 
@@ -358,6 +362,9 @@ const translatePath = useTranslatedPath(lang)
         currentPassword: credentials.password as string,
         newPassword: credentials.newPassword as string,
       })
+      $newPassword.value = ''
+      $confirmPassword.value = ''
+      $currentPassowrd.value = ''
       closeModal($modalProfile)
       new Toast({
         text: 'Contraseña actualizada correctamente',
