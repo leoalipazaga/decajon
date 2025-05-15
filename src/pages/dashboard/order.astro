@@ -1,16 +1,14 @@
 ---
+import { Picture } from 'astro:assets'
 import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
 import Button from 'components/Button.astro'
 import Carousel from 'components/Carousel.astro'
 import DashboardLayout from 'layouts/DashboardLayout.astro'
 import Layout from 'layouts/Layout.astro'
-// import BaseLayout from 'layouts/BaseLayout.astro'
 import SandLayout from 'layouts/SandLayout.astro'
 import BottleVodka from 'images/bottle-vodka-compressed.png'
 import BottleSiembra from 'images/bottle-siembra.png'
 import BottleGin from 'images/bottle-gin.png'
-import { Picture } from 'astro:assets'
-// import ProductsCart from './_components/ProductsCart.svelte'
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
@@ -121,16 +119,15 @@ const bottles = [
   import { currency } from 'utils'
 
   const $ = document.querySelector.bind(document)
-  const mapProductName = (id: number) => {
-    if (id === 1) {
-      return 'Siembra Vodka'
-    }
-
-    if (id === 2) {
+  const mapProductName = (id: string) => {
+    if (id === '1') {
       return 'De Cajon Vodka'
     }
-
-    return 'De Cajon Gin'
+    if (id === '2') {
+      return 'De Cajon Gin'
+    }
+    // id is 3 returns De Cajon Gin
+    return 'Siembra Vodka'
   }
   const url = new URL(location.href)
   const orderId = url.searchParams.get('q') ?? ''
@@ -148,7 +145,7 @@ const bottles = [
   const res = await fetchProducts.json()
   if (fetchProducts.ok) {
     const products = res.data as {
-      id: number
+      id: string
       total: number
       quantity: number
       price_per_box: number

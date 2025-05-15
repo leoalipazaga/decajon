@@ -163,24 +163,19 @@ const t = useTranslations(lang)
 <script>
   import { districts, shippingCost } from 'consts'
   import { currency } from 'utils'
-  import {
-    getLangFromUrl,
-    useTranslatedPath,
-    useTranslations,
-  } from 'i18n/utils'
+  import { getLangFromUrl, useTranslations } from 'i18n/utils'
   import { ProviderCart, UserCart } from 'adapters/cart'
   import { createBrickSettings, createStatusBrick } from 'adapters/mercadopago'
-  import { closeModal, openModal } from './modal'
   import { getPayload, getToken } from 'adapters/jwt'
   import { createDelivery } from 'src/services/delivery'
   import { createOrder } from 'src/services/order'
+  import { closeModal, openModal } from './modal'
 
   const $ = document.querySelector.bind(document)
   const $$ = document.querySelectorAll.bind(document)
   const lang = getLangFromUrl(
     new URL(window?.location?.pathname, window?.location?.origin)
   )
-  const translatePath = useTranslatedPath(lang)
   const $delivery = $('#delivery') as HTMLParagraphElement
   const $modalBricks = $('#mp-form-card') as HTMLDialogElement
   const $modalStatus = $('#mp-status-screen') as HTMLDialogElement
