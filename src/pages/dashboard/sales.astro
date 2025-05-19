@@ -1,55 +1,86 @@
 ---
-import { Picture } from 'astro:assets'
-import Layout from 'layouts/Layout.astro'
-import DashboardLayout from 'layouts/DashboardLayout.astro'
-// import BaseLayout from 'layouts/BaseLayout.astro'
-import SandLayout from 'layouts/SandLayout.astro'
-import Counter from 'ui/Counter.svelte'
-import Button from 'components/Button.astro'
-import Tag from 'components/Tag.astro'
-import { currency } from 'utils'
-import DeCajonGin2 from 'images/decajon-gin-2.jpeg'
-// import Siembra2 from 'images/siembra-2.jpeg'
-// import Vodka2 from 'images/vodka-2.jpeg'
+import { changeLanguage } from "i18next";
+import { Picture } from "astro:assets";
+import Layout from "layouts/Layout.astro";
+import DashboardLayout from "layouts/DashboardLayout.astro";
+import SandLayout from "layouts/SandLayout.astro";
+import Button from "components/Button.astro";
+import Tag from "components/Tag.astro";
+import { currency } from "utils";
+import DeCajonGin2 from "images/decajon-gin-2.jpeg";
+
+changeLanguage("es");
 ---
 
-<Layout title="Dashboard">
-  <!-- <BaseLayout showNavbar={false}> -->
+<Layout title='Dashboard'>
   <SandLayout>
-    <DashboardLayout title="Ofertas">
-      <article class="grid grid-cols-[1fr_3fr] gap-x-4">
+    <DashboardLayout title='Ofertas'>
+      <article class='grid grid-cols-[1fr_3fr] gap-x-4'>
         <Picture
           pictureAttributes={{
             class: 'col-start-1 col-end-2 row-start-1 row-end-6',
           }}
-          class="aspect-square"
+          class='aspect-square'
           src={DeCajonGin2}
-          alt="DeCajon Gin"
+          alt='DeCajon Gin'
           formats={['webp', 'jpg']}
         />
-        <h1 class="col-start-2 -col-end-1 row-start-1 text-2xl uppercase">
+        <h1 class='col-start-2 -col-end-1 row-start-1 text-2xl uppercase'>
           PROMOCIÓN NAVIDEÑA
         </h1>
-        <p class="col-start-2 -col-end-1 row-start-2 text-xl">
+        <p class='col-start-2 -col-end-1 row-start-2 text-xl'>
           Promoción válida hasta el 20-12-24
         </p>
-        <p class="col-start-2 -col-end-1 text-xl">
+        <p class='col-start-2 -col-end-1 text-xl'>
           Productos brindados en la promoción:
         </p>
-        <ul class="col-start-2 -col-end-1">
+        <ul class='col-start-2 -col-end-1'>
           <li>Botella De Cajón Gin + Botella De Cajón Vodka</li>
         </ul>
-        <div class="col-start-2 col-end-3 flex items-end gap-4">
-          <div><Counter id={1} client:only="svelte" /></div>
+        <div class='col-start-2 col-end-3 flex items-end gap-4'>
+          <div
+            class='col-start-1 row-start-1 flex min-w-min flex-row items-center justify-between gap-1 text-nowrap rounded-[1.25rem] border border-rosewood px-7 py-1.5 text-xs text-eerie-black sm:col-start-2 sm:gap-4 lg:px-[2.625rem] lg:text-base [&&]:p-1 [&&]:px-2'
+          >
+            <button
+              id='sales-counter-inc'
+              class='flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full bg-rosewood font-bold text-anti-flash-white [&&]:h-7 [&&]:w-7'
+              >+</button
+            >
+            <span id='sales-counter-display' class='w-4 text-center font-bold'
+            ></span>
+            <button
+              id='sales-counter-dec'
+              class='flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full bg-rosewood font-bold text-anti-flash-white [&&]:h-7 [&&]:w-7'
+            >
+              -
+            </button>
+          </div>
           <Tag
-            class="col-start-3 col-end-4 flex h-min place-items-center justify-self-start"
+            class='col-start-3 col-end-4 flex h-min place-items-center justify-self-start'
           >
             {currency(99)}
           </Tag>
-          <Button class="h-min">Comprar Ahora</Button>
+          <Button class='h-min'>Comprar Ahora</Button>
         </div>
       </article>
     </DashboardLayout>
   </SandLayout>
-  <!-- </BaseLayout> -->
 </Layout>
+<script>
+  const $ = document.querySelector.bind(document)
+  const $counterInc = $('#sales-counter-inc') as HTMLButtonElement
+  const $counterDec = $('#sales-counter-dec') as HTMLButtonElement
+  const $counterDisplay = $('#sales-counter-display') as HTMLSpanElement
+
+  $counterDisplay.innerText = '1'
+
+  $counterInc.addEventListener('click', () => {
+    const currentCount = +$counterDisplay.innerText
+    $counterDisplay.innerText = `${currentCount + 1}`
+  })
+
+  $counterDec.addEventListener('click', () => {
+    const currentCount = +$counterDisplay.innerText
+    $counterDisplay.innerText = `${Math.max(1, currentCount - 1)}`
+  })
+</script>

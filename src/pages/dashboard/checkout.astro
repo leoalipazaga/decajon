@@ -1,52 +1,87 @@
 ---
-import DashboardLayout from 'layouts/DashboardLayout.astro'
-import Layout from 'layouts/Layout.astro'
-// import BaseLayout from 'layouts/BaseLayout.astro'
-import SandLayout from 'layouts/SandLayout.astro'
-import BottleVodka from 'images/bottle-vodka-compressed.png'
-import BottleSiembra from 'images/bottle-siembra.png'
-import BottleGin from 'images/bottle-gin.png'
-import FormCheckout from 'organism/form-checkout.astro'
-import Bottles from 'organism/bottles.astro'
-import ProviderCheckout from 'organism/provider-checkout.svelte'
-import { getLangFromUrl, useTranslatedPath } from 'i18n/utils'
+import { changeLanguage } from "i18next";
+import DashboardLayout from "layouts/DashboardLayout.astro";
+import Layout from "layouts/Layout.astro";
+import SandLayout from "layouts/SandLayout.astro";
+import BottleVodka from "images/bottle-vodka-compressed.png";
+import BottleSiembra from "images/bottle-siembra.png";
+import BottleGin from "images/bottle-gin.png";
+import FormCheckout from "organism/form-checkout.astro";
+import Bottles from "organism/bottles.astro";
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "i18n/utils";
 
-const lang = getLangFromUrl(Astro.url)
-const translatePath = useTranslatedPath(lang)
+changeLanguage("es");
+
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
+const t = useTranslations();
 const bottles = [
-  {
-    title: 'DE CAJÓN VODKA',
-    img: { alt: 'De Cajon Vodka', src: BottleVodka },
-    link: '/dashboard/products',
-    size: '750',
-  },
-  {
-    title: 'DE CAJÓN GIN',
-    img: { alt: 'DE CAJÓN GIN', src: BottleGin },
-    link: '/dashboard/products',
-    size: '750',
-  },
-  {
-    title: 'SIEMBRA VODKA',
-    img: { alt: 'SIEMBRA VODKA', src: BottleSiembra },
-    link: '/dashboard/products',
-    size: '750',
-  },
-]
+    {
+        title: "DE CAJ\u00D3N VODKA",
+        img: { alt: "De Cajon Vodka", src: BottleVodka },
+        link: "/dashboard/products",
+        size: "750",
+    },
+    {
+        title: "DE CAJ\u00D3N GIN",
+        img: { alt: "DE CAJ\u00D3N GIN", src: BottleGin },
+        link: "/dashboard/products",
+        size: "750",
+    },
+    {
+        title: "SIEMBRA VODKA",
+        img: { alt: "SIEMBRA VODKA", src: BottleSiembra },
+        link: "/dashboard/products",
+        size: "750",
+    },
+];
 ---
 
-<Layout title="Dashboard">
+<Layout title='Dashboard'>
   <SandLayout>
-    <DashboardLayout title="Checkout">
-      <div class="m-auto max-w-screen-2xl">
+    <DashboardLayout title='Checkout'>
+      <div class='m-auto max-w-screen-2xl'>
         <FormCheckout
           continueShop={translatePath('/dashboard/products')}
-          type="PROVIDER"
+          type='PROVIDER'
         >
-          <Fragment slot="cart">
-            <ProviderCheckout client:only="svelte" />
+          <Fragment slot='cart'>
+            <div id='checkout-items' class='col-span-2'>
+              <template id='checkout-item'>
+                <div
+                  class='col-span-2 grid grid-cols-2 border-b px-[0.625rem] py-4'
+                >
+                  <p id='checkout-item-product-name' class='text-base'></p>
+                  <span
+                    id='checkout-item-product-label-volumen'
+                    class='col-start-1 row-start-2 text-base'></span>
+                  <p
+                    id='checkout-item-product-price'
+                    class='justify-self-end text-base'
+                  >
+                  </p>
+                </div>
+                <div class='col-span-2 flex border-b px-[0.625rem] py-4'>
+                  <p class='text-base'>{t('checkout.count')}:</p>
+                  <p class='justify-self-end text-base'>
+                    <span id='checkout-item-product-count'></span>
+                    {t('checkout.products')}
+                  </p>
+                </div>
+                <div
+                  class='col-span-2 grid grid-cols-2 border-b px-[0.625rem] py-4'
+                >
+                  <p class='text-base'>{t('common.subtotal')}:</p>
+                  <p
+                    id='checkout-item-product-label-total'
+                    class='justify-self-end text-base font-bold'
+                  >
+                  </p>
+                </div>
+              </template>
+            </div>
           </Fragment>
-          <Fragment slot="default">
+          <Fragment slot='default'>
             <Bottles {bottles} />
           </Fragment>
         </FormCheckout>
@@ -54,3 +89,54 @@ const bottles = [
     </DashboardLayout>
   </SandLayout>
 </Layout>
+<script>
+  import { ProviderCart } from 'adapters/cart'
+  import { currency } from 'utils'
+  const $ = document.querySelector.bind(document)
+
+  const getNameById = (id: number) => {
+    if (id === 1) {
+      return 'Vodka DeCajon'
+    }
+    if (id === 2) {
+      return 'Gin DeCajon'
+    }
+
+    return 'Vodka Siembra'
+  }
+
+  const $checkout = $('#checkout-item') as HTMLTemplateElement
+  const $checkoutItems = $('#checkout-items') as HTMLDivElement
+  const cart = ProviderCart.getCart()
+
+  const $$items = cart.map((item) => {
+    const $clone = $checkout.content.cloneNode(true) as HTMLElement
+    const $name = $clone.querySelector(
+      '#checkout-item-product-name'
+    ) as HTMLParagraphElement
+    const $volumen = $clone.querySelector(
+      '#checkout-item-product-label-volumen'
+    ) as HTMLSpanElement
+    const $price = $clone.querySelector(
+      '#checkout-item-product-price'
+    ) as HTMLParagraphElement
+    const $count = $clone.querySelector(
+      '#checkout-item-product-count'
+    ) as HTMLSpanElement
+    const $total = $clone.querySelector(
+      '#checkout-item-product-label-total'
+    ) as HTMLParagraphElement
+
+    $name.innerText = getNameById(item.id)
+    $volumen.innerText = `${item.volumen}ml`
+    $price.innerText = `${currency(item.price)}`
+    $count.innerText = `${item.count}`
+    $total.innerText = currency(item.count * item.price)
+
+    return $clone
+  })
+
+  $$items.forEach(($item) => {
+    $checkoutItems.append(...$item.children)
+  })
+</script>

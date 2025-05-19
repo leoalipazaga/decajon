@@ -1,340 +1,301 @@
 ---
-import type { InferGetStaticPropsType, ImageMetadata } from 'astro'
-import { Picture } from 'astro:assets'
-import BaseLayout from 'layouts/BaseLayout.astro'
-import Layout from 'layouts/Layout.astro'
-import SandLayout from 'layouts/SandLayout.astro'
-import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
-import BloodyMary from 'images/bloody-mary-coctel.jpeg'
-import MoscowMule from 'images/moscow-mule.jpeg'
-import Screwdiver from 'images/screwdiver.jpg'
-import SexOnTheBeach from 'images/sex-on-the-beach.jpg'
-import Cosmopolitan from 'images/cosmopolitan.jpeg'
-import ExpressoMartini from 'images/expresso-martini.jpeg'
-import AppleMartini from 'images/apple-martini.jpeg'
-import SmashPineapple from 'images/smash-pineaple.jpeg'
-import PinkGinTonic from 'images/pink-gin-tonic.jpeg'
-import Tag from 'components/Tag.astro'
-import SliderRecipes from 'components/SliderRecipes.astro'
-import { getLangFromUrl, useTranslations } from 'i18n/utils'
+import { changeLanguage } from "i18next";
+import type { InferGetStaticPropsType, ImageMetadata } from "astro";
+import { Picture } from "astro:assets";
+import BaseLayout from "layouts/BaseLayout.astro";
+import Layout from "layouts/Layout.astro";
+import SandLayout from "layouts/SandLayout.astro";
+import MiddlewareLayout from "layouts/MiddlewareLayout.astro";
+import BloodyMary from "images/bloody-mary-coctel.jpeg";
+import MoscowMule from "images/moscow-mule.jpeg";
+import Screwdiver from "images/screwdiver.jpg";
+import SexOnTheBeach from "images/sex-on-the-beach.jpg";
+import Cosmopolitan from "images/cosmopolitan.jpeg";
+import ExpressoMartini from "images/expresso-martini.jpeg";
+import AppleMartini from "images/apple-martini.jpeg";
+import SmashPineapple from "images/smash-pineaple.jpeg";
+import PinkGinTonic from "images/pink-gin-tonic.jpeg";
+import Tag from "components/Tag.astro";
+import SliderRecipes from "components/SliderRecipes.astro";
+import { useTranslations } from "i18n/utils";
 
-const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(lang)
+changeLanguage("es");
 
+const t = useTranslations();
 export const getStaticPaths = () => {
-  return [
-    {
-      params: { recipe: 'bloody-mary' },
-      props: {
-        img: { src: BloodyMary satisfies ImageMetadata, alt: 'bloody-mary' },
-        title: 'BLOODY MARY',
-        summary: (translate: typeof t) => translate('bloodyMary.summary'),
-        difficulty: (translate: typeof t) => translate('recipe.easy'),
-        ocassion: (translate: typeof t) => translate('recipe.midday'),
-        ingredients: [
-          (translate: typeof t) => translate('bloodyMary.ingredient1'),
-          (translate: typeof t) => translate('bloodyMary.ingredient2'),
-          (translate: typeof t) => translate('bloodyMary.ingredient3'),
-          (translate: typeof t) => translate('bloodyMary.ingredient4'),
-          (translate: typeof t) => translate('bloodyMary.ingredient5'),
-          (translate: typeof t) => translate('bloodyMary.ingredient6'),
-          (translate: typeof t) => translate('bloodyMary.ingredient7'),
-          (translate: typeof t) => translate('bloodyMary.ingredient8'),
-          (translate: typeof t) => translate('bloodyMary.ingredient9'),
-        ],
-        steps: [
-          (translate: typeof t) => translate('bloodyMary.step1'),
-          (translate: typeof t) => translate('bloodyMary.step2'),
-        ],
-        info: [
-          (translate: typeof t) =>
-            `${translate('recipe.time')}: ${translate('bloodyMary.info1')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.portions')}: ${translate('bloodyMary.info2')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.category')}: ${translate('bloodyMary.info3')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.typeOfCooking')}: ${translate('bloodyMary.info4')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.calories')}: ${translate('bloodyMary.info5')}`,
-        ],
-      },
-    },
-    {
-      params: { recipe: 'moscow-mule' },
-      props: {
-        img: { src: MoscowMule satisfies ImageMetadata, alt: 'moscow-mule' },
-        title: 'Moscow Mule',
-        summary: (translate: typeof t) => translate('moscowMule.summary'),
-        difficulty: (translate: typeof t) => translate('recipe.easy'),
-        ocassion: (translate: typeof t) => translate('recipe.midday'),
-        ingredients: [
-          (translate: typeof t) => translate('moscowMule.ingredient1'),
-          (translate: typeof t) => translate('moscowMule.ingredient2'),
-          (translate: typeof t) => translate('moscowMule.ingredient3'),
-          (translate: typeof t) => translate('moscowMule.ingredient4'),
-          (translate: typeof t) => translate('moscowMule.ingredient5'),
-          (translate: typeof t) => translate('moscowMule.ingredient6'),
-        ],
-        steps: [(translate: typeof t) => translate('moscowMule.step1')],
-        info: [
-          (translate: typeof t) =>
-            `${translate('recipe.time')}: ${translate('moscowMule.info1')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.portions')}: ${translate('moscowMule.info2')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.category')}: ${translate('moscowMule.info3')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.typeOfCooking')}: ${translate('moscowMule.info4')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.category')}: ${translate('moscowMule.info5')}`,
-        ],
-      },
-    },
-    {
-      params: { recipe: 'screwdiver' },
-      props: {
-        img: { src: Screwdiver satisfies ImageMetadata, alt: 'screwdiver' },
-        title: 'Screwdiver',
-        summary: (translate: typeof t) => translate('screwdiver.summary'),
-        difficulty: (translate: typeof t) => translate('recipe.easy'),
-        ocassion: (translate: typeof t) => translate('recipe.midday'),
-        ingredients: [
-          (translate: typeof t) => translate('screwdiver.ingredient1'),
-          (translate: typeof t) => translate('screwdiver.ingredient2'),
-          (translate: typeof t) => translate('screwdiver.ingredient3'),
-          (translate: typeof t) => translate('screwdiver.ingredient4'),
-          (translate: typeof t) => translate('screwdiver.ingredient5'),
-        ],
-        steps: [(translate: typeof t) => translate('screwdiver.step1')],
-        info: [
-          (translate: typeof t) =>
-            `${translate('recipe.time')}: ${translate('screwdiver.info1')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.portions')}: ${translate('screwdiver.info2')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.category')}: ${translate('screwdiver.info3')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.typeOfCooking')}: ${translate('screwdiver.info4')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.category')}: ${translate('screwdiver.info5')}`,
-        ],
-      },
-    },
-    {
-      params: { recipe: 'sex-on-the-beach' },
-      props: {
-        img: {
-          src: SexOnTheBeach satisfies ImageMetadata,
-          alt: 'sex-on-the-beach',
+    return [
+        {
+            params: { recipe: "bloody-mary" },
+            props: {
+                img: { src: BloodyMary satisfies ImageMetadata, alt: "bloody-mary" },
+                title: "BLOODY MARY",
+                summary: (translate: typeof t) => translate("bloodyMary.summary"),
+                difficulty: (translate: typeof t) => translate("recipe.easy"),
+                ocassion: (translate: typeof t) => translate("recipe.midday"),
+                ingredients: [
+                    (translate: typeof t) => translate("bloodyMary.ingredient1"),
+                    (translate: typeof t) => translate("bloodyMary.ingredient2"),
+                    (translate: typeof t) => translate("bloodyMary.ingredient3"),
+                    (translate: typeof t) => translate("bloodyMary.ingredient4"),
+                    (translate: typeof t) => translate("bloodyMary.ingredient5"),
+                    (translate: typeof t) => translate("bloodyMary.ingredient6"),
+                    (translate: typeof t) => translate("bloodyMary.ingredient7"),
+                    (translate: typeof t) => translate("bloodyMary.ingredient8"),
+                    (translate: typeof t) => translate("bloodyMary.ingredient9"),
+                ],
+                steps: [
+                    (translate: typeof t) => translate("bloodyMary.step1"),
+                    (translate: typeof t) => translate("bloodyMary.step2"),
+                ],
+                info: [
+                    (translate: typeof t) => `${translate("recipe.time")}: ${translate("bloodyMary.info1")}`,
+                    (translate: typeof t) => `${translate("recipe.portions")}: ${translate("bloodyMary.info2")}`,
+                    (translate: typeof t) => `${translate("recipe.category")}: ${translate("bloodyMary.info3")}`,
+                    (translate: typeof t) => `${translate("recipe.typeOfCooking")}: ${translate("bloodyMary.info4")}`,
+                    (translate: typeof t) => `${translate("recipe.calories")}: ${translate("bloodyMary.info5")}`,
+                ],
+            },
         },
-        title: 'SEX ON THE BEACH',
-        summary: (translate: typeof t) => translate('sexOnTheBeach.summary'),
-        difficulty: (translate: typeof t) => translate('recipe.easy'),
-        ocassion: (translate: typeof t) => translate('recipe.midday'),
-        ingredients: [
-          (translate: typeof t) => translate('sexOnTheBeach.ingredient1'),
-          (translate: typeof t) => translate('sexOnTheBeach.ingredient2'),
-          (translate: typeof t) => translate('sexOnTheBeach.ingredient3'),
-          (translate: typeof t) => translate('sexOnTheBeach.ingredient4'),
-          (translate: typeof t) => translate('sexOnTheBeach.ingredient5'),
-          (translate: typeof t) => translate('sexOnTheBeach.ingredient6'),
-        ],
-        steps: [
-          (translate: typeof t) => translate('sexOnTheBeach.step1'),
-          (translate: typeof t) => translate('sexOnTheBeach.step2'),
-          (translate: typeof t) => translate('sexOnTheBeach.step3'),
-        ],
-        info: [
-          (translate: typeof t) =>
-            `${translate('recipe.time')}: ${translate('sexOnTheBeach.info1')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.portions')}: ${translate('sexOnTheBeach.info2')}`,
-        ],
-      },
-    },
-    {
-      params: { recipe: 'cosmopolitan' },
-      props: {
-        img: {
-          src: Cosmopolitan satisfies ImageMetadata,
-          alt: 'cosmopolitan',
+        {
+            params: { recipe: "moscow-mule" },
+            props: {
+                img: { src: MoscowMule satisfies ImageMetadata, alt: "moscow-mule" },
+                title: "Moscow Mule",
+                summary: (translate: typeof t) => translate("moscowMule.summary"),
+                difficulty: (translate: typeof t) => translate("recipe.easy"),
+                ocassion: (translate: typeof t) => translate("recipe.midday"),
+                ingredients: [
+                    (translate: typeof t) => translate("moscowMule.ingredient1"),
+                    (translate: typeof t) => translate("moscowMule.ingredient2"),
+                    (translate: typeof t) => translate("moscowMule.ingredient3"),
+                    (translate: typeof t) => translate("moscowMule.ingredient4"),
+                    (translate: typeof t) => translate("moscowMule.ingredient5"),
+                    (translate: typeof t) => translate("moscowMule.ingredient6"),
+                ],
+                steps: [(translate: typeof t) => translate("moscowMule.step1")],
+                info: [
+                    (translate: typeof t) => `${translate("recipe.time")}: ${translate("moscowMule.info1")}`,
+                    (translate: typeof t) => `${translate("recipe.portions")}: ${translate("moscowMule.info2")}`,
+                    (translate: typeof t) => `${translate("recipe.category")}: ${translate("moscowMule.info3")}`,
+                    (translate: typeof t) => `${translate("recipe.typeOfCooking")}: ${translate("moscowMule.info4")}`,
+                    (translate: typeof t) => `${translate("recipe.category")}: ${translate("moscowMule.info5")}`,
+                ],
+            },
         },
-        title: 'COSMOPOLITAN',
-        summary: (translate: typeof t) => translate('cosmopolitan.summary'),
-        difficulty: (translate: typeof t) => translate('recipe.easy'),
-        ocassion: (translate: typeof t) => translate('recipe.midday'),
-        ingredients: [
-          (translate: typeof t) => translate('cosmopolitan.ingredient1'),
-          (translate: typeof t) => translate('cosmopolitan.ingredient2'),
-          (translate: typeof t) => translate('cosmopolitan.ingredient3'),
-          (translate: typeof t) => translate('cosmopolitan.ingredient4'),
-        ],
-        steps: [
-          (translate: typeof t) => translate('cosmopolitan.step1'),
-          (translate: typeof t) => translate('cosmopolitan.step2'),
-          (translate: typeof t) => translate('cosmopolitan.step3'),
-          (translate: typeof t) => translate('cosmopolitan.step4'),
-        ],
-        info: [
-          (translate: typeof t) =>
-            `${translate('recipe.time')}: ${translate('cosmopolitan.info1')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.portions')}: ${translate('cosmopolitan.info2')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.category')}: ${translate('cosmopolitan.info3')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.typeOfCooking')}: ${translate('cosmopolitan.info4')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.calories')}: ${translate('cosmopolitan.info5')}`,
-        ],
-      },
-    },
-    {
-      params: { recipe: 'expresso-martini' },
-      props: {
-        img: {
-          src: ExpressoMartini satisfies ImageMetadata,
-          alt: 'EXPRESSO MARTINI',
+        {
+            params: { recipe: "screwdiver" },
+            props: {
+                img: { src: Screwdiver satisfies ImageMetadata, alt: "screwdiver" },
+                title: "Screwdiver",
+                summary: (translate: typeof t) => translate("screwdiver.summary"),
+                difficulty: (translate: typeof t) => translate("recipe.easy"),
+                ocassion: (translate: typeof t) => translate("recipe.midday"),
+                ingredients: [
+                    (translate: typeof t) => translate("screwdiver.ingredient1"),
+                    (translate: typeof t) => translate("screwdiver.ingredient2"),
+                    (translate: typeof t) => translate("screwdiver.ingredient3"),
+                    (translate: typeof t) => translate("screwdiver.ingredient4"),
+                    (translate: typeof t) => translate("screwdiver.ingredient5"),
+                ],
+                steps: [(translate: typeof t) => translate("screwdiver.step1")],
+                info: [
+                    (translate: typeof t) => `${translate("recipe.time")}: ${translate("screwdiver.info1")}`,
+                    (translate: typeof t) => `${translate("recipe.portions")}: ${translate("screwdiver.info2")}`,
+                    (translate: typeof t) => `${translate("recipe.category")}: ${translate("screwdiver.info3")}`,
+                    (translate: typeof t) => `${translate("recipe.typeOfCooking")}: ${translate("screwdiver.info4")}`,
+                    (translate: typeof t) => `${translate("recipe.category")}: ${translate("screwdiver.info5")}`,
+                ],
+            },
         },
-        title: 'EXPRESSO MARTINI',
-        summary: (translate: typeof t) => translate('expressoMartini.summary'),
-        difficulty: (translate: typeof t) => translate('recipe.easy'),
-        ocassion: (translate: typeof t) => translate('recipe.midday'),
-        ingredients: [
-          (translate: typeof t) => translate('expressoMartini.ingredient1'),
-          (translate: typeof t) => translate('expressoMartini.ingredient2'),
-          (translate: typeof t) => translate('expressoMartini.ingredient3'),
-          (translate: typeof t) => translate('expressoMartini.ingredient4'),
-          (translate: typeof t) => translate('expressoMartini.ingredient5'),
-        ],
-        steps: [
-          (translate: typeof t) => translate('expressoMartini.step1'),
-          (translate: typeof t) => translate('expressoMartini.step2'),
-          (translate: typeof t) => translate('expressoMartini.step3'),
-          (translate: typeof t) => translate('expressoMartini.step4'),
-        ],
-        info: [
-          (translate: typeof t) =>
-            `${translate('recipe.time')}: ${translate('expressoMartini.info1')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.portions')}: ${translate('expressoMartini.info2')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.category')}: ${translate('expressoMartini.info3')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.typeOfCooking')}: ${translate('expressoMartini.info4')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.calories')}: ${translate('expressoMartini.info5')}`,
-        ],
-      },
-    },
-    {
-      params: { recipe: 'apple-martini' },
-      props: {
-        img: {
-          src: AppleMartini satisfies ImageMetadata,
-          alt: 'APPLE MARTINI',
+        {
+            params: { recipe: "sex-on-the-beach" },
+            props: {
+                img: {
+                    src: SexOnTheBeach satisfies ImageMetadata,
+                    alt: "sex-on-the-beach",
+                },
+                title: "SEX ON THE BEACH",
+                summary: (translate: typeof t) => translate("sexOnTheBeach.summary"),
+                difficulty: (translate: typeof t) => translate("recipe.easy"),
+                ocassion: (translate: typeof t) => translate("recipe.midday"),
+                ingredients: [
+                    (translate: typeof t) => translate("sexOnTheBeach.ingredient1"),
+                    (translate: typeof t) => translate("sexOnTheBeach.ingredient2"),
+                    (translate: typeof t) => translate("sexOnTheBeach.ingredient3"),
+                    (translate: typeof t) => translate("sexOnTheBeach.ingredient4"),
+                    (translate: typeof t) => translate("sexOnTheBeach.ingredient5"),
+                    (translate: typeof t) => translate("sexOnTheBeach.ingredient6"),
+                ],
+                steps: [
+                    (translate: typeof t) => translate("sexOnTheBeach.step1"),
+                    (translate: typeof t) => translate("sexOnTheBeach.step2"),
+                    (translate: typeof t) => translate("sexOnTheBeach.step3"),
+                ],
+                info: [
+                    (translate: typeof t) => `${translate("recipe.time")}: ${translate("sexOnTheBeach.info1")}`,
+                    (translate: typeof t) => `${translate("recipe.portions")}: ${translate("sexOnTheBeach.info2")}`,
+                ],
+            },
         },
-        title: 'Apple Martini',
-        summary: (translate: typeof t) => translate('appleMartini.summary'),
-        difficulty: (translate: typeof t) => translate('recipe.easy'),
-        ocassion: (translate: typeof t) => translate('recipe.midday'),
-        ingredients: [
-          (translate: typeof t) => translate('appleMartini.ingredient1'),
-          (translate: typeof t) => translate('appleMartini.ingredient2'),
-          (translate: typeof t) => translate('appleMartini.ingredient3'),
-          (translate: typeof t) => translate('appleMartini.ingredient4'),
-          (translate: typeof t) => translate('appleMartini.ingredient5'),
-          (translate: typeof t) => translate('appleMartini.ingredient6'),
-          (translate: typeof t) => translate('appleMartini.ingredient7'),
-        ],
-        steps: [
-          (translate: typeof t) => translate('appleMartini.step1'),
-          (translate: typeof t) => translate('appleMartini.step2'),
-          (translate: typeof t) => translate('appleMartini.step3'),
-          (translate: typeof t) => translate('appleMartini.step4'),
-        ],
-        info: [
-          (translate: typeof t) =>
-            `${translate('recipe.time')}: ${translate('appleMartini.info1')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.portions')}: ${translate('appleMartini.info2')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.category')}: ${translate('appleMartini.info3')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.typeOfCooking')}: ${translate('appleMartini.info4')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.calories')}: ${translate('appleMartini.info5')}`,
-        ],
-      },
-    },
-    {
-      params: { recipe: 'smash-pineapple' },
-      props: {
-        img: {
-          src: SmashPineapple satisfies ImageMetadata,
-          alt: 'SmashPineapple',
+        {
+            params: { recipe: "cosmopolitan" },
+            props: {
+                img: {
+                    src: Cosmopolitan satisfies ImageMetadata,
+                    alt: "cosmopolitan",
+                },
+                title: "COSMOPOLITAN",
+                summary: (translate: typeof t) => translate("cosmopolitan.summary"),
+                difficulty: (translate: typeof t) => translate("recipe.easy"),
+                ocassion: (translate: typeof t) => translate("recipe.midday"),
+                ingredients: [
+                    (translate: typeof t) => translate("cosmopolitan.ingredient1"),
+                    (translate: typeof t) => translate("cosmopolitan.ingredient2"),
+                    (translate: typeof t) => translate("cosmopolitan.ingredient3"),
+                    (translate: typeof t) => translate("cosmopolitan.ingredient4"),
+                ],
+                steps: [
+                    (translate: typeof t) => translate("cosmopolitan.step1"),
+                    (translate: typeof t) => translate("cosmopolitan.step2"),
+                    (translate: typeof t) => translate("cosmopolitan.step3"),
+                    (translate: typeof t) => translate("cosmopolitan.step4"),
+                ],
+                info: [
+                    (translate: typeof t) => `${translate("recipe.time")}: ${translate("cosmopolitan.info1")}`,
+                    (translate: typeof t) => `${translate("recipe.portions")}: ${translate("cosmopolitan.info2")}`,
+                    (translate: typeof t) => `${translate("recipe.category")}: ${translate("cosmopolitan.info3")}`,
+                    (translate: typeof t) => `${translate("recipe.typeOfCooking")}: ${translate("cosmopolitan.info4")}`,
+                    (translate: typeof t) => `${translate("recipe.calories")}: ${translate("cosmopolitan.info5")}`,
+                ],
+            },
         },
-        title: 'SMASH DE PIÑA',
-        summary: (translate: typeof t) => translate('smashPineApple.summary'),
-        difficulty: (translate: typeof t) => translate('recipe.easy'),
-        ocassion: (translate: typeof t) => translate('recipe.midday'),
-        ingredients: [
-          (translate: typeof t) => translate('smashPineApple.ingredient1'),
-          (translate: typeof t) => translate('smashPineApple.ingredient2'),
-          (translate: typeof t) => translate('smashPineApple.ingredient3'),
-          (translate: typeof t) => translate('smashPineApple.ingredient4'),
-        ],
-        steps: [
-          (translate: typeof t) => translate('smashPineApple.step1'),
-          (translate: typeof t) => translate('smashPineApple.step2'),
-          (translate: typeof t) => translate('smashPineApple.step3'),
-        ],
-        info: [
-          (translate: typeof t) =>
-            `${translate('recipe.time')}: ${translate('smashPineApple.info1')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.portions')}: ${translate('smashPineApple.info2')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.category')}: ${translate('smashPineApple.info3')}`,
-        ],
-      },
-    },
-    {
-      params: { recipe: 'pink-gin-tonic' },
-      props: {
-        img: {
-          src: PinkGinTonic satisfies ImageMetadata,
-          alt: 'PinkGinTonic',
+        {
+            params: { recipe: "expresso-martini" },
+            props: {
+                img: {
+                    src: ExpressoMartini satisfies ImageMetadata,
+                    alt: "EXPRESSO MARTINI",
+                },
+                title: "EXPRESSO MARTINI",
+                summary: (translate: typeof t) => translate("expressoMartini.summary"),
+                difficulty: (translate: typeof t) => translate("recipe.easy"),
+                ocassion: (translate: typeof t) => translate("recipe.midday"),
+                ingredients: [
+                    (translate: typeof t) => translate("expressoMartini.ingredient1"),
+                    (translate: typeof t) => translate("expressoMartini.ingredient2"),
+                    (translate: typeof t) => translate("expressoMartini.ingredient3"),
+                    (translate: typeof t) => translate("expressoMartini.ingredient4"),
+                    (translate: typeof t) => translate("expressoMartini.ingredient5"),
+                ],
+                steps: [
+                    (translate: typeof t) => translate("expressoMartini.step1"),
+                    (translate: typeof t) => translate("expressoMartini.step2"),
+                    (translate: typeof t) => translate("expressoMartini.step3"),
+                    (translate: typeof t) => translate("expressoMartini.step4"),
+                ],
+                info: [
+                    (translate: typeof t) => `${translate("recipe.time")}: ${translate("expressoMartini.info1")}`,
+                    (translate: typeof t) => `${translate("recipe.portions")}: ${translate("expressoMartini.info2")}`,
+                    (translate: typeof t) => `${translate("recipe.category")}: ${translate("expressoMartini.info3")}`,
+                    (translate: typeof t) => `${translate("recipe.typeOfCooking")}: ${translate("expressoMartini.info4")}`,
+                    (translate: typeof t) => `${translate("recipe.calories")}: ${translate("expressoMartini.info5")}`,
+                ],
+            },
         },
-        title: 'PINK GIN TONIC',
-        summary: (translate: typeof t) => translate('pinkGinTonic.summary'),
-        difficulty: (translate: typeof t) => translate('recipe.easy'),
-        ocassion: (translate: typeof t) => translate('recipe.midday'),
-        ingredients: [
-          (translate: typeof t) => translate('pinkGinTonic.ingredient1'),
-        ],
-        steps: [
-          (translate: typeof t) => translate('pinkGinTonic.step1'),
-          (translate: typeof t) => translate('pinkGinTonic.step2'),
-          (translate: typeof t) => translate('pinkGinTonic.step3'),
-        ],
-        info: [
-          (translate: typeof t) =>
-            `${translate('recipe.time')}: ${translate('pinkGinTonic.info1')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.portions')}: ${translate('pinkGinTonic.info2')}`,
-          (translate: typeof t) =>
-            `${translate('recipe.category')}: ${translate('pinkGinTonic.info3')}`,
-        ],
-      },
-    },
-  ]
-}
-
-type Props = InferGetStaticPropsType<typeof getStaticPaths>
-
-const props = Astro.props
+        {
+            params: { recipe: "apple-martini" },
+            props: {
+                img: {
+                    src: AppleMartini satisfies ImageMetadata,
+                    alt: "APPLE MARTINI",
+                },
+                title: "Apple Martini",
+                summary: (translate: typeof t) => translate("appleMartini.summary"),
+                difficulty: (translate: typeof t) => translate("recipe.easy"),
+                ocassion: (translate: typeof t) => translate("recipe.midday"),
+                ingredients: [
+                    (translate: typeof t) => translate("appleMartini.ingredient1"),
+                    (translate: typeof t) => translate("appleMartini.ingredient2"),
+                    (translate: typeof t) => translate("appleMartini.ingredient3"),
+                    (translate: typeof t) => translate("appleMartini.ingredient4"),
+                    (translate: typeof t) => translate("appleMartini.ingredient5"),
+                    (translate: typeof t) => translate("appleMartini.ingredient6"),
+                    (translate: typeof t) => translate("appleMartini.ingredient7"),
+                ],
+                steps: [
+                    (translate: typeof t) => translate("appleMartini.step1"),
+                    (translate: typeof t) => translate("appleMartini.step2"),
+                    (translate: typeof t) => translate("appleMartini.step3"),
+                    (translate: typeof t) => translate("appleMartini.step4"),
+                ],
+                info: [
+                    (translate: typeof t) => `${translate("recipe.time")}: ${translate("appleMartini.info1")}`,
+                    (translate: typeof t) => `${translate("recipe.portions")}: ${translate("appleMartini.info2")}`,
+                    (translate: typeof t) => `${translate("recipe.category")}: ${translate("appleMartini.info3")}`,
+                    (translate: typeof t) => `${translate("recipe.typeOfCooking")}: ${translate("appleMartini.info4")}`,
+                    (translate: typeof t) => `${translate("recipe.calories")}: ${translate("appleMartini.info5")}`,
+                ],
+            },
+        },
+        {
+            params: { recipe: "smash-pineapple" },
+            props: {
+                img: {
+                    src: SmashPineapple satisfies ImageMetadata,
+                    alt: "SmashPineapple",
+                },
+                title: "SMASH DE PI\u00D1A",
+                summary: (translate: typeof t) => translate("smashPineApple.summary"),
+                difficulty: (translate: typeof t) => translate("recipe.easy"),
+                ocassion: (translate: typeof t) => translate("recipe.midday"),
+                ingredients: [
+                    (translate: typeof t) => translate("smashPineApple.ingredient1"),
+                    (translate: typeof t) => translate("smashPineApple.ingredient2"),
+                    (translate: typeof t) => translate("smashPineApple.ingredient3"),
+                    (translate: typeof t) => translate("smashPineApple.ingredient4"),
+                ],
+                steps: [
+                    (translate: typeof t) => translate("smashPineApple.step1"),
+                    (translate: typeof t) => translate("smashPineApple.step2"),
+                    (translate: typeof t) => translate("smashPineApple.step3"),
+                ],
+                info: [
+                    (translate: typeof t) => `${translate("recipe.time")}: ${translate("smashPineApple.info1")}`,
+                    (translate: typeof t) => `${translate("recipe.portions")}: ${translate("smashPineApple.info2")}`,
+                    (translate: typeof t) => `${translate("recipe.category")}: ${translate("smashPineApple.info3")}`,
+                ],
+            },
+        },
+        {
+            params: { recipe: "pink-gin-tonic" },
+            props: {
+                img: {
+                    src: PinkGinTonic satisfies ImageMetadata,
+                    alt: "PinkGinTonic",
+                },
+                title: "PINK GIN TONIC",
+                summary: (translate: typeof t) => translate("pinkGinTonic.summary"),
+                difficulty: (translate: typeof t) => translate("recipe.easy"),
+                ocassion: (translate: typeof t) => translate("recipe.midday"),
+                ingredients: [
+                    (translate: typeof t) => translate("pinkGinTonic.ingredient1"),
+                ],
+                steps: [
+                    (translate: typeof t) => translate("pinkGinTonic.step1"),
+                    (translate: typeof t) => translate("pinkGinTonic.step2"),
+                    (translate: typeof t) => translate("pinkGinTonic.step3"),
+                ],
+                info: [
+                    (translate: typeof t) => `${translate("recipe.time")}: ${translate("pinkGinTonic.info1")}`,
+                    (translate: typeof t) => `${translate("recipe.portions")}: ${translate("pinkGinTonic.info2")}`,
+                    (translate: typeof t) => `${translate("recipe.category")}: ${translate("pinkGinTonic.info3")}`,
+                ],
+            },
+        },
+    ];
+};
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const props = Astro.props;
 ---
 
 <Layout title="DeCajon">

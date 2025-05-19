@@ -1,82 +1,82 @@
 ---
+import { t } from 'i18next'
 import { Image } from 'astro:assets'
 import DeCajonLogo from 'icons/logo-decajon-black.svg'
 import Globe from 'icons/globe.svg'
 import Cart from 'icons/cart.svg'
-import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
+import { getLangFromUrl, useTranslatedPath } from 'i18n/utils'
 import Button from './Button.astro'
 import Dropdown from './Dropdown.astro'
 
 const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
 ---
 
 <nav
-  class="absolute left-0 top-0 z-10 flex w-full max-w-screen-2xl items-center justify-between px-14 py-[18px] has-[input:checked]:fixed 2xl:left-1/2 2xl:-translate-x-1/2"
+  class='absolute left-0 top-0 z-10 flex w-full max-w-screen-2xl items-center justify-between px-14 py-[18px] has-[input:checked]:fixed 2xl:left-1/2 2xl:-translate-x-1/2'
 >
-  <a class="z-10" href={translatePath('/')}>
-    <Image src={DeCajonLogo} width={115} height={44} alt="DeCajonLogo" />
+  <a class='z-10' href={translatePath('/')}>
+    <Image src={DeCajonLogo} width={115} height={44} alt='DeCajonLogo' />
   </a>
   <ul
-    id="menu"
-    class="fixed left-0 top-0 h-dvh w-dvw -translate-x-full items-center gap-12 bg-[#e8dfcf] px-14 pt-20 transition-all *:mb-4 sm:static sm:flex sm:h-auto sm:w-auto sm:transform-none sm:bg-transparent sm:px-0 sm:pt-0 sm:*:mb-0"
+    id='menu'
+    class='fixed left-0 top-0 h-dvh w-dvw -translate-x-full items-center gap-12 bg-[#e8dfcf] px-14 pt-20 transition-all *:mb-4 sm:static sm:flex sm:h-auto sm:w-auto sm:transform-none sm:bg-transparent sm:px-0 sm:pt-0 sm:*:mb-0'
   >
     <li>
       <a
-        class="font-cultive text-lg sm:text-xs lg:text-base"
+        class='font-cultive text-lg sm:text-xs lg:text-base'
         href={translatePath('/products')}>{t('nav.products')}</a
       >
     </li>
     <li>
       <a
-        class="font-cultive text-lg sm:text-xs lg:text-base"
+        class='font-cultive text-lg sm:text-xs lg:text-base'
         href={translatePath('/history')}>{t('nav.history')}</a
       >
     </li>
     <li>
       <a
-        class="font-cultive text-lg sm:text-xs lg:text-base"
+        class='font-cultive text-lg sm:text-xs lg:text-base'
         href={translatePath('/experience')}>{t('nav.experience')}</a
       >
     </li>
     <li>
       <a
-        class="font-cultive text-lg sm:hidden sm:text-xs lg:text-base"
+        class='font-cultive text-lg sm:hidden sm:text-xs lg:text-base'
         href={translatePath('/cart')}>{t('nav.cart')}</a
       >
     </li>
-    <li class="block sm:hidden">
-      <a class="font-cultive text-lg sm:text-xs lg:text-base" href={'/en'}
+    <li class='block sm:hidden'>
+      <a class='font-cultive text-lg sm:text-xs lg:text-base' href={'/en'}
         >{t('nav.en')}</a
       >
     </li>
-    <li class="block sm:hidden">
-      <a class="font-cultive text-lg sm:text-xs lg:text-base" href={'/'}
+    <li class='block sm:hidden'>
+      <a class='font-cultive text-lg sm:text-xs lg:text-base' href={'/'}
         >{t('nav.es')}</a
       >
     </li>
   </ul>
   <input
-    type="checkbox"
-    aria-pressed="false"
-    role="button"
+    type='checkbox'
+    aria-pressed='false'
+    role='button'
     class="relative block h-1 w-9 appearance-none rounded-xl bg-eerie-black transition-all before:absolute before:top-2 before:block before:h-1 before:w-full before:rounded-xl before:bg-eerie-black before:content-[''] after:absolute after:bottom-2 after:block after:h-1 after:w-full after:rounded-xl after:bg-eerie-black after:transition-all after:content-[''] checked:-rotate-45 checked:before:invisible checked:after:translate-y-2 checked:after:rotate-90 hover:cursor-pointer sm:hidden"
   />
-  <ul class="hidden items-center gap-2 sm:flex">
+  <ul class='hidden items-center gap-2 sm:flex'>
     <li>
-      <Button as="a" href={translatePath('/cart/')} variant="rounded">
-        <Image src={Cart} alt="cart" />
+      <Button as='a' href={translatePath('/cart/')} variant='rounded'>
+        <Image src={Cart} alt='cart' />
       </Button>
     </li>
     <li>
       <Dropdown>
-        <Fragment slot="trigger">
-          <Button variant="rounded">
-            <Image src={Globe} alt="globe" />
+        <Fragment slot='trigger'>
+          <Button variant='rounded'>
+            <Image src={Globe} alt='globe' />
           </Button>
         </Fragment>
-        <Fragment slot="content">
+        <Fragment slot='content'>
           <a href={'/'}>{t('nav.es')}</a>
           <a href={'/en/'}>{t('nav.en')}</a>
         </Fragment>

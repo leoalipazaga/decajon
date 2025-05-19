@@ -1,34 +1,37 @@
 ---
-import { Picture } from 'astro:assets'
-import Layout from 'layouts/Layout.astro'
-import DashboardLayout from 'layouts/DashboardLayout.astro'
+import { changeLanguage } from "i18next";
+import { Picture } from "astro:assets";
+import Layout from "layouts/Layout.astro";
+import DashboardLayout from "layouts/DashboardLayout.astro";
 // import BaseLayout from 'layouts/BaseLayout.astro'
-import SandLayout from 'layouts/SandLayout.astro'
-import Button from 'components/Button.astro'
-import BottleVodka from 'images/bottle-vodka-compressed.png'
-import BottleSiembra from 'images/bottle-siembra.png'
-import BottleGin from 'images/bottle-gin.png'
+import SandLayout from "layouts/SandLayout.astro";
+import Button from "components/Button.astro";
+import BottleVodka from "images/bottle-vodka-compressed.png";
+import BottleSiembra from "images/bottle-siembra.png";
+import BottleGin from "images/bottle-gin.png";
+
+changeLanguage("es");
 
 const bottles = [
-  {
-    title: 'DE CAJÓN VODKA',
-    img: { alt: 'De Cajon Vodka', src: BottleVodka },
-    link: '/dashboard/products/',
-    size: 'Botella 750ml',
-  },
-  {
-    title: 'DE CAJÓN GIN',
-    img: { alt: 'DE CAJÓN GIN', src: BottleGin },
-    link: '/dashboard/products/',
-    size: 'Botella 750ml',
-  },
-  {
-    title: 'SIEMBRA VODKA',
-    img: { alt: 'SIEMBRA VODKA', src: BottleSiembra },
-    link: '/dashboard/products/',
-    size: 'Botella 750ml',
-  },
-]
+    {
+        title: "DE CAJ\u00D3N VODKA",
+        img: { alt: "De Cajon Vodka", src: BottleVodka },
+        link: "/dashboard/products/",
+        size: "Botella 750ml",
+    },
+    {
+        title: "DE CAJ\u00D3N GIN",
+        img: { alt: "DE CAJ\u00D3N GIN", src: BottleGin },
+        link: "/dashboard/products/",
+        size: "Botella 750ml",
+    },
+    {
+        title: "SIEMBRA VODKA",
+        img: { alt: "SIEMBRA VODKA", src: BottleSiembra },
+        link: "/dashboard/products/",
+        size: "Botella 750ml",
+    },
+];
 ---
 
 <Layout title="Dashboard">

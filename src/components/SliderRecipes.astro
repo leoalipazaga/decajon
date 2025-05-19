@@ -1,4 +1,5 @@
 ---
+import { t } from 'i18next'
 import Carousel from 'components/Carousel.astro'
 import Recipe from 'components/Recipe.astro'
 import BloodyMary from 'images/bloody-mary-coctel.jpeg'
@@ -10,74 +11,70 @@ import Cosmopolitan from 'images/cosmopolitan.jpeg'
 import ExpressoMartini from 'images/expresso-martini.jpeg'
 import AppleMartini from 'images/apple-martini.jpeg'
 import SmashPineapple from 'images/smash-pineaple.jpeg'
-import { getLangFromUrl, useTranslations } from 'i18n/utils'
-
-const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(lang)
 ---
 
 <Carousel>
   <Recipe
-    class="w-full flex-shrink-0"
+    class='w-full flex-shrink-0'
     img={{ path: BloodyMary, alt: 'Bloody Mary' }}
-    title="Bloody Mary"
+    title='Bloody Mary'
     description={t('recipe.bloody')}
-    link="/recipes/bloody-mary"
+    link='/recipes/bloody-mary'
   />
   <Recipe
-    class="w-full flex-shrink-0"
+    class='w-full flex-shrink-0'
     img={{ path: MoscowMule, alt: 'Moscow Mule' }}
-    title="Moscow Mule"
+    title='Moscow Mule'
     description={t('recipe.moscowMule')}
-    link="/recipes/moscow-mule"
+    link='/recipes/moscow-mule'
   />
   <Recipe
-    class="w-full flex-shrink-0"
+    class='w-full flex-shrink-0'
     img={{ path: SexOnTheBeach, alt: 'Sex on the Beach' }}
-    title="Sex on the beach"
+    title='Sex on the beach'
     description={t('recipe.sexOnTheBeach')}
-    link="/recipes/sex-on-the-beach"
+    link='/recipes/sex-on-the-beach'
   />
   <Recipe
-    class="w-full flex-shrink-0"
+    class='w-full flex-shrink-0'
     img={{ path: PinkGinTonic, alt: 'Pink Gin Tonic' }}
-    title="Pink Gin Tonic"
+    title='Pink Gin Tonic'
     description={t('recipe.pinkGinTonic')}
-    link="/recipes/pink-gin-tonic"
+    link='/recipes/pink-gin-tonic'
   />
   <Recipe
-    class="w-full flex-shrink-0"
+    class='w-full flex-shrink-0'
     img={{ path: Screwdiver, alt: 'Screwdiver' }}
-    title="Screwdiver"
+    title='Screwdiver'
     description={t('recipe.screwdiver')}
-    link="/recipes/screwdiver"
+    link='/recipes/screwdiver'
   />
   <Recipe
-    class="w-full flex-shrink-0"
+    class='w-full flex-shrink-0'
     img={{ path: Cosmopolitan, alt: 'Cosmopolitan' }}
-    title="Cosmopolitan"
+    title='Cosmopolitan'
     description={t('recipe.cosmopolitan')}
-    link="/recipes/cosmopolitan"
+    link='/recipes/cosmopolitan'
   />
   <Recipe
-    class="w-full flex-shrink-0"
+    class='w-full flex-shrink-0'
     img={{ path: ExpressoMartini, alt: 'ExpressoMartini' }}
-    title="EXPRESSO MARTINI"
+    title='EXPRESSO MARTINI'
     description={t('recipe.expressoMartini')}
-    link="/recipes/expresso-martini"
+    link='/recipes/expresso-martini'
   />
   <Recipe
-    class="w-full flex-shrink-0"
+    class='w-full flex-shrink-0'
     img={{ path: AppleMartini, alt: 'AppleMartini' }}
-    title="APPLE MARTINI"
+    title='APPLE MARTINI'
     description={t('recipe.appleMartini')}
-    link="/recipes/apple-martini"
+    link='/recipes/apple-martini'
   />
   <Recipe
-    class="w-full flex-shrink-0"
+    class='w-full flex-shrink-0'
     img={{ path: SmashPineapple, alt: 'SmashPineapple' }}
-    title="SMASH DE PIÑA"
+    title='SMASH DE PIÑA'
     description={t('recipe.smashPineapple')}
-    link="/recipes/smash-pineapple"
+    link='/recipes/smash-pineapple'
   />
 </Carousel>

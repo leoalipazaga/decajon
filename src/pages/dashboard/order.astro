@@ -1,82 +1,85 @@
 ---
-import { Picture } from 'astro:assets'
-import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
-import Button from 'components/Button.astro'
-import Carousel from 'components/Carousel.astro'
-import DashboardLayout from 'layouts/DashboardLayout.astro'
-import Layout from 'layouts/Layout.astro'
-import SandLayout from 'layouts/SandLayout.astro'
-import BottleVodka from 'images/bottle-vodka-compressed.png'
-import BottleSiembra from 'images/bottle-siembra.png'
-import BottleGin from 'images/bottle-gin.png'
+import { changeLanguage } from "i18next";
+import { Picture } from "astro:assets";
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "i18n/utils";
+import Button from "components/Button.astro";
+import Carousel from "components/Carousel.astro";
+import DashboardLayout from "layouts/DashboardLayout.astro";
+import Layout from "layouts/Layout.astro";
+import SandLayout from "layouts/SandLayout.astro";
+import BottleVodka from "images/bottle-vodka-compressed.png";
+import BottleSiembra from "images/bottle-siembra.png";
+import BottleGin from "images/bottle-gin.png";
 
-const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(lang)
-const translatePath = useTranslatedPath(lang)
+changeLanguage("es");
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations();
+const translatePath = useTranslatedPath(lang);
 const bottles = [
-  {
-    title: 'DE CAJÓN VODKA',
-    img: { alt: 'De Cajon Vodka', src: BottleVodka },
-    link: '/dashboard/products',
-    size: '750',
-  },
-  {
-    title: 'DE CAJÓN GIN',
-    img: { alt: 'DE CAJÓN GIN', src: BottleGin },
-    link: '/dashboard/products',
-    size: '750',
-  },
-  {
-    title: 'SIEMBRA VODKA',
-    img: { alt: 'SIEMBRA VODKA', src: BottleSiembra },
-    link: '/dashboard/products',
-    size: '750',
-  },
-]
+    {
+        title: "DE CAJ\u00D3N VODKA",
+        img: { alt: "De Cajon Vodka", src: BottleVodka },
+        link: "/dashboard/products",
+        size: "750",
+    },
+    {
+        title: "DE CAJ\u00D3N GIN",
+        img: { alt: "DE CAJ\u00D3N GIN", src: BottleGin },
+        link: "/dashboard/products",
+        size: "750",
+    },
+    {
+        title: "SIEMBRA VODKA",
+        img: { alt: "SIEMBRA VODKA", src: BottleSiembra },
+        link: "/dashboard/products",
+        size: "750",
+    },
+];
 ---
 
-<Layout title="Dashboard">
+<Layout title='Dashboard'>
   <!-- <BaseLayout showNavbar={false}> -->
   <SandLayout>
-    <DashboardLayout title="Orden">
+    <DashboardLayout title='Orden'>
       <div
-        id="products"
-        class="grid grid-cols-[repeat(5,minmax(0,1fr))] justify-items-center border-y-2 border-y-rosewood py-1 *:text-sm"
+        id='products'
+        class='grid grid-cols-[repeat(5,minmax(0,1fr))] justify-items-center border-y-2 border-y-rosewood py-1 *:text-sm'
       >
-        <h4 class="justify-self-start">Id</h4>
+        <h4 class='justify-self-start'>Id</h4>
         <h4>Vodka</h4>
         <h4>Cajas</h4>
         <h4>Precio / caja</h4>
         <h4>Precio total</h4>
       </div>
       <div
-        class="m-auto grid grid-cols-1 grid-rows-[auto_auto] gap-x-6 gap-y-[0.875rem] md:grid-cols-3"
+        class='m-auto grid grid-cols-1 grid-rows-[auto_auto] gap-x-6 gap-y-[0.875rem] md:grid-cols-3'
       >
         <h1
-          class="col-span-1 col-start-1 row-start-1 border border-eerie-black py-[0.825rem] text-center text-xl uppercase md:col-span-3 lg:text-4xl"
+          class='col-span-1 col-start-1 row-start-1 border border-eerie-black py-[0.825rem] text-center text-xl uppercase md:col-span-3 lg:text-4xl'
         >
           {t('cart.similarProducts')}
         </h1>
-        <div class="block md:hidden">
+        <div class='block md:hidden'>
           <Carousel>
             {
               bottles.map((bottle) => (
-                <article class="flex w-full flex-shrink-0 flex-col items-center border border-eerie-black py-[1.125rem]">
+                <article class='flex w-full flex-shrink-0 flex-col items-center border border-eerie-black py-[1.125rem]'>
                   <Picture
                     alt={bottle.img.alt}
-                    class="mb-4 h-[260px] object-cover"
+                    class='mb-4 h-[260px] object-cover'
                     height={260}
                     src={bottle.img.src}
-                    loading="lazy"
+                    loading='lazy'
                     formats={['webp', 'avif', 'jpg']}
                   />
-                  <h2 class="mb-3 text-center uppercase md:text-sm lg:text-2xl">
+                  <h2 class='mb-3 text-center uppercase md:text-sm lg:text-2xl'>
                     {bottle.title}
                   </h2>
-                  <p class="mb-3 text-center md:text-xs lg:text-xl">
+                  <p class='mb-3 text-center md:text-xs lg:text-xl'>
                     {t('common.bottle')} {bottle.size}ml
                   </p>
-                  <Button as="a" href={translatePath(bottle.link)}>
+                  <Button as='a' href={translatePath(bottle.link)}>
                     {t('common.buyNow')}
                   </Button>
                 </article>
@@ -86,24 +89,24 @@ const bottles = [
         </div>
         {
           bottles.map((bottle) => (
-            <article class="hidden flex-col items-center border border-eerie-black py-[1.125rem] md:flex">
+            <article class='hidden flex-col items-center border border-eerie-black py-[1.125rem] md:flex'>
               <Picture
                 alt={bottle.img.alt}
-                class="mb-4 h-[260px] object-cover"
+                class='mb-4 h-[260px] object-cover'
                 height={260}
                 src={bottle.img.src}
                 widths={[176]}
                 sizes={`${176}px`}
-                loading="lazy"
+                loading='lazy'
                 formats={['webp', 'avif', 'jpg']}
               />
-              <h2 class="mb-3 text-center uppercase md:text-sm lg:text-2xl">
+              <h2 class='mb-3 text-center uppercase md:text-sm lg:text-2xl'>
                 {bottle.title}
               </h2>
-              <p class="mb-3 text-center md:text-xs lg:text-xl">
+              <p class='mb-3 text-center md:text-xs lg:text-xl'>
                 {t('common.bottle')} {bottle.size}ml
               </p>
-              <Button as="a" href={translatePath(bottle.link)}>
+              <Button as='a' href={translatePath(bottle.link)}>
                 {t('common.buyNow')}
               </Button>
             </article>
@@ -160,7 +163,7 @@ const bottles = [
           class="grid grid-cols-[repeat(5,minmax(0,1fr))] py-2 justify-items-center *:text-sm"
         >
           <p class="justify-self-start">${product.id}</p>
-          <p>${mapProductName(product.id)}</p>
+          <p>${mapProductName(`${product.id}`)}</p>
           <p>${product.quantity}</p>
           <p>${currency(product.price_per_box)}</p>
           <p>${currency(product.total * 12)}</p>

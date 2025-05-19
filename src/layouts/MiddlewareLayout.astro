@@ -1,35 +1,38 @@
 ---
-import { getLangFromUrl, useTranslations } from 'i18n/utils'
-
-const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(lang)
+import { useTranslations } from 'i18n/utils'
+const t = useTranslations()
 ---
 
 <div
-  class="hidden h-dvh grid-rows-[auto_min-content_min-content_min-content_auto] justify-items-stretch bg-rosewood pt-12"
-  id="is-adult"
+  class='hidden h-dvh grid-rows-[auto_min-content_min-content_min-content_auto] justify-items-stretch bg-rosewood pt-12'
+  id='is-adult'
 >
-  <h2 class="text-center text-sm uppercase text-anti-flash-white">
+  <h2 class='text-center text-sm uppercase text-anti-flash-white'>
     {t('middleware.title')}
   </h2>
   <h1
-    class="mb-7 w-80 justify-self-center text-center text-4xl uppercase text-anti-flash-white"
+    class='mb-7 w-80 justify-self-center text-center text-4xl uppercase text-anti-flash-white'
   >
     {t('middleware.subtitle')}
   </h1>
-  <div class="justify-self-center">
-    <input type="checkbox" />
+  <div class='justify-self-center'>
+    <input type='checkbox' />
   </div>
-  <p class="mt-8 text-center text-base text-anti-flash-white" id="check-output">
+  <p
+    data-middleware-i18n-yes={t('middleware.yes')}
+    data-middleware-i18n-no={t('middleware.no')}
+    class='mt-8 text-center text-base text-anti-flash-white'
+    id='check-output'
+  >
     {t('middleware.no')}
   </p>
   <p
-    class="mt-3 w-80 justify-self-center text-center text-base text-anti-flash-white"
+    class='mt-3 w-80 justify-self-center text-center text-base text-anti-flash-white'
   >
     {t('middleware.terms')}
   </p>
 </div>
-<main class="hidden" id="app">
+<main class='hidden' id='app'>
   <slot />
 </main>
 <style>
@@ -62,18 +65,14 @@ const t = useTranslations(lang)
   }
 </style>
 <script>
-  import { getLangFromUrl, useTranslations } from 'i18n/utils'
-
-  const lang = getLangFromUrl(
-    new URL(window.location.pathname, window.location.origin)
-  )
-  const t = useTranslations(lang)
-
+  const $ = document.querySelector.bind(document)
   const isAdult = window.localStorage.getItem('isAdult')
   const mainIsAdultEl = document.querySelector('div#is-adult')
   const mainEl = document.querySelector('main#app')
-  const checkOutput = document.querySelector('p#check-output')
+  const $checkOutput = $('p#check-output') as HTMLParagraphElement
   const checkbox = document.querySelector('input[type=checkbox]')
+  const yes = $checkOutput.dataset.middlewareI18nYes as string
+  const no = $checkOutput.dataset.middlewareI18nNo as string
 
   if (!isAdult) {
     mainIsAdultEl?.classList.remove('hidden')
@@ -93,10 +92,10 @@ const t = useTranslations(lang)
   }
 
   checkbox?.addEventListener('change', (ev) => {
-    if (checkOutput) {
-      checkOutput.innerHTML = (ev.target as HTMLInputElement)?.checked
-        ? t('middleware.yes')
-        : t('middleware.no')
+    if ($checkOutput) {
+      $checkOutput.innerHTML = (ev.target as HTMLInputElement)?.checked
+        ? yes
+        : no
     }
     if ((ev.target as HTMLInputElement).checked) {
       checkAsAdult((ev.target as HTMLInputElement).checked)

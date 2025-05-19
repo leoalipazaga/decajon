@@ -1,0 +1,111 @@
+---
+import { boxes } from 'consts'
+import { useTranslations } from 'i18n/utils'
+import ProductInfo from 'organism/product-info.astro'
+
+interface Props {
+  productId: number
+}
+
+const { productId } = Astro.props
+const t = useTranslations()
+const getTitleById = (id: number) => {
+  if (id === 1) {
+    return 'DE CAJÓN VODKA'
+  }
+  if (id === 2) {
+    return 'DE CAJÓN GIN'
+  }
+
+  return 'DE CAJÓN Siembra'
+}
+const productName = getTitleById(productId)
+---
+
+<article id='product-provider' class='flex w-full flex-shrink-0 gap-4'>
+  <slot />
+  <ProductInfo
+    id={productId}
+    title={productName}
+    price={boxes.get(productId)?.price as number}
+  >
+    <Fragment slot='default'>
+      {t('products.vodka')}
+    </Fragment>
+    <Fragment slot='counter'>
+      <div
+        id='product-counter'
+        class='col-start-1 row-start-1 flex min-w-min flex-row items-center justify-between gap-1 text-nowrap rounded-[1.25rem] border border-rosewood px-7 py-1.5 text-xs text-eerie-black sm:col-start-2 sm:gap-4 lg:px-[2.625rem] lg:text-base [&&]:p-1 [&&]:px-2'
+      >
+        <button
+          id='product-counter-inc'
+          class='flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full bg-rosewood font-bold text-anti-flash-white [&&]:h-7 [&&]:w-7'
+          >+</button
+        >
+        <span id='product-counter-display' class='w-4 text-center font-bold'
+        ></span>
+        <button
+          id='product-counter-dec'
+          class='flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full bg-rosewood font-bold text-anti-flash-white [&&]:h-7 [&&]:w-7'
+        >
+          -
+        </button>
+      </div>
+    </Fragment>
+    <Fragment slot='action'>
+      <button
+        data-item-id={productId}
+        data-toast-added-i18n={`${productName} ${t('cart.productAddedToCart')}`}
+        class='col-span-2 row-start-4 mt-6 w-auto text-nowrap rounded-[1.25rem] bg-rosewood px-3 py-2 text-zinc-1000 md:col-span-1 md:col-start-1 md:row-start-5 md:mt-0 md:self-end'
+        id='shop'>{t('common.buyNow')}</button
+      >
+    </Fragment>
+  </ProductInfo>
+  <script>
+    import { ProviderCart } from 'adapters/cart'
+    import { boxes } from 'consts'
+    import { Toast } from 'ui/Toast'
+
+    // const $ = document.querySelector.bind(document)
+    const $$ = document.querySelectorAll.bind(document)
+
+    $$('#product-provider').forEach(($item) => {
+      const $updateCartButton = $item.querySelector(
+        '#shop'
+      ) as HTMLButtonElement
+      const $counter = $item.querySelector('#product-counter') as HTMLDivElement
+      const $counterInc = $counter.querySelector(
+        '#product-counter-inc'
+      ) as HTMLButtonElement
+      const $counterDec = $counter.querySelector(
+        '#product-counter-dec'
+      ) as HTMLButtonElement
+      const $counterDisplay = $counter.querySelector(
+        '#product-counter-display'
+      ) as HTMLSpanElement
+      const itemId = $updateCartButton.dataset.itemId as string
+      const toastMessageOnAdded = $updateCartButton.dataset
+        .toastAddedI18n as string
+      $counterDisplay.innerText = `${ProviderCart.getItemBy(+itemId)?.count || 1}`
+
+      $counterInc.addEventListener('click', () => {
+        const currentCount = +$counterDisplay.innerText
+        $counterDisplay.innerText = `${currentCount + 1}`
+      })
+
+      $counterDec.addEventListener('click', () => {
+        const currentCount = +$counterDisplay.innerText
+        $counterDisplay.innerText = `${Math.max(1, currentCount - 1)}`
+      })
+
+      $updateCartButton.addEventListener('click', () => {
+        const item = boxes.get(+itemId)!
+        const currentCount = +$counterDisplay.innerText
+        new Toast({
+          text: toastMessageOnAdded,
+        })
+        ProviderCart.updateCart({ ...item, name: '', count: currentCount })
+      })
+    })
+  </script>
+</article>

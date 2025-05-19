@@ -1,9 +1,12 @@
 ---
-import SliderRecipes from 'components/SliderRecipes.astro'
-import Layout from 'layouts/Layout.astro'
-import BaseLayout from 'layouts/BaseLayout.astro'
-import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
-import SandLayout from 'layouts/SandLayout.astro'
+import { changeLanguage } from "i18next";
+import SliderRecipes from "components/SliderRecipes.astro";
+import Layout from "layouts/Layout.astro";
+import BaseLayout from "layouts/BaseLayout.astro";
+import MiddlewareLayout from "layouts/MiddlewareLayout.astro";
+import SandLayout from "layouts/SandLayout.astro";
+
+changeLanguage("es");
 ---
 
 <Layout title="DeCajon">

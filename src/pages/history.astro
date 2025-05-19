@@ -1,142 +1,144 @@
 ---
-import { Image, Picture } from 'astro:assets'
-import Button from 'components/Button.astro'
-import BaseLayout from 'layouts/BaseLayout.astro'
-import Layout from 'layouts/Layout.astro'
-import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
-import SandLayout from 'layouts/SandLayout.astro'
-import LongLeftArrow from 'icons/long-left-arrow.svg'
-import HistoryBanner from 'images/history-banner.png'
-import Plant from 'images/plant.jpeg'
-import Master1 from 'images/master-1.jpeg'
-import Master2 from 'images/master-2.jpg'
-import Master3 from 'images/master-3.jpg'
-import Carousel from 'components/Carousel.astro'
-import { getLangFromUrl, useTranslations } from 'i18n/utils'
+import { changeLanguage } from "i18next";
+import { Image, Picture } from "astro:assets";
+import Button from "components/Button.astro";
+import BaseLayout from "layouts/BaseLayout.astro";
+import Layout from "layouts/Layout.astro";
+import MiddlewareLayout from "layouts/MiddlewareLayout.astro";
+import SandLayout from "layouts/SandLayout.astro";
+import LongLeftArrow from "icons/long-left-arrow.svg";
+import HistoryBanner from "images/history-banner.png";
+import Plant from "images/plant.jpeg";
+import Master1 from "images/master-1.jpeg";
+import Master2 from "images/master-2.jpg";
+import Master3 from "images/master-3.jpg";
+import Carousel from "components/Carousel.astro";
+import { useTranslations } from "i18n/utils";
 
-const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(lang)
+changeLanguage("es");
+
+const t = useTranslations();
 const masters = [
-  {
-    img: { src: Master1, alt: 'Maestro 1' },
-    description: 'history.master1',
-  },
-  {
-    img: { src: Master2, alt: 'Maestro 2' },
-    description: 'history.master2',
-  },
-  {
-    img: { src: Master3, alt: 'Maestro 3' },
-    description: 'history.master3',
-  },
-] as const
+    {
+        img: { src: Master1, alt: "Maestro 1" },
+        description: "history.master1",
+    },
+    {
+        img: { src: Master2, alt: "Maestro 2" },
+        description: "history.master2",
+    },
+    {
+        img: { src: Master3, alt: "Maestro 3" },
+        description: "history.master3",
+    },
+] as const;
 ---
 
-<Layout title="Historia">
+<Layout title='Historia'>
   <MiddlewareLayout>
     <BaseLayout>
-      <SandLayout class="relative pt-[6.5rem]">
+      <SandLayout class='relative pt-[6.5rem]'>
         <header
-          class="m-auto grid w-[57%] grid-rows-[auto_auto_auto_auto] gap-y-7"
+          class='m-auto grid w-[57%] grid-rows-[auto_auto_auto_auto] gap-y-7'
         >
-          <p class="text-center md:text-xs lg:text-xl">
+          <p class='text-center md:text-xs lg:text-xl'>
             {t('history.ourHistory')}
           </p>
-          <h1 class="text-center uppercase md:text-xl lg:text-5xl">
+          <h1 class='text-center uppercase md:text-xl lg:text-5xl'>
             {t('history.newTradition')}
           </h1>
-          <p class="text-pretty text-center md:text-xs lg:text-xl">
+          <p class='text-pretty text-center md:text-xs lg:text-xl'>
             {t('history.introduction')}
           </p>
-          <Button class="justify-self-center" variant="rounded" id="scroll-to">
-            <Image class="-rotate-90" src={LongLeftArrow} alt="angle-left" />
+          <Button class='justify-self-center' variant='rounded' id='scroll-to'>
+            <Image class='-rotate-90' src={LongLeftArrow} alt='angle-left' />
           </Button>
         </header>
         <Picture
-          alt="history"
-          loading="lazy"
+          alt='history'
+          loading='lazy'
           src={HistoryBanner}
           formats={['webp', 'avif', 'jpeg']}
         />
       </SandLayout>
-      <SandLayout id="summary">
+      <SandLayout id='summary'>
         <div
-          class="m-auto grid w-[76%] max-w-screen-2xl grid-cols-[auto] py-[7.5rem] md:grid-cols-2 md:grid-rows-[min-content_min-content] md:gap-x-11 lg:gap-x-[3.75rem]"
+          class='m-auto grid w-[76%] max-w-screen-2xl grid-cols-[auto] py-[7.5rem] md:grid-cols-2 md:grid-rows-[min-content_min-content] md:gap-x-11 lg:gap-x-[3.75rem]'
         >
           <p
-            class="col-span-1 row-start-2 text-center md:row-start-1 md:text-left md:text-xs lg:text-sm xl:text-xl"
+            class='col-span-1 row-start-2 text-center md:row-start-1 md:text-left md:text-xs lg:text-sm xl:text-xl'
           >
             {t('history.summary1')}
           </p>
           <p
-            class="col-span-1 row-start-3 text-center md:row-start-2 md:text-left md:text-xs lg:text-sm xl:text-xl"
+            class='col-span-1 row-start-3 text-center md:row-start-2 md:text-left md:text-xs lg:text-sm xl:text-xl'
           >
             {t('history.summary2')}
           </p>
           <Image
-            alt="plant"
-            class="col-start-1 row-start-1 mb-4 aspect-square object-cover md:col-start-2 md:row-span-2 md:mb-0"
-            loading="lazy"
+            alt='plant'
+            class='col-start-1 row-start-1 mb-4 aspect-square object-cover md:col-start-2 md:row-span-2 md:mb-0'
+            loading='lazy'
             src={Plant}
           />
         </div>
       </SandLayout>
       <SandLayout>
         <div
-          class="m-auto grid w-[76%] max-w-screen-2xl grid-rows-[auto_auto] gap-x-6 gap-y-[2.875rem] py-12 md:grid-cols-3"
+          class='m-auto grid w-[76%] max-w-screen-2xl grid-rows-[auto_auto] gap-x-6 gap-y-[2.875rem] py-12 md:grid-cols-3'
         >
           <h1
-            class="col-span-1 border border-eerie-black py-7 text-center uppercase md:col-span-3 md:text-xl lg:text-3xl xl:text-5xl"
+            class='col-span-1 border border-eerie-black py-7 text-center uppercase md:col-span-3 md:text-xl lg:text-3xl xl:text-5xl'
           >
             {t('history.mastersTitle')}
           </h1>
-          <div class="md:hidden">
+          <div class='md:hidden'>
             <Carousel>
-              <article class="col-span-1 row-start-2 w-full flex-shrink-0">
+              <article class='col-span-1 row-start-2 w-full flex-shrink-0'>
                 <Picture
-                  alt="maestro-1"
-                  class="mb-3 h-[306px] object-cover lg:mb-[3.25rem]"
-                  loading="lazy"
+                  alt='maestro-1'
+                  class='mb-3 h-[306px] object-cover lg:mb-[3.25rem]'
+                  loading='lazy'
                   src={Master1}
                   formats={['webp', 'avif', 'jpeg']}
                 />
-                <p class="md:text-xs lg:text-xl">
+                <p class='md:text-xs lg:text-xl'>
                   {t('history.step1')}
                 </p>
               </article>
-              <article class="col-span-1 row-start-2 w-full flex-shrink-0">
+              <article class='col-span-1 row-start-2 w-full flex-shrink-0'>
                 <Picture
-                  alt="maestro-2"
-                  class="mb-3 h-[306px] object-cover lg:mb-[3.25rem]"
-                  loading="lazy"
+                  alt='maestro-2'
+                  class='mb-3 h-[306px] object-cover lg:mb-[3.25rem]'
+                  loading='lazy'
                   src={Master2}
                   formats={['webp', 'avif', 'jpeg']}
                 />
-                <p class="md:text-xs lg:text-xl">{t('history.step2')}</p>
+                <p class='md:text-xs lg:text-xl'>{t('history.step2')}</p>
               </article>
-              <article class="col-span-1 row-start-2 w-full flex-shrink-0">
+              <article class='col-span-1 row-start-2 w-full flex-shrink-0'>
                 <Picture
-                  alt="maestro-3"
-                  class="mb-3 h-[306px] object-cover lg:mb-[3.25rem]"
-                  loading="lazy"
+                  alt='maestro-3'
+                  class='mb-3 h-[306px] object-cover lg:mb-[3.25rem]'
+                  loading='lazy'
                   src={Master3}
                   formats={['webp', 'avif', 'jpeg']}
                 />
-                <p class="md:text-xs lg:text-xl">{t('history.step3')}</p>
+                <p class='md:text-xs lg:text-xl'>{t('history.step3')}</p>
               </article>
             </Carousel>
           </div>
           {
             masters.map((master) => (
-              <article class="col-span-1 row-start-2 hidden md:block">
+              <article class='col-span-1 row-start-2 hidden md:block'>
                 <Picture
                   alt={master.img.alt}
-                  class="h-[306px] object-cover md:mb-3 lg:mb-[3.25rem]"
-                  loading="lazy"
+                  class='h-[306px] object-cover md:mb-3 lg:mb-[3.25rem]'
+                  loading='lazy'
                   src={master.img.src}
                   formats={['webp', 'avif', 'jpeg']}
                 />
-                <p class="md:text-xs lg:text-xl">{t(master.description)}</p>
+                <p class='md:text-xs lg:text-xl'>{t(master.description)}</p>
               </article>
             ))
           }

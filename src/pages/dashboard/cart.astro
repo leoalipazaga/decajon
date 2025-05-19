@@ -1,77 +1,244 @@
 ---
-import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
-import Button from 'components/Button.astro'
-import Carousel from 'components/Carousel.astro'
-import DashboardLayout from 'layouts/DashboardLayout.astro'
-import Layout from 'layouts/Layout.astro'
-// import BaseLayout from 'layouts/BaseLayout.astro'
-import SandLayout from 'layouts/SandLayout.astro'
-import BottleVodka from 'images/bottle-vodka-compressed.png'
-import BottleSiembra from 'images/bottle-siembra.png'
-import BottleGin from 'images/bottle-gin.png'
-import { Picture } from 'astro:assets'
-import ProductsCart from './_components/ProductsCart.svelte'
+import { Image, Picture } from "astro:assets";
+import { changeLanguage } from "i18next";
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "i18n/utils";
+import Button from "components/Button.astro";
+import Carousel from "components/Carousel.astro";
+import DashboardLayout from "layouts/DashboardLayout.astro";
+import Layout from "layouts/Layout.astro";
+import Trash from "icons/trash.svg";
+import Notification from "icons/notification.svg";
+import SandLayout from "layouts/SandLayout.astro";
+import BottleVodka from "images/bottle-vodka-compressed.png";
+import BottleSiembra from "images/bottle-siembra.png";
+import BottleGin from "images/bottle-gin.png";
+import Modal from "organism/Modal.astro";
+import ModalBody from "organism/ModalBody.astro";
 
-const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(lang)
-const translatePath = useTranslatedPath(lang)
+changeLanguage("es");
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations();
+const translatePath = useTranslatedPath(lang);
 const bottles = [
-  {
-    title: 'DE CAJÓN VODKA',
-    img: { alt: 'De Cajon Vodka', src: BottleVodka },
-    link: '/dashboard/products',
-    size: '750',
-  },
-  {
-    title: 'DE CAJÓN GIN',
-    img: { alt: 'DE CAJÓN GIN', src: BottleGin },
-    link: '/dashboard/products',
-    size: '750',
-  },
-  {
-    title: 'SIEMBRA VODKA',
-    img: { alt: 'SIEMBRA VODKA', src: BottleSiembra },
-    link: '/dashboard/products',
-    size: '750',
-  },
-]
+    {
+        title: "DE CAJ\u00D3N VODKA",
+        img: { alt: "De Cajon Vodka", src: BottleVodka },
+        link: "/dashboard/products",
+        size: "750",
+    },
+    {
+        title: "DE CAJ\u00D3N GIN",
+        img: { alt: "DE CAJ\u00D3N GIN", src: BottleGin },
+        link: "/dashboard/products",
+        size: "750",
+    },
+    {
+        title: "SIEMBRA VODKA",
+        img: { alt: "SIEMBRA VODKA", src: BottleSiembra },
+        link: "/dashboard/products",
+        size: "750",
+    },
+];
 ---
 
-<Layout title="Dashboard">
+<Layout title='Dashboard'>
   <!-- <BaseLayout showNavbar={false}> -->
   <SandLayout>
-    <DashboardLayout title="Orden">
-      <div class="m-auto">
-        <ProductsCart client:load />
+    <DashboardLayout title='Orden'>
+      <div class='m-auto'>
+        <!-- <ProductsCart client:load /> -->
+        <header
+          id='product-cart-header'
+          class='grid grid-rows-[auto_auto] sm:row-start-[auto] sm:grid-cols-[auto_auto_1fr]'
+        >
+          <h1
+            class='col-start-1 row-start-1 text-center text-xl uppercase sm:row-start-1 sm:text-left'
+          >
+            {t?.('cart.cartCheckout')}
+          </h1>
+          <h1
+            id='product-cart-title'
+            data-single-product-i18n={t('common.product')}
+            data-plural-product-i18n={t('common.products')}
+            class='col-start-1 text-center text-xl uppercase sm:col-start-2 sm:row-start-1 sm:text-left'
+          >
+          </h1>
+          <a
+            class='hidden self-end justify-self-end text-rosewood sm:col-start-3 md:block'
+            href={translatePath?.('/dashboard/products')}
+          >
+            {t?.('cart.continueShop')}
+          </a>
+        </header>
+        <h2
+          id='product-cart-empty'
+          class='hidden border-y border-y-eerie-black py-6 text-center text-sm uppercase'
+        >
+          {t('cart.empty')}
+        </h2>
+        <!-- <ProductsCart client:load /> -->
+        <template id='product-cart-item'>
+          <article
+            class='grid grid-cols-2 grid-rows-[1fr_repeat(3,auto)] gap-x-4 border-b-eerie-black py-9 [border-bottom:1px_solid] sm:grid-cols-[minmax(107px,auto)_1fr_1fr] sm:grid-rows-[repeat(3,auto)] sm:py-1.5 md:grid-cols-[minmax(0,180px)_1fr_1fr]'
+          >
+            <!-- {alt}
+{src} -->
+            <img
+              class='col-start-1 row-start-1 -row-end-1 aspect-square object-cover'
+              width='180'
+              sizes='180px'
+            />
+            <!-- <Picture
+            class='col-start-1 row-start-1 -row-end-1 aspect-square object-cover'
+            width='180'
+            alt=''
+            src=''
+            formats={['webp', 'avif', 'jpeg']}
+          /> -->
+            <h1
+              class='col-start-2 row-start-1 self-end text-xs uppercase sm:text-nowrap sm:text-left md:text-sm'
+            >
+              <!-- {title} -->
+            </h1>
+            <p
+              id='product-cart-item-label-volumen'
+              class='col-start-2 row-start-2 text-xs sm:self-center sm:text-nowrap sm:text-left md:text-sm'
+            >
+              {t('common.bottle')}
+              <!-- {volumen}ml -->
+            </p>
+            <p
+              id='product-cart-item-label-price'
+              class='col-start-2 row-start-3 text-xs sm:text-nowrap sm:text-left md:text-sm'
+            >
+              {t('common.price')}
+              <!--  -->
+            </p>
+            <footer
+              class='col-start-2 row-start-4 mt-1.5 grid grid-cols-[auto_auto] items-center justify-start gap-x-[0.375rem] sm:col-start-3 sm:row-start-2 sm:mt-0 sm:grid-cols-[auto_auto_auto] sm:justify-end sm:gap-x-4'
+            >
+              <span
+                id='product-cart-item-total'
+                class='col-start-1 row-start-1 block text-nowrap rounded-[1.25rem] border border-rosewood px-7 py-1.5 text-xs text-eerie-black lg:px-[2.625rem] lg:text-base'
+              >
+              </span>
+              <div
+                id='product-cart-item-counter'
+                class='col-start-1 row-start-2 flex min-w-min flex-row items-center justify-between gap-1 text-nowrap rounded-[1.25rem] border border-rosewood px-7 py-1.5 text-xs text-eerie-black sm:col-start-2 sm:row-start-1 sm:gap-4 lg:px-[2.625rem] lg:text-base [&&]:p-1 [&&]:px-2'
+              >
+                <button
+                  id='product-cart-item-counter-inc'
+                  class='flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full bg-rosewood font-bold text-anti-flash-white [&&]:h-7 [&&]:w-7'
+                  >+</button
+                >
+                <span
+                  id='product-cart-item-counter-count'
+                  class='w-4 text-center font-bold'></span>
+                <button
+                  id='product-cart-item-counter-dec'
+                  class='flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full bg-rosewood font-bold text-anti-flash-white [&&]:h-7 [&&]:w-7'
+                >
+                  -
+                </button>
+              </div>
+              <div
+                class='col-start-2 row-start-1 justify-self-end sm:col-start-3'
+              >
+                <Modal id='product-cart-item-modal-remove'>
+                  <ModalBody>
+                    <div
+                      class='mb-4 grid h-[2.5rem] w-[2.5rem] items-center justify-center justify-self-center rounded-full bg-rosewood'
+                    >
+                      <Image src={Notification} alt='icon' />
+                    </div>
+                    <h4 class='mb-2 text-center text-2xl uppercase'>
+                      {t('cart.deleteArticle')}
+                    </h4>
+                    <p class='text-center text-sm'>
+                      {t?.('cart.deleteArticleQuestion')}
+                    </p>
+                    <p class='text-center text-sm'>
+                      {t?.('cart.deleteArticleNoRevert')}
+                    </p>
+                    <footer class='mt-4 flex items-center justify-center gap-3'>
+                      <button
+                        data-modal-close
+                        class='w-auto rounded-[1.25rem] bg-zinc-1050 px-3 py-2 text-zinc-1000'
+                        >{t?.('common.cancel')}</button
+                      >
+                      <button
+                        data-modal-close
+                        data-modal-product-cart-item-close
+                        class='w-auto rounded-[1.25rem] bg-rosewood px-3 py-2 text-zinc-1000'
+                        >{t?.('common.delete')}</button
+                      >
+                    </footer>
+                  </ModalBody>
+                </Modal>
+                <button
+                  data-modal-trigger='product-cart-item-modal-remove'
+                  class='flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full bg-rosewood [&&]:h-7 [&&]:w-7'
+                >
+                  <Image src={Trash} alt='trash' />
+                </button>
+              </div>
+            </footer>
+          </article>
+        </template>
+        <!-- {#if cart?.length} -->
+        <article
+          id='product-cart-summary'
+          class='hidden grid-cols-[auto_1fr] grid-rows-[repeat(4,auto)] gap-y-4 border-b border-b-eerie-black py-9 sm:ml-auto sm:w-1/2'
+        >
+          <span class='col-start-1 row-start-2'>{t('common.subtotal')}</span>
+          <span
+            id='product-cart-summary-subtotal'
+            class='col-start-2 row-start-2 justify-self-end'
+          >
+          </span>
+          <span class='col-start-1 -col-end-1 row-start-3 h-0.5 bg-eerie-black'
+          ></span>
+          <span class='col-start-1 row-start-4'>Total:</span>
+          <span
+            id='product-cart-summary-total'
+            class='col-start-2 row-start-4 justify-self-end'></span>
+          <a
+            href={translatePath?.('/dashboard/checkout')}
+            class='col-start-1 -col-end-1 row-start-5 mt-4 w-auto rounded-[1.25rem] bg-rosewood px-3 py-2 text-center text-zinc-1000'
+            >{t?.('cart.continuePayment')}</a
+          >
+        </article>
+        <!-- {/if} -->
       </div>
       <div
-        class="m-auto mt-4 grid grid-cols-1 grid-rows-[auto_auto] gap-x-6 gap-y-[0.875rem] md:grid-cols-3"
+        class='m-auto mt-4 grid grid-cols-1 grid-rows-[auto_auto] gap-x-6 gap-y-[0.875rem] md:grid-cols-3'
       >
         <h1
-          class="col-span-1 col-start-1 row-start-1 border border-eerie-black py-[0.825rem] text-center text-xl uppercase md:col-span-3 lg:text-4xl"
+          class='col-span-1 col-start-1 row-start-1 border border-eerie-black py-[0.825rem] text-center text-xl uppercase md:col-span-3 lg:text-4xl'
         >
           {t('cart.similarProducts')}
         </h1>
-        <div class="block md:hidden">
+        <div class='block md:hidden'>
           <Carousel>
             {
               bottles.map((bottle) => (
-                <article class="flex w-full flex-shrink-0 flex-col items-center border border-eerie-black py-[1.125rem]">
+                <article class='flex w-full flex-shrink-0 flex-col items-center border border-eerie-black py-[1.125rem]'>
                   <Picture
                     alt={bottle.img.alt}
-                    class="mb-4 h-[260px] object-cover"
+                    class='mb-4 h-[260px] object-cover'
                     height={260}
                     src={bottle.img.src}
-                    loading="lazy"
+                    loading='lazy'
                     formats={['webp', 'avif', 'jpg']}
                   />
-                  <h2 class="mb-3 text-center uppercase md:text-sm lg:text-2xl">
+                  <h2 class='mb-3 text-center uppercase md:text-sm lg:text-2xl'>
                     {bottle.title}
                   </h2>
-                  <p class="mb-3 text-center md:text-xs lg:text-xl">
+                  <p class='mb-3 text-center md:text-xs lg:text-xl'>
                     {t('common.bottle')} {bottle.size}ml
                   </p>
-                  <Button as="a" href={translatePath(bottle.link)}>
+                  <Button as='a' href={translatePath(bottle.link)}>
                     {t('common.buyNow')}
                   </Button>
                 </article>
@@ -81,24 +248,24 @@ const bottles = [
         </div>
         {
           bottles.map((bottle) => (
-            <article class="hidden flex-col items-center border border-eerie-black py-[1.125rem] md:flex">
+            <article class='hidden flex-col items-center border border-eerie-black py-[1.125rem] md:flex'>
               <Picture
                 alt={bottle.img.alt}
-                class="mb-4 h-[260px] object-cover"
+                class='mb-4 h-[260px] object-cover'
                 height={260}
                 src={bottle.img.src}
                 widths={[176]}
                 sizes={`${176}px`}
-                loading="lazy"
+                loading='lazy'
                 formats={['webp', 'avif', 'jpg']}
               />
-              <h2 class="mb-3 text-center uppercase md:text-sm lg:text-2xl">
+              <h2 class='mb-3 text-center uppercase md:text-sm lg:text-2xl'>
                 {bottle.title}
               </h2>
-              <p class="mb-3 text-center md:text-xs lg:text-xl">
+              <p class='mb-3 text-center md:text-xs lg:text-xl'>
                 {t('common.bottle')} {bottle.size}ml
               </p>
-              <Button as="a" href={translatePath(bottle.link)}>
+              <Button as='a' href={translatePath(bottle.link)}>
                 {t('common.buyNow')}
               </Button>
             </article>
@@ -109,3 +276,137 @@ const bottles = [
   </SandLayout>
   <!-- </BaseLayout> -->
 </Layout>
+<script>
+  import { ProviderCart } from 'adapters/cart'
+  import { products } from 'consts'
+  import { currency } from 'utils'
+  import Gin from 'images/decajon-gin-1.jpeg'
+  import Siembra from 'images/siembra-1.jpeg'
+  import Vodka from 'images/vodka-1.jpeg'
+
+  const getTitleById = (id: number) => {
+    if (id === 1) {
+      return 'DE CAJÓN VODKA'
+    }
+    if (id === 2) {
+      return 'DE CAJÓN GIN'
+    }
+
+    return 'DE CAJÓN Siembra'
+  }
+
+  const getImgById = (id: number) => {
+    if (id === 1) {
+      return { src: Vodka.src, alt: 'Vodka DeCajon' }
+    }
+    if (id === 2) {
+      return { src: Gin.src, alt: 'Gin DeCajon' }
+    }
+
+    return { src: Siembra.src, alt: 'Vodka Siembra' }
+  }
+
+  const $ = document.querySelector.bind(document)
+  const cart = ProviderCart.getCart()
+  const $mainTitle = $('#product-cart-title') as HTMLHeadingElement
+  const $header = $('#product-cart-header') as HTMLHeadingElement
+  const $empty = $('#product-cart-empty') as HTMLHeadingElement
+  const $summary = $('#product-cart-summary') as HTMLElement
+  const $productCartItem = $('#product-cart-item') as HTMLTemplateElement
+  const $summarySubTotal = $summary.querySelector(
+    '#product-cart-summary-subtotal'
+  ) as HTMLSpanElement
+  const $summaryTotal = $summary.querySelector(
+    '#product-cart-summary-total'
+  ) as HTMLSpanElement
+  const singleProduct = $mainTitle.dataset.singleProductI18n as string
+  const pluralProduct = $mainTitle.dataset.pluralProductI18n as string
+  const total = cart.reduce((sum, item) => (sum += item.count * item.price), 0)
+
+  if (!cart.length) {
+    $empty.classList.remove('hidden')
+  }
+
+  if (cart.length) {
+    $mainTitle.innerText = `(${cart?.length} ${cart?.length === 1 ? singleProduct : pluralProduct})`
+    $summary.classList.replace('hidden', 'grid')
+    $summarySubTotal.innerText = currency(total)
+    $summaryTotal.innerText = currency(total)
+    const $$items = cart.map((item) => {
+      const clone = $productCartItem.content.cloneNode(true) as HTMLElement
+      const $title = clone.querySelector('h1') as HTMLHeadingElement
+      const $total = clone.querySelector(
+        '#product-cart-item-total'
+      ) as HTMLSpanElement
+      const $volumen = clone.querySelector(
+        '#product-cart-item-label-volumen'
+      ) as HTMLParagraphElement
+      const $price = clone.querySelector(
+        '#product-cart-item-label-price'
+      ) as HTMLParagraphElement
+      const $img = clone.querySelector('img') as HTMLImageElement
+      const $inc = clone.querySelector(
+        '#product-cart-item-counter-inc'
+      ) as HTMLButtonElement
+      const $dec = clone.querySelector(
+        '#product-cart-item-counter-dec'
+      ) as HTMLButtonElement
+      const $count = clone.querySelector(
+        '#product-cart-item-counter-count'
+      ) as HTMLSpanElement
+      const $remove = clone.querySelector(
+        '[data-modal-product-cart-item-close]'
+      ) as HTMLButtonElement
+      const $dialog = clone.querySelector('dialog') as HTMLDialogElement
+      const $modalTrigger = clone.querySelector(
+        '[data-modal-trigger]'
+      ) as HTMLButtonElement
+      $modalTrigger.dataset.modalTrigger = `product-cart-item-modal-remove-${item.id}`
+      $dialog.setAttribute('id', `product-cart-item-modal-remove-${item.id}`)
+      ;(clone.firstElementChild as HTMLElement).dataset.itemId = `${item.id}`
+
+      $inc.addEventListener('click', () => {
+        const currentCount = +$count.innerText
+        $count.innerText = `${currentCount + 1}`
+        $total.innerText = `${currency(+$count.innerText * item.price)}`
+        ProviderCart.updateCount({ id: item.id, count: +$count.innerText })
+        $summarySubTotal.innerText = currency(ProviderCart.getTotal())
+        $summaryTotal.innerText = currency(ProviderCart.getTotal())
+      })
+      $dec.addEventListener('click', () => {
+        const currentCount = +$count.innerText
+        $count.innerText = `${Math.max(1, currentCount - 1)}`
+        $total.innerText = `${currency(+$count.innerText * item.price)}`
+        ProviderCart.updateCount({ id: item.id, count: +$count.innerText })
+        $summarySubTotal.innerText = currency(ProviderCart.getTotal())
+        $summaryTotal.innerText = currency(ProviderCart.getTotal())
+      })
+      $remove.addEventListener('click', () => {
+        const currentCart = ProviderCart.removeProduct(item.id)
+        const $item = $(`[data-item-id="${item.id}"]`)
+        $mainTitle.innerText = `(${currentCart?.length} ${currentCart?.length === 1 ? singleProduct : pluralProduct})`
+        if (!currentCart?.length) {
+          $summary.remove()
+          $mainTitle.remove()
+          $empty.classList.remove('hidden')
+        }
+        $summarySubTotal.innerText = currency(ProviderCart.getTotal())
+        $summaryTotal.innerText = currency(ProviderCart.getTotal())
+        $item?.remove()
+      })
+
+      $title.innerText = getTitleById(item.id)
+      $volumen.innerText = `${$volumen.innerText} ${products.get(item.id)!.volumen}ml`
+      $price.innerText = `${$price.innerText}: ${currency(item.price)}`
+      $img.src = getImgById(item.id).src
+      $img.alt = getImgById(item.id).alt
+      $total.innerText = currency(item.count * item.price)
+      $count.innerText = `${item.count}`
+
+      return clone
+    })
+    $$items.forEach(($item) =>
+      $header.insertAdjacentElement('afterend', $item.firstElementChild!)
+    )
+  }
+</script>

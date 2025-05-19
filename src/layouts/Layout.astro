@@ -1,7 +1,8 @@
 ---
 import { join } from 'node:path'
 import { AstroFont } from 'astro-font'
-import { getLangFromUrl } from 'i18n/utils'
+import i18next from 'i18next'
+// import { HeadHrefLangs } from 'astro-i18next/components'
 
 interface Props {
   id?: string
@@ -10,11 +11,10 @@ interface Props {
 }
 
 const { id, className, title } = Astro.props
-const lang = getLangFromUrl(Astro.url)
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={i18next.language}>
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -51,19 +51,24 @@ const lang = getLangFromUrl(Astro.url)
       name="twitter:image"
       content="https://opengraph.b-cdn.net/production/images/a8bdbc4a-e350-4f17-82d9-68e63b77dbda.png?token=cveclZvGX7iCBouaIuJGjacwpMbutuQFcfPv9z85Jig&height=848&width=1200&expires=33273518196"
     />
-    <link rel="icon" type="image/svg+xml" href="icons/logo-decajon-black.svg" />
     <link
       rel="icon"
       type="image/svg+xml"
-      href="icons/logo-decajon-gold.svg"
+      href="/icons/logo-decajon-black.svg"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/icons/logo-decajon-gold.svg"
       media="(prefers-color-scheme: dark)"
     />
     <link
       rel="icon"
       type="image/svg+xml"
-      href="icons/logo-decajon-black.svg"
+      href="/icons/logo-decajon-black.svg"
       media="(prefers-color-scheme: light)"
     />
+    <!-- <HeadHrefLangs /> -->
     <link rel="shortcut icon" href="/favicon/favicon.ico" />
     <link
       rel="apple-touch-icon"

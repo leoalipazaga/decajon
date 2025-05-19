@@ -1,27 +1,29 @@
 ---
-import BaseLayout from 'layouts/BaseLayout.astro'
-import Layout from 'layouts/Layout.astro'
-import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
-import SandLayout from 'layouts/SandLayout.astro'
-import { districts } from 'consts'
-import Button from 'components/Button.astro'
-import Input from 'components/Input.astro'
-import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
+import { changeLanguage } from "i18next";
+import BaseLayout from "layouts/BaseLayout.astro";
+import Layout from "layouts/Layout.astro";
+import MiddlewareLayout from "layouts/MiddlewareLayout.astro";
+import SandLayout from "layouts/SandLayout.astro";
+import { districts } from "consts";
+import Button from "components/Button.astro";
+import Input from "components/Input.astro";
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "i18n/utils";
 
-const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(lang)
-const translatePath = useTranslatedPath(lang)
+changeLanguage("es");
 
-const limaId = 3927
-const limaDistricts = districts[limaId]
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations();
+const translatePath = useTranslatedPath(lang);
+const limaId = 3927;
+const limaDistricts = districts[limaId];
 ---
 
 <Layout title={t('claimbooks.title')}>
   <MiddlewareLayout>
     <BaseLayout>
-      <SandLayout class="py-[4.375rem]">
-        <div class="m-auto mt-5 w-[50%] max-w-screen-2xl">
-          <h1 class="mb-4 text-xl uppercase">{t('claimbooks.title')}</h1>
+      <SandLayout class='py-[4.375rem]'>
+        <div class='m-auto mt-5 w-[50%] max-w-screen-2xl'>
+          <h1 class='mb-4 text-xl uppercase'>{t('claimbooks.title')}</h1>
           <h4>
             Fecha: <span>{Intl.DateTimeFormat('es-CL').format(new Date())}</span
             >
@@ -29,68 +31,68 @@ const limaDistricts = districts[limaId]
           <h4>
             Razon Social: <span>DE CAJON DESTILADORES S.R.L</span>
           </h4>
-          <h4 class="mb-4">
+          <h4 class='mb-4'>
             RUC: <span>20609305224</span>
           </h4>
           <form
             action={`https://formsubmit.co/${import.meta.env.PUBLIC_DECAJON_EMAIL}`}
-            method="post"
-            name="Reclamaciones"
+            method='post'
+            name='Reclamaciones'
           >
             <h2>{t('claimbooks.user')}</h2>
             <input
-              type="hidden"
-              name="_subject"
-              value="Libro de Reclamaciones"
+              type='hidden'
+              name='_subject'
+              value='Libro de Reclamaciones'
             />
-            <div class="grid md:grid-cols-2 md:gap-x-4 lg:gap-x-8">
+            <div class='grid md:grid-cols-2 md:gap-x-4 lg:gap-x-8'>
               <Input
                 required
-                autocomplete="off"
-                class="mb-4"
-                htmlFor="name"
+                autocomplete='off'
+                class='mb-4'
+                htmlFor='name'
                 label={t('claimbooks.name')}
-                name="Nombre"
+                name='Nombre'
               />
               <Input
                 required
-                autocomplete="off"
-                class="mb-4"
-                htmlFor="lastname"
+                autocomplete='off'
+                class='mb-4'
+                htmlFor='lastname'
                 label={t('claimbooks.lastname')}
-                name="Apellidos"
+                name='Apellidos'
               />
-              <div class="mb-4">
-                <label class="block text-xs" for="typeDocument"
+              <div class='mb-4'>
+                <label class='block text-xs' for='typeDocument'
                   >{t('claimbooks.typeDocument')}</label
                 >
                 <select
                   required
-                  id="typeDocument"
-                  class="h-[2.125rem] w-full border border-eerie-black bg-transparent px-2.5 py-1"
-                  name="Tipo"
+                  id='typeDocument'
+                  class='h-[2.125rem] w-full border border-eerie-black bg-transparent px-2.5 py-1'
+                  name='Tipo'
                 >
-                  <option value="dni">DNI</option>
-                  <option value="ce">C.E.</option>
+                  <option value='dni'>DNI</option>
+                  <option value='ce'>C.E.</option>
                 </select>
               </div>
               <Input
                 required
-                autocomplete="off"
-                class="mb-4"
-                htmlFor="document"
+                autocomplete='off'
+                class='mb-4'
+                htmlFor='document'
                 label={t('claimbooks.document')}
-                name="Documento"
+                name='Documento'
               />
-              <div class="mb-4">
-                <label class="block text-xs" for="districts"
+              <div class='mb-4'>
+                <label class='block text-xs' for='districts'
                   >{t('checkout.district')}</label
                 >
                 <select
                   required
-                  id="districts"
-                  class="h-[2.125rem] w-full border border-eerie-black bg-transparent px-2.5 py-1"
-                  name="Distrito"
+                  id='districts'
+                  class='h-[2.125rem] w-full border border-eerie-black bg-transparent px-2.5 py-1'
+                  name='Distrito'
                 >
                   {
                     limaDistricts.map((district) => (
@@ -106,94 +108,94 @@ const limaDistricts = districts[limaId]
               </div>
               <Input
                 required
-                autocomplete="off"
-                htmlFor="address"
-                class="mb-4"
+                autocomplete='off'
+                htmlFor='address'
+                class='mb-4'
                 label={t('claimbooks.address')}
-                name="Direccion"
+                name='Direccion'
               />
               <Input
                 required
-                autocomplete="off"
-                class="mb-4"
-                type="tel"
-                htmlFor="phone"
+                autocomplete='off'
+                class='mb-4'
+                type='tel'
+                htmlFor='phone'
                 label={t('common.phone')}
-                name="Celular"
+                name='Celular'
               />
               <Input
                 required
-                autocomplete="off"
-                class="mb-4"
-                htmlFor="email"
-                type="email"
+                autocomplete='off'
+                class='mb-4'
+                htmlFor='email'
+                type='email'
                 label={t('common.email')}
-                name="Email"
+                name='Email'
               />
             </div>
             <h2>{t('claimbooks.claimDetails')}</h2>
-            <div class="mb-4">
-              <label for="typeClaim" class="block text-xs"
+            <div class='mb-4'>
+              <label for='typeClaim' class='block text-xs'
                 >{t('claimbooks.typeClaim')}</label
               >
               <select
                 required
-                id="typeClaim"
-                class="h-[2.125rem] w-full border border-eerie-black bg-transparent px-2.5 py-1"
-                name="Reclamo/Queja"
+                id='typeClaim'
+                class='h-[2.125rem] w-full border border-eerie-black bg-transparent px-2.5 py-1'
+                name='Reclamo/Queja'
               >
-                <option value="Reclamo">{t('claimbooks.claim')}*</option>
-                <option value="Queja">{t('claimbooks.complaint')}*</option>
+                <option value='Reclamo'>{t('claimbooks.claim')}*</option>
+                <option value='Queja'>{t('claimbooks.complaint')}*</option>
               </select>
             </div>
-            <label for="detail" class="w-full text-xs"
+            <label for='detail' class='w-full text-xs'
               >{t('claimbooks.claimDescription')}</label
             >
             <textarea
               required
-              autocomplete="off"
-              minlength="50"
-              class="h-28 w-full border border-eerie-black bg-transparent px-2.5 py-1 [field-sizing:content]"
-              id="detail"
-              name="Reclamo"></textarea>
-            <label for="requested" class="w-full text-xs"
+              autocomplete='off'
+              minlength='50'
+              class='h-28 w-full border border-eerie-black bg-transparent px-2.5 py-1 [field-sizing:content]'
+              id='detail'
+              name='Reclamo'></textarea>
+            <label for='requested' class='w-full text-xs'
               >{t('claimbooks.claimRequest')}</label
             >
             <textarea
               required
-              autocomplete="off"
-              minlength="50"
-              class="h-28 w-full border border-eerie-black bg-transparent px-2.5 py-1 [field-sizing:content]"
-              id="requested"
-              name="Pedido"></textarea>
-            <div class="mt-4">
+              autocomplete='off'
+              minlength='50'
+              class='h-28 w-full border border-eerie-black bg-transparent px-2.5 py-1 [field-sizing:content]'
+              id='requested'
+              name='Pedido'></textarea>
+            <div class='mt-4'>
               <p>
-                <span class="font-bold">{t('claimbooks.claim')}</span>: {
+                <span class='font-bold'>{t('claimbooks.claim')}</span>: {
                   t('claimbooks.claimExplanation')
                 }
               </p>
               <p>
-                <span class="font-bold">{t('claimbooks.complaint')}</span>: {
+                <span class='font-bold'>{t('claimbooks.complaint')}</span>: {
                   t('claimbooks.complaintExplanation')
                 }
               </p>
             </div>
-            <div class="mt-4">
+            <div class='mt-4'>
               <input
                 required
-                type="checkbox"
-                id="terms-privacy"
-                name="Terminos"
-                data-error-message="Debes aceptar los términos y condiciones y la política de privacidad"
+                type='checkbox'
+                id='terms-privacy'
+                name='Terminos'
+                data-error-message='Debes aceptar los términos y condiciones y la política de privacidad'
               />
-              <label for="terms-privacy">
+              <label for='terms-privacy'>
                 Estoy de acuerdo con los
-                <a href={translatePath('/terms-and-conditions')} target="_blank"
+                <a href={translatePath('/terms-and-conditions')} target='_blank'
                   >Términos y Condiciones</a
                 > .
               </label>
             </div>
-            <Button class="mt-4 w-full md:w-auto">{t('common.send')}</Button>
+            <Button class='mt-4 w-full md:w-auto'>{t('common.send')}</Button>
           </form>
         </div>
       </SandLayout>

@@ -1,78 +1,81 @@
 ---
-import { Picture } from 'astro:assets'
-import Button from 'components/Button.astro'
-import Input from 'components/Input.astro'
-import BaseLayout from 'layouts/BaseLayout.astro'
-import Layout from 'layouts/Layout.astro'
-import SandLayout from 'layouts/SandLayout.astro'
-import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
-import Master3 from 'images/master-3.jpg'
-import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
+import { changeLanguage } from "i18next";
+import { Picture } from "astro:assets";
+import Button from "components/Button.astro";
+import Input from "components/Input.astro";
+import BaseLayout from "layouts/BaseLayout.astro";
+import Layout from "layouts/Layout.astro";
+import SandLayout from "layouts/SandLayout.astro";
+import MiddlewareLayout from "layouts/MiddlewareLayout.astro";
+import Master3 from "images/master-3.jpg";
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "i18n/utils";
 
-const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(lang)
-const translatePath = useTranslatedPath(lang)
+changeLanguage("es");
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations();
+const translatePath = useTranslatedPath(lang);
 ---
 
-<Layout title="DeCajon">
+<Layout title='DeCajon'>
   <MiddlewareLayout>
     <BaseLayout showNavbar={false}>
       <SandLayout>
-        <div class="m-auto w-[76%] max-w-screen-2xl">
+        <div class='m-auto w-[76%] max-w-screen-2xl'>
           <div
-            class="grid grid-cols-1 grid-rows-[auto_auto] gap-x-[5.25rem] pb-16 pt-28 md:grid-cols-2"
+            class='grid grid-cols-1 grid-rows-[auto_auto] gap-x-[5.25rem] pb-16 pt-28 md:grid-cols-2'
           >
             <article>
               <h1
-                class="m-auto mb-10 w-3/4 text-center text-xl uppercase lg:text-4xl xl:w-1/2"
+                class='m-auto mb-10 w-3/4 text-center text-xl uppercase lg:text-4xl xl:w-1/2'
               >
                 {t('login.welcome')}
               </h1>
-              <form id="login">
+              <form id='login'>
                 <Input
                   required
-                  autofocus="on"
-                  name="username"
-                  autocomplete="off"
-                  htmlFor="username"
-                  class="mb-5"
-                  label="Usuario"
+                  autofocus='on'
+                  name='username'
+                  autocomplete='off'
+                  htmlFor='username'
+                  class='mb-5'
+                  label='Usuario'
                 />
                 <Input
                   required
-                  class="outline-rosewood [&&]:border-rosewood"
-                  name="password"
-                  autocomplete="off"
-                  htmlFor="password"
-                  label="Contraseña"
-                  type="password"
+                  class='outline-rosewood [&&]:border-rosewood'
+                  name='password'
+                  autocomplete='off'
+                  htmlFor='password'
+                  label='Contraseña'
+                  type='password'
                 />
                 <a
-                  class="block text-right text-xs text-rosewood"
+                  class='block text-right text-xs text-rosewood'
                   href={translatePath('/')}>{t('login.forgetAccount')}</a
                 >
                 <p
-                  id="invalid-user"
-                  class="invisible mb-0 mt-3 text-xs font-bold text-rosewood"
+                  id='invalid-user'
+                  class='invisible mb-0 mt-3 text-xs font-bold text-rosewood'
                 >
                   {t('login.invalidAuth')}
                 </p>
-                <Button as="button" type="submit" class="mt-5 block w-full">
+                <Button as='button' type='submit' class='mt-5 block w-full'>
                   {t('login.signin')}
                 </Button>
               </form>
-              <p class="mt-8 text-center text-xs lg:text-base">
+              <p class='mt-8 text-center text-xs lg:text-base'>
                 {t('login.notAccount')}
-                <a class="text-rosewood" href={translatePath('/signup')}
+                <a class='text-rosewood' href={translatePath('/signup')}
                   >&nbsp;{t('login.signup')}</a
                 >
               </p>
             </article>
             <Picture
-              alt="maestro-3"
-              class="h-full rounded-[2.5rem] object-cover"
+              alt='maestro-3'
+              class='h-full rounded-[2.5rem] object-cover'
               pictureAttributes={{ class: 'hidden md:block' }}
-              loading="lazy"
+              loading='lazy'
               src={Master3}
               formats={['webp', 'avif', 'jpeg']}
             />

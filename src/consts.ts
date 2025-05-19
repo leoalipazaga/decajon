@@ -1,5 +1,4 @@
 import type { Product } from 'adapters/storage.types'
-import { useTranslatedPath } from 'i18n/utils'
 
 export const boxes = new Map([
   [

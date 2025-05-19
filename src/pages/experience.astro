@@ -1,69 +1,71 @@
 ---
-import { Image, Picture } from 'astro:assets'
-import BaseLayout from 'layouts/BaseLayout.astro'
-import Layout from 'layouts/Layout.astro'
-import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
-import SandLayout from 'layouts/SandLayout.astro'
-import CoctelesBanner from 'images/coctelesbanner.png'
-import BottleVodka from 'images/bottle-vodka-compressed.png'
-import BottleSiembra from 'images/bottle-siembra.png'
-import BottleGin from 'images/bottle-gin.png'
-import LongLeftArrow from 'icons/long-left-arrow.svg'
-import Button from 'components/Button.astro'
-import Coctel from 'components/Coctel.astro'
-import Input from 'components/Input.astro'
-import Carousel from 'components/Carousel.astro'
-import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
-import { getCocktailImg } from 'coctel/coctel.usecases'
-import { cocteles } from 'coctel/coctel.const'
+import { changeLanguage } from "i18next";
+import { Image, Picture } from "astro:assets";
+import BaseLayout from "layouts/BaseLayout.astro";
+import Layout from "layouts/Layout.astro";
+import MiddlewareLayout from "layouts/MiddlewareLayout.astro";
+import SandLayout from "layouts/SandLayout.astro";
+import CoctelesBanner from "images/coctelesbanner.png";
+import BottleVodka from "images/bottle-vodka-compressed.png";
+import BottleSiembra from "images/bottle-siembra.png";
+import BottleGin from "images/bottle-gin.png";
+import LongLeftArrow from "icons/long-left-arrow.svg";
+import Button from "components/Button.astro";
+import Coctel from "components/Coctel.astro";
+import Input from "components/Input.astro";
+import Carousel from "components/Carousel.astro";
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "i18n/utils";
+import { getCocktailImg } from "coctel/coctel.usecases";
+import { cocteles } from "coctel/coctel.const";
+
+changeLanguage("es");
 
 const bottles = [
-  {
-    title: 'DE CAJÓN VODKA',
-    img: { alt: 'De Cajon Vodka', src: BottleVodka },
-    link: '/products/vodka',
-    size: '750',
-  },
-  {
-    title: 'DE CAJÓN GIN',
-    img: { alt: 'DE CAJÓN GIN', src: BottleGin },
-    link: '/products/vodka-gin',
-    size: '750',
-  },
-  {
-    title: 'SIEMBRA VODKA',
-    img: { alt: 'SIEMBRA VODKA', src: BottleSiembra },
-    link: '/products/vodka-siembra',
-    size: '750',
-  },
-]
-
-const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(lang)
-const translatePath = useTranslatedPath(lang)
+    {
+        title: "DE CAJ\u00D3N VODKA",
+        img: { alt: "De Cajon Vodka", src: BottleVodka },
+        link: "/products/vodka",
+        size: "750",
+    },
+    {
+        title: "DE CAJ\u00D3N GIN",
+        img: { alt: "DE CAJ\u00D3N GIN", src: BottleGin },
+        link: "/products/vodka-gin",
+        size: "750",
+    },
+    {
+        title: "SIEMBRA VODKA",
+        img: { alt: "SIEMBRA VODKA", src: BottleSiembra },
+        link: "/products/vodka-siembra",
+        size: "750",
+    },
+];
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations();
+const translatePath = useTranslatedPath(lang);
 ---
 
-<Layout title="Cocteles">
+<Layout title='Cocteles'>
   <MiddlewareLayout>
     <BaseLayout>
-      <SandLayout class="relative pl-14 md:pl-28">
+      <SandLayout class='relative pl-14 md:pl-28'>
         <div
-          class="m-auto grid max-w-screen-2xl justify-between md:grid-cols-[50%_auto] lg:grid-cols-[35%_50%]"
+          class='m-auto grid max-w-screen-2xl justify-between md:grid-cols-[50%_auto] lg:grid-cols-[35%_50%]'
         >
           <header
-            class="col-start-1 row-start-1 w-4/5 space-y-2 self-center md:w-full md:space-y-7"
+            class='col-start-1 row-start-1 w-4/5 space-y-2 self-center md:w-full md:space-y-7'
           >
-            <p class="text-xs md:text-sm lg:text-xl">
+            <p class='text-xs md:text-sm lg:text-xl'>
               {t('experience.preheading')}
             </p>
-            <h1 class="text-xl uppercase lg:text-3xl xl:text-5xl">
+            <h1 class='text-xl uppercase lg:text-3xl xl:text-5xl'>
               {t('experience.title')}
             </h1>
-            <p class="text-xs md:text-sm lg:text-sm xl:text-xl">
+            <p class='text-xs md:text-sm lg:text-sm xl:text-xl'>
               {t('experience.description')}
             </p>
-            <Button class="hidden md:flex" variant="rounded" id="scroll-to">
-              <Image class="-rotate-90" src={LongLeftArrow} alt="long left" />
+            <Button class='hidden md:flex' variant='rounded' id='scroll-to'>
+              <Image class='-rotate-90' src={LongLeftArrow} alt='long left' />
             </Button>
           </header>
           <Picture
@@ -73,90 +75,90 @@ const translatePath = useTranslatedPath(lang)
                 'col-start-1 col-end-2 md:w-full w-[70%] md:col-start-2 md:col-end-3 row-start-1 opacity-30 md:opacity-100 w-full justify-self-end',
             }}
             height={832}
-            class="aspect-[2/3] w-full"
-            alt="cocteles-banner"
+            class='aspect-[2/3] w-full'
+            alt='cocteles-banner'
             formats={['webp', 'png', 'avif', 'jpeg']}
           />
         </div>
       </SandLayout>
-      <SandLayout class="py-[4.25rem]" id="recipes">
-        <div class="m-auto w-[76%] max-w-screen-2xl">
+      <SandLayout class='py-[4.25rem]' id='recipes'>
+        <div class='m-auto w-[76%] max-w-screen-2xl'>
           <form
-            id="form-filter"
-            class="mb-10 grid gap-x-5 gap-y-4 md:grid-cols-2 md:gap-y-0"
+            id='form-filter'
+            class='mb-10 grid gap-x-5 gap-y-4 md:grid-cols-2 md:gap-y-0'
           >
             <Input
-              id="searchbox"
-              name="searchbox"
-              type="search"
-              autocomplete="off"
+              id='searchbox'
+              name='searchbox'
+              type='search'
+              autocomplete='off'
               placeholder={t('experience.searchProducts')}
               rounded
             />
-            <select class="border bg-transparent py-2 pl-2" name="distillate">
-              <option value="">Todos</option>
-              <option value="De Cajón Vodka">De Cajón Vodka</option>
-              <option value="De Cajón Gin">De Cajón Gin</option>
-              <option value="Siembra Vodka">Siembra Vodka</option>
+            <select class='border bg-transparent py-2 pl-2' name='distillate'>
+              <option value=''>Todos</option>
+              <option value='De Cajón Vodka'>De Cajón Vodka</option>
+              <option value='De Cajón Gin'>De Cajón Gin</option>
+              <option value='Siembra Vodka'>Siembra Vodka</option>
             </select>
           </form>
-          <h2 class="mb-8 uppercase md:text-xl lg:text-2xl">
-            {t('experience.recipesTitle')}&nbsp(<span id="cocteles-count"
+          <h2 class='mb-8 uppercase md:text-xl lg:text-2xl'>
+            {t('experience.recipesTitle')}&nbsp(<span id='cocteles-count'
               >{cocteles.length}</span
             >
             )
           </h2>
           <div
-            class="grid grid-cols-1 gap-x-[1.25rem] gap-y-5 md:grid-cols-3 md:gap-y-4 lg:gap-y-12"
-            id="cocteles"
+            class='grid grid-cols-1 gap-x-[1.25rem] gap-y-5 md:grid-cols-3 md:gap-y-4 lg:gap-y-12'
+            id='cocteles'
           >
             {
               cocteles.map((coctel) => (
                 <Coctel tag={coctel.distillate} title={coctel.name}>
                   <Image
-                    class="col-span-2 row-start-1 h-full w-full object-cover object-[10%_80%]"
+                    class='col-span-2 row-start-1 h-full w-full object-cover object-[10%_80%]'
                     src={getCocktailImg(coctel.alias)}
                     alt={coctel.alias}
-                    loading="lazy"
-                    height="284"
+                    loading='lazy'
+                    height='284'
                   />
                 </Coctel>
               ))
             }
           </div>
         </div>
-        <SandLayout class="py-[4.375rem]">
+        <SandLayout class='py-[4.375rem]'>
           <div
-            class="m-auto grid w-[76%] max-w-screen-2xl grid-cols-1 grid-rows-[auto_auto] gap-x-6 gap-y-[0.875rem] md:grid-cols-3"
+            class='m-auto grid w-[76%] max-w-screen-2xl grid-cols-1 grid-rows-[auto_auto] gap-x-6 gap-y-[0.875rem] md:grid-cols-3'
           >
             <h1
-              class="col-span-1 col-start-1 row-start-1 border border-eerie-black py-[0.825rem] text-center text-xl uppercase md:col-span-3 lg:text-4xl"
+              class='col-span-1 col-start-1 row-start-1 border border-eerie-black py-[0.825rem] text-center text-xl uppercase md:col-span-3 lg:text-4xl'
             >
               {t('experience.similarProducts')}
             </h1>
-            <div class="block md:hidden">
+            <div class='block md:hidden'>
               <Carousel>
                 {
                   bottles.map((bottle) => (
-                    <article class="flex w-full flex-shrink-0 flex-col items-center border border-eerie-black py-[1.125rem]">
+                    <article class='flex w-full flex-shrink-0 flex-col items-center border border-eerie-black py-[1.125rem]'>
                       <Picture
                         alt={bottle.img.alt}
-                        class="mb-4 h-[260px] object-cover"
+                        class='mb-4 h-[260px] object-cover'
                         height={260}
                         src={bottle.img.src}
-                        loading="lazy"
+                        loading='lazy'
                         formats={['webp', 'avif', 'jpg']}
                       />
                       <h2
-                        translate="no"
-                        class="mb-3 text-center uppercase md:text-sm lg:text-2xl"
+                        translate='no'
+                        class='mb-3 text-center uppercase md:text-sm lg:text-2xl'
                       >
                         {bottle.title}
                       </h2>
-                      <p class="mb-3 text-center md:text-xs lg:text-xl">
+                      <p class='mb-3 text-center md:text-xs lg:text-xl'>
                         {t('common.bottle')} {bottle.size}ml
                       </p>
-                      <Button as="a" href={translatePath(bottle.link)}>
+                      <Button as='a' href={translatePath(bottle.link)}>
                         {t('common.buyNow')}
                       </Button>
                     </article>
@@ -166,28 +168,28 @@ const translatePath = useTranslatedPath(lang)
             </div>
             {
               bottles.map((bottle) => (
-                <article class="hidden flex-col items-center border border-eerie-black py-[1.125rem] md:flex">
+                <article class='hidden flex-col items-center border border-eerie-black py-[1.125rem] md:flex'>
                   <Picture
                     alt={bottle.img.alt}
-                    class="mb-4 h-[260px] object-cover"
+                    class='mb-4 h-[260px] object-cover'
                     height={260}
                     src={bottle.img.src}
-                    loading="lazy"
+                    loading='lazy'
                     formats={['webp', 'avif', 'jpg']}
                   />
                   <h2
-                    translate="no"
-                    class="mb-3 text-center uppercase md:text-sm lg:text-2xl"
+                    translate='no'
+                    class='mb-3 text-center uppercase md:text-sm lg:text-2xl'
                   >
                     {bottle.title}
                   </h2>
                   <p
-                    translate="no"
-                    class="mb-3 text-center md:text-xs lg:text-xl"
+                    translate='no'
+                    class='mb-3 text-center md:text-xs lg:text-xl'
                   >
                     {t('common.bottle')} {bottle.size}ml
                   </p>
-                  <Button as="a" href={translatePath(bottle.link)}>
+                  <Button as='a' href={translatePath(bottle.link)}>
                     {t('common.buyNow')}
                   </Button>
                 </article>
@@ -200,18 +202,13 @@ const translatePath = useTranslatedPath(lang)
   </MiddlewareLayout>
 </Layout>
 <script>
-  import { getLangFromUrl, useTranslations } from 'i18n/utils'
+  import { useTranslations } from 'i18n/utils'
   import { getCocktailImg } from 'coctel/coctel.usecases'
   import type { Coctel } from 'coctel/coctel.domain'
   import { cocteles } from 'coctel/coctel.const'
 
-  const currentUrl = new URL(
-    window?.location?.pathname,
-    window?.location?.origin
-  )
-  const lang = getLangFromUrl(currentUrl)
   const $ = document.querySelector.bind(document)
-  const t = useTranslations(lang)
+  const t = useTranslations()
   const scrollToEl = $('#scroll-to')
   const recipes = $('#recipes')
   const $coctelesCount = $('#cocteles-count') as HTMLTitleElement

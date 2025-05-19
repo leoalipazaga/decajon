@@ -1,6 +1,3 @@
-import es from './es.json'
-import en from './en.json'
-
 export const showDefaultLang = false
 
 export const languages = {
@@ -11,6 +8,6 @@ export const languages = {
 export const defaultLang = 'es'
 
 export const ui = {
-  es,
-  en,
+  es: 'es',
+  en: 'en',
 } as const

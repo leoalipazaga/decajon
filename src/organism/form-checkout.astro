@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl, useTranslations } from 'i18n/utils'
+import { useTranslations } from 'i18n/utils'
 import Input from 'components/Input.astro'
 import Button from 'components/Button.astro'
 import Modal from 'organism/Modal.astro'
@@ -12,148 +12,149 @@ interface Props {
 }
 
 const { continueShop, type } = Astro.props
-const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(lang)
+const t = useTranslations()
 ---
 
 <form
   data-type={type}
-  id="formCheckout"
-  class="hidden grid-cols-1 md:grid-cols-2 md:gap-x-24"
+  id='formCheckout'
+  class='hidden grid-cols-1 md:grid-cols-2 md:gap-x-24'
 >
-  <article class="grid grid-cols-2">
-    <header class="col-span-2 mb-10 flex flex-col md:flex-row">
+  <article class='grid grid-cols-2'>
+    <header class='col-span-2 mb-10 flex flex-col md:flex-row'>
       <h1
-        class="col-span-2 text-xl uppercase md:col-span-1 md:text-2xl lg:text-center"
+        class='col-span-2 text-xl uppercase md:col-span-1 md:text-2xl lg:text-center'
       >
         {t('checkout.finishShop')}
       </h1>
       <h3
-        id="countProducts"
-        class="col-span-2 text-nowrap text-xl md:col-span-1 lg:text-center"
+        id='countProducts'
+        data-i18n-product={t('common.product')}
+        data-i18n-products={t('common.products')}
+        class='col-span-2 text-nowrap text-xl md:col-span-1 lg:text-center'
       >
       </h3>
     </header>
-    <p class="col-span-2 text-base md:text-xl">
+    <p class='col-span-2 text-base md:text-xl'>
       {t('checkout.detailsShop')}
     </p>
     <Input
       required
-      autocomplete="off"
-      class="col-span-2 mb-4"
+      autocomplete='off'
+      class='col-span-2 mb-4'
       label={type === 'PROVIDER' ? 'Nombre Social' : 'Nombre'}
-      htmlFor="name"
-      name="name"
-      id="name"
+      htmlFor='name'
+      name='name'
+      id='name'
     />
     <Input
       required
-      autocomplete="off"
-      class="col-span-2 mb-4"
-      htmlFor="lastname"
+      autocomplete='off'
+      class='col-span-2 mb-4'
+      htmlFor='lastname'
       label={type === 'PROVIDER' ? 'RUC' : 'Apellidos'}
-      name="lastname"
-      id="lastname"
+      name='lastname'
+      id='lastname'
     />
-    <p translate="no" class="col-span-2 mb-4">Lima/Perú</p>
-    <label for="districts" class="col-span-2 text-xs"
+    <p translate='no' class='col-span-2 mb-4'>Lima/Perú</p>
+    <label for='districts' class='col-span-2 text-xs'
       >{t('checkout.district')}</label
     >
     <select
       required
-      id="districts"
-      class="col-span-2 mb-4 border border-eerie-black bg-transparent px-2.5 py-1"
-      name="district"
+      id='districts'
+      class='col-span-2 mb-4 border border-eerie-black bg-transparent px-2.5 py-1'
+      name='district'
     >
     </select>
     <Input
       required
-      autocomplete="off"
-      class="col-span-2 mb-4"
-      htmlFor="address"
-      label="Direccion"
-      name="address"
-      id="address"
+      autocomplete='off'
+      class='col-span-2 mb-4'
+      htmlFor='address'
+      label='Direccion'
+      name='address'
+      id='address'
     />
-    <input id="regions" name="regions" hidden value="3926" />
-    <input id="provinces" name="provinces" hidden value="3927" />
+    <input id='regions' name='regions' hidden value='3926' />
+    <input id='provinces' name='provinces' hidden value='3927' />
     <Input
       required
-      autocomplete="off"
-      class="col-span-2 mb-4"
-      htmlFor="phone"
-      type="tel"
+      autocomplete='off'
+      class='col-span-2 mb-4'
+      htmlFor='phone'
+      type='tel'
       label={t('common.phone')}
-      id="phone"
-      name="phone"
+      id='phone'
+      name='phone'
     />
     <Input
       required
-      autocomplete="off"
-      class="col-span-2 mb-4"
-      htmlFor="email"
-      type="email"
+      autocomplete='off'
+      class='col-span-2 mb-4'
+      htmlFor='email'
+      type='email'
       label={t('common.email')}
-      id="email"
-      name="email"
+      id='email'
+      name='email'
     />
-    <label for="notes" class="col-span-2 text-xs">{t('checkout.notes')}</label>
+    <label for='notes' class='col-span-2 text-xs'>{t('checkout.notes')}</label>
     <textarea
-      class="col-span-2 min-h-40 border border-eerie-black bg-transparent px-2.5 py-1"
-      id="notes"
-      name="notes"></textarea>
+      class='col-span-2 min-h-40 border border-eerie-black bg-transparent px-2.5 py-1'
+      id='notes'
+      name='notes'></textarea>
     <Button
-      as="button"
-      class="col-span-2 mt-10 block disabled:opacity-30 md:hidden"
+      as='button'
+      class='col-span-2 mt-10 block disabled:opacity-30 md:hidden'
     >
       {t('checkout.finishShop')}
     </Button>
   </article>
-  <article class="hidden md:block">
-    <a class="mb-10 block text-base text-rosewood" href={continueShop}>
+  <article class='hidden md:block'>
+    <a class='mb-10 block text-base text-rosewood' href={continueShop}>
       {t('cart.continueShop')}
     </a>
-    <div class="grid grid-cols-2 border px-4 py-5">
-      <h2 class="col-span-2 mb-9 text-center font-thabit text-xl">
+    <div class='grid grid-cols-2 border px-4 py-5'>
+      <h2 class='col-span-2 mb-9 text-center font-thabit text-xl'>
         {t('checkout.yourOrder')}
       </h2>
-      <div class="col-span-2 grid grid-cols-2 px-[0.625rem] py-4">
-        <h4 class="font-thabit text-base font-bold">{t('checkout.product')}</h4>
-        <h4 class="justify-self-end font-thabit text-base font-bold">
+      <div class='col-span-2 grid grid-cols-2 px-[0.625rem] py-4'>
+        <h4 class='font-thabit text-base font-bold'>{t('checkout.product')}</h4>
+        <h4 class='justify-self-end font-thabit text-base font-bold'>
           {t('common.subtotal')}
         </h4>
       </div>
-      <slot name="cart" />
-      <div class="col-span-2 grid grid-cols-2 border-b px-[0.625rem] py-4">
-        <p class="text-base">{t('checkout.delivery')}:</p>
-        <p id="delivery" class="justify-self-end text-base">{currency(10)}</p>
+      <slot name='cart' />
+      <div class='col-span-2 grid grid-cols-2 border-b px-[0.625rem] py-4'>
+        <p class='text-base'>{t('checkout.delivery')}:</p>
+        <p id='delivery' class='justify-self-end text-base'>{currency(10)}</p>
       </div>
-      <div class="col-span-2 grid grid-cols-2 border-b px-[0.625rem] py-4">
-        <p class="text-base">{t('common.total')}:</p>
-        <p id="total" class="justify-self-end text-base"></p>
+      <div class='col-span-2 grid grid-cols-2 border-b px-[0.625rem] py-4'>
+        <p class='text-base'>{t('common.total')}:</p>
+        <p id='total' class='justify-self-end text-base'></p>
       </div>
-      <Button as="button" type="submit" class="relative col-span-2 mt-10 block">
+      <Button as='button' type='submit' class='relative col-span-2 mt-10 block'>
         {t('checkout.finishShop')}
       </Button>
     </div>
   </article>
 </form>
-<Modal id="mp-form-card">
-  <ModalBody id="checkout-mercado-pago-form">
-    <div class="p-0" id="cardPaymentBrick_container"></div>
+<Modal id='mp-form-card'>
+  <ModalBody id='checkout-mercado-pago-form'>
+    <div class='p-0' id='cardPaymentBrick_container'></div>
   </ModalBody>
 </Modal>
-<Modal canClose={false} id="mp-status-screen">
+<Modal canClose={false} id='mp-status-screen'>
   <ModalBody>
-    <div class="p-0" id="statusScreenBrick_container"></div>
+    <div class='p-0' id='statusScreenBrick_container'></div>
   </ModalBody>
 </Modal>
 <div
-  id="empty"
-  class="hidden grid-cols-1 gap-x-6 gap-y-[0.875rem] md:grid-cols-3"
+  id='empty'
+  class='hidden grid-cols-1 gap-x-6 gap-y-[0.875rem] md:grid-cols-3'
 >
   <h2
-    class="col-span-3 border-y border-y-eerie-black py-6 text-center text-sm uppercase"
+    class='col-span-3 border-y border-y-eerie-black py-6 text-center text-sm uppercase'
   >
     {t?.('cart.empty')}
   </h2>
@@ -163,7 +164,6 @@ const t = useTranslations(lang)
 <script>
   import { districts, shippingCost } from 'consts'
   import { currency } from 'utils'
-  import { getLangFromUrl, useTranslations } from 'i18n/utils'
   import { ProviderCart, UserCart } from 'adapters/cart'
   import { createBrickSettings, createStatusBrick } from 'adapters/mercadopago'
   import { getPayload, getToken } from 'adapters/jwt'
@@ -173,9 +173,6 @@ const t = useTranslations(lang)
 
   const $ = document.querySelector.bind(document)
   const $$ = document.querySelectorAll.bind(document)
-  const lang = getLangFromUrl(
-    new URL(window?.location?.pathname, window?.location?.origin)
-  )
   const $delivery = $('#delivery') as HTMLParagraphElement
   const $modalBricks = $('#mp-form-card') as HTMLDialogElement
   const $modalStatus = $('#mp-status-screen') as HTMLDialogElement
@@ -187,7 +184,10 @@ const t = useTranslations(lang)
   const $$total = $$('#total') as NodeListOf<HTMLParagraphElement>
   const $empty = $('#empty') as HTMLDivElement
   const $formCheckout = $('#formCheckout') as HTMLFormElement
-  const t = useTranslations(lang)
+  const singleProduct = ($('[data-i18n-product]') as HTMLHeadingElement).dataset
+    .i18nProduct
+  const pluralProduct = ($('[data-i18n-products]') as HTMLHeadingElement)
+    .dataset.i18nProducts
   const isUser = $formCheckout.dataset.type === 'USER'
   const token = getToken() as string
   const distributorId = isUser ? '' : getPayload(token)?.id
@@ -213,6 +213,7 @@ const t = useTranslations(lang)
 
   const getDelivery = (districtId: string) => {
     const district = shippingCost.find((item) => item.id_ubigeo === districtId)
+
     return district?.shippingCost
   }
 
@@ -230,7 +231,7 @@ const t = useTranslations(lang)
   $countProducts?.forEach(($el) => {
     $el?.insertAdjacentText(
       'afterbegin',
-      `(${cart.getCountProducts()} ${cart.getCountProducts() === 1 ? t('common.product') : t('common.products')})`
+      `(${cart.getCountProducts()} ${cart.getCountProducts() === 1 ? singleProduct : pluralProduct})`
     )
   })
 
@@ -300,6 +301,7 @@ const t = useTranslations(lang)
     if (id === 2) {
       return 'Gin DeCajon'
     }
+
     return 'Vodka Siembra'
   }
 

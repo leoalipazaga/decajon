@@ -1,9 +1,10 @@
 ---
+import { t } from 'i18next'
 import type { ImageMetadata } from 'astro'
 import { Picture } from 'astro:assets'
 import Button from 'components/Button.astro'
 import Tag from 'components/Tag.astro'
-import { getLangFromUrl, useTranslatedPath, useTranslations } from 'i18n/utils'
+import { getLangFromUrl, useTranslatedPath } from 'i18n/utils'
 
 interface Props {
   title: string
@@ -47,7 +48,6 @@ const getDifficulty = (difficulty: 'easy') => {
 }
 
 const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(lang)
 const translatePath = useTranslatedPath(lang)
 const difficultyI18n = t(getDifficulty(difficulty ?? 'easy'))
 const momentI18n = t(getMoment(moment ?? 'midday'))
@@ -60,57 +60,57 @@ const momentI18n = t(getMoment(moment ?? 'midday'))
   ]}
 >
   <Picture
-    height="420"
-    class="hidden aspect-[2/3] h-full w-full object-cover object-center md:block"
+    height='420'
+    class='hidden aspect-[2/3] h-full w-full object-cover object-center md:block'
     formats={['webp', 'avif', 'jpeg']}
     src={img.path}
     alt={img.alt}
   />
-  <article class="grid grid-rows-[auto_1fr] gap-3.5">
+  <article class='grid grid-rows-[auto_1fr] gap-3.5'>
     <h1
-      class="text-nowrap border border-eerie-black px-6 py-[0.75rem] text-left text-xl uppercase text-eerie-black lg:text-3xl xl:text-4xl"
+      class='text-nowrap border border-eerie-black px-6 py-[0.75rem] text-left text-xl uppercase text-eerie-black lg:text-3xl xl:text-4xl'
     >
       {heading || t('recipe.heading')}
     </h1>
     <div
-      class="grid grid-rows-[auto_1fr_auto] gap-y-3 border border-eerie-black px-6 py-[0.75rem]"
+      class='grid grid-rows-[auto_1fr_auto] gap-y-3 border border-eerie-black px-6 py-[0.75rem]'
     >
       <Picture
-        height="420"
-        class="block aspect-[3/2] h-full w-full object-cover object-center md:hidden"
+        height='420'
+        class='block aspect-[3/2] h-full w-full object-cover object-center md:hidden'
         formats={['webp', 'avif', 'jpeg']}
         src={img.path}
         alt={img.alt}
       />
       <h2
-        translate="no"
-        class="row-start-2 justify-self-start text-left text-sm uppercase text-rosewood md:row-start-1 lg:text-2xl"
+        translate='no'
+        class='row-start-2 justify-self-start text-left text-sm uppercase text-rosewood md:row-start-1 lg:text-2xl'
       >
         {title}
       </h2>
-      <div class="row-start-3 md:row-start-2">
-        <p class="mb-3 text-xs text-eerie-black lg:text-base">{description}</p>
-        <div class="flex gap-4">
-          <Button as="a" href={translatePath(link)}>{t('recipe.show')}</Button>
+      <div class='row-start-3 md:row-start-2'>
+        <p class='mb-3 text-xs text-eerie-black lg:text-base'>{description}</p>
+        <div class='flex gap-4'>
+          <Button as='a' href={translatePath(link)}>{t('recipe.show')}</Button>
           <Button
-            as="a"
-            variant="outline"
-            translate="no"
+            as='a'
+            variant='outline'
+            translate='no'
             href={translatePath('/history')}>De Cajón Vodka</Button
           >
         </div>
       </div>
       <div
-        class="row-start-3 hidden grid-cols-[min-content_min-content] grid-rows-[auto_auto] gap-x-6 gap-y-2 lg:grid"
+        class='row-start-3 hidden grid-cols-[min-content_min-content] grid-rows-[auto_auto] gap-x-6 gap-y-2 lg:grid'
       >
-        <h2 class="col-start-1 text-sm uppercase text-rosewood">
+        <h2 class='col-start-1 text-sm uppercase text-rosewood'>
           {t('recipe.dificulty')}
         </h2>
-        <h2 class="col-start-2 text-sm uppercase text-rosewood">
+        <h2 class='col-start-2 text-sm uppercase text-rosewood'>
           {t('recipe.ocassion')}
         </h2>
-        <Tag class="row-start-2 justify-self-start">{difficultyI18n}</Tag>
-        <Tag class="row-start-2 justify-self-start">{momentI18n}</Tag>
+        <Tag class='row-start-2 justify-self-start'>{difficultyI18n}</Tag>
+        <Tag class='row-start-2 justify-self-start'>{momentI18n}</Tag>
       </div>
     </div>
   </article>

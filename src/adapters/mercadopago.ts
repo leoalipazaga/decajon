@@ -1,5 +1,3 @@
-import { getLangFromUrl, useTranslatedPath } from 'i18n/utils'
-
 export interface CardBrickResponse {
   installments: number
   issuer_id: string

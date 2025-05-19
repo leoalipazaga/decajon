@@ -1,38 +1,33 @@
 ---
-import Layout from 'layouts/Layout.astro'
-import DashboardLayout from 'layouts/DashboardLayout.astro'
-// import BaseLayout from 'layouts/BaseLayout.astro'
-import SandLayout from 'layouts/SandLayout.astro'
-import Carousel from 'components/Carousel.astro'
-import ProductInfo from 'organism/product-info.astro'
-import ProductPhotos from 'organism/product-photos.astro'
-import Vodka1 from 'images/vodka-1.jpeg'
-import Vodka2 from 'images/vodka-2.jpeg'
-import Vodka3 from 'images/vodka-3.jpeg'
-import Vodka4 from 'images/vodka-4.jpeg'
-import DeCajonGin1 from 'images/decajon-gin-1.jpeg'
-import DeCajonGin2 from 'images/decajon-gin-2.jpeg'
-import DeCajonGin3 from 'images/decajon-gin-3.jpeg'
-import DeCajonGin4 from 'images/decajon-gin-4.jpeg'
-import Siembra1 from 'images/siembra-1.jpeg'
-import Siembra2 from 'images/siembra-2.jpeg'
-import Siembra3 from 'images/siembra-3.jpeg'
-import Siembra4 from 'images/siembra-4.jpeg'
-import { getLangFromUrl, useTranslations } from 'i18n/utils'
-import CounterButton from './_components/CounterButton.svelte'
-import CounterPersist from './_components/CounterPersist.svelte'
-import { boxes } from 'consts'
+import { changeLanguage } from "i18next";
+import Layout from "layouts/Layout.astro";
+import DashboardLayout from "layouts/DashboardLayout.astro";
+import SandLayout from "layouts/SandLayout.astro";
+import Carousel from "components/Carousel.astro";
+import ProductPhotos from "organism/product-photos.astro";
+import Vodka1 from "images/vodka-1.jpeg";
+import Vodka2 from "images/vodka-2.jpeg";
+import Vodka3 from "images/vodka-3.jpeg";
+import Vodka4 from "images/vodka-4.jpeg";
+import DeCajonGin1 from "images/decajon-gin-1.jpeg";
+import DeCajonGin2 from "images/decajon-gin-2.jpeg";
+import DeCajonGin3 from "images/decajon-gin-3.jpeg";
+import DeCajonGin4 from "images/decajon-gin-4.jpeg";
+import Siembra1 from "images/siembra-1.jpeg";
+import Siembra2 from "images/siembra-2.jpeg";
+import Siembra3 from "images/siembra-3.jpeg";
+import Siembra4 from "images/siembra-4.jpeg";
+import ProductProvider from "components/product/ProductProvider.astro";
 
-const lang = getLangFromUrl(Astro.url)
-const t = useTranslations(lang)
+changeLanguage("es");
 ---
 
-<Layout title="Dashboard">
+<Layout title='Dashboard'>
   <SandLayout>
-    <DashboardLayout title="PRODUCTOS">
-      <div class="mb-11">
+    <DashboardLayout title='PRODUCTOS'>
+      <div class='mb-11'>
         <Carousel>
-          <article class="flex w-full flex-shrink-0 gap-4">
+          <ProductProvider productId={1}>
             <ProductPhotos
               banner={{ src: Vodka1, alt: 'Voka 1' }}
               bottom={[
@@ -41,23 +36,8 @@ const t = useTranslations(lang)
                 { src: Vodka4, alt: 'Vodka4' },
               ]}
             />
-            <ProductInfo
-              id={1}
-              title="DE CAJÓN VODKA"
-              price={boxes.get(1)?.price as number}
-            >
-              <Fragment slot="default">
-                {t('products.vodka')}
-              </Fragment>
-              <Fragment slot="counter">
-                <CounterPersist id={1} client:only="svelte" />
-              </Fragment>
-              <Fragment slot="action">
-                <CounterButton id={1} client:only="svelte" />
-              </Fragment>
-            </ProductInfo>
-          </article>
-          <article class="flex w-full flex-shrink-0 gap-4">
+          </ProductProvider>
+          <ProductProvider productId={2}>
             <ProductPhotos
               banner={{ alt: 'DeCajonGin1', src: DeCajonGin1 }}
               bottom={[
@@ -66,23 +46,8 @@ const t = useTranslations(lang)
                 { alt: 'DeCajonGin4', src: DeCajonGin4 },
               ]}
             />
-            <ProductInfo
-              id={2}
-              title="DE CAJÓN GIN"
-              price={boxes.get(2)?.price as number}
-            >
-              <Fragment slot="default">
-                {t('products.ginSummary')}
-              </Fragment>
-              <Fragment slot="counter">
-                <CounterPersist id={2} client:only="svelte" />
-              </Fragment>
-              <Fragment slot="action">
-                <CounterButton id={2} client:only="svelte" />
-              </Fragment>
-            </ProductInfo>
-          </article>
-          <article class="flex w-full flex-shrink-0 gap-4">
+          </ProductProvider>
+          <ProductProvider productId={3}>
             <ProductPhotos
               banner={{ alt: 'Siembra1', src: Siembra1 }}
               bottom={[
@@ -91,22 +56,7 @@ const t = useTranslations(lang)
                 { alt: 'Siembra4', src: Siembra4 },
               ]}
             />
-            <ProductInfo
-              id={3}
-              title="SIEMBRA VODKA"
-              price={boxes.get(3)?.price as number}
-            >
-              <Fragment slot="default">
-                {t('products.siembraSummary')}
-              </Fragment>
-              <Fragment slot="counter">
-                <CounterPersist id={3} client:only="svelte" />
-              </Fragment>
-              <Fragment slot="action">
-                <CounterButton id={3} client:only="svelte" />
-              </Fragment>
-            </ProductInfo>
-          </article>
+          </ProductProvider>
         </Carousel>
       </div>
     </DashboardLayout>
