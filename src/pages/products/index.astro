@@ -1,83 +1,83 @@
 ---
-import { changeLanguage } from "i18next";
-import { Picture } from "astro:assets";
-import BaseLayout from "layouts/BaseLayout.astro";
-import Layout from "layouts/Layout.astro";
-import MiddlewareLayout from "layouts/MiddlewareLayout.astro";
-import SandLayout from "layouts/SandLayout.astro";
-import ProductsBanner from "images/products-banner.png";
-import BottleVodka from "images/bottle-vodka-compressed.png";
-import BottleGin from "images/bottle-gin.png";
-import BottleSiembra from "images/bottle-siembra.png";
-import SliderRecipes from "components/SliderRecipes.astro";
-import Product from "components/Product.astro";
-import { useTranslations } from "i18n/utils";
-import { currency } from "utils";
-import { products } from "consts";
+import { changeLanguage } from 'i18next'
+import { Picture } from 'astro:assets'
+import BaseLayout from 'layouts/BaseLayout.astro'
+import Layout from 'layouts/Layout.astro'
+import MiddlewareLayout from 'layouts/MiddlewareLayout.astro'
+import SandLayout from 'layouts/SandLayout.astro'
+import ProductsBanner from 'images/products-banner.png'
+import BottleVodka from 'images/bottle-vodka-compressed.png'
+import BottleGin from 'images/bottle-gin.png'
+import BottleSiembra from 'images/bottle-siembra.png'
+import SliderRecipes from 'components/SliderRecipes.astro'
+import Product from 'components/Product.astro'
+import { useTranslations } from 'i18n/utils'
+import { currency } from 'utils'
+import { products } from 'consts'
 
-changeLanguage("es");
+changeLanguage('es')
 
-const t = useTranslations();
+const t = useTranslations()
 ---
 
-<Layout title='Historia'>
+<Layout title="Productos">
   <MiddlewareLayout>
     <BaseLayout>
       <SandLayout>
-        <div class='m-auto max-w-screen-2xl'>
+        <div class="m-auto max-w-screen-2xl">
           <Picture
             src={ProductsBanner}
-            loading='lazy'
-            alt='products'
+            loading="lazy"
+            alt="products"
             formats={['png', 'webp', 'avif', 'jpeg']}
           />
         </div>
       </SandLayout>
-      <SandLayout class='py-9 lg:py-16'>
-        <div class='m-auto w-[76%] max-w-screen-2xl'>
+      <SandLayout class="py-9 lg:py-16">
+        <div class="m-auto w-[76%] max-w-screen-2xl">
           <h1
-            class='m-auto mb-5 text-center uppercase md:w-3/4 md:text-2xl lg:text-5xl xl:w-1/2'
+            class="m-auto mb-5 text-center uppercase md:w-3/4 md:text-2xl lg:text-5xl xl:w-1/2"
           >
             {t('products.heading')}
           </h1>
           <Product
-            alias='Vodka'
+            alias="Vodka"
             img={{ alt: 'BottleVodka', src: BottleVodka }}
-            title='DE CAJÓN VODKA'
+            title="DE CAJÓN VODKA"
             description={t('products.vodka')}
-            link='/products/vodka'
+            link="/products/vodka"
             price={currency(products.get(1)?.price ?? 15)}
           />
         </div>
       </SandLayout>
-      <SandLayout class='py-9 lg:py-16'>
-        <div class='m-auto w-[76%] max-w-screen-2xl'>
+      <SandLayout class="py-9 lg:py-16">
+        <div class="m-auto w-[76%] max-w-screen-2xl">
           <Product
-            align='right'
-            alias='Gin'
+            align="right"
+            alias="Gin"
             img={{ alt: 'GinTonic', src: BottleGin }}
-            title='DE CAJÓN GIN'
+            title="DE CAJÓN GIN"
             description={t('products.gin')}
-            link='/products/vodka-gin'
+            link="/products/vodka-gin"
             price={currency(products.get(1)?.price ?? 15)}
           />
         </div>
       </SandLayout>
-      <SandLayout class='py-9 lg:py-16'>
-        <div class='m-auto w-[76%] max-w-screen-2xl'>
+      <SandLayout class="py-9 lg:py-16">
+        <div class="m-auto w-[76%] max-w-screen-2xl">
           <Product
-            align='right'
-            alias='Gin'
+            align="right"
+            alias="Gin"
             img={{ alt: 'SiembraVodka', src: BottleSiembra }}
-            title='SIEMBRA VODKA'
+            title="SIEMBRA VODKA"
             description={t('products.siembra')}
-            link='/products/vodka-siembra'
+            link="/products/vodka-siembra"
             price={currency(products.get(3)?.price ?? 15)}
           />
         </div>
       </SandLayout>
-      <SandLayout class='py-14'>
-        <div class='m-auto w-[76%] max-w-screen-2xl'>
+      <SandLayout class="py-14">
+        <div class="m-auto w-[76%] max-w-screen-2xl">
           <SliderRecipes />
         </div>
       </SandLayout>

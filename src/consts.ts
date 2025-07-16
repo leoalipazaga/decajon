@@ -38,7 +38,7 @@ export const products = new Map([
     1,
     {
       id: 1,
-      price: 125,
+      price: 134.90,
       volumen: 750,
     } as Product,
   ],
@@ -46,7 +46,7 @@ export const products = new Map([
     2,
     {
       id: 2,
-      price: 125,
+      price: 134.90,
       volumen: 750,
     } as Product,
   ],
